@@ -8,7 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   handleAuthState() {
-    // FirebaseAuth.instance.signOut();
+    FirebaseAuth.instance.signOut();
     return StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (BuildContext context, snapshot) {
