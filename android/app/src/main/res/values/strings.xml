@@ -2,5 +2,6 @@
 <resources>
     <string name="app_name">Chamas Gemeas</string>
     <string name="facebook_app_id">806474374069575</string>
+    <string name="facebook_client_token">1a913c580b8e466fc27a1441cf872b3b</string>
     <string name="fb_login_protocol_scheme">fb806474374069575</string>
 </resources>

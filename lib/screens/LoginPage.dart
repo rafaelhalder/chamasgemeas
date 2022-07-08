@@ -163,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: TextButton(
                         onPressed: () {
                           try {
-                            AuthService().signInWithGoogle();
+                            AuthService().signInWithFacebook();
                           } catch (e) {
                             if (e is FirebaseAuthException) {
                               print(e);

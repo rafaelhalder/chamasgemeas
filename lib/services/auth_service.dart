@@ -3,9 +3,12 @@ import 'package:chamasgemeas/screens/LoginPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
+  final _auth = FirebaseAuth.instance;
+
   handleAuthState() {
     // FirebaseAuth.instance.signOut();
     return StreamBuilder(
@@ -21,43 +24,31 @@ class AuthService {
 
   signInWithGoogle() async {
     try {
+      final GoogleSignInAccount? googleUser =
+          await GoogleSignIn(scopes: <String>["email"]).signIn();
 
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser!.authentication;
 
-    final GoogleSignInAccount? googleUser =
-        await GoogleSignIn(scopes: <String>["email"]).signIn();
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
 
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser!.authentication;
-
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    return await FirebaseAuth.instance.signInWithCredential(credential);
-  
-    } on PlatformException catch(e){
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+    } on PlatformException catch (e) {
       print('error caught: $e');
-    }catch (e){
-     print('error caught: $e');
+    } catch (e) {
+      print('error caught: $e');
     }
-
-  
   }
 
   signInWithFacebook() async {
-    final GoogleSignInAccount? googleUser =
-        await GoogleSignIn(scopes: <String>["email"]).signIn();
+    final LoginResult loginResult = await FacebookAuth.instance.login();
 
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser!.authentication;
-
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(loginResult.accessToken!.token);
+    return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
   }
 
   signOut() {
