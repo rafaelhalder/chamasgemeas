@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>569155012007-i8q364akm2jakt2os95tbc7jfnmm96nn.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.569155012007-i8q364akm2jakt2os95tbc7jfnmm96nn</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>569155012007-ijletguf3upqr8sljhvkpt1k956dvbns.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAUp_IYMPOdrdRfCOIWd0_DUf0m7dLDMj4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>569155012007</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.gemeas.chamasgemeas</string>
+	<key>PROJECT_ID</key>
+	<string>chamas-gemeas</string>
+	<key>STORAGE_BUCKET</key>
+	<string>chamas-gemeas.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:569155012007:ios:c1873c0b05de9460b6a282</string>
+</dict>
+</plist>
