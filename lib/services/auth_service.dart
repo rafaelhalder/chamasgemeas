@@ -7,8 +7,6 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
-  final _auth = FirebaseAuth.instance;
-
   handleAuthState() {
     // FirebaseAuth.instance.signOut();
     return StreamBuilder(
@@ -44,11 +42,17 @@ class AuthService {
   }
 
   signInWithFacebook() async {
-    final LoginResult loginResult = await FacebookAuth.instance.login();
+    try {
+      final LoginResult loginResult = await FacebookAuth.instance.login();
 
-    final OAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(loginResult.accessToken!.token);
-    return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+      final OAuthCredential facebookAuthCredential =
+          FacebookAuthProvider.credential(loginResult.accessToken!.token);
+      return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+    } on PlatformException catch (e) {
+      print('error caught: $e');
+    } catch (e) {
+      print('error caught: $e');
+    }
   }
 
   signOut() {
