@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "569155012007",
+    "project_id": "chamas-gemeas",
+    "storage_bucket": "chamas-gemeas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569155012007:android:15fd86dd68c39ec7b6a282",
+        "android_client_info": {
+          "package_name": "com.gemeas.chamasgemeas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "569155012007-6joeh2lq82spro2ij51tr6dp3tdp7ih6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZxjz2yFf8psdPiknvGXeS4kg7Txfv15U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "569155012007-6joeh2lq82spro2ij51tr6dp3tdp7ih6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "569155012007-i8q364akm2jakt2os95tbc7jfnmm96nn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.gemeas.chamasgemeas"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
