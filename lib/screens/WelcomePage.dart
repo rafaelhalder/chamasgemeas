@@ -16,14 +16,13 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   String? uid = FirebaseAuth.instance.currentUser?.uid;
 
-    List<PageViewModel> getPages() {
+  List<PageViewModel> getPages() {
     return [
       PageViewModel(
-          titleWidget: 
-          RichText(
+          titleWidget: RichText(
             text: const TextSpan(
-              style:  TextStyle(
-                fontSize: 19.0,
+              style: TextStyle(
+                fontSize: 22.0,
                 color: Color.fromARGB(255, 238, 238, 238),
               ),
               children: <TextSpan>[
@@ -32,21 +31,38 @@ class _WelcomePageState extends State<WelcomePage> {
               ],
             ),
           ),
-          bodyWidget: Center(child: Text("Não aceite relacionamentos rasos se você tem sentimentos profundos.", style: TextStyle(fontStyle: FontStyle.italic, fontSize: 20),)),
+          bodyWidget: Center(
+              child: Text(
+            "Não aceite relacionamentos rasos se você tem sentimentos profundos.",
+            style: TextStyle(fontStyle: FontStyle.italic, fontSize: 20),
+          )),
           footer: RichText(
             text: const TextSpan(
-              style:  TextStyle(
-                fontSize: 19.0,
+              style: TextStyle(
+                fontSize: 20.0,
                 color: Color.fromARGB(255, 238, 238, 238),
               ),
               children: <TextSpan>[
-                TextSpan(text: 'O Chamas Gêmeas é um caminho para você que já tem a consciência da tua '),
-                TextSpan(text: 'jornada espiritual ', style: TextStyle(color: Colors.purple)),
-                TextSpan(text: 'e que sabe que existe outra pessoa, na mesma jornada, procurando por você! Uma pessoa de '),
-                TextSpan(text: 'valor ', style: TextStyle(color: Colors.purple)),
-                TextSpan(text: 'que caminhará ao teu lado, que pode ler teus pensamentos, adivinhar teus desejos, pois apesar do tempo e do espaço, jamais esteve separarada em pensamento e sentimento! Essa é a tua '),
-                TextSpan(text: 'Chama Gêmea, ', style: TextStyle(color: Colors.purple)),
-                TextSpan(text: 'a tua alma espelho, que nesse exato momento busca também por '),
+                TextSpan(
+                    text:
+                        'O Chamas Gêmeas é um caminho para você que já tem a consciência da tua '),
+                TextSpan(
+                    text: 'jornada espiritual ',
+                    style: TextStyle(color: Colors.purple)),
+                TextSpan(
+                    text:
+                        'e que sabe que existe outra pessoa, na mesma jornada, procurando por você! Uma pessoa de '),
+                TextSpan(
+                    text: 'valor ', style: TextStyle(color: Colors.purple)),
+                TextSpan(
+                    text:
+                        'que caminhará ao teu lado, que pode ler teus pensamentos, adivinhar teus desejos, pois apesar do tempo e do espaço, jamais esteve separarada em pensamento e sentimento! Essa é a tua '),
+                TextSpan(
+                    text: 'Chama Gêmea, ',
+                    style: TextStyle(color: Colors.purple)),
+                TextSpan(
+                    text:
+                        'a tua alma espelho, que nesse exato momento busca também por '),
                 TextSpan(text: 'você!', style: TextStyle(color: Colors.purple)),
               ],
             ),
@@ -55,35 +71,52 @@ class _WelcomePageState extends State<WelcomePage> {
             pageColor: Color.fromARGB(255, 0, 0, 0),
           )),
       PageViewModel(
-          titleWidget: 
-              Text('Semelhante atrai Semelhante',style: TextStyle(fontSize: 24),),
+          titleWidget: Text(
+            'Semelhante atrai Semelhante',
+            style: TextStyle(fontSize: 22),
+          ),
           bodyWidget: RichText(
             text: TextSpan(
               style: const TextStyle(
-                fontSize: 19.0,
+                fontSize: 20.0,
                 color: Color.fromARGB(255, 255, 255, 255),
               ),
               children: <TextSpan>[
-                TextSpan(text: 'O Universo não entende palavras, entende ', style: const TextStyle(fontStyle: FontStyle.italic)),
-                TextSpan(text: 'frequências.', style: const TextStyle(fontStyle: FontStyle.italic, color: Colors.purple)),
+                TextSpan(
+                    text: 'O Universo não entende palavras, entende ',
+                    style: const TextStyle(fontStyle: FontStyle.italic)),
+                TextSpan(
+                    text: 'frequências.',
+                    style: const TextStyle(
+                        fontStyle: FontStyle.italic, color: Colors.purple)),
               ],
             ),
           ),
           footer: RichText(
             text: const TextSpan(
-              style:  TextStyle(
+              style: TextStyle(
                 fontSize: 19.0,
                 color: Color.fromARGB(255, 238, 238, 238),
               ),
               children: <TextSpan>[
                 TextSpan(text: 'No Universo  '),
-                TextSpan(text: 'semelhantes  ', style: TextStyle(color: Colors.purple)),
+                TextSpan(
+                    text: 'semelhantes  ',
+                    style: TextStyle(color: Colors.purple)),
                 TextSpan(text: 'se atraem.'),
-                TextSpan(text: 'A atração é por semelhança de interesses, gostos, pensamentos, atitudes e sentimentos. Se o destino te trouxe até aqui, certamente trouxe também quem está na mesma'),
-                TextSpan(text: 'frequência  ', style: TextStyle(color: Colors.purple)),
+                TextSpan(
+                    text:
+                        'A atração é por semelhança de interesses, gostos, pensamentos, atitudes e sentimentos. Se o destino te trouxe até aqui, certamente trouxe também quem está na mesma'),
+                TextSpan(
+                    text: 'frequência  ',
+                    style: TextStyle(color: Colors.purple)),
                 TextSpan(text: 'que você, no mesmo momento de busca pela '),
-                TextSpan(text: 'Chama Gêmea, ', style: TextStyle(color: Colors.purple)),
-                TextSpan(text: 'com o mesmo sentimento inexplicável de saudedes de alguém que não conhece. Mas que na verdade, apenas não encontrou ainda nessa vida.'),
+                TextSpan(
+                    text: 'Chama Gêmea, ',
+                    style: TextStyle(color: Colors.purple)),
+                TextSpan(
+                    text:
+                        'com o mesmo sentimento inexplicável de saudedes de alguém que não conhece. Mas que na verdade, apenas não encontrou ainda nessa vida.'),
               ],
             ),
           ),
@@ -91,11 +124,10 @@ class _WelcomePageState extends State<WelcomePage> {
             pageColor: Color.fromARGB(255, 0, 0, 0),
           )),
       PageViewModel(
-          titleWidget: 
-          RichText(
+          titleWidget: RichText(
             text: const TextSpan(
-              style:  TextStyle(
-                fontSize: 19.0,
+              style: TextStyle(
+                fontSize: 22.0,
                 color: Color.fromARGB(255, 238, 238, 238),
               ),
               children: <TextSpan>[
@@ -106,32 +138,56 @@ class _WelcomePageState extends State<WelcomePage> {
           bodyWidget: RichText(
             text: TextSpan(
               style: const TextStyle(
-                fontSize: 19.0,
+                fontSize: 20.0,
                 color: Color.fromARGB(255, 255, 255, 255),
               ),
               children: <TextSpan>[
-                TextSpan(text: 'O HOJE é o tempo certo para ', style: const TextStyle(fontStyle: FontStyle.italic)),
-                TextSpan(text: 'começar ', style: const TextStyle(fontStyle: FontStyle.italic, color: Colors.purple)),
-                TextSpan(text: 'ou ', style: const TextStyle(fontStyle: FontStyle.italic)),
-                TextSpan(text: 'recomeçar.', style: const TextStyle(fontStyle: FontStyle.italic, color: Colors.purple)),
+                TextSpan(
+                    text: 'O HOJE é o tempo certo para ',
+                    style: const TextStyle(fontStyle: FontStyle.italic)),
+                TextSpan(
+                    text: 'começar ',
+                    style: const TextStyle(
+                        fontStyle: FontStyle.italic, color: Colors.purple)),
+                TextSpan(
+                    text: 'ou ',
+                    style: const TextStyle(fontStyle: FontStyle.italic)),
+                TextSpan(
+                    text: 'recomeçar.',
+                    style: const TextStyle(
+                        fontStyle: FontStyle.italic, color: Colors.purple)),
               ],
             ),
           ),
           footer: RichText(
             text: const TextSpan(
-              style:  TextStyle(
+              style: TextStyle(
                 fontSize: 19.0,
                 color: Color.fromARGB(255, 238, 238, 238),
               ),
               children: <TextSpan>[
-                TextSpan(text: 'Não deixe para depois o que você pode resolver no aqui e agora! No Chamas Gêmeas você encontrará uma '),
-                TextSpan(text: 'comunidade ', style: TextStyle(color: Colors.purple)),
+                TextSpan(
+                    text:
+                        'Não deixe para depois o que você pode resolver no aqui e agora! No Chamas Gêmeas você encontrará uma '),
+                TextSpan(
+                    text: 'comunidade ',
+                    style: TextStyle(color: Colors.purple)),
                 TextSpan(text: 'se atraem.'),
-                TextSpan(text: 'de pessoas com os mesmos interesses, que entendem o objetivo da vida e que dão valor aos '),
-                TextSpan(text: 'relacionamentos de alma. ', style: TextStyle(color: Colors.purple)),
-                TextSpan(text: 'Seja para um relacionamento ou amizade, aqui você poderá expressar livremente a tua '),
-                TextSpan(text: 'centelha divina ', style: TextStyle(color: Colors.purple)),
-                TextSpan(text: 'e encontrar pessoas que te valorizam pelo que você sabe e pelo que você é!'),
+                TextSpan(
+                    text:
+                        'de pessoas com os mesmos interesses, que entendem o objetivo da vida e que dão valor aos '),
+                TextSpan(
+                    text: 'relacionamentos de alma. ',
+                    style: TextStyle(color: Colors.purple)),
+                TextSpan(
+                    text:
+                        'Seja para um relacionamento ou amizade, aqui você poderá expressar livremente a tua '),
+                TextSpan(
+                    text: 'centelha divina ',
+                    style: TextStyle(color: Colors.purple)),
+                TextSpan(
+                    text:
+                        'e encontrar pessoas que te valorizam pelo que você sabe e pelo que você é!'),
               ],
             ),
           ),
@@ -140,6 +196,7 @@ class _WelcomePageState extends State<WelcomePage> {
           )),
     ];
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,11 +212,10 @@ class _WelcomePageState extends State<WelcomePage> {
         back: Text("Voltar"),
         done: Text("Concluir"),
         onDone: () async {
-        Future<bool>  result = _determinePosition();
+          Future<bool> result = _determinePosition();
           await result == true
               ? Navigator.popAndPushNamed(context, '/register')
               : null;
-
         },
       ),
     );
