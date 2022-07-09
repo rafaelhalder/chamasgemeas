@@ -1,5 +1,6 @@
 import 'package:chamasgemeas/screens/HomePage.dart';
 import 'package:chamasgemeas/screens/LoginPage.dart';
+import 'package:chamasgemeas/services/user_verify.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -8,12 +9,12 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   handleAuthState() {
-    FirebaseAuth.instance.signOut();
+    // FirebaseAuth.instance.signOut();
     return StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasData) {
-            return const HomePage();
+            return VerifyUser();
           } else {
             return const LoginPage();
           }

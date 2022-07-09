@@ -1,4 +1,6 @@
 import 'package:chamasgemeas/screens/HomePage.dart';
+import 'package:chamasgemeas/screens/RegisterIAm.dart';
+import 'package:chamasgemeas/screens/RegisterISearch.dart';
 import 'package:chamasgemeas/services/auth_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +31,9 @@ class MyApp extends StatelessWidget {
       home: AuthService().handleAuthState(),
       routes: {
         '/home': (context) => const HomePage(),
+        '/register': (context) => RegisterIAm(),
+        '/registerStep2': (context) => RegisterISearchPage(),
+
       },
     );
   }

@@ -1,3 +1,5 @@
+import 'package:chamasgemeas/screens/HomePage.dart';
+import 'package:chamasgemeas/screens/WelcomePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,18 +14,25 @@ class VerifyUser extends StatefulWidget {
 class _VerifyUserState extends State<VerifyUser> {
   User? user = FirebaseAuth.instance.currentUser;
   String? uid = FirebaseAuth.instance.currentUser?.uid;
-  bool newUser = false;
+  int newUser = 0;
 
   @override
   void initState() {
-    super.initState();
     verify();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (newUser == true) {}
-    return Container();
+    if (newUser == 1) {
+      return WelcomePage();
+    } else if (newUser == 2) {
+      return HomePage();
+    } else {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
   }
 
   verify() async {
@@ -33,6 +42,21 @@ class _VerifyUserState extends State<VerifyUser> {
     if (!snapShot.exists) {
       try {
         await FirebaseFirestore.instance.collection('users').doc(uid).set({
+          'aboutMe': '',
+          'age': 0,
+          'city': '',
+          'country': '',
+          'gender': '',
+          'height': 0,
+          'interested': '',
+          'latitude': '',
+          'longitude': '',
+          'zodiac': '',
+          'whatsapp': '',
+          'finished' : false,
+          'weight': '',
+          'occupation': '',
+          'typeInterested': '',
           'status': true,
           'uid': uid,
           'name': user?.displayName,
@@ -59,12 +83,22 @@ class _VerifyUserState extends State<VerifyUser> {
       }
 
       setState(() {
-        newUser = true;
+        newUser = 1;
       });
     } else {
+    DocumentSnapshot variable =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    bool finishedRegister = variable['finished'];
+    if(finishedRegister == true){
       setState(() {
-        newUser = false;
+        newUser = 2;
       });
+    }else{
+    setState(() {
+        newUser = 1;
+      });
+    }
     }
   }
 }
