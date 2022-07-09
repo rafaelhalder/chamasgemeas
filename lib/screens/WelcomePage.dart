@@ -19,13 +19,18 @@ class _WelcomePageState extends State<WelcomePage> {
     List<PageViewModel> getPages() {
     return [
       PageViewModel(
-          titleWidget: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Relacionamento de ',style: TextStyle(fontSize: 26),),
-              Text('Alma', style: TextStyle(color: Colors.purple,fontSize: 26, fontWeight: FontWeight.bold),)
-            ],
+          titleWidget: 
+          RichText(
+            text: const TextSpan(
+              style:  TextStyle(
+                fontSize: 19.0,
+                color: Color.fromARGB(255, 238, 238, 238),
+              ),
+              children: <TextSpan>[
+                TextSpan(text: 'Relacionamento de '),
+                TextSpan(text: 'Alma', style: TextStyle(color: Colors.purple)),
+              ],
+            ),
           ),
           bodyWidget: Center(child: Text("Não aceite relacionamentos rasos se você tem sentimentos profundos.", style: TextStyle(fontStyle: FontStyle.italic, fontSize: 20),)),
           footer: RichText(
@@ -50,13 +55,8 @@ class _WelcomePageState extends State<WelcomePage> {
             pageColor: Color.fromARGB(255, 0, 0, 0),
           )),
       PageViewModel(
-          titleWidget: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+          titleWidget: 
               Text('Semelhante atrai Semelhante',style: TextStyle(fontSize: 24),),
-            ],
-          ),
           bodyWidget: RichText(
             text: TextSpan(
               style: const TextStyle(
@@ -91,12 +91,17 @@ class _WelcomePageState extends State<WelcomePage> {
             pageColor: Color.fromARGB(255, 0, 0, 0),
           )),
       PageViewModel(
-          titleWidget: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Ajude o Destino',style: TextStyle(fontSize: 24),),
-            ],
+          titleWidget: 
+          RichText(
+            text: const TextSpan(
+              style:  TextStyle(
+                fontSize: 19.0,
+                color: Color.fromARGB(255, 238, 238, 238),
+              ),
+              children: <TextSpan>[
+                TextSpan(text: 'Ajude o Destino'),
+              ],
+            ),
           ),
           bodyWidget: RichText(
             text: TextSpan(
