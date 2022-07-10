@@ -130,7 +130,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                               .update({'soul': typeInterested});
 
                           selectedIndex != ""
-                              ? Navigator.pushNamed(context, '/registerStep3')
+                              ? Navigator.pushNamed(context, '/registerStep4')
                               : null;
                         },
                         child: Row(

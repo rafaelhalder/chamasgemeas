@@ -1,0 +1,315 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+
+class RegisterStep4 extends StatefulWidget {
+  @override
+  _RegisterStep4State createState() => _RegisterStep4State();
+}
+
+class _RegisterStep4State extends State<RegisterStep4> {
+  String selectedIndex = '';
+  User? user = FirebaseAuth.instance.currentUser;
+  int age = 0;
+  String height = '';
+  String weight = '';
+  String occupation = '';
+  String city = '';
+  String country = '';
+  String whatsapp = '';
+
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+      final TextStyle textstyle =
+      TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
+  final InputDecoration decoration = InputDecoration(
+    border: OutlineInputBorder(),
+  );
+
+    Size size = MediaQuery.of(context).size;
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Form(
+                  key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Center(
+                      child: RichText(
+                        text: TextSpan(
+                          style: const TextStyle(
+                            fontSize: 22.0,
+                            color: Color.fromARGB(255, 238, 238, 238),
+                          ),
+                          children: <TextSpan>[
+                            TextSpan(text: '${user!.displayName},\nme fale 7 coisas sobre VOCÊ!'),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: size.height * 0.05,),
+                 Row(children: [
+                  Flexible(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              filled: true,
+                              focusColor: Colors.white,
+                              labelText: 'Idade',
+                              helperText: '27 Anos',
+                              hintText: '27',
+                              labelStyle: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              letterSpacing: 0.5,),
+                              errorStyle:
+                              const TextStyle(color: Colors.white),
+                          helperStyle: const TextStyle(
+                              color: Color.fromARGB(
+                                  202, 255, 255, 255)),
+                          hintStyle: const TextStyle(
+                              color: Colors.white60),
+                          errorBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                  color: Colors.red.shade500)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                  color: Color(0xFFECB461))),
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color.fromARGB(
+                              255, 255, 255, 255)
+                            )
+                          ),
+                          border: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.white, width: 0.0)),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Flexible(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                             keyboardType: TextInputType.number,
+                              maxLength: 4,
+                              style: const TextStyle(color: Colors.white),
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly,
+                                maskHeight
+                              ],
+                            decoration: InputDecoration(
+                              filled: true,
+                              focusColor: Colors.white,
+                              labelText: 'Idade',
+                              helperText: '27 Anos',
+                              hintText: '27',
+                              labelStyle: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              letterSpacing: 0.5,),
+                              errorStyle:
+                              const TextStyle(color: Colors.white),
+                          helperStyle: const TextStyle(
+                              color: Color.fromARGB(
+                                  202, 255, 255, 255)),
+                          hintStyle: const TextStyle(
+                              color: Colors.white60),
+                          errorBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                  color: Colors.red.shade500)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                  color: Color(0xFFECB461))),
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color.fromARGB(
+                              255, 255, 255, 255)
+                            )
+                          ),
+                          border: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.white, width: 0.0)),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  
+                  ],)
+                  ,
+                  SizedBox(
+                    height: 15,
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'Idade',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  MaterialButton(
+                    color: Colors.red,
+                    minWidth: 160,
+                    onPressed: () {  },
+                    child: Text(
+                      'Google',
+                      style: textstyle,
+                    ),
+                  ),
+                  MaterialButton(
+                    color: Colors.blue,
+                    minWidth: 160,
+                    onPressed: () {  },
+                    child: Text(
+                      'Facebook',
+                      style: textstyle,
+                    ),
+                  ),
+                  MaterialButton(
+                    color: Colors.orange,
+                    minWidth: 160,
+                    onPressed: () {  },
+                    child: Text(
+                      'E-mail',
+                      style: textstyle,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Color activeButton() {
+    if (age != 0 &&
+        height != '' &&
+        weight != '' &&
+        country != '' &&
+        city != '' &&
+        occupation != '' &&
+        whatsapp != '') {
+      return Colors.white;
+    } else {
+      return Colors.white24;
+    }
+  }
+
+  Color activeButtonColor() {
+    if (age != 0 &&
+        height != '' &&
+        weight != '' &&
+        country != '' &&
+        city != '' &&
+        occupation != '' &&
+        whatsapp != '') {
+      return Colors.purple.shade900;
+    } else {
+      return Colors.black26;
+    }
+  }
+
+  Container headerInput(
+    String texto,
+  ) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+      alignment: Alignment.centerLeft,
+      child: Text(
+        texto,
+        style: const TextStyle(color: Colors.white),
+      ),
+    );
+  }
+
+  Padding inputField(
+    String texto,
+    dynamic name,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Container(
+        alignment: Alignment.centerLeft,
+        decoration: BoxDecoration(
+          color: Colors.purple.shade900,
+          borderRadius: BorderRadius.circular(10.0),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 6.0,
+              offset: Offset(0, 2),
+            ),
+          ],
+        ),
+        height: 40.0,
+        child: TextFormField(
+          keyboardType: TextInputType.number,
+          style: const TextStyle(
+            color: Colors.white,
+            fontFamily: 'OpenSans',
+          ),
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 15),
+            hintText: texto,
+            hintStyle: const TextStyle(
+              color: Colors.white54,
+              fontFamily: 'OpenSans',
+            ),
+          ),
+          validator: (name) {
+            if (name == null || name.isEmpty) {
+              return 'Obrigatório';
+            }
+            return null;
+          },
+          onChanged: (value) => setState(() {
+            name = value;
+          }),
+        ),
+      ),
+    );
+  }
+
+  var maskFormatter = MaskTextInputFormatter(
+      mask: '(##) #####-####',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
+
+  var maskHeight = MaskTextInputFormatter(
+      mask: '#.##',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
+}
