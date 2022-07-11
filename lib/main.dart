@@ -4,6 +4,8 @@ import 'package:chamasgemeas/screens/RegisterISearch.dart';
 import 'package:chamasgemeas/screens/registerStep3.dart';
 import 'package:chamasgemeas/screens/registerStep4.dart';
 import 'package:chamasgemeas/screens/registerStep5.dart';
+import 'package:chamasgemeas/screens/registerStep6.dart';
+import 'package:chamasgemeas/screens/registerStep7.dart';
 import 'package:chamasgemeas/services/auth_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +41,8 @@ class MyApp extends StatelessWidget {
         '/registerStep3': (context) => RegisterStep3(),
         '/registerStep4': (context) => RegisterStep4(),
         '/registerStep5': (context) => RegisterStep5(),
+        '/registerStep6': (context) => RegisterStep6Page(),
+        '/registerStep7': (context) => RegisterStep7(),
       },
     );
   }

@@ -1,263 +1,348 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:introduction_screen/introduction_screen.dart';
+import 'package:flutter/services.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class RegisterStep5 extends StatefulWidget {
-  const RegisterStep5({Key? key}) : super(key: key);
-
   @override
-  State<RegisterStep5> createState() => _RegisterStep5State();
+  _RegisterStep5State createState() => _RegisterStep5State();
 }
 
 class _RegisterStep5State extends State<RegisterStep5> {
-  String? uid = FirebaseAuth.instance.currentUser?.uid;
+  String selectedIndex = '';
+  User? user = FirebaseAuth.instance.currentUser;
+  int age = 0;
+  String height = '';
+  String weight = '';
+  String occupation = '';
+  String city = '';
+  String country = '';
+  String whatsapp = '';
 
-  List<PageViewModel> getPages() {
-    return [
-      PageViewModel(
-          titleWidget: RichText(
-            text: const TextSpan(
-              style: TextStyle(
-                fontSize: 22.0,
-                color: Color.fromARGB(255, 238, 238, 238),
-              ),
-              children: <TextSpan>[
-                TextSpan(text: 'Relacionamento de '),
-                TextSpan(text: 'Alma', style: TextStyle(color: Colors.purple)),
-              ],
-            ),
-          ),
-          bodyWidget: const Center(
-              child: Text(
-            "Não aceite relacionamentos rasos se você tem sentimentos profundos.",
-            style: TextStyle(fontStyle: FontStyle.italic, fontSize: 20),
-          )),
-          footer: RichText(
-            text: const TextSpan(
-              style: TextStyle(
-                fontSize: 20.0,
-                color: Color.fromARGB(255, 238, 238, 238),
-              ),
-              children: <TextSpan>[
-                TextSpan(
-                    text:
-                        'O Chamas Gêmeas é um caminho para você que já tem a consciência da tua '),
-                TextSpan(
-                    text: 'jornada espiritual ',
-                    style: TextStyle(color: Colors.purple)),
-                TextSpan(
-                    text:
-                        'e que sabe que existe outra pessoa, na mesma jornada, procurando por você! Uma pessoa de '),
-                TextSpan(
-                    text: 'valor ', style: TextStyle(color: Colors.purple)),
-                TextSpan(
-                    text:
-                        'que caminhará ao teu lado, que pode ler teus pensamentos, adivinhar teus desejos, pois apesar do tempo e do espaço, jamais esteve separarada em pensamento e sentimento! Essa é a tua '),
-                TextSpan(
-                    text: 'Chama Gêmea, ',
-                    style: TextStyle(color: Colors.purple)),
-                TextSpan(
-                    text:
-                        'a tua alma espelho, que nesse exato momento busca também por '),
-                TextSpan(text: 'você!', style: TextStyle(color: Colors.purple)),
-              ],
-            ),
-          ),
-          decoration: const PageDecoration(
-            pageColor: Color.fromARGB(255, 0, 0, 0),
-          )),
-      PageViewModel(
-          titleWidget: const Text(
-            'Semelhante atrai Semelhante',
-            style: TextStyle(fontSize: 22),
-          ),
-          bodyWidget: RichText(
-            text: const TextSpan(
-              style: TextStyle(
-                fontSize: 20.0,
-                color: Color.fromARGB(255, 255, 255, 255),
-              ),
-              children: <TextSpan>[
-                TextSpan(
-                    text: 'O Universo não entende palavras, entende ',
-                    style: TextStyle(fontStyle: FontStyle.italic)),
-                TextSpan(
-                    text: 'frequências.',
-                    style: TextStyle(
-                        fontStyle: FontStyle.italic, color: Colors.purple)),
-              ],
-            ),
-          ),
-          footer: RichText(
-            text: const TextSpan(
-              style: TextStyle(
-                fontSize: 19.0,
-                color: Color.fromARGB(255, 238, 238, 238),
-              ),
-              children: <TextSpan>[
-                TextSpan(text: 'No Universo  '),
-                TextSpan(
-                    text: 'semelhantes  ',
-                    style: TextStyle(color: Colors.purple)),
-                TextSpan(text: 'se atraem.'),
-                TextSpan(
-                    text:
-                        'A atração é por semelhança de interesses, gostos, pensamentos, atitudes e sentimentos. Se o destino te trouxe até aqui, certamente trouxe também quem está na mesma'),
-                TextSpan(
-                    text: 'frequência  ',
-                    style: TextStyle(color: Colors.purple)),
-                TextSpan(text: 'que você, no mesmo momento de busca pela '),
-                TextSpan(
-                    text: 'Chama Gêmea, ',
-                    style: TextStyle(color: Colors.purple)),
-                TextSpan(
-                    text:
-                        'com o mesmo sentimento inexplicável de saudedes de alguém que não conhece. Mas que na verdade, apenas não encontrou ainda nessa vida.'),
-              ],
-            ),
-          ),
-          decoration: const PageDecoration(
-            pageColor: Color.fromARGB(255, 0, 0, 0),
-          )),
-      PageViewModel(
-          titleWidget: RichText(
-            text: const TextSpan(
-              style: TextStyle(
-                fontSize: 22.0,
-                color: Color.fromARGB(255, 238, 238, 238),
-              ),
-              children: <TextSpan>[
-                TextSpan(text: 'Ajude o Destino'),
-              ],
-            ),
-          ),
-          bodyWidget: RichText(
-            text: const TextSpan(
-              style: TextStyle(
-                fontSize: 20.0,
-                color: Color.fromARGB(255, 255, 255, 255),
-              ),
-              children: <TextSpan>[
-                TextSpan(
-                    text: 'O HOJE é o tempo certo para ',
-                    style: TextStyle(fontStyle: FontStyle.italic)),
-                TextSpan(
-                    text: 'começar ',
-                    style: TextStyle(
-                        fontStyle: FontStyle.italic, color: Colors.purple)),
-                TextSpan(
-                    text: 'ou ', style: TextStyle(fontStyle: FontStyle.italic)),
-                TextSpan(
-                    text: 'recomeçar.',
-                    style: TextStyle(
-                        fontStyle: FontStyle.italic, color: Colors.purple)),
-              ],
-            ),
-          ),
-          footer: RichText(
-            text: const TextSpan(
-              style: TextStyle(
-                fontSize: 19.0,
-                color: Color.fromARGB(255, 238, 238, 238),
-              ),
-              children: <TextSpan>[
-                TextSpan(
-                    text:
-                        'Não deixe para depois o que você pode resolver no aqui e agora! No Chamas Gêmeas você encontrará uma '),
-                TextSpan(
-                    text: 'comunidade ',
-                    style: TextStyle(color: Colors.purple)),
-                TextSpan(text: 'se atraem.'),
-                TextSpan(
-                    text:
-                        'de pessoas com os mesmos interesses, que entendem o objetivo da vida e que dão valor aos '),
-                TextSpan(
-                    text: 'relacionamentos de alma. ',
-                    style: TextStyle(color: Colors.purple)),
-                TextSpan(
-                    text:
-                        'Seja para um relacionamento ou amizade, aqui você poderá expressar livremente a tua '),
-                TextSpan(
-                    text: 'centelha divina ',
-                    style: TextStyle(color: Colors.purple)),
-                TextSpan(
-                    text:
-                        'e encontrar pessoas que te valorizam pelo que você sabe e pelo que você é!'),
-              ],
-            ),
-          ),
-          decoration: const PageDecoration(
-            pageColor: Color.fromARGB(255, 0, 0, 0),
-          )),
-    ];
-  }
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    const TextStyle textstyle =
+        TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
+    const InputDecoration decoration = InputDecoration(
+      border: OutlineInputBorder(),
+    );
+
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Chamas Gêmeas"),
-      ),
-      body: IntroductionScreen(
-        globalBackgroundColor: Colors.white,
-        pages: getPages(),
-        showNextButton: true,
-        next: const Text('Avançar'),
-        showBackButton: true,
-        back: const Text("Voltar"),
-        done: const Text("Concluir"),
-        onDone: () async {
-          Future<bool> result = _determinePosition();
-          await result == true
-              ? Navigator.popAndPushNamed(context, '/register')
-              : null;
-        },
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Center(
+                    child: RichText(
+                      text: TextSpan(
+                        style: const TextStyle(
+                          fontSize: 22.0,
+                          color: Color.fromARGB(255, 238, 238, 238),
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                              text:
+                                  '${user!.displayName},\nme fale 7 coisas sobre VOCÊ!'),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.05,
+                  ),
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                maxLength: 2,
+                                style: const TextStyle(color: Colors.white),
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly,
+                                ],
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  focusColor: Colors.white,
+                                  labelText: 'Idade',
+                                  helperText: '27 Anos',
+                                  hintText: '27',
+                                  labelStyle: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    letterSpacing: 0.5,
+                                  ),
+                                  errorStyle:
+                                      const TextStyle(color: Colors.white),
+                                  helperStyle: const TextStyle(
+                                      color:
+                                          Color.fromARGB(202, 255, 255, 255)),
+                                  hintStyle:
+                                      const TextStyle(color: Colors.white60),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                      borderSide: BorderSide(
+                                          color: Colors.red.shade500)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                      borderSide: const BorderSide(
+                                          color: Color(0xFFECB461))),
+                                  focusedBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255))),
+                                  border: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.white, width: 0.0)),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Campo Obrigatório';
+                                  } else if (int.parse(value) < 18) {
+                                    return 'Proibido p/ menores';
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                onChanged: (value) => setState(() {
+                                  if (value == "") {
+                                    value = "0";
+                                  }
+                                  age = int.parse(value);
+                                }),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Flexible(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                maxLength: 4,
+                                style: const TextStyle(color: Colors.white),
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly,
+                                  maskHeight
+                                ],
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  focusColor: Colors.white,
+                                  labelText: 'Altura',
+                                  helperText: 'Altura 1.80',
+                                  hintText: '1.80',
+                                  labelStyle: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    letterSpacing: 0.5,
+                                  ),
+                                  errorStyle:
+                                      const TextStyle(color: Colors.white),
+                                  helperStyle: const TextStyle(
+                                      color:
+                                          Color.fromARGB(202, 255, 255, 255)),
+                                  hintStyle:
+                                      const TextStyle(color: Colors.white60),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                      borderSide: BorderSide(
+                                          color: Colors.red.shade500)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                      borderSide: const BorderSide(
+                                          color: Color(0xFFECB461))),
+                                  focusedBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255))),
+                                  border: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.white, width: 0.0)),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Campo Obrigatório';
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                onChanged: (value) => setState(() {
+                                  height = value;
+                                }),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  GestureDetector(
+                    onTap: () async {
+                      FocusManager.instance.primaryFocus?.unfocus();
+
+                      if (_formKey.currentState!.validate()) {
+                        await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(user?.uid)
+                            .update({
+                          'age': age,
+                          'height': height,
+                          'weight': weight,
+                          'country': country,
+                          'city': city,
+                          'occupation': occupation,
+                          'whatsapp': whatsapp,
+                        });
+                        Timer(const Duration(seconds: 1), () {
+                          Navigator.pushNamed(context, '/registerStep5');
+                        });
+                      }
+                    },
+                    child: Container(
+                      width: size.width * 0.9,
+                      height: size.height * 0.065,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: activeButtonColor(),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'CONFIRMAR',
+                          style: TextStyle(
+                              color: activeButton(),
+                              fontFamily: 'CM Sans Serif',
+                              fontSize: 18),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
 
-  Future<bool> _determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    // Test if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      // Location services are not enabled don't continue
-      // accessing the position and request users of the
-      // App to enable the location services.
-      return false;
+  Color activeButton() {
+    if (age != 0 &&
+        height != '' &&
+        weight != '' &&
+        country != '' &&
+        city != '' &&
+        occupation != '' &&
+        whatsapp != '') {
+      return Colors.white;
+    } else {
+      return Colors.white24;
     }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        // Permissions are denied, next time you could try
-        // requesting permissions again (this is also where
-        // Android's shouldShowRequestPermissionRationale
-        // returned true. According to Android guidelines
-        // your App should show an explanatory UI now.
-        return false;
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
-      return false;
-    }
-
-    var teste = await Geolocator.getCurrentPosition();
-
-    await FirebaseFirestore.instance.collection('users').doc(uid).update({
-      'latitude': teste.latitude.toString(),
-      'longitude': teste.longitude.toString()
-    });
-
-    return true;
   }
+
+  Color activeButtonColor() {
+    if (age != 0 &&
+        height != '' &&
+        weight != '' &&
+        country != '' &&
+        city != '' &&
+        occupation != '' &&
+        whatsapp != '') {
+      return const Color(0xFFECB461);
+    } else {
+      return Colors.black26;
+    }
+  }
+
+  Container headerInput(
+    String texto,
+  ) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+      alignment: Alignment.centerLeft,
+      child: Text(
+        texto,
+        style: const TextStyle(color: Colors.white),
+      ),
+    );
+  }
+
+  Padding inputField(
+    String texto,
+    dynamic name,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Container(
+        alignment: Alignment.centerLeft,
+        decoration: BoxDecoration(
+          color: Colors.purple.shade900,
+          borderRadius: BorderRadius.circular(10.0),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 6.0,
+              offset: Offset(0, 2),
+            ),
+          ],
+        ),
+        height: 40.0,
+        child: TextFormField(
+          keyboardType: TextInputType.number,
+          style: const TextStyle(
+            color: Colors.white,
+            fontFamily: 'OpenSans',
+          ),
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 15),
+            hintText: texto,
+            hintStyle: const TextStyle(
+              color: Colors.white54,
+              fontFamily: 'OpenSans',
+            ),
+          ),
+          validator: (name) {
+            if (name == null || name.isEmpty) {
+              return 'Obrigatório';
+            }
+            return null;
+          },
+          onChanged: (value) => setState(() {
+            name = value;
+          }),
+        ),
+      ),
+    );
+  }
+
+  var maskFormatter = MaskTextInputFormatter(
+      mask: '(##) #####-####',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
+
+  var maskHeight = MaskTextInputFormatter(
+      mask: '#.##',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
 }

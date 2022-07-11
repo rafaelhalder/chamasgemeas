@@ -1,8 +1,9 @@
 import 'package:chamasgemeas/screens/HomePage.dart';
-import 'package:chamasgemeas/screens/registerStep4.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../screens/registerStep7.dart';
 
 class VerifyUser extends StatefulWidget {
   const VerifyUser({Key? key}) : super(key: key);
@@ -26,7 +27,7 @@ class _VerifyUserState extends State<VerifyUser> {
   Widget build(BuildContext context) {
     if (newUser == 1) {
       // return const WelcomePage();
-      return RegisterStep4();
+      return RegisterStep7();
     } else if (newUser == 2) {
       return const HomePage();
     } else {
