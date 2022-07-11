@@ -1,5 +1,5 @@
 import 'package:chamasgemeas/screens/HomePage.dart';
-import 'package:chamasgemeas/screens/WelcomePage.dart';
+import 'package:chamasgemeas/screens/registerStep4.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -25,11 +25,12 @@ class _VerifyUserState extends State<VerifyUser> {
   @override
   Widget build(BuildContext context) {
     if (newUser == 1) {
-      return WelcomePage();
+      // return const WelcomePage();
+      return RegisterStep4();
     } else if (newUser == 2) {
-      return HomePage();
+      return const HomePage();
     } else {
-      return Center(
+      return const Center(
         child: CircularProgressIndicator(),
       );
     }
@@ -53,7 +54,7 @@ class _VerifyUserState extends State<VerifyUser> {
           'longitude': '',
           'zodiac': '',
           'whatsapp': '',
-          'finished' : false,
+          'finished': false,
           'weight': '',
           'occupation': '',
           'typeInterested': '',
@@ -86,19 +87,19 @@ class _VerifyUserState extends State<VerifyUser> {
         newUser = 1;
       });
     } else {
-    DocumentSnapshot variable =
-        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      DocumentSnapshot variable =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
-    bool finishedRegister = variable['finished'];
-    if(finishedRegister == true){
-      setState(() {
-        newUser = 2;
-      });
-    }else{
-    setState(() {
-        newUser = 1;
-      });
-    }
+      bool finishedRegister = variable['finished'];
+      if (finishedRegister == true) {
+        setState(() {
+          newUser = 2;
+        });
+      } else {
+        setState(() {
+          newUser = 1;
+        });
+      }
     }
   }
 }
