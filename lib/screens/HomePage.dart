@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   List likedList = [];
   List superLikedList = [];
   List listFilterAge = [0, 100];
-  List listFilterDistance = [30];
+  int listFilterDistance = 30;
   final double _value = 40.0;
   String superLikeText = '';
 
@@ -145,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                 automaticallyImplyLeading: false,
                 backgroundColor: const Color.fromARGB(255, 27, 27, 27),
                 leading: Image.asset(
-                  'assets/images/2 LOGOTIPO.ouro2t.png',
+                  'assets/images/logo.png',
                   height: 45,
                 ),
                 title: IconButton(
@@ -194,11 +194,14 @@ class _HomePageState extends State<HomePage> {
                   }
                   int ageEndFilter =
                       double.parse(listFilterAge[1].toString()).round();
-                  if (userUid == uid ||
-                      userAge > ageEndFilter ||
-                      userAge < ageStartFilter) {
+                  if (userUid != uid) {
                     return Container();
                   } else {
+                    //                     if (userUid == uid ||
+                    //     userAge > ageEndFilter ||
+                    //     userAge < ageStartFilter) {
+                    //   return Container();
+                    // } else {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 25),
                       child: Column(
