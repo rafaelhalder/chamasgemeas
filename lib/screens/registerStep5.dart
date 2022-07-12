@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:simple_shadow/simple_shadow.dart';
 
 class RegisterStep5 extends StatefulWidget {
   @override
@@ -194,6 +195,160 @@ class _RegisterStep5State extends State<RegisterStep5> {
                       ),
                     ],
                   ),
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                maxLength: 2,
+                                style: const TextStyle(color: Colors.white),
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly,
+                                ],
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  focusColor: Colors.white,
+                                  labelText: 'Peso',
+                                  helperText: 'Kg',
+                                  hintText: '54',
+                                  labelStyle: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    letterSpacing: 0.5,
+                                  ),
+                                  errorStyle:
+                                      const TextStyle(color: Colors.white),
+                                  helperStyle: const TextStyle(
+                                      color:
+                                          Color.fromARGB(202, 255, 255, 255)),
+                                  hintStyle:
+                                      const TextStyle(color: Colors.white60),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                      borderSide: BorderSide(
+                                          color: Colors.red.shade500)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                      borderSide: const BorderSide(
+                                          color: Color(0xFFECB461))),
+                                  focusedBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255))),
+                                  border: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.white, width: 0.0)),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Campo Obrigatório';
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                onChanged: (value) => setState(() {
+                                  weight = value;
+                                }),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Flexible(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                keyboardType: TextInputType.text,
+                                textCapitalization:
+                                    TextCapitalization.sentences,
+                                maxLength: 15,
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  focusColor: Colors.white,
+                                  labelText: 'País',
+                                  helperText: 'Brasil',
+                                  hintText: 'País',
+                                  labelStyle: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    letterSpacing: 0.5,
+                                  ),
+                                  errorStyle:
+                                      const TextStyle(color: Colors.white),
+                                  helperStyle: const TextStyle(
+                                      color:
+                                          Color.fromARGB(202, 255, 255, 255)),
+                                  hintStyle:
+                                      const TextStyle(color: Colors.white60),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                      borderSide: BorderSide(
+                                          color: Colors.red.shade500)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                      borderSide: const BorderSide(
+                                          color: Color(0xFFECB461))),
+                                  focusedBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255))),
+                                  border: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.white, width: 0.0)),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Campo Obrigatório';
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                onChanged: (value) => setState(() {
+                                  country = value;
+                                }),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                       zodiac('assets/images/escorpiao.png', 'Gêmeos',
+                                  '21 Maio-20 Jun', '3'),
+                        zodiac('assets/images/escorpiao.png', 'Gêmeos',
+                                  '21 Maio-20 Jun', '4'),
+                    ],
+                  ),
+                                    Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                       zodiac('assets/images/escorpiao.png', 'Gêmeos',
+                                  '21 Maio-20 Jun', '3'),
+                        zodiac('assets/images/escorpiao.png', 'Gêmeos',
+                                  '21 Maio-20 Jun', '4'),
+                    ],
+                  ),
+                                    Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                       zodiac('assets/images/escorpiao.png', 'Gêmeos',
+                                  '21 Maio-20 Jun', '3'),
+                        zodiac('assets/images/escorpiao.png', 'Gêmeos',
+                                  '21 Maio-20 Jun', '4'),
+                    ],
+                  ),
                   const SizedBox(
                     height: 15,
                   ),
@@ -246,6 +401,56 @@ class _RegisterStep5State extends State<RegisterStep5> {
     );
   }
 
+  Flexible zodiac(String image, String sign, String date, String number) {
+    return Flexible(
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            selectedIndex = number;
+          });
+        },
+        child: Column(
+          children: [
+            selectedIndex == number
+                ? SimpleShadow(
+                    opacity: 1, // Default: 0.5
+                    color: const Color.fromARGB(
+                        255, 255, 255, 255), // Default: Black
+                    offset: const Offset(0.5, 1), // Default: Offset(2, 2)
+                    sigma: 6,
+                    child: Image.asset(
+                      image,
+                    width: MediaQuery.of(context).size.width * 0.45,
+                    ),
+                  )
+                : Image.asset(
+                    image,
+                    width: MediaQuery.of(context).size.width * 0.45,
+                  ),
+            const SizedBox(
+              height: 3,
+            ),
+            Text(
+              sign,
+              style: selectedIndex != number
+                  ? const TextStyle(color: Colors.white, fontSize: 15)
+                  : const TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold),
+            ),
+            Text(date,
+                style: selectedIndex != number
+                    ? const TextStyle(color: Colors.white, fontSize: 15)
+                    : const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold))
+          ],
+        ),
+      ),
+    );
+  }
   Color activeButton() {
     if (age != 0 &&
         height != '' &&

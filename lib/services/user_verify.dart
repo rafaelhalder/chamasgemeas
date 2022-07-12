@@ -1,4 +1,6 @@
 import 'package:chamasgemeas/screens/HomePage.dart';
+import 'package:chamasgemeas/screens/registerStep4.dart';
+import 'package:chamasgemeas/screens/registerStep5.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +29,9 @@ class _VerifyUserState extends State<VerifyUser> {
   Widget build(BuildContext context) {
     if (newUser == 1) {
       // return const WelcomePage();
-      return RegisterStep7();
+      return RegisterStep5();
     } else if (newUser == 2) {
-      return const HomePage();
+      return  RegisterStep5();
     } else {
       return const Center(
         child: CircularProgressIndicator(),
