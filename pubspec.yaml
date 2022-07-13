@@ -48,8 +48,10 @@ dependencies:
   latlong2: ^0.8.1
   flutterfire_ui: ^0.4.1+2
   geolocator: ^9.0.0
+  dotted_border: ^2.0.0+2
   simple_shadow: ^0.3.0
   introduction_screen: ^3.0.2
+  reorderable_grid_view: ^2.2.2
   toggle_switch: ^2.0.1
   font_awesome_flutter: ^10.1.0
   url_launcher: ^6.1.4
@@ -58,7 +60,11 @@ dependencies:
   image_picker: ^0.8.5+3
   image_cropper: ^2.0.3
   firebase_storage: ^10.2.17
-
+  flutter_chat_bubble: ^2.0.0
+  mobx: ^2.0.6+1
+  flutter_mobx: ^2.0.4
+  intl: ^0.17.0
+  cupertino_list_tile: ^0.2.1
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +76,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  build_runner: ^2.1.8
+  mobx_codegen: ^2.0.5+2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

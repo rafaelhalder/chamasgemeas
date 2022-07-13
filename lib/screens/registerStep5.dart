@@ -55,7 +55,7 @@ class _RegisterStep5State extends State<RegisterStep5> {
                         children: <TextSpan>[
                           TextSpan(
                               text:
-                                  '${user!.displayName},\nme fale 7 coisas sobre VOCÊ!'),
+ '${user!.displayName},\nqual é o seu SIGNO?  ',                                  ),
                         ],
                       ),
                     ),
@@ -64,289 +64,66 @@ class _RegisterStep5State extends State<RegisterStep5> {
                     height: size.height * 0.05,
                   ),
                   Row(
-                    children: [
-                      Flexible(
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                maxLength: 2,
-                                style: const TextStyle(color: Colors.white),
-                                inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter.digitsOnly,
-                                ],
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  focusColor: Colors.white,
-                                  labelText: 'Idade',
-                                  helperText: '27 Anos',
-                                  hintText: '27',
-                                  labelStyle: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    letterSpacing: 0.5,
-                                  ),
-                                  errorStyle:
-                                      const TextStyle(color: Colors.white),
-                                  helperStyle: const TextStyle(
-                                      color:
-                                          Color.fromARGB(202, 255, 255, 255)),
-                                  hintStyle:
-                                      const TextStyle(color: Colors.white60),
-                                  errorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                      borderSide: BorderSide(
-                                          color: Colors.red.shade500)),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                      borderSide: const BorderSide(
-                                          color: Color(0xFFECB461))),
-                                  focusedBorder: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Color.fromARGB(
-                                              255, 255, 255, 255))),
-                                  border: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.white, width: 0.0)),
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Campo Obrigatório';
-                                  } else if (int.parse(value) < 18) {
-                                    return 'Proibido p/ menores';
-                                  } else {
-                                    return null;
-                                  }
-                                },
-                                onChanged: (value) => setState(() {
-                                  if (value == "") {
-                                    value = "0";
-                                  }
-                                  age = int.parse(value);
-                                }),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Flexible(
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                maxLength: 4,
-                                style: const TextStyle(color: Colors.white),
-                                inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter.digitsOnly,
-                                  maskHeight
-                                ],
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  focusColor: Colors.white,
-                                  labelText: 'Altura',
-                                  helperText: 'Altura 1.80',
-                                  hintText: '1.80',
-                                  labelStyle: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    letterSpacing: 0.5,
-                                  ),
-                                  errorStyle:
-                                      const TextStyle(color: Colors.white),
-                                  helperStyle: const TextStyle(
-                                      color:
-                                          Color.fromARGB(202, 255, 255, 255)),
-                                  hintStyle:
-                                      const TextStyle(color: Colors.white60),
-                                  errorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                      borderSide: BorderSide(
-                                          color: Colors.red.shade500)),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                      borderSide: const BorderSide(
-                                          color: Color(0xFFECB461))),
-                                  focusedBorder: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Color.fromARGB(
-                                              255, 255, 255, 255))),
-                                  border: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.white, width: 0.0)),
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Campo Obrigatório';
-                                  } else {
-                                    return null;
-                                  }
-                                },
-                                onChanged: (value) => setState(() {
-                                  height = value;
-                                }),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Flexible(
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                maxLength: 2,
-                                style: const TextStyle(color: Colors.white),
-                                inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter.digitsOnly,
-                                ],
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  focusColor: Colors.white,
-                                  labelText: 'Peso',
-                                  helperText: 'Kg',
-                                  hintText: '54',
-                                  labelStyle: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    letterSpacing: 0.5,
-                                  ),
-                                  errorStyle:
-                                      const TextStyle(color: Colors.white),
-                                  helperStyle: const TextStyle(
-                                      color:
-                                          Color.fromARGB(202, 255, 255, 255)),
-                                  hintStyle:
-                                      const TextStyle(color: Colors.white60),
-                                  errorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                      borderSide: BorderSide(
-                                          color: Colors.red.shade500)),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                      borderSide: const BorderSide(
-                                          color: Color(0xFFECB461))),
-                                  focusedBorder: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Color.fromARGB(
-                                              255, 255, 255, 255))),
-                                  border: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.white, width: 0.0)),
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Campo Obrigatório';
-                                  } else {
-                                    return null;
-                                  }
-                                },
-                                onChanged: (value) => setState(() {
-                                  weight = value;
-                                }),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Flexible(
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                keyboardType: TextInputType.text,
-                                textCapitalization:
-                                    TextCapitalization.sentences,
-                                maxLength: 15,
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  focusColor: Colors.white,
-                                  labelText: 'País',
-                                  helperText: 'Brasil',
-                                  hintText: 'País',
-                                  labelStyle: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    letterSpacing: 0.5,
-                                  ),
-                                  errorStyle:
-                                      const TextStyle(color: Colors.white),
-                                  helperStyle: const TextStyle(
-                                      color:
-                                          Color.fromARGB(202, 255, 255, 255)),
-                                  hintStyle:
-                                      const TextStyle(color: Colors.white60),
-                                  errorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                      borderSide: BorderSide(
-                                          color: Colors.red.shade500)),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                      borderSide: const BorderSide(
-                                          color: Color(0xFFECB461))),
-                                  focusedBorder: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Color.fromARGB(
-                                              255, 255, 255, 255))),
-                                  border: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.white, width: 0.0)),
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Campo Obrigatório';
-                                  } else {
-                                    return null;
-                                  }
-                                },
-                                onChanged: (value) => setState(() {
-                                  country = value;
-                                }),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                       zodiac('assets/images/escorpiao.png', 'Gêmeos',
-                                  '21 Maio-20 Jun', '3'),
-                        zodiac('assets/images/escorpiao.png', 'Gêmeos',
-                                  '21 Maio-20 Jun', '4'),
+                        zodiac('assets/images/aries.png', 'Gêmeos',
+                                  '21 Maio-20 Jun', 'Áries'),
+                       zodiac('assets/images/touro.png', 'Gêmeos',
+                                  '21 Maio-20 Jun', 'Touro'),
                     ],
                   ),
                                     Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                       zodiac('assets/images/escorpiao.png', 'Gêmeos',
-                                  '21 Maio-20 Jun', '3'),
-                        zodiac('assets/images/escorpiao.png', 'Gêmeos',
-                                  '21 Maio-20 Jun', '4'),
+                        zodiac('assets/images/gemeos.png', 'Gêmeos',
+                                  '21 Maio-20 Jun', 'Gêmeos'),
+                       zodiac('assets/images/cancer.png', 'Gêmeos',
+                                  '21 Maio-20 Jun', 'Câncer'),
                     ],
                   ),
                                     Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                       zodiac('assets/images/escorpiao.png', 'Gêmeos',
-                                  '21 Maio-20 Jun', '3'),
+                        zodiac('assets/images/leao.png', 'Gêmeos',
+                                  '21 Maio-20 Jun', 'Leão'),
+                       zodiac('assets/images/virgem.png', 'Gêmeos',
+                                  '21 Maio-20 Jun', 'Virgem'),
+                    ],
+                  ),
+
+                                    Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                       zodiac('assets/images/libra.png', 'Gêmeos',
+                                  '21 Maio-20 Jun', 'Libra'),
                         zodiac('assets/images/escorpiao.png', 'Gêmeos',
-                                  '21 Maio-20 Jun', '4'),
+                                  '21 Maio-20 Jun', 'Escorpião'),
+                    ],
+                  ),
+
+                                    Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                       zodiac('assets/images/sagitario.png', 'Gêmeos',
+                                  '21 Maio-20 Jun', 'Sagitário'),
+                       zodiac('assets/images/capricornio.png', 'Gêmeos',
+                                  '21 Maio-20 Jun', 'Capricórnio'),
+                    ],
+                  ),
+
+                                    Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                       zodiac('assets/images/aquario.png', 'Gêmeos',
+                                  '21 Maio-20 Jun', 'Aquário'),
+                       zodiac('assets/images/peixes.png', 'Gêmeos',
+                                  '21 Maio-20 Jun', 'Peixes'),
                     ],
                   ),
                   const SizedBox(
@@ -354,26 +131,12 @@ class _RegisterStep5State extends State<RegisterStep5> {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      FocusManager.instance.primaryFocus?.unfocus();
-
-                      if (_formKey.currentState!.validate()) {
-                        await FirebaseFirestore.instance
-                            .collection('users')
-                            .doc(user?.uid)
-                            .update({
-                          'age': age,
-                          'height': height,
-                          'weight': weight,
-                          'country': country,
-                          'city': city,
-                          'occupation': occupation,
-                          'whatsapp': whatsapp,
-                        });
-                        Timer(const Duration(seconds: 1), () {
-                          Navigator.pushNamed(context, '/registerStep5');
-                        });
-                      }
-                    },
+                          await FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(user?.uid)
+                              .update({'zodiac': selectedIndex});
+                          Navigator.pushNamed(context, '/registerStep6');
+                        },
                     child: Container(
                       width: size.width * 0.9,
                       height: size.height * 0.065,
@@ -385,7 +148,7 @@ class _RegisterStep5State extends State<RegisterStep5> {
                         child: Text(
                           'CONFIRMAR',
                           style: TextStyle(
-                              color: activeButton(),
+                              color: Colors.white,
                               fontFamily: 'CM Sans Serif',
                               fontSize: 18),
                         ),
@@ -420,32 +183,16 @@ class _RegisterStep5State extends State<RegisterStep5> {
                     sigma: 6,
                     child: Image.asset(
                       image,
-                    width: MediaQuery.of(context).size.width * 0.45,
+                    width: MediaQuery.of(context).size.width * 0.46,
                     ),
                   )
                 : Image.asset(
                     image,
-                    width: MediaQuery.of(context).size.width * 0.45,
+                    width: MediaQuery.of(context).size.width * 0.46,
                   ),
             const SizedBox(
-              height: 3,
+              height: 15,
             ),
-            Text(
-              sign,
-              style: selectedIndex != number
-                  ? const TextStyle(color: Colors.white, fontSize: 15)
-                  : const TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold),
-            ),
-            Text(date,
-                style: selectedIndex != number
-                    ? const TextStyle(color: Colors.white, fontSize: 15)
-                    : const TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold))
           ],
         ),
       ),
@@ -466,13 +213,7 @@ class _RegisterStep5State extends State<RegisterStep5> {
   }
 
   Color activeButtonColor() {
-    if (age != 0 &&
-        height != '' &&
-        weight != '' &&
-        country != '' &&
-        city != '' &&
-        occupation != '' &&
-        whatsapp != '') {
+    if (selectedIndex != '') {
       return const Color(0xFFECB461);
     } else {
       return Colors.black26;

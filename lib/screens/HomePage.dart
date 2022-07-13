@@ -1,5 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:chamasgemeas/screens/chats.dart';
+import 'package:chamasgemeas/screens/profilePage.dart';
+import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -103,8 +106,7 @@ class _HomePageState extends State<HomePage> {
                       context,
                       PageRouteBuilder(
                         pageBuilder: (context, animation1, animation2) =>
-                            Container(),
-                        // const SuperLike(),
+                         SuperLike(),
                         transitionDuration: Duration.zero,
                         reverseTransitionDuration: Duration.zero,
                       ),
@@ -115,8 +117,8 @@ class _HomePageState extends State<HomePage> {
                       context,
                       PageRouteBuilder(
                         pageBuilder: (context, animation1, animation2) =>
-                            Container(),
-                        // const ProfilePage(),
+                            // Container(),
+                        const ProfilePage(),
                         transitionDuration: Duration.zero,
                         reverseTransitionDuration: Duration.zero,
                       ),
@@ -127,8 +129,8 @@ class _HomePageState extends State<HomePage> {
                       context,
                       PageRouteBuilder(
                         pageBuilder: (context, animation1, animation2) =>
-                            Container(),
-                        // const Chats(),
+                            // Container(),
+                        const Chats(),
                         transitionDuration: Duration.zero,
                         reverseTransitionDuration: Duration.zero,
                       ),
