@@ -39,6 +39,65 @@ class _ProfilePageState extends State<ProfilePage> {
     return variable['aboutMe'];
   }
 
+  dynamic loadProf() async {
+    DocumentSnapshot variable =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    return variable['occupation'];
+  }
+
+  dynamic loadHeight() async {
+    DocumentSnapshot variable =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    return variable['height'];
+  }
+
+  dynamic loadAge() async {
+    DocumentSnapshot variable =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    return variable['age'];
+  }
+
+  dynamic loadCity() async {
+    DocumentSnapshot variable =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    return variable['city'];
+  }
+
+  dynamic loadCountry() async {
+    DocumentSnapshot variable =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    return variable['country'];
+  }
+
+  dynamic loadWeight() async {
+    DocumentSnapshot variable =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    return variable['weight'];
+  }
+
+  dynamic loadGenero() async {
+    DocumentSnapshot variable =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    if (variable['gender'] == '1') {
+      return 'Mulher';
+    }
+
+    if (variable['gender'] == '2') {
+      return 'Homem';
+    }
+
+    if (variable['gender'] == '3') {
+      return 'LGBT';
+    }
+  }
+
   final List<String> data = [];
   List startedList = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   User? user = FirebaseAuth.instance.currentUser;
@@ -400,40 +459,61 @@ class _ProfilePageState extends State<ProfilePage> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white24,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: const [
-                            Icon(Icons.book),
-                            SizedBox(
-                              width: 10,
+              FutureBuilder<dynamic>(
+                  future: loadProf(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 25, vertical: 10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.white24,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    const Icon(Icons.book),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    const Text(
+                                      'Ocupação:',
+                                      style: TextStyle(
+                                          letterSpacing: 0.2,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
+                                          fontSize: 16),
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      snapshot.data,
+                                      style: const TextStyle(
+                                          letterSpacing: 0.2,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
+                                          fontSize: 16),
+                                    ),
+                                  ],
+                                ),
+                                const Icon(Icons.arrow_forward),
+                              ],
                             ),
-                            Text(
-                              'Ocupação',
-                              style: TextStyle(
-                                  letterSpacing: 0.2,
-                                  color: Color.fromARGB(255, 255, 255, 255),
-                                  fontSize: 16),
-                            ),
-                          ],
+                          ),
                         ),
-                        const Icon(Icons.arrow_forward),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+                      );
+                    }
+                    return Container();
+                  }),
               const SizedBox(height: 20),
               Container(
                 alignment: Alignment.centerLeft,
@@ -455,30 +535,46 @@ class _ProfilePageState extends State<ProfilePage> {
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.white24,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: const [
-                            Icon(Icons.book),
-                            SizedBox(
-                              width: 10,
+                  child: FutureBuilder<dynamic>(
+                      future: loadHeight(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    const Icon(Icons.book),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    const Text(
+                                      'Altura: ',
+                                      style: TextStyle(
+                                          letterSpacing: 0.2,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
+                                          fontSize: 16),
+                                    ),
+                                    Text(
+                                      snapshot.data,
+                                      style: const TextStyle(
+                                          letterSpacing: 0.2,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
+                                          fontSize: 16),
+                                    ),
+                                  ],
+                                ),
+                                const Icon(Icons.arrow_forward),
+                              ],
                             ),
-                            Text(
-                              'Altura ',
-                              style: TextStyle(
-                                  letterSpacing: 0.2,
-                                  color: Color.fromARGB(255, 255, 255, 255),
-                                  fontSize: 16),
-                            ),
-                          ],
-                        ),
-                        const Icon(Icons.arrow_forward),
-                      ],
-                    ),
-                  ),
+                          );
+                        }
+                        return Container();
+                      }),
                 ),
               ),
               Padding(
@@ -489,30 +585,43 @@ class _ProfilePageState extends State<ProfilePage> {
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.white24,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: const [
-                            Icon(Icons.book),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'Idade ',
-                              style: TextStyle(
-                                  letterSpacing: 0.2,
-                                  color: Color.fromARGB(255, 255, 255, 255),
-                                  fontSize: 16),
-                            ),
-                          ],
-                        ),
-                        const Icon(Icons.arrow_forward),
-                      ],
-                    ),
-                  ),
+                  child: FutureBuilder<dynamic>(
+                      future: loadAge(),
+                      builder: (context, snapshot) {
+                        return Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  const Icon(Icons.book),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  const Text(
+                                    'Idade: ',
+                                    style: TextStyle(
+                                        letterSpacing: 0.2,
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255),
+                                        fontSize: 16),
+                                  ),
+                                  Text(
+                                    snapshot.data.toString(),
+                                    style: const TextStyle(
+                                        letterSpacing: 0.2,
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255),
+                                        fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              const Icon(Icons.arrow_forward),
+                            ],
+                          ),
+                        );
+                      }),
                 ),
               ),
               Padding(
@@ -523,30 +632,46 @@ class _ProfilePageState extends State<ProfilePage> {
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.white24,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: const [
-                            Icon(Icons.book),
-                            SizedBox(
-                              width: 10,
+                  child: FutureBuilder<dynamic>(
+                      future: loadCity(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    const Icon(Icons.book),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    const Text(
+                                      'Cidade: ',
+                                      style: TextStyle(
+                                          letterSpacing: 0.2,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
+                                          fontSize: 16),
+                                    ),
+                                    Text(
+                                      snapshot.data,
+                                      style: const TextStyle(
+                                          letterSpacing: 0.2,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
+                                          fontSize: 16),
+                                    ),
+                                  ],
+                                ),
+                                const Icon(Icons.arrow_forward),
+                              ],
                             ),
-                            Text(
-                              'Cidade ',
-                              style: TextStyle(
-                                  letterSpacing: 0.2,
-                                  color: Color.fromARGB(255, 255, 255, 255),
-                                  fontSize: 16),
-                            ),
-                          ],
-                        ),
-                        const Icon(Icons.arrow_forward),
-                      ],
-                    ),
-                  ),
+                          );
+                        }
+                        return Container();
+                      }),
                 ),
               ),
               Padding(
@@ -557,30 +682,46 @@ class _ProfilePageState extends State<ProfilePage> {
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.white24,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: const [
-                            Icon(Icons.book),
-                            SizedBox(
-                              width: 10,
+                  child: FutureBuilder<dynamic>(
+                      future: loadCountry(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    const Icon(Icons.book),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    const Text(
+                                      'Pais: ',
+                                      style: TextStyle(
+                                          letterSpacing: 0.2,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
+                                          fontSize: 16),
+                                    ),
+                                    Text(
+                                      snapshot.data,
+                                      style: const TextStyle(
+                                          letterSpacing: 0.2,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
+                                          fontSize: 16),
+                                    ),
+                                  ],
+                                ),
+                                const Icon(Icons.arrow_forward),
+                              ],
                             ),
-                            Text(
-                              'Pais ',
-                              style: TextStyle(
-                                  letterSpacing: 0.2,
-                                  color: Color.fromARGB(255, 255, 255, 255),
-                                  fontSize: 16),
-                            ),
-                          ],
-                        ),
-                        const Icon(Icons.arrow_forward),
-                      ],
-                    ),
-                  ),
+                          );
+                        }
+                        return Container();
+                      }),
                 ),
               ),
               Padding(
@@ -591,63 +732,98 @@ class _ProfilePageState extends State<ProfilePage> {
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.white24,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: const [
-                            Icon(Icons.book),
-                            SizedBox(
-                              width: 10,
+                  child: FutureBuilder<dynamic>(
+                      future: loadWeight(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    const Icon(Icons.book),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    const Text(
+                                      'Peso: ',
+                                      style: TextStyle(
+                                          letterSpacing: 0.2,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
+                                          fontSize: 16),
+                                    ),
+                                    Text(
+                                      snapshot.data,
+                                      style: const TextStyle(
+                                          letterSpacing: 0.2,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
+                                          fontSize: 16),
+                                    ),
+                                  ],
+                                ),
+                                const Icon(Icons.arrow_forward),
+                              ],
                             ),
-                            Text(
-                              'Peso ',
-                              style: TextStyle(
-                                  letterSpacing: 0.2,
-                                  color: Color.fromARGB(255, 255, 255, 255),
-                                  fontSize: 16),
-                            ),
-                          ],
-                        ),
-                        const Icon(Icons.arrow_forward),
-                      ],
-                    ),
-                  ),
+                          );
+                        }
+                        return Container();
+                      }),
                 ),
               ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white24,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: const [
-                            Icon(Icons.book),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'Genero ',
-                              style: TextStyle(
-                                  letterSpacing: 0.2,
-                                  color: Color.fromARGB(255, 255, 255, 255),
-                                  fontSize: 16),
-                            ),
-                          ],
-                        ),
-                        const Icon(Icons.arrow_forward),
-                      ],
+                child: GestureDetector(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white24,
                     ),
+                    child: FutureBuilder<dynamic>(
+                        future: loadGenero(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      const Icon(Icons.book),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      const Text(
+                                        'Genero: ',
+                                        style: TextStyle(
+                                            letterSpacing: 0.2,
+                                            color: Color.fromARGB(
+                                                255, 255, 255, 255),
+                                            fontSize: 16),
+                                      ),
+                                      Text(
+                                        snapshot.data,
+                                        style: const TextStyle(
+                                            letterSpacing: 0.2,
+                                            color: Color.fromARGB(
+                                                255, 255, 255, 255),
+                                            fontSize: 16),
+                                      ),
+                                    ],
+                                  ),
+                                  const Icon(Icons.arrow_forward),
+                                ],
+                              ),
+                            );
+                          }
+                          return Container();
+                        }),
                   ),
                 ),
               ),
