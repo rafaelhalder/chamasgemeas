@@ -909,11 +909,18 @@ class _HomePageState extends State<HomePage> {
                         )),
                   ),
                   Positioned.fill(
+                    top: 80,
                     child: Align(
                         alignment: Alignment.center,
                         child: Container(
-                          color: Colors.red,
-                          child: TextField(onChanged: (value) {
+                          decoration: BoxDecoration(
+                          color: Colors.black,
+                          border: Border.all(color: Colors.white24)
+
+                          ),
+                          child: TextField(
+                            maxLines: 6,
+                            onChanged: (value) {
                             setState(() {
                               superLikeText = value;
                             });
