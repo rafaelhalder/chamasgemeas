@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:cupertino_list_tile/cupertino_list_tile.dart';
 import 'package:chamasgemeas/screens/chats.dart';
-import 'package:chamasgemeas/screens/homePage.dart';
+import 'package:chamasgemeas/screens/HomePage.dart';
 import 'package:chamasgemeas/screens/profilePage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

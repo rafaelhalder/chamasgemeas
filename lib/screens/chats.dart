@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:chamasgemeas/screens/chatDetail.dart';
-import 'package:chamasgemeas/screens/homePage.dart';
+import 'package:chamasgemeas/screens/HomePage.dart';
 import 'package:chamasgemeas/screens/profilePage.dart';
 import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:chamasgemeas/states/lib.dart';

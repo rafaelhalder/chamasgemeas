@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:chamasgemeas/screens/chats.dart';
-import 'package:chamasgemeas/screens/homePage.dart';
+import 'package:chamasgemeas/screens/HomePage.dart';
 import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,6 +24,21 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String occupation = '';
+  String zodiac = '';
+  String aboutMe = '';
+  String gender = '';
+  String city = '';
+  String country = '';
+  String weight = '';
+
+  dynamic loadData() async {
+    DocumentSnapshot variable =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    return variable['aboutMe'];
+  }
+
   final List<String> data = [];
   List startedList = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   User? user = FirebaseAuth.instance.currentUser;
@@ -335,37 +350,43 @@ class _ProfilePageState extends State<ProfilePage> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 25, vertical: 8),
-                child: TextFormField(
-                  onChanged: (value) {
-                    print('oijdaiod');
-                    setState(() {
-                      // selectedIndex = value;
-                    });
-                  },
-                  initialValue:
-                      'Oi sou a Rafa, tenho 27 anos, Escorpião, amo fotos e me siga no insta @Rafa94',
-                  keyboardType: TextInputType.multiline,
-                  maxLines: 4,
-                  cursorColor: Colors.pink,
-                  maxLength: 144,
-                  style: const TextStyle(color: Colors.white),
-                  decoration: const InputDecoration(
-                    hintText: 'Escreva algo sobre você',
-                    hintStyle: TextStyle(color: Colors.white70),
-                    fillColor: Colors.white24,
-                    filled: true,
-                    helperText: 'Limite',
-                    helperStyle: TextStyle(color: Colors.white),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color.fromARGB(255, 184, 184, 184)),
-                    ),
-                  ),
-                ),
-              ),
+              FutureBuilder<dynamic>(
+                  future: loadData(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 25, vertical: 8),
+                        child: TextFormField(
+                          onChanged: (value) {
+                            FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(user?.uid)
+                                .update({"aboutMe": value});
+                          },
+                          initialValue: snapshot.data,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: 4,
+                          cursorColor: Colors.pink,
+                          maxLength: 144,
+                          style: const TextStyle(color: Colors.white),
+                          decoration: const InputDecoration(
+                            hintText: 'Escreva algo sobre você',
+                            hintStyle: TextStyle(color: Colors.white70),
+                            fillColor: Colors.white24,
+                            filled: true,
+                            helperText: 'Limite',
+                            helperStyle: TextStyle(color: Colors.white),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 184, 184, 184)),
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                    return Container();
+                  }),
               const SizedBox(height: 20),
               Container(
                 alignment: Alignment.centerLeft,
