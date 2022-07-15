@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:chamasgemeas/api/purchase_api.dart';
 import 'package:chamasgemeas/screens/chats.dart';
 import 'package:chamasgemeas/screens/profilePage.dart';
 import 'package:chamasgemeas/screens/superLikePage.dart';
@@ -106,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                       context,
                       PageRouteBuilder(
                         pageBuilder: (context, animation1, animation2) =>
-                         SuperLike(),
+                            SuperLike(),
                         transitionDuration: Duration.zero,
                         reverseTransitionDuration: Duration.zero,
                       ),
@@ -118,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                       PageRouteBuilder(
                         pageBuilder: (context, animation1, animation2) =>
                             // Container(),
-                        const ProfilePage(),
+                            const ProfilePage(),
                         transitionDuration: Duration.zero,
                         reverseTransitionDuration: Duration.zero,
                       ),
@@ -130,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                       PageRouteBuilder(
                         pageBuilder: (context, animation1, animation2) =>
                             // Container(),
-                        const Chats(),
+                            const Chats(),
                         transitionDuration: Duration.zero,
                         reverseTransitionDuration: Duration.zero,
                       ),
@@ -411,6 +412,8 @@ class _HomePageState extends State<HomePage> {
                                               children: [
                                                 GestureDetector(
                                                   onTap: () async {
+                                                    fetchOffers();
+
                                                     superLike(
                                                         userUid, userName);
                                                   },
@@ -815,8 +818,34 @@ class _HomePageState extends State<HomePage> {
         : print('HAHA VIRJÃO FEIO');
   }
 
+  Future fetchOffers() async {
+    final offerings = await PurchaseApi.fetchOffers();
+
+    if (offerings.isEmpty) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('No Plans Found')));
+    } else {
+      final packages = offerings
+          .map((offer) => offer.availablePackages)
+          .expand((pair) => pair)
+          .toList();
+
+      // Utils.showSheet(
+      //     context,
+      //     (context) => PaywallWidget(
+      //         packages: packages,
+      //         title: 'Upgrade your plan',
+      //         description: 'Upgrade ...',
+      //         onClickedPackage: (package) async {}));
+
+      final offer = offerings.first;
+      print('Offer: $offer');
+    }
+  }
+
   superLike(String likedUid, String userName) async {
     setState(() {});
+
     Size size = MediaQuery.of(context).size;
     String urlPhotoLiked = '';
     String urlPhotoUser = '';
@@ -914,17 +943,15 @@ class _HomePageState extends State<HomePage> {
                         alignment: Alignment.center,
                         child: Container(
                           decoration: BoxDecoration(
-                          color: Colors.black,
-                          border: Border.all(color: Colors.white24)
-
-                          ),
+                              color: Colors.black,
+                              border: Border.all(color: Colors.white24)),
                           child: TextField(
-                            maxLines: 6,
-                            onChanged: (value) {
-                            setState(() {
-                              superLikeText = value;
-                            });
-                          }),
+                              maxLines: 6,
+                              onChanged: (value) {
+                                setState(() {
+                                  superLikeText = value;
+                                });
+                              }),
                         )),
                   ),
                   Positioned.fill(

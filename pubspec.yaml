@@ -66,6 +66,7 @@ dependencies:
   intl: ^0.17.0
   cupertino_list_tile: ^0.2.1
   flutter_launcher_icons: ^0.9.3
+  purchases_flutter: ^3.10.0
 
 dev_dependencies:
   flutter_test:
