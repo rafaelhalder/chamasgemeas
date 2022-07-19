@@ -232,7 +232,7 @@ class _UserPageState extends State<UserPage> {
                           Row(
                             children: [
                               infos(
-                                text: userList['height'] + ' cm',
+                                text: userList['height'].toString() + ' cm',
                                 size: size,
                                 icon: const FaIcon(FontAwesomeIcons.ruler,
                                     color: Color.fromARGB(255, 204, 171, 123)),

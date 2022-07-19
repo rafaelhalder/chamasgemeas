@@ -12,6 +12,9 @@ import 'package:flutter/services.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+
+import '../paywall_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -197,14 +200,14 @@ class _HomePageState extends State<HomePage> {
                   }
                   int ageEndFilter =
                       double.parse(listFilterAge[1].toString()).round();
-                  if (userUid != uid) {
+                  // if (userUid != uid) {
+                  //   return Container();
+                  // } else {
+                  if (userUid == uid ||
+                      userAge > ageEndFilter ||
+                      userAge < ageStartFilter) {
                     return Container();
                   } else {
-                    //                     if (userUid == uid ||
-                    //     userAge > ageEndFilter ||
-                    //     userAge < ageStartFilter) {
-                    //   return Container();
-                    // } else {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 25),
                       child: Column(
@@ -586,6 +589,7 @@ class _HomePageState extends State<HomePage> {
     Size size = MediaQuery.of(context).size;
     String urlPhotoLiked = '';
     String urlPhotoUser = '';
+    String? uid = FirebaseAuth.instance.currentUser?.uid;
     List usersLikedMe = [];
     final foundLikeMe =
         await FirebaseFirestore.instance.collection('liked_me').doc(uid).get();
@@ -610,11 +614,12 @@ class _HomePageState extends State<HomePage> {
             .then(
               (QuerySnapshot querySnapshot) async {
                 if (querySnapshot.docs.isEmpty) {
+                  print('here');
                   await chats.add({
-                    'users': {uid: 1, likedUid: 1},
+                    'users': {likedUid: 1, uid: 1},
                     'names': {
-                      uid: FirebaseAuth.instance.currentUser?.displayName,
-                      likedUid: userName
+                      likedUid: userName,
+                      uid: FirebaseAuth.instance.currentUser?.displayName
                     }
                   });
                 }
@@ -830,13 +835,20 @@ class _HomePageState extends State<HomePage> {
           .expand((pair) => pair)
           .toList();
 
-      // Utils.showSheet(
-      //     context,
-      //     (context) => PaywallWidget(
-      //         packages: packages,
-      //         title: 'Upgrade your plan',
-      //         description: 'Upgrade ...',
-      //         onClickedPackage: (package) async {}));
+      showMaterialModalBottomSheet(
+        expand: false,
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (context) => PaywallWidget(
+            packages: packages,
+            title: 'Upgrade your plan',
+            description: 'Upgrade ...',
+            onClickedPackage: (package) async {
+              await PurchaseApi.purchasePackage(package);
+
+              Navigator.pop(context);
+            }),
+      );
 
       final offer = offerings.first;
       print('Offer: $offer');

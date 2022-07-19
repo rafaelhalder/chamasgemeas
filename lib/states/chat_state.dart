@@ -27,7 +27,6 @@ abstract class _ChatState with Store {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
         Map<String, dynamic> names = data['names'];
         names.remove(currentUser);
-
         return {
           'docid': doc.id,
           'name': names.values.first,
@@ -50,7 +49,7 @@ abstract class _ChatState with Store {
               .then((QuerySnapshot querySnapshot) {
             // ignore: avoid_function_literals_in_foreach_calls
             querySnapshot.docs.forEach((docs) {
-              if(docs['uid'] == doc['key']){
+              if (docs['uid'] == doc['key']) {
                 doc['photo'] = docs["photos"][0]['url'];
               }
             });

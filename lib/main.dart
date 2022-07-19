@@ -19,9 +19,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'api/purchase_api.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await PurchaseApi.init();
   runApp(const MyApp());
 }
 
@@ -51,7 +54,7 @@ class MyApp extends StatelessWidget {
         '/registerStep5': (context) => RegisterStep5(),
         '/registerStep6': (context) => RegisterStep6Page(),
         '/registerStep7': (context) => RegisterStep7(),
-             '/userPage': (context) => const UserPage(),
+        '/userPage': (context) => const UserPage(),
         '/profilePage': (context) => const ProfilePage(),
         '/chats': (context) => const Chats(),
         '/match': (context) => const MatchPage(),
