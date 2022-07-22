@@ -29,6 +29,7 @@ class _UserPageState extends State<UserPage> {
     double longitude = double.parse(userList['longitude']);
     String occupation = userList['occupation'];
     String aboutMe = userList['aboutMe'];
+    print(userList);
     int age = userList['age'];
     List photos = userList['photos'];
     List filterPhoto = [];

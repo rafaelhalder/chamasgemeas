@@ -294,13 +294,15 @@ class _RegisterStep7State extends State<RegisterStep7> {
 
     List fileName = variable['photos'];
 
-    if (fileName[0]['name'] == 'nulo') {
-      firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
-          .ref()
-          .child('images/default')
-          .child('person_blank.png');
-      var url = await ref.getDownloadURL();
-      return url;
+    if (fileName[0]['name'] == 'first') {
+      // firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+      //     .ref()
+      //     .child('images/default')
+      //     .child('person_blank.png');
+      // var url = await ref.getDownloadURL();
+      var url2 =
+          'https://firebasestorage.googleapis.com/v0/b/chamas-gemeas.appspot.com/o/images%2Fdefault%2Fperson_blank.png?alt=media&token=a48cac17-1f89-4aed-a0b2-ba38699d516f';
+      return url2;
     }
 
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance

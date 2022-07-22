@@ -51,10 +51,11 @@ class _HomePageState extends State<HomePage> {
     double boxInfo = size.height / 7.2;
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
-        systemNavigationBarIconBrightness: Brightness.dark,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarBrightness: Brightness.dark,
+        systemNavigationBarIconBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.light,
         statusBarColor: Colors.black,
+        systemNavigationBarColor: Colors.black,
       ),
       child: Container(
         color: const Color.fromARGB(255, 27, 27, 27),
@@ -63,7 +64,7 @@ class _HomePageState extends State<HomePage> {
           extendBodyBehindAppBar: true,
           backgroundColor: Colors.transparent,
           bottomNavigationBar: ConvexAppBar.badge(
-            const {3: Colors.redAccent},
+            const {4: Colors.redAccent},
             gradient: const LinearGradient(colors: [
               Color.fromARGB(255, 20, 5, 44),
               Color.fromARGB(255, 2, 1, 3),
@@ -820,7 +821,7 @@ class _HomePageState extends State<HomePage> {
               );
             },
           )
-        : print('HAHA VIRJÃO FEIO');
+        : print('');
   }
 
   Future fetchOffers() async {

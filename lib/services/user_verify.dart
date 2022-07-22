@@ -4,8 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/registerStep7.dart';
-
 class VerifyUser extends StatefulWidget {
   const VerifyUser({Key? key}) : super(key: key);
 
@@ -50,6 +48,7 @@ class _VerifyUserState extends State<VerifyUser> {
           'city': '',
           'country': '',
           'gender': '',
+          'coin': 1,
           'height': 0,
           'interested': '',
           'latitude': '',
@@ -61,10 +60,16 @@ class _VerifyUserState extends State<VerifyUser> {
           'occupation': '',
           'typeInterested': '',
           'status': true,
+          'premium': false,
           'uid': uid,
           'name': user?.displayName,
           "photos": [
-            {'name': 'nulo', 'url': 'nulo', 'id': '1'},
+            {
+              'name': 'first',
+              'url':
+                  'https://firebasestorage.googleapis.com/v0/b/chamas-gemeas.appspot.com/o/images%2Fdefault%2Fperson_blank.png?alt=media&token=a48cac17-1f89-4aed-a0b2-ba38699d516f',
+              'id': '1'
+            },
             {'name': 'nulo', 'url': 'nulo', 'id': '2'},
             {'name': 'nulo', 'url': 'nulo', 'id': '3'},
             {'name': 'nulo', 'url': 'nulo', 'id': '4'},

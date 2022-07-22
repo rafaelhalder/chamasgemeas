@@ -107,17 +107,19 @@ class _LikedMePageState extends State<LikedMePage> {
     final like =
         await FirebaseFirestore.instance.collection('liked_me').doc(uid).get();
 
-    likedList = like['id'];
+    if (like.exists) {
+      likedList = like['id'];
 
-    for (int i = 0; i < likedList.length; i++) {
-      var list = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(likedList[i])
-          .get();
-      likedList2.add({
-        'photos': list['photos'][0]['url'],
-        'name': list['name'],
-      });
+      for (int i = 0; i < likedList.length; i++) {
+        var list = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(likedList[i])
+            .get();
+        likedList2.add({
+          'photos': list['photos'][0]['url'],
+          'name': list['name'],
+        });
+      }
     }
 
     return likedList2;

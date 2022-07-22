@@ -19,8 +19,8 @@ class _FilterPageState extends State<FilterPage> {
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
     getFilters();
+    super.initState();
   }
 
   @override
@@ -73,7 +73,7 @@ class _FilterPageState extends State<FilterPage> {
               ),
               RangeSlider(
                   min: 0.0,
-                  max: 65.0,
+                  max: 150.0,
                   activeColor: Colors.amber,
                   values: RangeValues(_startValue, _endValue),
                   divisions: 22,
@@ -107,7 +107,7 @@ class _FilterPageState extends State<FilterPage> {
         await FirebaseFirestore.instance.collection('filter').doc(uid).get();
 
     setState(() {
-      _value = double.parse(filter['distance'][0].toString());
+      _value = double.parse(filter['distance'].toString());
       _startValue = double.parse(filter['age'][0].toString());
       _endValue = double.parse(filter['age'][1].toString());
     });
