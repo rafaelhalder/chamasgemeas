@@ -129,7 +129,7 @@ class _RegisterStep6PageState extends State<RegisterStep6Page> {
                         } else if (snapshot.hasError) {
                           return const Text('error');
                         } else {
-                          return const CircularProgressIndicator();
+                          return Container();
                         }
                       },
                     ),

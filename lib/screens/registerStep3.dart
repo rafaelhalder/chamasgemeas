@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class RegisterStep3 extends StatefulWidget {
@@ -37,7 +35,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    padding: const EdgeInsets.only(left: 50),
+                    padding: const EdgeInsets.only(left: 20, right: 20),
                     alignment: Alignment.center,
                     child: RichText(
                       text: TextSpan(
@@ -160,7 +158,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                                 child: Text(
                                   'Saber Mais',
                                   style: TextStyle(
-                                      color: Color(0xFFECB461),
+                                      color: Colors.white,
                                       fontFamily: 'CM Sans Serif',
                                       fontSize: 12),
                                 ),

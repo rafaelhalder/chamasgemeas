@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
@@ -204,13 +202,16 @@ class _WelcomePageState extends State<WelcomePage> {
         title: Text("Chamas Gêmeas"),
       ),
       body: IntroductionScreen(
-        globalBackgroundColor: Colors.white,
+        globalBackgroundColor: Colors.black87,
         pages: getPages(),
         showNextButton: true,
-        next: Text('Avançar'),
+        next: Text('Avançar',
+            style: TextStyle(color: Color.fromARGB(255, 204, 171, 123))),
         showBackButton: true,
-        back: Text("Voltar"),
-        done: Text("Concluir"),
+        back: Text("Voltar",
+            style: TextStyle(color: Color.fromARGB(255, 204, 171, 123))),
+        done: Text("Concluir",
+            style: TextStyle(color: Color.fromARGB(255, 204, 171, 123))),
         onDone: () async {
           Future<bool> result = _determinePosition();
           await result == true

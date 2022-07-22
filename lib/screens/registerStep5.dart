@@ -1,9 +1,6 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 
@@ -54,8 +51,9 @@ class _RegisterStep5State extends State<RegisterStep5> {
                         ),
                         children: <TextSpan>[
                           TextSpan(
-                              text:
- '${user!.displayName},\nqual é o seu SIGNO?  ',                                  ),
+                            text:
+                                '${user!.displayName},\nqual é o seu SIGNO?  ',
+                          ),
                         ],
                       ),
                     ),
@@ -67,63 +65,60 @@ class _RegisterStep5State extends State<RegisterStep5> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                        zodiac('assets/images/aries.png', 'Gêmeos',
-                                  '21 Maio-20 Jun', 'Áries'),
-                       zodiac('assets/images/touro.png', 'Gêmeos',
-                                  '21 Maio-20 Jun', 'Touro'),
+                      zodiac('assets/images/aries.png', 'Gêmeos',
+                          '21 Maio-20 Jun', 'Áries'),
+                      zodiac('assets/images/touro.png', 'Gêmeos',
+                          '21 Maio-20 Jun', 'Touro'),
                     ],
                   ),
-                                    Row(
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                        zodiac('assets/images/gemeos.png', 'Gêmeos',
-                                  '21 Maio-20 Jun', 'Gêmeos'),
-                       zodiac('assets/images/cancer.png', 'Gêmeos',
-                                  '21 Maio-20 Jun', 'Câncer'),
+                      zodiac('assets/images/gemeos.png', 'Gêmeos',
+                          '21 Maio-20 Jun', 'Gêmeos'),
+                      zodiac('assets/images/cancer.png', 'Gêmeos',
+                          '21 Maio-20 Jun', 'Câncer'),
                     ],
                   ),
-                                    Row(
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                        zodiac('assets/images/leao.png', 'Gêmeos',
-                                  '21 Maio-20 Jun', 'Leão'),
-                       zodiac('assets/images/virgem.png', 'Gêmeos',
-                                  '21 Maio-20 Jun', 'Virgem'),
+                      zodiac('assets/images/leao.png', 'Gêmeos',
+                          '21 Maio-20 Jun', 'Leão'),
+                      zodiac('assets/images/virgem.png', 'Gêmeos',
+                          '21 Maio-20 Jun', 'Virgem'),
                     ],
                   ),
-
-                                    Row(
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                       zodiac('assets/images/libra.png', 'Gêmeos',
-                                  '21 Maio-20 Jun', 'Libra'),
-                        zodiac('assets/images/escorpiao.png', 'Gêmeos',
-                                  '21 Maio-20 Jun', 'Escorpião'),
+                      zodiac('assets/images/libra.png', 'Gêmeos',
+                          '21 Maio-20 Jun', 'Libra'),
+                      zodiac('assets/images/escorpiao.png', 'Gêmeos',
+                          '21 Maio-20 Jun', 'Escorpião'),
                     ],
                   ),
-
-                                    Row(
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                       zodiac('assets/images/sagitario.png', 'Gêmeos',
-                                  '21 Maio-20 Jun', 'Sagitário'),
-                       zodiac('assets/images/capricornio.png', 'Gêmeos',
-                                  '21 Maio-20 Jun', 'Capricórnio'),
+                      zodiac('assets/images/sagitario.png', 'Gêmeos',
+                          '21 Maio-20 Jun', 'Sagitário'),
+                      zodiac('assets/images/capricornio.png', 'Gêmeos',
+                          '21 Maio-20 Jun', 'Capricórnio'),
                     ],
                   ),
-
-                                    Row(
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                       zodiac('assets/images/aquario.png', 'Gêmeos',
-                                  '21 Maio-20 Jun', 'Aquário'),
-                       zodiac('assets/images/peixes.png', 'Gêmeos',
-                                  '21 Maio-20 Jun', 'Peixes'),
+                      zodiac('assets/images/aquario.png', 'Gêmeos',
+                          '21 Maio-20 Jun', 'Aquário'),
+                      zodiac('assets/images/peixes.png', 'Gêmeos',
+                          '21 Maio-20 Jun', 'Peixes'),
                     ],
                   ),
                   const SizedBox(
@@ -131,26 +126,29 @@ class _RegisterStep5State extends State<RegisterStep5> {
                   ),
                   GestureDetector(
                     onTap: () async {
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(user?.uid)
-                              .update({'zodiac': selectedIndex});
-                          Navigator.pushNamed(context, '/registerStep6');
-                        },
-                    child: Container(
-                      width: size.width * 0.9,
-                      height: size.height * 0.065,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: activeButtonColor(),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'CONFIRMAR',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'CM Sans Serif',
-                              fontSize: 18),
+                      await FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(user?.uid)
+                          .update({'zodiac': selectedIndex});
+                      Navigator.pushNamed(context, '/registerStep6');
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: Container(
+                        width: size.width * 0.85,
+                        height: size.height * 0.065,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: activeButtonColor(),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'CONFIRMAR',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'CM Sans Serif',
+                                fontSize: 18),
+                          ),
                         ),
                       ),
                     ),
@@ -183,7 +181,7 @@ class _RegisterStep5State extends State<RegisterStep5> {
                     sigma: 6,
                     child: Image.asset(
                       image,
-                    width: MediaQuery.of(context).size.width * 0.46,
+                      width: MediaQuery.of(context).size.width * 0.46,
                     ),
                   )
                 : Image.asset(
@@ -198,6 +196,7 @@ class _RegisterStep5State extends State<RegisterStep5> {
       ),
     );
   }
+
   Color activeButton() {
     if (age != 0 &&
         height != '' &&

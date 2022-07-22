@@ -417,9 +417,8 @@ class _HomePageState extends State<HomePage> {
                                                 GestureDetector(
                                                   onTap: () async {
                                                     fetchOffers();
-
-                                                    superLike(
-                                                        userUid, userName);
+                                                    // superLike(
+                                                    //     userUid, userName);
                                                   },
                                                   child: Container(
                                                       height: boxInfo / 2.5,
@@ -839,14 +838,13 @@ class _HomePageState extends State<HomePage> {
       showMaterialModalBottomSheet(
         expand: false,
         context: context,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Color.fromARGB(231, 0, 0, 0),
         builder: (context) => PaywallWidget(
             packages: packages,
-            title: 'Upgrade your plan',
-            description: 'Upgrade ...',
+            title: 'Chamas Premium',
+            description: 'Veja quem te curtiu.',
             onClickedPackage: (package) async {
               await PurchaseApi.purchasePackage(package);
-
               Navigator.pop(context);
             }),
       );

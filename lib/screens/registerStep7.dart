@@ -30,8 +30,8 @@ class _RegisterStep7State extends State<RegisterStep7> {
 
   @override
   void initState() {
-    loadImage();
     super.initState();
+    loadImage();
   }
 
   Future imgFromGallery() async {
@@ -294,25 +294,36 @@ class _RegisterStep7State extends State<RegisterStep7> {
 
     List fileName = variable['photos'];
 
-    if (fileName[0]['name'] == 'first') {
-      // firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
-      //     .ref()
-      //     .child('images/default')
-      //     .child('person_blank.png');
-      // var url = await ref.getDownloadURL();
-      var url2 =
-          'https://firebasestorage.googleapis.com/v0/b/chamas-gemeas.appspot.com/o/images%2Fdefault%2Fperson_blank.png?alt=media&token=a48cac17-1f89-4aed-a0b2-ba38699d516f';
-      return url2;
+    if (fileName[0]['name'] == 'nulo') {
+      firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+          .ref()
+          .child('images/default')
+          .child('person_blank.png');
+
+      var url = await ref.getDownloadURL();
+
+      return url;
     }
 
-    firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
-        .ref()
-        .child('images/user/$uid')
-        .child(fileName[0]['name']);
+    try {
+      await Future.delayed(Duration(seconds: 4));
+      firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+          .ref()
+          .child('images/user/$uid')
+          .child(fileName[0]['name']);
+      await Future.delayed(Duration(seconds: 4));
 
-    var url = await ref.getDownloadURL();
+      var url = await ref.getDownloadURL();
 
-    return url;
+      return url;
+    } catch (e) {
+      var url =
+          'https://firebasestorage.googleapis.com/v0/b/chamas-gemeas.appspot.com/o/images%2Fdefault%2Fperson_blank.png?alt=media&token=a48cac17-1f89-4aed-a0b2-ba38699d516f';
+
+      return url;
+    }
+
+    print('travou aqui');
   }
 
   void _showPicker(context) {
