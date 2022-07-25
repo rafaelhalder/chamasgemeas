@@ -25,9 +25,9 @@ class _VerifyUserState extends State<VerifyUser> {
   @override
   Widget build(BuildContext context) {
     if (newUser == 1) {
-      // return const WelcomePage();
       return WelcomePage();
     } else if (newUser == 2) {
+      return const WelcomePage();
       return const HomePage();
     } else {
       return const Center(

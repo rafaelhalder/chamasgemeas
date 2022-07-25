@@ -23,6 +23,10 @@ class _UserPageState extends State<UserPage> {
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
     var userList = arguments['info'];
     String name = userList['name'];
+    String imagemLink = userList['soul'] + '.png';
+    int typeInte = userList['typeInterested'];
+    String interested = '';
+    typeInte == 0 ? interested = 'Namoro' : interested = 'Amizade';
     double lati = double.parse(arguments['lat']);
     double latitude = double.parse(userList['latitude']);
     double long = double.parse(arguments['lng']);
@@ -57,7 +61,7 @@ class _UserPageState extends State<UserPage> {
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
-        systemNavigationBarColor: Color.fromARGB(255, 255, 255, 255),
+        systemNavigationBarColor: Colors.black,
         systemNavigationBarIconBrightness: Brightness.light,
         statusBarIconBrightness: Brightness.light,
         statusBarBrightness: Brightness.light,
@@ -66,38 +70,39 @@ class _UserPageState extends State<UserPage> {
       child: Container(
         color: Colors.red,
         child: Scaffold(
-          floatingActionButton:
-              Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-            FloatingActionButton(
-              backgroundColor: const Color.fromARGB(255, 204, 171, 123),
-              onPressed: () {
-                //...
-              },
-              heroTag: null,
-              child: const Icon(
-                Icons.star,
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            FloatingActionButton(
-              backgroundColor: const Color.fromARGB(255, 204, 171, 123),
-              onPressed: () => print(123),
-              heroTag: null,
-              child: const FaIcon(
-                FontAwesomeIcons.solidHeart,
-                color: Colors.red,
-              ),
-            )
-          ]),
+          // floatingActionButton:
+          //     Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+          //   FloatingActionButton(
+          //     backgroundColor: const Color.fromARGB(255, 204, 171, 123),
+          //     onPressed: () {
+          //       //...
+          //     },
+          //     heroTag: null,
+          //     child: const Icon(
+          //       Icons.star,
+          //       color: Colors.white,
+          //     ),
+          //   ),
+          //   const SizedBox(
+          //     height: 10,
+          //   ),
+          //   FloatingActionButton(
+          //     backgroundColor: const Color.fromARGB(255, 204, 171, 123),
+          //     onPressed: () {},
+          //     heroTag: null,
+          //     child: const FaIcon(
+          //       FontAwesomeIcons.solidHeart,
+          //       color: Colors.red,
+          //     ),
+          //   )
+          // ]),
           extendBodyBehindAppBar: true,
           appBar: AppBar(
             elevation: 0,
             backgroundColor: const Color.fromARGB(0, 0, 0, 0),
             centerTitle: true,
-            title: Text('${arguments['name']}'),
+            title: Text('${arguments['name']}',
+                style: TextStyle(color: Colors.white)),
             leading: Container(
                 decoration: BoxDecoration(
                     color: const Color.fromARGB(42, 86, 86, 86),
@@ -257,15 +262,26 @@ class _UserPageState extends State<UserPage> {
                               )
                             ],
                           ),
+                          Row(
+                            children: [
+                              infos(
+                                text: interested,
+                                size: size,
+                                icon: const FaIcon(
+                                    FontAwesomeIcons.magnifyingGlass,
+                                    color: Color.fromARGB(255, 204, 171, 123)),
+                              )
+                            ],
+                          ),
                           const SizedBox(
                             height: 40,
                           ),
                           Row(
                             children: [
-                              infos2(
+                              infos3(
                                   size: size,
-                                  image: 'assets/images/mago.png',
-                                  text: 'Magia'),
+                                  image: 'assets/images/$imagemLink',
+                                  text: userList['soul']),
                             ],
                           )
                         ],
@@ -274,12 +290,14 @@ class _UserPageState extends State<UserPage> {
                       Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 25, vertical: 15),
-                        child: const Text(
-                          'Sobre mim',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
+                        child: Center(
+                          child: const Text(
+                            'Sobre mim',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                       Container(
@@ -292,7 +310,121 @@ class _UserPageState extends State<UserPage> {
                               color: Color.fromARGB(255, 204, 171, 123),
                               fontSize: 20),
                         ),
-                      )
+                      ),
+                      const SizedBox(height: 20),
+                      Column(
+                        children: [
+                          Container(
+                            child: const Text(
+                              'Meus Objetivos',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Container(
+                            child: ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                itemCount: userList['listFocus']?.length,
+                                itemBuilder: (context, index) {
+                                  String tex = '';
+                                  int valor = userList['listFocus'][index];
+                                  switch (valor) {
+                                    case 0:
+                                      tex = '';
+                                      break;
+                                    case 1:
+                                      tex =
+                                          'Com a chama gêmea construir uma FAMÍLIA COM FILHOS!';
+                                      break;
+                                    case 2:
+                                      tex =
+                                          'Com a chama gêmea construir uma FAMÍLIA COM PETS!';
+                                      break;
+                                    case 3:
+                                      tex =
+                                          'CONVERSAR sobre o que ninguém entende!';
+                                      break;
+                                    case 4:
+                                      tex =
+                                          'CURAR O MUNDO com trabalho ativista!';
+                                      break;
+                                    case 5:
+                                      tex = 'COZINHAR como alquimistas! ';
+                                      break;
+                                    case 6:
+                                      tex = 'VIAJAR NAS CIDADES da Terra!';
+                                      break;
+                                    case 7:
+                                      tex = 'VIAJAR NA NATUREZA intocada!';
+                                      break;
+                                    case 8:
+                                      tex =
+                                          'LER sobre os mistérios do Universo!';
+                                      break;
+                                    case 9:
+                                      tex =
+                                          'Assistir FILMES nas noites de tempestade!';
+                                      break;
+                                    case 10:
+                                      tex =
+                                          'Jantar em RESTAURANTES à luz de velas!';
+                                      break;
+                                    case 11:
+                                      tex =
+                                          'Passear com os PETS enquanto conversamos!';
+                                      break;
+                                    case 12:
+                                      tex =
+                                          'Apreciar ARTE nos museus e exposições exclusivas!';
+                                      break;
+                                    case 13:
+                                      tex =
+                                          'Ir a SHOWS DE MÚSICA de bandas fantásticas!';
+                                      break;
+                                    case 14:
+                                      tex =
+                                          'Fazer COMPRAS de cristais, livros e incensos!';
+                                      break;
+                                    case 15:
+                                      tex = 'CORRER como elementais do vento!';
+                                      break;
+                                    case 16:
+                                      tex = 'Beber chás de PLANTAS DE PODER!';
+                                      break;
+                                    case 17:
+                                      tex = 'Passear por PRAIAS desertas!';
+                                      break;
+                                    case 18:
+                                      tex =
+                                          'Jogar JOGOS em realidades alternativas!';
+                                      break;
+                                    case 19:
+                                      tex = 'MEDITAR e um ashram na Índia!';
+                                      break;
+                                    case 20:
+                                      tex =
+                                          'FOTOGRAFAR com os olhos de um mago!';
+                                      break;
+                                    case 21:
+                                      tex = 'DANÇAR como dervishes!';
+                                      break;
+                                  }
+                                  return ListTile(
+                                      title: Text(
+                                        tex,
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 204, 171, 123)),
+                                      ),
+                                      onTap: () {});
+                                }),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -465,6 +597,43 @@ class infos2 extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
       width: size.width * 0.5,
+      child: Row(
+        children: [
+          Image.asset(
+            image,
+            width: 60,
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Text(
+            text,
+            style: const TextStyle(
+                color: Color.fromARGB(255, 204, 171, 123), fontSize: 18),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class infos3 extends StatelessWidget {
+  const infos3({
+    Key? key,
+    required this.size,
+    required this.image,
+    required this.text,
+  }) : super(key: key);
+
+  final Size size;
+  final String image;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
+      width: size.width * 0.8,
       child: Row(
         children: [
           Image.asset(

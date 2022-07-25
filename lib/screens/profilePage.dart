@@ -205,9 +205,10 @@ class _ProfilePageState extends State<ProfilePage> {
         statusBarColor: Colors.transparent,
       ),
       child: Scaffold(
+        backgroundColor: Color.fromARGB(255, 27, 27, 27),
         bottomNavigationBar: ConvexAppBar(
           gradient: const LinearGradient(colors: [
-            Color.fromARGB(255, 20, 5, 44),
+            Color.fromARGB(255, 0, 0, 0),
             Color.fromARGB(255, 2, 1, 3),
           ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
           // ignore: prefer_const_literals_to_create_immutables
@@ -344,7 +345,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                             dashPattern: const [8, 4],
                                             strokeWidth: 2,
                                             child: const Center(
-                                                child: Icon(Icons.add_a_photo)),
+                                                child: Icon(
+                                              Icons.add_a_photo,
+                                              color: Colors.white,
+                                            )),
                                           ),
                                         ),
                                 ),
@@ -390,9 +394,13 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               Container(
                 child: const Center(
-                  child: Text(
-                    'Clique para editar ou arraste para reordenar',
-                    style: TextStyle(color: Color.fromARGB(139, 255, 255, 255)),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 14.0),
+                    child: Text(
+                      'Clique para editar ou arraste para reordenar',
+                      style:
+                          TextStyle(color: Color.fromARGB(139, 255, 255, 255)),
+                    ),
                   ),
                 ),
               ),
@@ -468,8 +476,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             horizontal: 25, vertical: 10),
                         child: GestureDetector(
                           onTap: () {
-                    Navigator.pushNamed(context, '/registerStep4');
-                  },
+                            Navigator.pushNamed(context, '/registerStep4');
+                          },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -478,13 +486,15 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      const Icon(Icons.book),
+                                      const Icon(Icons.book,
+                                          color: Colors.white),
                                       const SizedBox(
                                         width: 10,
                                       ),
@@ -509,7 +519,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                       ),
                                     ],
                                   ),
-                                  const Icon(Icons.arrow_forward),
+                                  const Icon(Icons.arrow_forward,
+                                      color: Colors.white),
                                 ],
                               ),
                             ),
@@ -551,11 +562,13 @@ class _ProfilePageState extends State<ProfilePage> {
                             return Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
-                                      const Icon(Icons.book),
+                                      const Icon(Icons.book,
+                                          color: Colors.white),
                                       const SizedBox(
                                         width: 10,
                                       ),
@@ -577,7 +590,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                       ),
                                     ],
                                   ),
-                                  const Icon(Icons.arrow_forward),
+                                  const Icon(Icons.arrow_forward,
+                                      color: Colors.white),
                                 ],
                               ),
                             );
@@ -609,7 +623,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               children: [
                                 Row(
                                   children: [
-                                    const Icon(Icons.book),
+                                    const Icon(Icons.book, color: Colors.white),
                                     const SizedBox(
                                       width: 10,
                                     ),
@@ -631,7 +645,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                   ],
                                 ),
-                                const Icon(Icons.arrow_forward),
+                                const Icon(Icons.arrow_forward,
+                                    color: Colors.white),
                               ],
                             ),
                           );
@@ -643,7 +658,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                 child: GestureDetector(
-                   onTap: () {
+                  onTap: () {
                     Navigator.pushNamed(context, '/registerStep4');
                   },
                   child: Container(
@@ -658,11 +673,13 @@ class _ProfilePageState extends State<ProfilePage> {
                             return Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
-                                      const Icon(Icons.book),
+                                      const Icon(Icons.book,
+                                          color: Colors.white),
                                       const SizedBox(
                                         width: 10,
                                       ),
@@ -684,7 +701,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                       ),
                                     ],
                                   ),
-                                  const Icon(Icons.arrow_forward),
+                                  const Icon(Icons.arrow_forward,
+                                      color: Colors.white),
                                 ],
                               ),
                             );
@@ -698,7 +716,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                 child: GestureDetector(
-                   onTap: () {
+                  onTap: () {
                     Navigator.pushNamed(context, '/registerStep4');
                   },
                   child: Container(
@@ -713,11 +731,13 @@ class _ProfilePageState extends State<ProfilePage> {
                             return Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
-                                      const Icon(Icons.book),
+                                      const Icon(Icons.book,
+                                          color: Colors.white),
                                       const SizedBox(
                                         width: 10,
                                       ),
@@ -739,7 +759,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                       ),
                                     ],
                                   ),
-                                  const Icon(Icons.arrow_forward),
+                                  const Icon(Icons.arrow_forward,
+                                      color: Colors.white),
                                 ],
                               ),
                             );
@@ -753,7 +774,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                 child: GestureDetector(
-                   onTap: () {
+                  onTap: () {
                     Navigator.pushNamed(context, '/registerStep4');
                   },
                   child: Container(
@@ -768,11 +789,13 @@ class _ProfilePageState extends State<ProfilePage> {
                             return Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
-                                      const Icon(Icons.book),
+                                      const Icon(Icons.book,
+                                          color: Colors.white),
                                       const SizedBox(
                                         width: 10,
                                       ),
@@ -794,7 +817,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                       ),
                                     ],
                                   ),
-                                  const Icon(Icons.arrow_forward),
+                                  const Icon(Icons.arrow_forward,
+                                      color: Colors.white),
                                 ],
                               ),
                             );
@@ -808,7 +832,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                 child: GestureDetector(
-                   onTap: () {
+                  onTap: () {
                     Navigator.pushNamed(context, '/register');
                   },
                   child: Container(
@@ -828,7 +852,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 children: [
                                   Row(
                                     children: [
-                                      const Icon(Icons.book),
+                                      const Icon(Icons.book,
+                                          color: Colors.white),
                                       const SizedBox(
                                         width: 10,
                                       ),
@@ -850,7 +875,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                       ),
                                     ],
                                   ),
-                                  const Icon(Icons.arrow_forward),
+                                  const Icon(Icons.arrow_forward,
+                                      color: Colors.white),
                                 ],
                               ),
                             );
@@ -907,15 +933,23 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Wrap(
                   children: <Widget>[
                     ListTile(
-                        leading: const Icon(Icons.photo_library),
-                        title: const Text('Gallery'),
+                        leading: const Icon(
+                          Icons.photo_library,
+                          color: Colors.white,
+                        ),
+                        title: const Text('Gallery',
+                            style: TextStyle(color: Colors.white)),
                         onTap: () {
                           imgFromGallery(data);
                           Navigator.of(context).pop();
                         }),
                     ListTile(
-                      leading: const Icon(Icons.photo_camera),
-                      title: const Text('Camera'),
+                      leading: const Icon(
+                        Icons.photo_camera,
+                        color: Colors.white,
+                      ),
+                      title: const Text('Camera',
+                          style: TextStyle(color: Colors.white)),
                       onTap: () {
                         imgFromCamera(data);
                         Navigator.of(context).pop();

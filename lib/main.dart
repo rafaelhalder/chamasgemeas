@@ -43,7 +43,16 @@ class MyApp extends StatelessWidget {
     ));
     return MaterialApp(
       title: 'Chamas Gêmeas',
-      theme: ThemeData.dark(),
+      themeMode: ThemeMode.dark,
+      // darkTheme: ThemeData(
+      //     secondaryHeaderColor: Colors.black, brightness: Brightness.dark),
+      theme: ThemeData(
+          backgroundColor: Colors.black,
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            secondary: Colors.amber, // Your accent color
+          ),
+          primarySwatch: Colors.red,
+          brightness: Brightness.light),
       home: AuthService().handleAuthState(),
       routes: {
         '/home': (context) => const HomePage(),

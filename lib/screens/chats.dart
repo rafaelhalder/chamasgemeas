@@ -42,7 +42,7 @@ class _ChatsState extends State<Chats> {
         backgroundColor: Colors.transparent,
         bottomNavigationBar: ConvexAppBar(
           gradient: const LinearGradient(colors: [
-            Color.fromARGB(255, 20, 5, 44),
+            Color.fromARGB(255, 0, 0, 0),
             Color.fromARGB(255, 2, 1, 3),
           ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
           // ignore: prefer_const_literals_to_create_immutables

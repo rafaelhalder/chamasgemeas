@@ -1,6 +1,12 @@
 import 'package:flutter/services.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
+class Coins {
+  static const idCoins1 = 'coins';
+
+  static const allIds = [idCoins1];
+}
+
 class PurchaseApi {
   static const _apiKey = 'goog_FccwpagdaFLZlMkVbnsNqeqTdEa';
 
@@ -9,15 +15,25 @@ class PurchaseApi {
     await Purchases.setup(_apiKey);
   }
 
-  static Future<List<Offering>> fetchOffers() async {
+  static Future<List<Offering>> fetchOffersByIds(List<String> ids) async {
+    final offers = await fetchOffers();
+
+    return offers.where((offer) => ids.contains(offer.identifier)).toList();
+  }
+
+  static Future<List<Offering>> fetchOffers({bool all = true}) async {
     try {
       final offerings = await Purchases.getOfferings();
-      print(offerings);
-      final current = offerings.current;
-      print(current);
 
-      return current == null ? [] : [current];
-    } on PlatformException {
+      if (!all) {
+        final current = offerings.current;
+
+        return current == null ? [] : [current];
+      } else {
+        return offerings.all.values.toList();
+      }
+    } on PlatformException catch (e) {
+      print(e);
       return [];
     }
   }

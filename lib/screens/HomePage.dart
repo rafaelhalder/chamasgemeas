@@ -13,6 +13,7 @@ import 'package:flutterfire_ui/firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 
 import '../paywall_widget.dart';
 
@@ -66,7 +67,7 @@ class _HomePageState extends State<HomePage> {
           bottomNavigationBar: ConvexAppBar.badge(
             const {4: Colors.redAccent},
             gradient: const LinearGradient(colors: [
-              Color.fromARGB(255, 20, 5, 44),
+              Color.fromARGB(255, 0, 0, 0),
               Color.fromARGB(255, 2, 1, 3),
             ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
             // ignore: prefer_const_literals_to_create_immutables
@@ -169,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                 actions: [
                   Builder(
                     builder: (context) => IconButton(
-                      icon: const Icon(Icons.menu_rounded),
+                      icon: const Icon(Icons.list_outlined),
                       onPressed: () => Navigator.pushNamed(context, '/filter'),
                     ),
                   )
@@ -416,9 +417,8 @@ class _HomePageState extends State<HomePage> {
                                               children: [
                                                 GestureDetector(
                                                   onTap: () async {
-                                                    fetchOffers();
-                                                    // superLike(
-                                                    //     userUid, userName);
+                                                    superLike(
+                                                        userUid, userName);
                                                   },
                                                   child: Container(
                                                       height: boxInfo / 2.5,
@@ -824,7 +824,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future fetchOffers() async {
-    final offerings = await PurchaseApi.fetchOffers();
+    final offerings = await PurchaseApi.fetchOffersByIds(Coins.allIds);
 
     if (offerings.isEmpty) {
       ScaffoldMessenger.of(context)
@@ -844,7 +844,12 @@ class _HomePageState extends State<HomePage> {
             title: 'Chamas Premium',
             description: 'Veja quem te curtiu.',
             onClickedPackage: (package) async {
-              await PurchaseApi.purchasePackage(package);
+              final isSuccess = await PurchaseApi.purchasePackage(package);
+
+              if (isSuccess) {
+                await addCoinsPackag2e(package);
+              }
+
               Navigator.pop(context);
             }),
       );
@@ -854,8 +859,39 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  Future<void> addCoinsPackag2e(Package package) async {
+    String? uid = FirebaseAuth.instance.currentUser?.uid;
+
+    final foundLikeMe =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    int coins = foundLikeMe['coin'];
+
+    switch (package.offeringIdentifier) {
+      case Coins.idCoins1:
+        coins += 1;
+        break;
+      default:
+        break;
+    }
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .update({'coin': coins});
+  }
+
   superLike(String likedUid, String userName) async {
     setState(() {});
+    final verifyCoin =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    int coins = verifyCoin['coin'];
+    print(coins);
+    if (coins == 0) {
+      fetchOffers();
+      return null;
+    }
 
     Size size = MediaQuery.of(context).size;
     String urlPhotoLiked = '';
@@ -1009,6 +1045,11 @@ class _HomePageState extends State<HomePage> {
                                   .doc(likedUid)
                                   .set({"id": superLikedMe});
 
+                              await FirebaseFirestore.instance
+                                  .collection('users')
+                                  .doc(user?.uid)
+                                  .update({'coin': coins - 1});
+
                               usersLikedMe.contains(likedUid)
                                   ? await chats
                                       .where('users.$uid', isEqualTo: 1)
@@ -1124,11 +1165,6 @@ class _HomePageState extends State<HomePage> {
                                         },
                                       )
                                       .catchError((error) {});
-                              // await FirebaseFirestore.instance
-                              //     .collection('users')
-                              //     .doc(user?.uid)
-                              //     .update({'aboutMe': superLikeText});
-
                             }
                             Navigator.of(context).pop();
                           },

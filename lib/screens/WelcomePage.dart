@@ -199,6 +199,7 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 27, 27, 27),
         title: Text("Chamas Gêmeas"),
       ),
       body: IntroductionScreen(

@@ -69,6 +69,7 @@ dependencies:
   purchases_flutter: ^3.10.0
   basic_utils: ^4.3.0
   modal_bottom_sheet: ^2.1.0
+  provider: 
 
 dev_dependencies:
   flutter_test:

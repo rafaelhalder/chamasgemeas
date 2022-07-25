@@ -53,13 +53,14 @@ class _SuperLikeState extends State<SuperLike> {
     return Scaffold(
         appBar: AppBar(
           leading: const Text(''),
-          title: const Text("Super Like"),
+          title:
+              const Text("Super Like", style: TextStyle(color: Colors.white)),
           centerTitle: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: const Color.fromARGB(255, 27, 27, 27),
         ),
         bottomNavigationBar: ConvexAppBar(
           gradient: const LinearGradient(colors: [
-            Color.fromARGB(255, 20, 5, 44),
+            Color.fromARGB(255, 0, 0, 0),
             Color.fromARGB(255, 2, 1, 3),
           ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
           // ignore: prefer_const_literals_to_create_immutables
@@ -170,7 +171,10 @@ class _SuperLikeState extends State<SuperLike> {
                                 return Container(
                                   padding: const EdgeInsets.all(20),
                                   child: const Center(
-                                      child: Text('Sem Superlikes recebidos')),
+                                      child: Text(
+                                    'Sem Superlikes recebidos',
+                                    style: TextStyle(color: Colors.white),
+                                  )),
                                 );
                               }
                               return Container(
@@ -178,7 +182,9 @@ class _SuperLikeState extends State<SuperLike> {
                                   children: [
                                     const Padding(
                                       padding: EdgeInsets.all(8.0),
-                                      child: Text('Recebidos'),
+                                      child: Text('Recebidos',
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                     ListView.builder(
                                         shrinkWrap: true,
@@ -261,7 +267,8 @@ class _SuperLikeState extends State<SuperLike> {
                                 ),
                               );
                             } else if (snapshot.hasError) {
-                              return const Text('error');
+                              return const Text('error',
+                                  style: TextStyle(color: Colors.white));
                             } else {
                               return const Center(
                                   child: CircularProgressIndicator());
@@ -280,7 +287,9 @@ class _SuperLikeState extends State<SuperLike> {
                                 return Container(
                                   padding: const EdgeInsets.all(20),
                                   child: const Center(
-                                      child: Text('Sem Superlikes enviados')),
+                                      child: Text('Sem Superlikes enviados',
+                                          style:
+                                              TextStyle(color: Colors.white))),
                                 );
                               }
                               return Column(
@@ -288,7 +297,8 @@ class _SuperLikeState extends State<SuperLike> {
                                 children: [
                                   const Padding(
                                     padding: EdgeInsets.all(8.0),
-                                    child: Text('Enviados'),
+                                    child: Text('Enviados',
+                                        style: TextStyle(color: Colors.white)),
                                   ),
                                   ListView.builder(
                                       shrinkWrap: true,
@@ -365,7 +375,8 @@ class _SuperLikeState extends State<SuperLike> {
                                 ],
                               );
                             } else if (snapshot.hasError) {
-                              return const Text('error');
+                              return const Text('error',
+                                  style: TextStyle(color: Colors.white));
                             } else {
                               return const Center(
                                   child: CircularProgressIndicator());
