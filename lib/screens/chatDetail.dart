@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
-import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_2.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -42,7 +41,7 @@ class _ChatDetailState extends State<ChatDetail> {
   void checkUser() async {
     await chats
         .where('users.$currentUserId', isEqualTo: 1)
-        .where('users.$friendUid', whereIn: [1,2])
+        .where('users.$friendUid', whereIn: [1, 2])
         .limit(1)
         .get()
         .then(
@@ -102,8 +101,7 @@ class _ChatDetailState extends State<ChatDetail> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: const Color.fromARGB(255, 27, 27, 27),
-
+      color: const Color.fromARGB(255, 27, 27, 27),
       child: StreamBuilder<QuerySnapshot>(
         stream: chats
             .doc(chatDocId)
@@ -120,7 +118,8 @@ class _ChatDetailState extends State<ChatDetail> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: DefaultTextStyle(
-                  style: TextStyle(color: Colors.grey), child: Text("Loading")),
+                  style: TextStyle(color: Colors.grey),
+                  child: Text("Carregando")),
             );
           }
 
@@ -131,8 +130,7 @@ class _ChatDetailState extends State<ChatDetail> {
                 child: SizedBox(
                   height: 110,
                   child: CupertinoNavigationBar(
-        backgroundColor: const Color.fromARGB(255, 27, 27, 27),
-
+                    backgroundColor: const Color.fromARGB(255, 27, 27, 27),
                     middle: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -144,7 +142,8 @@ class _ChatDetailState extends State<ChatDetail> {
                               borderRadius: BorderRadius.circular(50),
                               child: CachedNetworkImage(
                                 fadeInDuration: const Duration(milliseconds: 0),
-                                fadeOutDuration: const Duration(milliseconds: 0),
+                                fadeOutDuration:
+                                    const Duration(milliseconds: 0),
                                 fit: BoxFit.cover,
                                 imageUrl: photo,
                                 width: 80,
@@ -154,7 +153,10 @@ class _ChatDetailState extends State<ChatDetail> {
                         const SizedBox(
                           width: 5,
                         ),
-                        Text(friendName,style: TextStyle(color: Colors.white),),
+                        Text(
+                          friendName,
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ],
                     ),
                     previousPageTitle: "",
@@ -162,7 +164,7 @@ class _ChatDetailState extends State<ChatDetail> {
                 ),
               ),
               body: Container(
-        color: const Color.fromARGB(255, 27, 27, 27),
+                color: const Color.fromARGB(255, 27, 27, 27),
                 child: SafeArea(
                   child: Column(
                     children: [
@@ -173,10 +175,10 @@ class _ChatDetailState extends State<ChatDetail> {
                             (DocumentSnapshot document) {
                               Map<String, dynamic> data =
                                   document.data() as Map<String, dynamic>;
-                                print(data['uid'].toString());
+                              print(data['uid'].toString());
                               return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 15.0),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15.0),
                                 child: ChatBubble(
                                   elevation: 1,
                                   clipper: ChatBubbleClipper1(
@@ -188,15 +190,18 @@ class _ChatDetailState extends State<ChatDetail> {
                                         ? BubbleType.sendBubble
                                         : BubbleType.receiverBubble,
                                   ),
-                                  alignment: getAlignment(data['uid'].toString()),
+                                  alignment:
+                                      getAlignment(data['uid'].toString()),
                                   margin: const EdgeInsets.only(top: 20),
-                                  backGroundColor: isSender(data['uid'].toString())
-                                      ? const Color.fromRGBO(0, 93, 75, 1)
-                                      : const Color.fromRGBO(31, 44, 52, 1),
+                                  backGroundColor:
+                                      isSender(data['uid'].toString())
+                                          ? const Color.fromRGBO(0, 93, 75, 1)
+                                          : const Color.fromRGBO(31, 44, 52, 1),
                                   child: Container(
                                     constraints: BoxConstraints(
                                       maxWidth:
-                                          MediaQuery.of(context).size.width * 0.7,
+                                          MediaQuery.of(context).size.width *
+                                              0.7,
                                     ),
                                     child: Column(
                                       children: [
@@ -206,15 +211,16 @@ class _ChatDetailState extends State<ChatDetail> {
                                           children: [
                                             DefaultTextStyle(
                                               style: GoogleFonts.raleway(
-                                                color:
-                                                    isSender(data['uid'].toString())
-                                                        ? Colors.white
-                                                        : Colors.white,
+                                                color: isSender(
+                                                        data['uid'].toString())
+                                                    ? Colors.white
+                                                    : Colors.white,
                                                 fontSize: 15,
                                               ),
                                               child: Padding(
-                                                padding: const EdgeInsets.symmetric(
-                                                    horizontal: 4),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 4),
                                                 child: Text(data['msg'],
                                                     maxLines: 100,
                                                     overflow:
@@ -224,24 +230,27 @@ class _ChatDetailState extends State<ChatDetail> {
                                           ],
                                         ),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
                                           children: [
                                             DefaultTextStyle(
                                               style: GoogleFonts.raleway(
-                                                color:
-                                                    isSender(data['uid'].toString())
-                                                        ? const Color.fromARGB(
-                                                            255, 200, 200, 200)
-                                                        : const Color.fromARGB(
-                                                            255, 200, 200, 200),
+                                                color: isSender(
+                                                        data['uid'].toString())
+                                                    ? const Color.fromARGB(
+                                                        255, 200, 200, 200)
+                                                    : const Color.fromARGB(
+                                                        255, 200, 200, 200),
                                                 fontSize: 10,
                                               ),
                                               child: Text(
                                                 data['createdOn'] == null
                                                     ? DateFormat('hh:mm a')
                                                         .format(DateTime.now())
-                                                    : DateFormat('hh:mm a').format(
-                                                        data['createdOn'].toDate()),
+                                                    : DateFormat('hh:mm a')
+                                                        .format(
+                                                            data['createdOn']
+                                                                .toDate()),
                                               ),
                                             )
                                           ],
@@ -277,7 +286,8 @@ class _ChatDetailState extends State<ChatDetail> {
                           ),
                           CupertinoButton(
                               child: const Icon(Icons.send_sharp),
-                              onPressed: () => sendMessage(_textController.text))
+                              onPressed: () =>
+                                  sendMessage(_textController.text))
                         ],
                       )
                     ],

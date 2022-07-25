@@ -52,6 +52,7 @@ abstract class _ChatState with Store {
             querySnapshot.docs.forEach((docs) {
               if (docs['uid'] == doc['key']) {
                 doc['photo'] = docs["photos"][0]['url'];
+                print(docs['photo']);
               }
             });
 
