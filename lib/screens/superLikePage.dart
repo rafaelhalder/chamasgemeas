@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chamasgemeas/screens/preferencePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:cupertino_list_tile/cupertino_list_tile.dart';
@@ -75,7 +76,7 @@ class _SuperLikeState extends State<SuperLike> {
                 activeIcon: Icon(Icons.star, color: Colors.black),
                 icon:
                     Icon(Icons.star, color: Color.fromARGB(255, 204, 171, 123)),
-                title: 'Super like'),
+                title: 'Super'),
             const TabItem(
                 activeIcon: Icon(Icons.person, color: Colors.black),
                 icon: Icon(Icons.person,
@@ -85,7 +86,12 @@ class _SuperLikeState extends State<SuperLike> {
                 activeIcon: Icon(Icons.message, color: Colors.black),
                 icon: Icon(Icons.message,
                     color: Color.fromARGB(255, 204, 171, 123)),
-                title: 'Mensagens'),
+                title: 'Msg'),
+            const TabItem(
+                activeIcon: Icon(Icons.settings, color: Colors.black),
+                icon: Icon(Icons.settings,
+                    color: Color.fromARGB(255, 204, 171, 123)),
+                title: 'Opções'),
           ],
           initialActiveIndex: 1, //optional, default as 0
           onTap: (int i) {
@@ -128,6 +134,17 @@ class _SuperLikeState extends State<SuperLike> {
                     PageRouteBuilder(
                       pageBuilder: (context, animation1, animation2) =>
                           const Chats(),
+                      transitionDuration: Duration.zero,
+                      reverseTransitionDuration: Duration.zero,
+                    ),
+                  )
+                : const Text('');
+            i == 4
+                ? Navigator.pushReplacement(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation1, animation2) =>
+                          const PreferencePage(),
                       transitionDuration: Duration.zero,
                       reverseTransitionDuration: Duration.zero,
                     ),

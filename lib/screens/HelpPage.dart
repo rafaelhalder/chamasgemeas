@@ -1,5 +1,6 @@
 import 'package:chamasgemeas/screens/HomePage.dart';
 import 'package:chamasgemeas/screens/chats.dart';
+import 'package:chamasgemeas/screens/preferencePage.dart';
 import 'package:chamasgemeas/screens/profilePage.dart';
 import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:chamasgemeas/services/auth_service.dart';
@@ -9,19 +10,22 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class PreferencePage extends StatefulWidget {
-  const PreferencePage({Key? key}) : super(key: key);
+class HelpPage extends StatefulWidget {
+  const HelpPage({Key? key}) : super(key: key);
 
   @override
-  State<PreferencePage> createState() => _PreferencePageState();
+  State<HelpPage> createState() => _HelpPageState();
 }
 
-class _PreferencePageState extends State<PreferencePage> {
+class _HelpPageState extends State<HelpPage> {
   double _value = 0;
   double _startValue = 0;
   double _endValue = 0;
   String? uid = FirebaseAuth.instance.currentUser?.uid;
+  var user = FirebaseAuth.instance.currentUser;
+  final Uri _url = Uri.parse('https://chamasgemeas.com');
 
   @override
   void initState() {
@@ -33,6 +37,39 @@ class _PreferencePageState extends State<PreferencePage> {
   @override
   Widget build(BuildContext context) {
     int columnCount = 3;
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text("Não", style: TextStyle(color: Colors.white)),
+      onPressed: () {},
+    );
+    Widget continueButton = TextButton(
+      child: Text("Sim", style: TextStyle(color: Colors.red)),
+      onPressed: () async {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(uid)
+            .update({'status': false});
+        user?.delete();
+        await AuthService().signOut();
+        SystemNavigator.pop();
+      },
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      backgroundColor: Colors.black,
+      shape: RoundedRectangleBorder(
+          side: BorderSide(color: Color.fromARGB(255, 204, 171, 123))),
+      elevation: 2,
+      title: Text("Aviso!", style: TextStyle(color: Colors.white)),
+      content: Text(
+        "Deseja deletar sua conta?",
+        style: TextStyle(color: Colors.white),
+      ),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
@@ -150,7 +187,7 @@ class _PreferencePageState extends State<PreferencePage> {
                     child: Container(
                       child: Center(
                           child: Text(
-                        'Configurações',
+                        'Privacidade',
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -174,7 +211,7 @@ class _PreferencePageState extends State<PreferencePage> {
                             child: FadeInAnimation(
                               child: GestureDetector(
                                 onTap: () {
-                                  Navigator.pushNamed(context, '/filter');
+                                  _launchUrl();
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -194,7 +231,7 @@ class _PreferencePageState extends State<PreferencePage> {
                                       Icon(Icons.more_horiz_outlined,
                                           size: 35, color: Colors.white),
                                       Text(
-                                        'Preferências',
+                                        'Manual',
                                         style: TextStyle(
                                             fontSize: 18, color: Colors.white),
                                       )
@@ -205,124 +242,6 @@ class _PreferencePageState extends State<PreferencePage> {
                             ),
                           ),
                         ),
-                        AnimationConfiguration.staggeredGrid(
-                          position: 0,
-                          duration: const Duration(milliseconds: 375),
-                          columnCount: columnCount,
-                          child: ScaleAnimation(
-                            child: FadeInAnimation(
-                              child: GestureDetector(
-                                onTap: () async {
-                                  await AuthService().signOut();
-                                  SystemNavigator.pop();
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      color: Colors.transparent,
-                                      border: Border.all(
-                                          color: Color.fromARGB(
-                                              255, 204, 171, 123))),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Icon(Icons.more_horiz_outlined,
-                                          size: 35, color: Colors.white),
-                                      Text(
-                                        'Logout',
-                                        style: TextStyle(
-                                            fontSize: 18, color: Colors.white),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        AnimationConfiguration.staggeredGrid(
-                          position: 0,
-                          duration: const Duration(milliseconds: 375),
-                          columnCount: columnCount,
-                          child: ScaleAnimation(
-                            child: FadeInAnimation(
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(context, '/privacidade');
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      color: Colors.transparent,
-                                      border: Border.all(
-                                          color: Color.fromARGB(
-                                              255, 204, 171, 123))),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Icon(Icons.more_horiz_outlined,
-                                          size: 35, color: Colors.white),
-                                      Text(
-                                        'Privacidade',
-                                        style: TextStyle(
-                                            fontSize: 18, color: Colors.white),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        AnimationConfiguration.staggeredGrid(
-                          position: 0,
-                          duration: const Duration(milliseconds: 375),
-                          columnCount: columnCount,
-                          child: ScaleAnimation(
-                            child: FadeInAnimation(
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(context, '/help');
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      color: Colors.transparent,
-                                      border: Border.all(
-                                          color: Color.fromARGB(
-                                              255, 204, 171, 123))),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Icon(Icons.more_horiz_outlined,
-                                          size: 35, color: Colors.white),
-                                      Text(
-                                        'Ajuda',
-                                        style: TextStyle(
-                                            fontSize: 18, color: Colors.white),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
                       ],
                     ),
                   ),
@@ -333,6 +252,10 @@ class _PreferencePageState extends State<PreferencePage> {
         ),
       ),
     );
+  }
+
+  void _launchUrl() async {
+    if (!await launchUrl(_url)) throw 'Could not launch $_url';
   }
 
   void getFilters() async {

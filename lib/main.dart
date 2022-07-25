@@ -1,3 +1,4 @@
+import 'package:chamasgemeas/screens/HelpPage.dart';
 import 'package:chamasgemeas/screens/HomePage.dart';
 import 'package:chamasgemeas/screens/LoginPage.dart';
 import 'package:chamasgemeas/screens/PrivacidadePage.dart';
@@ -77,6 +78,7 @@ class MyApp extends StatelessWidget {
         '/likeMe': (context) => const LikedMePage(),
         '/preference': (context) => const PreferencePage(),
         '/privacidade': (context) => const PrivacidadePage(),
+        '/help': (context) => const HelpPage(),
       },
     );
   }

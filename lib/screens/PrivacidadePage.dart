@@ -1,8 +1,16 @@
+import 'package:chamasgemeas/screens/HomePage.dart';
+import 'package:chamasgemeas/screens/chats.dart';
+import 'package:chamasgemeas/screens/preferencePage.dart';
+import 'package:chamasgemeas/screens/profilePage.dart';
+import 'package:chamasgemeas/screens/superLikePage.dart';
+import 'package:chamasgemeas/services/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PrivacidadePage extends StatefulWidget {
   const PrivacidadePage({Key? key}) : super(key: key);
@@ -16,6 +24,8 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
   double _startValue = 0;
   double _endValue = 0;
   String? uid = FirebaseAuth.instance.currentUser?.uid;
+  var user = FirebaseAuth.instance.currentUser;
+  final Uri _url = Uri.parse('https://chamasgemeas.com');
 
   @override
   void initState() {
@@ -29,17 +39,32 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
     int columnCount = 3;
     // set up the buttons
     Widget cancelButton = TextButton(
-      child: Text("Cancel"),
+      child: Text("Não", style: TextStyle(color: Colors.white)),
       onPressed: () {},
     );
     Widget continueButton = TextButton(
-      child: Text("Continue"),
-      onPressed: () {},
+      child: Text("Sim", style: TextStyle(color: Colors.red)),
+      onPressed: () async {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(uid)
+            .update({'status': false});
+        user?.delete();
+        await AuthService().signOut();
+        SystemNavigator.pop();
+      },
     );
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("AlertDialog"),
-      content: Text("Deseja deletar sua conta?"),
+      backgroundColor: Colors.black,
+      shape: RoundedRectangleBorder(
+          side: BorderSide(color: Color.fromARGB(255, 204, 171, 123))),
+      elevation: 2,
+      title: Text("Aviso!", style: TextStyle(color: Colors.white)),
+      content: Text(
+        "Deseja deletar sua conta?",
+        style: TextStyle(color: Colors.white),
+      ),
       actions: [
         cancelButton,
         continueButton,
@@ -57,6 +82,100 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
       child: Container(
         color: const Color.fromARGB(255, 27, 27, 27),
         child: Scaffold(
+          bottomNavigationBar: ConvexAppBar(
+            gradient: const LinearGradient(colors: [
+              Color.fromARGB(255, 0, 0, 0),
+              Color.fromARGB(255, 2, 1, 3),
+            ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+            // ignore: prefer_const_literals_to_create_immutables
+            items: [
+              // ignore: prefer_const_constructors
+              TabItem(
+                  activeIcon: const Icon(Icons.people, color: Colors.black),
+                  icon: const Icon(Icons.people,
+                      color: Color.fromARGB(255, 204, 171, 123)),
+                  title: 'Home'),
+              const TabItem(
+                  activeIcon: Icon(Icons.star, color: Colors.black),
+                  icon: Icon(Icons.star,
+                      color: Color.fromARGB(255, 204, 171, 123)),
+                  title: 'Super'),
+              const TabItem(
+                  activeIcon: Icon(Icons.person, color: Colors.black),
+                  icon: Icon(Icons.person,
+                      color: Color.fromARGB(255, 204, 171, 123)),
+                  title: 'Perfil'),
+              const TabItem(
+                  activeIcon: Icon(Icons.message, color: Colors.black),
+                  icon: Icon(Icons.message,
+                      color: Color.fromARGB(255, 204, 171, 123)),
+                  title: 'Msg'),
+              const TabItem(
+                  activeIcon: Icon(Icons.settings, color: Colors.black),
+                  icon: Icon(Icons.settings,
+                      color: Color.fromARGB(255, 204, 171, 123)),
+                  title: 'Opções'),
+            ],
+            initialActiveIndex: 4, //optional, default as 0
+            onTap: (int i) {
+              i == 0
+                  ? Navigator.pushReplacement(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation1, animation2) =>
+                            const HomePage(),
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                      ),
+                    )
+                  : const Text('');
+              i == 1
+                  ? Navigator.pushReplacement(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation1, animation2) =>
+                            const SuperLike(),
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                      ),
+                    )
+                  : const Text('');
+              i == 2
+                  ? Navigator.pushReplacement(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation1, animation2) =>
+                            const ProfilePage(),
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                      ),
+                    )
+                  : const Text('');
+              i == 3
+                  ? Navigator.pushReplacement(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation1, animation2) =>
+                            const Chats(),
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                      ),
+                    )
+                  : const Text('');
+              i == 4
+                  ? Navigator.pushReplacement(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation1, animation2) =>
+                            const PreferencePage(),
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                      ),
+                    )
+                  : const Text('');
+              print('click index=$i');
+            },
+          ),
           backgroundColor: Colors.transparent,
           body: SafeArea(
             child: Padding(
@@ -92,13 +211,15 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
                             child: FadeInAnimation(
                               child: GestureDetector(
                                 onTap: () {
-                                  Navigator.pushNamed(context, '/filter');
+                                  _launchUrl();
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(15),
                                       color: Colors.transparent,
-                                      border: Border.all(color: Colors.amber)),
+                                      border: Border.all(
+                                          color: Color.fromARGB(
+                                              255, 204, 171, 123))),
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 15),
                                   child: Column(
@@ -140,7 +261,9 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(15),
                                       color: Colors.transparent,
-                                      border: Border.all(color: Colors.amber)),
+                                      border: Border.all(
+                                          color: Color.fromARGB(
+                                              255, 204, 171, 123))),
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 15),
                                   child: Column(
@@ -173,6 +296,10 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
         ),
       ),
     );
+  }
+
+  void _launchUrl() async {
+    if (!await launchUrl(_url)) throw 'Could not launch $_url';
   }
 
   void getFilters() async {

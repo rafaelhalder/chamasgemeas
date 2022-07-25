@@ -29,6 +29,7 @@ class _ChatDetailState extends State<ChatDetail> {
   final currentUserId = FirebaseAuth.instance.currentUser?.uid;
   var chatDocId;
   var photo;
+  var status;
   final _textController = TextEditingController();
   _ChatDetailState(this.friendUid, this.friendName);
   @override
@@ -93,8 +94,10 @@ class _ChatDetailState extends State<ChatDetail> {
 
     List listPhotos = variable['photos'];
     String photoFriend = listPhotos[0]['url'];
+    bool statusperson = variable['status'];
     setState(() {
       photo = photoFriend;
+      status = statusperson;
     });
   }
 
@@ -273,6 +276,7 @@ class _ChatDetailState extends State<ChatDetail> {
                               child: SizedBox(
                                 height: MediaQuery.of(context).size.width * 0.1,
                                 child: CupertinoTextField(
+                                  readOnly: status == true ? false : true,
                                   style: GoogleFonts.raleway(
                                     color: Colors.white,
                                     fontSize: 15,
@@ -284,10 +288,15 @@ class _ChatDetailState extends State<ChatDetail> {
                               ),
                             ),
                           ),
-                          CupertinoButton(
-                              child: const Icon(Icons.send_sharp),
-                              onPressed: () =>
-                                  sendMessage(_textController.text))
+                          status == true
+                              ? CupertinoButton(
+                                  child: const Icon(Icons.send_sharp),
+                                  onPressed: () =>
+                                      sendMessage(_textController.text))
+                              : CupertinoButton(
+                                  child: const Icon(Icons.send_sharp,
+                                      color: Colors.grey),
+                                  onPressed: () => {})
                         ],
                       )
                     ],

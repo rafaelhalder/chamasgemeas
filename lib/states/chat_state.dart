@@ -52,7 +52,7 @@ abstract class _ChatState with Store {
             querySnapshot.docs.forEach((docs) {
               if (docs['uid'] == doc['key']) {
                 doc['photo'] = docs["photos"][0]['url'];
-                print(docs['photo']);
+                doc['status'] = docs['status'];
               }
             });
 
@@ -63,7 +63,7 @@ abstract class _ChatState with Store {
                 'friendName': doc['name'],
                 'friendUid': doc['key'],
                 'photo': doc['photo'],
-                'status': doc['status']
+                'status': doc['status'],
               };
             } else {
               messages[doc['name']] = {
@@ -72,7 +72,7 @@ abstract class _ChatState with Store {
                 'friendName': doc['name'],
                 'friendUid': doc['key'],
                 'photo': doc['photo'],
-                'status': doc['status']
+                'status': doc['status'],
               };
             }
           });

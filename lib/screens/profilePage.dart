@@ -224,7 +224,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 activeIcon: Icon(Icons.star, color: Colors.black),
                 icon:
                     Icon(Icons.star, color: Color.fromARGB(255, 204, 171, 123)),
-                title: 'Super like'),
+                title: 'Super'),
             const TabItem(
                 activeIcon: Icon(Icons.person, color: Colors.black),
                 icon: Icon(Icons.person,
@@ -234,7 +234,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 activeIcon: Icon(Icons.message, color: Colors.black),
                 icon: Icon(Icons.message,
                     color: Color.fromARGB(255, 204, 171, 123)),
-                title: 'Mensagens'),
+                title: 'Msg'),
             const TabItem(
                 activeIcon: Icon(Icons.settings, color: Colors.black),
                 icon: Icon(Icons.settings,

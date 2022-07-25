@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:chamasgemeas/api/purchase_api.dart';
 import 'package:chamasgemeas/screens/chatDetail.dart';
 import 'package:chamasgemeas/screens/chats.dart';
+import 'package:chamasgemeas/screens/preferencePage.dart';
 import 'package:chamasgemeas/screens/profilePage.dart';
 import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -48,539 +49,617 @@ class _HomePageState extends State<HomePage> {
     loadList();
   }
 
+  Future<bool> _onWillPop(BuildContext context) async {
+    bool? exitResult = await showDialog(
+      context: context,
+      builder: (context) => _buildExitDialog(context),
+    );
+    return exitResult ?? false;
+  }
+
+  Future<bool?> _showExitDialog(BuildContext context) async {
+    return await showDialog(
+      context: context,
+      builder: (context) => _buildExitDialog(context),
+    );
+  }
+
+  AlertDialog _buildExitDialog(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: Colors.black,
+      shape: RoundedRectangleBorder(
+          side: BorderSide(color: Color.fromARGB(255, 204, 171, 123))),
+      elevation: 2,
+      title: const Text('Chamas Gemeas', style: TextStyle(color: Colors.white)),
+      content: const Text('Deseja fechar o aplicativo?',
+          style: TextStyle(color: Colors.white)),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(false),
+          child: Text('Não', style: TextStyle(color: Colors.white)),
+        ),
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(true),
+          child: Text('Sim', style: TextStyle(color: Colors.white)),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double boxInfo = size.height / 6.15;
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        systemNavigationBarIconBrightness: Brightness.light,
-        statusBarIconBrightness: Brightness.light,
-        statusBarBrightness: Brightness.light,
-        statusBarColor: Colors.black,
-        systemNavigationBarColor: Colors.black,
-      ),
-      child: Container(
-        color: const Color.fromARGB(255, 27, 27, 27),
-        // decoration: BoxDecoration(gradient: backgroundnew()),
-        child: Scaffold(
-          extendBodyBehindAppBar: true,
-          backgroundColor: Colors.transparent,
-          bottomNavigationBar: ConvexAppBar.badge(
-            const {4: Colors.redAccent},
-            gradient: const LinearGradient(colors: [
-              Color.fromARGB(255, 0, 0, 0),
-              Color.fromARGB(255, 2, 1, 3),
-            ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-            // ignore: prefer_const_literals_to_create_immutables
-            items: [
-              // ignore: prefer_const_constructors
-              TabItem(
-                  activeIcon: const Icon(Icons.people, color: Colors.black),
-                  icon: const Icon(Icons.people,
-                      color: Color.fromARGB(255, 204, 171, 123)),
-                  title: 'Home'),
-              const TabItem(
-                  activeIcon: Icon(Icons.star, color: Colors.black),
-                  icon: Icon(Icons.star,
-                      color: Color.fromARGB(255, 204, 171, 123)),
-                  title: 'Super like'),
-              const TabItem(
-                  activeIcon: Icon(Icons.person, color: Colors.black),
-                  icon: Icon(Icons.person,
-                      color: Color.fromARGB(255, 204, 171, 123)),
-                  title: 'Perfil'),
-              const TabItem(
-                  activeIcon: Icon(Icons.message, color: Colors.black),
-                  icon: Icon(Icons.message,
-                      color: Color.fromARGB(255, 204, 171, 123)),
-                  title: 'Mensagens'),
-            ],
-            initialActiveIndex: 0, //optional, default as 0
-            onTap: (int i) {
-              i == 0
-                  ? Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            const HomePage(),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
-                    )
-                  : const Text('');
-              i == 1
-                  ? Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            SuperLike(),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
-                    )
-                  : const Text('');
-              i == 2
-                  ? Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            // Container(),
-                            const ProfilePage(),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
-                    )
-                  : const Text('');
-              i == 3
-                  ? Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            // Container(),
-                            const Chats(),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
-                    )
-                  : const Text('');
+    return WillPopScope(
+      onWillPop: () => _onWillPop(context),
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: const SystemUiOverlayStyle(
+          systemNavigationBarIconBrightness: Brightness.light,
+          statusBarIconBrightness: Brightness.light,
+          statusBarBrightness: Brightness.light,
+          statusBarColor: Colors.black,
+          systemNavigationBarColor: Colors.black,
+        ),
+        child: Container(
+          color: const Color.fromARGB(255, 27, 27, 27),
+          // decoration: BoxDecoration(gradient: backgroundnew()),
+          child: Scaffold(
+            extendBodyBehindAppBar: true,
+            backgroundColor: Colors.transparent,
+            bottomNavigationBar: ConvexAppBar.badge(
+              const {5: Colors.redAccent},
+              gradient: const LinearGradient(colors: [
+                Color.fromARGB(255, 0, 0, 0),
+                Color.fromARGB(255, 2, 1, 3),
+              ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+              // ignore: prefer_const_literals_to_create_immutables
+              items: [
+                // ignore: prefer_const_constructors
+                TabItem(
+                    activeIcon: const Icon(Icons.people, color: Colors.black),
+                    icon: const Icon(Icons.people,
+                        color: Color.fromARGB(255, 204, 171, 123)),
+                    title: 'Home'),
+                const TabItem(
+                    activeIcon: Icon(Icons.star, color: Colors.black),
+                    icon: Icon(Icons.star,
+                        color: Color.fromARGB(255, 204, 171, 123)),
+                    title: 'Super'),
+                const TabItem(
+                    activeIcon: Icon(Icons.person, color: Colors.black),
+                    icon: Icon(Icons.person,
+                        color: Color.fromARGB(255, 204, 171, 123)),
+                    title: 'Perfil'),
+                const TabItem(
+                    activeIcon: Icon(Icons.message, color: Colors.black),
+                    icon: Icon(Icons.message,
+                        color: Color.fromARGB(255, 204, 171, 123)),
+                    title: 'Msg'),
+                const TabItem(
+                    activeIcon: Icon(Icons.settings, color: Colors.black),
+                    icon: Icon(Icons.settings,
+                        color: Color.fromARGB(255, 204, 171, 123)),
+                    title: 'Opções'),
+              ],
+              initialActiveIndex: 0, //optional, default as 0
+              onTap: (int i) {
+                i == 0
+                    ? Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              const HomePage(),
+                          transitionDuration: Duration.zero,
+                          reverseTransitionDuration: Duration.zero,
+                        ),
+                      )
+                    : const Text('');
+                i == 1
+                    ? Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              SuperLike(),
+                          transitionDuration: Duration.zero,
+                          reverseTransitionDuration: Duration.zero,
+                        ),
+                      )
+                    : const Text('');
+                i == 2
+                    ? Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              // Container(),
+                              const ProfilePage(),
+                          transitionDuration: Duration.zero,
+                          reverseTransitionDuration: Duration.zero,
+                        ),
+                      )
+                    : const Text('');
+                i == 3
+                    ? Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              // Container(),
+                              const Chats(),
+                          transitionDuration: Duration.zero,
+                          reverseTransitionDuration: Duration.zero,
+                        ),
+                      )
+                    : const Text('');
+                i == 4
+                    ? Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              const PreferencePage(),
+                          transitionDuration: Duration.zero,
+                          reverseTransitionDuration: Duration.zero,
+                        ),
+                      )
+                    : const Text('');
 
-              print('click index=$i');
-            },
-          ),
-          body: NestedScrollView(
-            floatHeaderSlivers: true,
-            headerSliverBuilder: (context, _) => [
-              SliverAppBar(
-                automaticallyImplyLeading: false,
-                backgroundColor: const Color.fromARGB(255, 27, 27, 27),
-                leading: Image.asset(
-                  'assets/images/logo.png',
-                  height: 45,
-                ),
-                title: IconButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/likeMe');
-                  },
-                  icon: const FaIcon(FontAwesomeIcons.solidHeart,
-                      color: Colors.red),
-                ),
-                centerTitle: true,
-                leadingWidth: size.width,
-                snap: true,
-                floating: true,
-                actions: [
-                  Builder(
-                    builder: (context) => IconButton(
-                      icon: const Icon(Icons.list_outlined),
-                      onPressed: () => Navigator.pushNamed(context, '/filter'),
-                    ),
-                  )
-                ],
-              )
-            ],
-            body: FirestoreListView<Map<String, dynamic>>(
-                padding: EdgeInsets.zero,
-                query: listUsers(),
-                itemBuilder: (context, snapshot) {
-                  Map<String, dynamic> user = snapshot.data();
-                  List userList = user['photos'];
-                  List newList = [];
-                  for (int i = 0; i < userList.length; i++) {
-                    if (userList[i]['name'] != 'nulo') {
-                      newList.add(userList[i]['url']);
+                print('click index=$i');
+              },
+            ),
+            body: NestedScrollView(
+              floatHeaderSlivers: true,
+              headerSliverBuilder: (context, _) => [
+                SliverAppBar(
+                  automaticallyImplyLeading: false,
+                  backgroundColor: const Color.fromARGB(255, 27, 27, 27),
+                  leading: Image.asset(
+                    'assets/images/logo.png',
+                    height: 45,
+                  ),
+                  title: IconButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/likeMe');
+                    },
+                    icon: const FaIcon(FontAwesomeIcons.solidHeart,
+                        color: Colors.red),
+                  ),
+                  centerTitle: true,
+                  leadingWidth: size.width,
+                  snap: true,
+                  floating: true,
+                  actions: [
+                    Builder(
+                      builder: (context) => IconButton(
+                        icon: const Icon(Icons.list_outlined),
+                        onPressed: () =>
+                            Navigator.pushNamed(context, '/filter'),
+                      ),
+                    )
+                  ],
+                )
+              ],
+              body: FirestoreListView<Map<String, dynamic>>(
+                  padding: EdgeInsets.zero,
+                  query: listUsers(),
+                  itemBuilder: (context, snapshot) {
+                    Map<String, dynamic> user = snapshot.data();
+                    List userList = user['photos'];
+                    List newList = [];
+                    for (int i = 0; i < userList.length; i++) {
+                      if (userList[i]['name'] != 'nulo') {
+                        newList.add(userList[i]['url']);
+                      }
                     }
-                  }
-                  String userUid = user['uid'];
-                  String userName = user['name'];
-                  String userOccupation = user['occupation'];
-                  int userAge = user['age'];
-                  int ageStartFilter = 0;
-                  if (listFilterAge[0] != '') {
-                    if (listFilterAge[0] != 0) {
-                      ageStartFilter =
-                          double.parse(listFilterAge[0].toString()).round();
+                    String userUid = user['uid'];
+                    String userName = user['name'];
+                    String userOccupation = user['occupation'];
+                    int userAge = user['age'];
+                    int ageStartFilter = 0;
+                    if (listFilterAge[0] != '') {
+                      if (listFilterAge[0] != 0) {
+                        ageStartFilter =
+                            double.parse(listFilterAge[0].toString()).round();
+                      }
                     }
-                  }
-                  int ageEndFilter =
-                      double.parse(listFilterAge[1].toString()).round();
-                  // if (userUid != uid) {
-                  //   return Container();
-                  // } else {
-                  if (userUid == uid ||
-                      userAge > ageEndFilter ||
-                      userAge < ageStartFilter) {
-                    return Container();
-                  } else {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 25),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: size.height / 1.3,
-                            width: size.width / 1,
-                            decoration: BoxDecoration(
-                                color: const Color.fromARGB(255, 27, 27, 27),
-                                border: Border.all(
-                                    color: const Color.fromARGB(
-                                        90, 133, 133, 133)),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Column(
-                              children: [
-                                GestureDetector(
-                                  onTap: () async {
-                                    String? uid =
-                                        FirebaseAuth.instance.currentUser?.uid;
+                    int ageEndFilter =
+                        double.parse(listFilterAge[1].toString()).round();
+                    // if (userUid != uid) {
+                    //   return Container();
+                    // } else {
+                    if (userUid == uid ||
+                        userAge > ageEndFilter ||
+                        userAge < ageStartFilter) {
+                      return Container();
+                    } else {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 25),
+                        child: Column(
+                          children: [
+                            Container(
+                              height: size.height / 1.3,
+                              width: size.width / 1,
+                              decoration: BoxDecoration(
+                                  color: const Color.fromARGB(255, 27, 27, 27),
+                                  border: Border.all(
+                                      color: const Color.fromARGB(
+                                          90, 133, 133, 133)),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Column(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () async {
+                                      String? uid = FirebaseAuth
+                                          .instance.currentUser?.uid;
 
-                                    DocumentSnapshot variable =
-                                        await FirebaseFirestore.instance
-                                            .collection('users')
-                                            .doc(uid)
-                                            .get();
+                                      DocumentSnapshot variable =
+                                          await FirebaseFirestore.instance
+                                              .collection('users')
+                                              .doc(uid)
+                                              .get();
 
-                                    String lat = variable['latitude'];
-                                    String lng = variable['longitude'];
+                                      String lat = variable['latitude'];
+                                      String lng = variable['longitude'];
 
-                                    Navigator.pushNamed(context, '/userPage',
-                                        arguments: {
-                                          "uid": userUid,
-                                          'name': userName,
-                                          'info': user,
-                                          'lat': lat,
-                                          'lng': lng,
-                                        });
-                                  },
-                                  child: ClipPath(
-                                    clipper: CustomClipPath(),
-                                    child: Container(
-                                      height: size.height / 1.7,
-                                      width: size.width,
-                                      decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                            topRight: Radius.circular(10),
-                                            topLeft: Radius.circular(10),
-                                          ),
-                                          color:
-                                              Color.fromARGB(255, 27, 27, 27)),
-                                      child: ClipRRect(
-                                          borderRadius: const BorderRadius.only(
-                                            topRight: Radius.circular(10),
-                                            topLeft: Radius.circular(10),
-                                          ),
-                                          child: CarouselSlider.builder(
-                                            carouselController: _controller,
-                                            options: CarouselOptions(
-                                                height: size.height / 1.6,
-                                                autoPlay: false,
-                                                autoPlayInterval:
-                                                    const Duration(seconds: 30),
-                                                reverse: false,
-                                                viewportFraction: 1,
-                                                aspectRatio: 2.0,
-                                                initialPage: 0,
-                                                enableInfiniteScroll: true,
-                                                autoPlayAnimationDuration:
-                                                    const Duration(
-                                                        milliseconds: 30000),
-                                                autoPlayCurve:
-                                                    Curves.fastOutSlowIn,
-                                                scrollDirection:
-                                                    Axis.horizontal,
-                                                onPageChanged: (index, reason) {
-                                                  setState(() {
-                                                    _current = index;
-                                                  });
-                                                }),
-                                            itemCount: newList.length,
-                                            itemBuilder: (context, itemIndex,
-                                                realIndex) {
-                                              return CachedNetworkImage(
-                                                fadeInDuration: const Duration(
-                                                    milliseconds: 0),
-                                                fadeOutDuration: const Duration(
-                                                    milliseconds: 0),
-                                                width: size.width,
-                                                height: size.height,
-                                                fit: BoxFit.cover,
-                                                imageUrl: newList[itemIndex]
-                                                    .toString(),
-                                              );
-                                            },
-                                          )),
+                                      Navigator.pushNamed(context, '/userPage',
+                                          arguments: {
+                                            "uid": userUid,
+                                            'name': userName,
+                                            'info': user,
+                                            'lat': lat,
+                                            'lng': lng,
+                                          });
+                                    },
+                                    child: ClipPath(
+                                      clipper: CustomClipPath(),
+                                      child: Container(
+                                        height: size.height / 1.7,
+                                        width: size.width,
+                                        decoration: const BoxDecoration(
+                                            borderRadius: BorderRadius.only(
+                                              topRight: Radius.circular(10),
+                                              topLeft: Radius.circular(10),
+                                            ),
+                                            color: Color.fromARGB(
+                                                255, 27, 27, 27)),
+                                        child: ClipRRect(
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              topRight: Radius.circular(10),
+                                              topLeft: Radius.circular(10),
+                                            ),
+                                            child: CarouselSlider.builder(
+                                              carouselController: _controller,
+                                              options: CarouselOptions(
+                                                  height: size.height / 1.6,
+                                                  autoPlay: false,
+                                                  autoPlayInterval:
+                                                      const Duration(
+                                                          seconds: 30),
+                                                  reverse: false,
+                                                  viewportFraction: 1,
+                                                  aspectRatio: 2.0,
+                                                  initialPage: 0,
+                                                  enableInfiniteScroll: true,
+                                                  autoPlayAnimationDuration:
+                                                      const Duration(
+                                                          milliseconds: 30000),
+                                                  autoPlayCurve:
+                                                      Curves.fastOutSlowIn,
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  onPageChanged:
+                                                      (index, reason) {
+                                                    setState(() {
+                                                      _current = index;
+                                                    });
+                                                  }),
+                                              itemCount: newList.length,
+                                              itemBuilder: (context, itemIndex,
+                                                  realIndex) {
+                                                return CachedNetworkImage(
+                                                  fadeInDuration:
+                                                      const Duration(
+                                                          milliseconds: 0),
+                                                  fadeOutDuration:
+                                                      const Duration(
+                                                          milliseconds: 0),
+                                                  width: size.width,
+                                                  height: size.height,
+                                                  fit: BoxFit.cover,
+                                                  imageUrl: newList[itemIndex]
+                                                      .toString(),
+                                                );
+                                              },
+                                            )),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                //                     Row(
-                                //   mainAxisAlignment: MainAxisAlignment.center,
-                                //   children: userList.asMap().entries.map((entry) {
-                                //     return GestureDetector(
-                                //       onTap: () => _controller.animateToPage(entry.key),
-                                //       child: Container(
-                                //         width: 12.0,
-                                //         height: 12.0,
-                                //         margin: EdgeInsets.only(bottom: 8,right: 4,left: 4),
-                                //         decoration: BoxDecoration(
-                                //             shape: BoxShape.circle,
-                                //             color: (Theme.of(context).brightness == Brightness.dark
-                                //                     ? Color.fromARGB(255, 27, 27, 27)
-                                //                     : Colors.black)
-                                //                 .withOpacity(_current == entry.key ? 0.9 : 0.4)),
-                                //       ),
-                                //     );
-                                //   }).toList(),
-                                // ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          width: 0,
-                                          color: const Color.fromARGB(
-                                              255, 27, 27, 27)),
-                                      color:
-                                          const Color.fromARGB(255, 27, 27, 27),
-                                      borderRadius: const BorderRadius.only(
-                                        bottomRight: Radius.circular(10),
-                                        bottomLeft: Radius.circular(10),
-                                      )),
-                                  height: boxInfo,
-                                  width: size.width,
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        alignment: Alignment.centerLeft,
-                                        height: boxInfo / 2,
+                                  //                     Row(
+                                  //   mainAxisAlignment: MainAxisAlignment.center,
+                                  //   children: userList.asMap().entries.map((entry) {
+                                  //     return GestureDetector(
+                                  //       onTap: () => _controller.animateToPage(entry.key),
+                                  //       child: Container(
+                                  //         width: 12.0,
+                                  //         height: 12.0,
+                                  //         margin: EdgeInsets.only(bottom: 8,right: 4,left: 4),
+                                  //         decoration: BoxDecoration(
+                                  //             shape: BoxShape.circle,
+                                  //             color: (Theme.of(context).brightness == Brightness.dark
+                                  //                     ? Color.fromARGB(255, 27, 27, 27)
+                                  //                     : Colors.black)
+                                  //                 .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+                                  //       ),
+                                  //     );
+                                  //   }).toList(),
+                                  // ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            width: 0,
+                                            color: const Color.fromARGB(
+                                                255, 27, 27, 27)),
                                         color: const Color.fromARGB(
                                             255, 27, 27, 27),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 15),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    userName,
-                                                    style: const TextStyle(
-                                                        color: Color.fromARGB(
-                                                            255, 204, 171, 123),
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 12,
-                                                  ),
-                                                  Text(
-                                                    '$userAge',
-                                                    style: const TextStyle(
-                                                        color: Color.fromARGB(
-                                                            255, 204, 171, 123),
-                                                        fontSize: 22,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                height: 3,
-                                              ),
-                                              Text(
-                                                userOccupation,
-                                                style: const TextStyle(
-                                                    color: Color.fromARGB(
-                                                        255, 204, 171, 123),
-                                                    fontSize: 16),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        height: boxInfo / 2,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: 0,
-                                              color: const Color.fromARGB(
-                                                  255, 27, 27, 27)),
+                                        borderRadius: const BorderRadius.only(
+                                          bottomRight: Radius.circular(10),
+                                          bottomLeft: Radius.circular(10),
+                                        )),
+                                    height: boxInfo,
+                                    width: size.width,
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          alignment: Alignment.centerLeft,
+                                          height: boxInfo / 2,
                                           color: const Color.fromARGB(
                                               255, 27, 27, 27),
-                                          borderRadius: const BorderRadius.only(
-                                            bottomRight: Radius.circular(9),
-                                            bottomLeft: Radius.circular(9),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 15),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      userName,
+                                                      style: const TextStyle(
+                                                          color: Color.fromARGB(
+                                                              255,
+                                                              204,
+                                                              171,
+                                                              123),
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 12,
+                                                    ),
+                                                    Text(
+                                                      '$userAge',
+                                                      style: const TextStyle(
+                                                          color: Color.fromARGB(
+                                                              255,
+                                                              204,
+                                                              171,
+                                                              123),
+                                                          fontSize: 22,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(
+                                                  height: 3,
+                                                ),
+                                                Text(
+                                                  userOccupation,
+                                                  style: const TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 204, 171, 123),
+                                                      fontSize: 16),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: [
-                                                GestureDetector(
-                                                  onTap: () async {
-                                                    superLike(
-                                                        userUid, userName);
-                                                  },
-                                                  child: Container(
-                                                      height: boxInfo / 2.5,
-                                                      width: size.width * 0.4,
-                                                      decoration: BoxDecoration(
-                                                          color: !superLikedList
-                                                                  .contains(
-                                                                      userUid)
-                                                              ? const Color
-                                                                      .fromARGB(
-                                                                  255,
-                                                                  204,
-                                                                  171,
-                                                                  123)
-                                                              : Colors.grey,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      20)),
-                                                      child: Center(
-                                                        child: Row(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: const [
-                                                            FaIcon(
-                                                              FontAwesomeIcons
-                                                                  .solidStar,
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                            SizedBox(
-                                                              width: 6,
-                                                            ),
-                                                            Text(
-                                                              'Super Like',
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .black87,
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      )),
-                                                ),
-                                                GestureDetector(
-                                                  onTap: () async {
-                                                    verifyMatch(
-                                                        userUid, userName);
-                                                    setState(() {
-                                                      if (!likedList
-                                                          .contains(userUid)) {
-                                                        likedList.add(userUid);
+                                        Container(
+                                          height: boxInfo / 2,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                width: 0,
+                                                color: const Color.fromARGB(
+                                                    255, 27, 27, 27)),
+                                            color: const Color.fromARGB(
+                                                255, 27, 27, 27),
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              bottomRight: Radius.circular(9),
+                                              bottomLeft: Radius.circular(9),
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 20),
+                                            child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceAround,
+                                                children: [
+                                                  GestureDetector(
+                                                    onTap: () async {
+                                                      superLike(
+                                                          userUid, userName);
+                                                    },
+                                                    child: Container(
+                                                        height: boxInfo / 2.5,
+                                                        width: size.width * 0.4,
+                                                        decoration: BoxDecoration(
+                                                            color: !superLikedList
+                                                                    .contains(
+                                                                        userUid)
+                                                                ? const Color
+                                                                        .fromARGB(
+                                                                    255,
+                                                                    204,
+                                                                    171,
+                                                                    123)
+                                                                : Colors.grey,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20)),
+                                                        child: Center(
+                                                          child: Row(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: const [
+                                                              FaIcon(
+                                                                FontAwesomeIcons
+                                                                    .solidStar,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 6,
+                                                              ),
+                                                              Text(
+                                                                'Super Like',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black87,
+                                                                    fontSize:
+                                                                        15,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        )),
+                                                  ),
+                                                  GestureDetector(
+                                                    onTap: () async {
+                                                      verifyMatch(
+                                                          userUid, userName);
+                                                      setState(() {
+                                                        if (!likedList.contains(
+                                                            userUid)) {
+                                                          likedList
+                                                              .add(userUid);
+                                                        }
+                                                      });
+                                                      await FirebaseFirestore
+                                                          .instance
+                                                          .collection('liked')
+                                                          .doc(uid)
+                                                          .set({
+                                                        "id": likedList
+                                                      });
+
+                                                      List listLikedMe = [];
+
+                                                      final likedme =
+                                                          await FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'liked_me')
+                                                              .doc(userUid
+                                                                  .toString())
+                                                              .get();
+
+                                                      if (likedme.exists) {
+                                                        List listLikedMe =
+                                                            likedme['id'];
                                                       }
-                                                    });
-                                                    await FirebaseFirestore
-                                                        .instance
-                                                        .collection('liked')
-                                                        .doc(uid)
-                                                        .set({"id": likedList});
 
-                                                    List listLikedMe = [];
-
-                                                    final likedme =
-                                                        await FirebaseFirestore
-                                                            .instance
-                                                            .collection(
-                                                                'liked_me')
-                                                            .doc(userUid
-                                                                .toString())
-                                                            .get();
-
-                                                    if (likedme.exists) {
-                                                      List listLikedMe =
-                                                          likedme['id'];
-                                                    }
-
-                                                    setState(() {
-                                                      if (!listLikedMe
-                                                          .contains(uid)) {
-                                                        listLikedMe.add(uid);
-                                                      }
-                                                    });
-                                                    await FirebaseFirestore
-                                                        .instance
-                                                        .collection('liked_me')
-                                                        .doc(userUid.toString())
-                                                        .set({
-                                                      "id": listLikedMe
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                      height: boxInfo / 2.5,
-                                                      width: size.width * 0.4,
-                                                      decoration: BoxDecoration(
-                                                          color: !likedList
-                                                                  .contains(
-                                                                      userUid)
-                                                              ? const Color
-                                                                      .fromARGB(
-                                                                  255,
-                                                                  204,
-                                                                  171,
-                                                                  123)
-                                                              : Colors.grey,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      20)),
-                                                      child: Center(
-                                                        child: Row(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: const [
-                                                            FaIcon(
-                                                              FontAwesomeIcons
-                                                                  .solidHeart,
-                                                              color: Colors.red,
-                                                            ),
-                                                            SizedBox(
-                                                              width: 6,
-                                                            ),
-                                                            Text(
-                                                              'Like',
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .black87,
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      )),
-                                                ),
-                                              ]),
+                                                      setState(() {
+                                                        if (!listLikedMe
+                                                            .contains(uid)) {
+                                                          listLikedMe.add(uid);
+                                                        }
+                                                      });
+                                                      await FirebaseFirestore
+                                                          .instance
+                                                          .collection(
+                                                              'liked_me')
+                                                          .doc(userUid
+                                                              .toString())
+                                                          .set({
+                                                        "id": listLikedMe
+                                                      });
+                                                    },
+                                                    child: Container(
+                                                        height: boxInfo / 2.5,
+                                                        width: size.width * 0.4,
+                                                        decoration: BoxDecoration(
+                                                            color: !likedList
+                                                                    .contains(
+                                                                        userUid)
+                                                                ? const Color
+                                                                        .fromARGB(
+                                                                    255,
+                                                                    204,
+                                                                    171,
+                                                                    123)
+                                                                : Colors.grey,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20)),
+                                                        child: Center(
+                                                          child: Row(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: const [
+                                                              FaIcon(
+                                                                FontAwesomeIcons
+                                                                    .solidHeart,
+                                                                color:
+                                                                    Colors.red,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 6,
+                                                              ),
+                                                              Text(
+                                                                'Like',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black87,
+                                                                    fontSize:
+                                                                        15,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        )),
+                                                  ),
+                                                ]),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
-                }),
+                          ],
+                        ),
+                      );
+                    }
+                  }),
+            ),
           ),
         ),
       ),
