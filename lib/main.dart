@@ -1,4 +1,6 @@
 import 'package:chamasgemeas/screens/HomePage.dart';
+import 'package:chamasgemeas/screens/LoginPage.dart';
+import 'package:chamasgemeas/screens/PrivacidadePage.dart';
 import 'package:chamasgemeas/screens/RegisterIAm.dart';
 import 'package:chamasgemeas/screens/RegisterISearch.dart';
 import 'package:chamasgemeas/screens/chatDetail.dart';
@@ -6,6 +8,7 @@ import 'package:chamasgemeas/screens/chats.dart';
 import 'package:chamasgemeas/screens/filterPage.dart';
 import 'package:chamasgemeas/screens/likedMePage.dart';
 import 'package:chamasgemeas/screens/matchPage.dart';
+import 'package:chamasgemeas/screens/preferencePage.dart';
 import 'package:chamasgemeas/screens/profilePage.dart';
 import 'package:chamasgemeas/screens/registerStep3.dart';
 import 'package:chamasgemeas/screens/registerStep4.dart';
@@ -51,10 +54,11 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSwatch().copyWith(
             secondary: Colors.amber, // Your accent color
           ),
-          primarySwatch: Colors.red,
+          primarySwatch: Colors.amber,
           brightness: Brightness.light),
       home: AuthService().handleAuthState(),
       routes: {
+        '/login': (context) => const LoginPage(),
         '/home': (context) => const HomePage(),
         '/register': (context) => RegisterIAm(),
         '/registerStep2': (context) => RegisterISearchPage(),
@@ -71,6 +75,8 @@ class MyApp extends StatelessWidget {
         '/superlike': (context) => const SuperLike(),
         '/filter': (context) => const FilterPage(),
         '/likeMe': (context) => const LikedMePage(),
+        '/preference': (context) => const PreferencePage(),
+        '/privacidade': (context) => const PrivacidadePage(),
       },
     );
   }

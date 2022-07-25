@@ -31,7 +31,8 @@ abstract class _ChatState with Store {
           'docid': doc.id,
           'name': names.values.first,
           'key': names.keys.first,
-          'photo': ''
+          'photo': '',
+          'status': ''
         };
       }).toList();
 
@@ -60,7 +61,8 @@ abstract class _ChatState with Store {
                 'time': snapshot.docs.first['createdOn'],
                 'friendName': doc['name'],
                 'friendUid': doc['key'],
-                'photo': doc['photo']
+                'photo': doc['photo'],
+                'status': doc['status']
               };
             } else {
               messages[doc['name']] = {
@@ -68,7 +70,8 @@ abstract class _ChatState with Store {
                 'time': '',
                 'friendName': doc['name'],
                 'friendUid': doc['key'],
-                'photo': doc['photo']
+                'photo': doc['photo'],
+                'status': doc['status']
               };
             }
           });

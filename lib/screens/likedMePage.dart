@@ -3,12 +3,10 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chamasgemeas/api/purchase_api.dart';
 import 'package:chamasgemeas/paywall_widget.dart';
-import 'package:chamasgemeas/provider/revenuecat.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:provider/provider.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
 class LikedMePage extends StatefulWidget {
@@ -30,7 +28,9 @@ class _LikedMePageState extends State<LikedMePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 27, 27, 27),
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 27, 27, 27),
         centerTitle: true,
         title: const Text('Likes'),
       ),
@@ -268,7 +268,8 @@ class _LikedMePageState extends State<LikedMePage> {
     //     await FirebaseFirestore.instance.collection('liked_me').doc(uid).get();
     final like = await FirebaseFirestore.instance
         .collection('liked_me')
-        .doc('jMc5joRFQ3hicTIhI9Ti4nfUPqq1')
+        .doc(uid)
+        // .doc('jMc5joRFQ3hicTIhI9Ti4nfUPqq1')
         .get();
 
     if (like.exists) {
@@ -279,12 +280,15 @@ class _LikedMePageState extends State<LikedMePage> {
             .collection('users')
             .doc(likedList[i])
             .get();
-        likedList2.add({
-          'photos': list['photos'][0]['url'],
-          'name': list['name'],
-          'uid': list['uid'],
-          'info': list,
-        });
+
+        if (list['status'] == true) {
+          likedList2.add({
+            'photos': list['photos'][0]['url'],
+            'name': list['name'],
+            'uid': list['uid'],
+            'info': list,
+          });
+        }
       }
     }
 

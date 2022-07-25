@@ -36,26 +36,30 @@ class _RegisterStep7State extends State<RegisterStep7> {
 
   Future imgFromGallery() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-    final croppedFile = await ImageCropper()
-        .cropImage(sourcePath: pickedFile!.path, compressQuality: 100,
-            //cropStyle: CropStyle.circle,
-            aspectRatioPresets: [
+    final croppedFile = await ImageCropper().cropImage(
+        sourcePath: pickedFile!.path,
+        compressQuality: 100,
+        maxHeight: 640,
+        maxWidth: 480,
+        //cropStyle: CropStyle.circle,
+        aspectRatioPresets: [
           CropAspectRatioPreset.square,
           CropAspectRatioPreset.ratio3x2,
           CropAspectRatioPreset.original,
           CropAspectRatioPreset.ratio4x3,
           CropAspectRatioPreset.ratio16x9
-        ], uiSettings: [
-      AndroidUiSettings(
-          toolbarTitle: 'Cropper',
-          toolbarColor: Colors.deepOrange,
-          toolbarWidgetColor: Colors.white,
-          initAspectRatio: CropAspectRatioPreset.original,
-          lockAspectRatio: false),
-      IOSUiSettings(
-        title: 'Cropper',
-      ),
-    ]);
+        ],
+        uiSettings: [
+          AndroidUiSettings(
+              toolbarTitle: 'Cropper',
+              toolbarColor: Colors.deepOrange,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false),
+          IOSUiSettings(
+            title: 'Cropper',
+          ),
+        ]);
 
     setState(() {
       if (croppedFile != null) {
@@ -130,6 +134,7 @@ class _RegisterStep7State extends State<RegisterStep7> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: Container(
@@ -137,151 +142,156 @@ class _RegisterStep7State extends State<RegisterStep7> {
               color: Colors.black,
             ),
             child: SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.only(left: 50, top: 20),
-                    alignment: Alignment.bottomLeft,
-                    child: Text(
-                      '${user!.displayName},\nSelecion sua foto de perfil!',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'CM Sans Serif',
-                        fontSize: 25.0,
-                        height: 1.5,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(left: 50, top: 20),
+                      alignment: Alignment.bottomLeft,
+                      child: Text(
+                        '${user!.displayName},\nSelecion sua foto de perfil!',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'CM Sans Serif',
+                          fontSize: 25.0,
+                          height: 1.5,
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.zero,
-                    child: FutureBuilder<dynamic>(
-                        future: loadImage(),
-                        builder:
-                            (BuildContext context, AsyncSnapshot snapshot) {
-                          return Center(
-                            child: GestureDetector(
-                              onTap: () {
-                                _showPicker(context);
-                              },
-                              child: CircleAvatar(
-                                radius: 80,
-                                backgroundColor: const Color(0xffFDCF09),
-                                child: snapshot.data != null
-                                    ? ClipRRect(
-                                        borderRadius: BorderRadius.circular(80),
-                                        child: Image.network(
-                                          snapshot.data,
-                                          width: 160,
-                                          height: 160,
-                                          fit: BoxFit.cover,
+                    Padding(
+                      padding: EdgeInsets.zero,
+                      child: FutureBuilder<dynamic>(
+                          future: loadImage(),
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            return Center(
+                              child: GestureDetector(
+                                onTap: () {
+                                  _showPicker(context);
+                                },
+                                child: CircleAvatar(
+                                  radius: 70,
+                                  backgroundColor: const Color(0xffFDCF09),
+                                  child: snapshot.data != null
+                                      ? ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(70),
+                                          child: Image.network(
+                                            snapshot.data,
+                                            width: 140,
+                                            height: 140,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        )
+                                      : Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey[200],
+                                              borderRadius:
+                                                  BorderRadius.circular(70)),
+                                          width: 140,
+                                          height: 140,
+                                          child: Icon(
+                                            Icons.camera_alt,
+                                            color: Colors.grey[800],
+                                          ),
                                         ),
-                                      )
-                                    : Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.grey[200],
-                                            borderRadius:
-                                                BorderRadius.circular(80)),
-                                        width: 160,
-                                        height: 160,
-                                        child: Icon(
-                                          Icons.camera_alt,
-                                          color: Colors.grey[800],
-                                        ),
-                                      ),
+                                ),
                               ),
-                            ),
-                          );
-                        }),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: TextField(
-                      onChanged: (value) async {
-                        await FirebaseFirestore.instance
-                            .collection('users')
-                            .doc(user?.uid)
-                            .update({'aboutMe': value});
-                        setState(() {
-                          selectedIndex = value;
-                        });
-                      },
-                      keyboardType: TextInputType.multiline,
-                      maxLines: 4,
-                      cursorColor: Colors.pink,
-                      maxLength: 144,
-                      style: const TextStyle(color: Colors.white),
-                      decoration: const InputDecoration(
-                        hintText: 'Escreva uma FRASE que revela tua essência!',
-                        hintStyle: TextStyle(color: Colors.white70),
-                        fillColor: Colors.white24,
-                        filled: true,
-                        labelText: 'Sua essência!',
-                        labelStyle: TextStyle(
-                          color: Color.fromARGB(255, 244, 238, 252),
-                        ),
-                        helperText: 'Limite',
-                        helperStyle: TextStyle(color: Colors.white),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xFFECB461)),
-                        ),
-                      ),
+                            );
+                          }),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  Container(
-                    color: Colors.transparent,
-                    alignment: Alignment.center,
-                    height: size.height * 0.1,
-                    width: double.infinity,
-                    child: Center(
-                      child: GestureDetector(
-                        onTap: () async {
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: TextField(
+                        onChanged: (value) async {
                           await FirebaseFirestore.instance
                               .collection('users')
                               .doc(user?.uid)
-                              .update({"finished": true}).then((value) =>
-                                  Navigator.pushNamed(context, '/home'));
-
-                          // await FirebaseFirestore.instance
-                          //     .collection('users')
-                          //     .doc(user?.uid)
-                          //     .update({
-                          //   'interested': selectedIndex,
-                          //   'typeInterested': typeInterested
-                          // });
-
-                          // selectedIndex != ""
-                          //     ? Navigator.pushNamed(context, '/home')
-                          //     : null;
+                              .update({'aboutMe': value});
+                          setState(() {
+                            selectedIndex = value;
+                          });
                         },
-                        child: Container(
-                          width: size.width * 0.7,
-                          height: size.height * 0.055,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
-                            color: selectedIndex.length > 5
-                                ? const Color(0xFFECB461)
-                                : Colors.black38,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: 4,
+                        cursorColor: Colors.pink,
+                        maxLength: 144,
+                        style: const TextStyle(color: Colors.white),
+                        decoration: const InputDecoration(
+                          hintText:
+                              'Escreva uma FRASE que revela tua essência!',
+                          hintStyle: TextStyle(color: Colors.white70),
+                          fillColor: Colors.white24,
+                          filled: true,
+                          labelText: 'Sua essência!',
+                          labelStyle: TextStyle(
+                            color: Color.fromARGB(255, 244, 238, 252),
                           ),
-                          child: Center(
-                            child: Text(
-                              'CONFIRMAR',
-                              style: TextStyle(
-                                  color: selectedIndex.length > 5
-                                      ? Colors.white
-                                      : Colors.white24,
-                                  fontFamily: 'CM Sans Serif',
-                                  fontSize: 18),
-                            ),
+                          helperText: 'Limite',
+                          helperStyle: TextStyle(color: Colors.white),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xFFECB461)),
                           ),
                         ),
                       ),
                     ),
-                  )
-                ],
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    Container(
+                      color: Colors.transparent,
+                      alignment: Alignment.center,
+                      height: size.height * 0.1,
+                      width: double.infinity,
+                      child: Center(
+                        child: GestureDetector(
+                          onTap: () async {
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(user?.uid)
+                                .update({"finished": true}).then((value) =>
+                                    Navigator.pushNamed(context, '/home'));
+
+                            // await FirebaseFirestore.instance
+                            //     .collection('users')
+                            //     .doc(user?.uid)
+                            //     .update({
+                            //   'interested': selectedIndex,
+                            //   'typeInterested': typeInterested
+                            // });
+
+                            // selectedIndex != ""
+                            //     ? Navigator.pushNamed(context, '/home')
+                            //     : null;
+                          },
+                          child: Container(
+                            width: size.width * 0.7,
+                            height: size.height * 0.055,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(40),
+                              color: selectedIndex.length > 5
+                                  ? const Color(0xFFECB461)
+                                  : Colors.black38,
+                            ),
+                            child: Center(
+                              child: Text(
+                                'CONFIRMAR',
+                                style: TextStyle(
+                                    color: selectedIndex.length > 5
+                                        ? Colors.white
+                                        : Colors.white24,
+                                    fontFamily: 'CM Sans Serif',
+                                    fontSize: 18),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             )),
       ),

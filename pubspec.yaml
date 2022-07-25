@@ -70,6 +70,7 @@ dependencies:
   basic_utils: ^4.3.0
   modal_bottom_sheet: ^2.1.0
   provider: 
+  flutter_staggered_animations: ^1.0.0
 
 dev_dependencies:
   flutter_test:

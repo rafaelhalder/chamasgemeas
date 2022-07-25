@@ -32,6 +32,7 @@ class _RegisterStep5State extends State<RegisterStep5> {
 
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 27, 27, 27),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(8.0),

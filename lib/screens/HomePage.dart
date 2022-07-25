@@ -1,12 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:chamasgemeas/api/purchase_api.dart';
+import 'package:chamasgemeas/screens/chatDetail.dart';
 import 'package:chamasgemeas/screens/chats.dart';
 import 'package:chamasgemeas/screens/profilePage.dart';
 import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutterfire_ui/firestore.dart';
@@ -49,7 +51,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    double boxInfo = size.height / 7.2;
+    double boxInfo = size.height / 6.15;
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         systemNavigationBarIconBrightness: Brightness.light,
@@ -215,7 +217,7 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         children: [
                           Container(
-                            height: size.height / 1.36,
+                            height: size.height / 1.3,
                             width: size.width / 1,
                             decoration: BoxDecoration(
                                 color: const Color.fromARGB(255, 27, 27, 27),
@@ -251,7 +253,7 @@ class _HomePageState extends State<HomePage> {
                                   child: ClipPath(
                                     clipper: CustomClipPath(),
                                     child: Container(
-                                      height: size.height / 1.74,
+                                      height: size.height / 1.7,
                                       width: size.width,
                                       decoration: const BoxDecoration(
                                           borderRadius: BorderRadius.only(
@@ -268,7 +270,7 @@ class _HomePageState extends State<HomePage> {
                                           child: CarouselSlider.builder(
                                             carouselController: _controller,
                                             options: CarouselOptions(
-                                                height: size.height / 1.74,
+                                                height: size.height / 1.6,
                                                 autoPlay: false,
                                                 autoPlayInterval:
                                                     const Duration(seconds: 30),
@@ -639,7 +641,7 @@ class _HomePageState extends State<HomePage> {
               return Expanded(
                 child: Center(
                   child: Container(
-                    height: size.height * 0.65,
+                    height: size.height * 0.6,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     decoration: BoxDecoration(
                         border: Border.all(
@@ -649,7 +651,7 @@ class _HomePageState extends State<HomePage> {
                     child: SizedBox.expand(
                         child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 40),
+                          horizontal: 20, vertical: 5),
                       child: Stack(children: [
                         Positioned.fill(
                           child: Align(
@@ -659,7 +661,7 @@ class _HomePageState extends State<HomePage> {
                                   DefaultTextStyle(
                                     style: GoogleFonts.dancingScript(
                                       color: Colors.white,
-                                      fontSize: 100,
+                                      fontSize: 60,
                                       fontWeight: FontWeight.w700,
                                     ),
                                     child: const Text('Match'),
@@ -667,11 +669,10 @@ class _HomePageState extends State<HomePage> {
                                   DefaultTextStyle(
                                     style: GoogleFonts.acme(
                                       color: Colors.white,
-                                      fontSize: 25,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.w700,
                                     ),
-                                    child: const Text(
-                                        'Parabens agora é só conversar'),
+                                    child: const Text('Envia uma mensagem'),
                                   ),
                                 ],
                               )),
@@ -759,7 +760,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 70),
+                          padding: const EdgeInsets.symmetric(vertical: 50),
                           child: Positioned.fill(
                             child: Align(
                               alignment: Alignment.bottomCenter,
@@ -779,13 +780,13 @@ class _HomePageState extends State<HomePage> {
                                   onPressed: () {
                                     Navigator.of(context).pop();
 
-                                    // Navigator.push(
-                                    //     context,
-                                    //     CupertinoPageRoute(
-                                    //         builder: (context) => ChatDetail(
-                                    //               friendUid: likedUid,
-                                    //               friendName: userName,
-                                    //             )));
+                                    Navigator.push(
+                                        context,
+                                        CupertinoPageRoute(
+                                            builder: (context) => ChatDetail(
+                                                  friendUid: likedUid,
+                                                  friendName: userName,
+                                                )));
                                   },
                                   icon: const Icon(
                                     Icons.message,
@@ -1185,7 +1186,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   Query<Map<String, dynamic>> listUsers() {
-    final listUsers = FirebaseFirestore.instance.collection('users');
+    final listUsers = FirebaseFirestore.instance
+        .collection('users')
+        .where('status', isEqualTo: true);
 
     return listUsers;
   }

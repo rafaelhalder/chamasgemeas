@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chamasgemeas/screens/preferencePage.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:chamasgemeas/screens/chats.dart';
 import 'package:chamasgemeas/screens/HomePage.dart';
@@ -234,6 +235,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 icon: Icon(Icons.message,
                     color: Color.fromARGB(255, 204, 171, 123)),
                 title: 'Mensagens'),
+            const TabItem(
+                activeIcon: Icon(Icons.settings, color: Colors.black),
+                icon: Icon(Icons.settings,
+                    color: Color.fromARGB(255, 204, 171, 123)),
+                title: 'Opções'),
           ],
           initialActiveIndex: 2, //optional, default as 0
           onTap: (int i) {
@@ -281,7 +287,17 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   )
                 : const Text('');
-
+            i == 4
+                ? Navigator.pushReplacement(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation1, animation2) =>
+                          const PreferencePage(),
+                      transitionDuration: Duration.zero,
+                      reverseTransitionDuration: Duration.zero,
+                    ),
+                  )
+                : const Text('');
             print('click index=$i');
           },
         ),
