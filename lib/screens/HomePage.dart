@@ -554,56 +554,67 @@ class _HomePageState extends State<HomePage> {
                                                         )),
                                                   ),
                                                   GestureDetector(
-                                                    onTap: () async {
-                                                      verifyMatch(
-                                                          userUid, userName);
-                                                      setState(() {
-                                                        if (!likedList.contains(
-                                                            userUid)) {
-                                                          likedList
-                                                              .add(userUid);
-                                                        }
-                                                      });
-                                                      await FirebaseFirestore
-                                                          .instance
-                                                          .collection('liked')
-                                                          .doc(uid)
-                                                          .set({
-                                                        "id": likedList
-                                                      });
+                                                    onTap: !likedList
+                                                            .contains(userUid)
+                                                        ? () async {
+                                                            verifyMatch(userUid,
+                                                                userName);
+                                                            setState(() {
+                                                              if (!likedList
+                                                                  .contains(
+                                                                      userUid)) {
+                                                                likedList.add(
+                                                                    userUid);
+                                                              }
+                                                            });
+                                                            await FirebaseFirestore
+                                                                .instance
+                                                                .collection(
+                                                                    'liked')
+                                                                .doc(uid)
+                                                                .set({
+                                                              "id": likedList
+                                                            });
 
-                                                      List listLikedMe = [];
+                                                            List listLikedMe =
+                                                                [];
 
-                                                      final likedme =
-                                                          await FirebaseFirestore
-                                                              .instance
-                                                              .collection(
-                                                                  'liked_me')
-                                                              .doc(userUid
-                                                                  .toString())
-                                                              .get();
+                                                            final likedme =
+                                                                await FirebaseFirestore
+                                                                    .instance
+                                                                    .collection(
+                                                                        'liked_me')
+                                                                    .doc(userUid
+                                                                        .toString())
+                                                                    .get();
 
-                                                      if (likedme.exists) {
-                                                        List listLikedMe =
-                                                            likedme['id'];
-                                                      }
+                                                            if (likedme
+                                                                .exists) {
+                                                              List listLikedMe =
+                                                                  likedme['id'];
+                                                            }
 
-                                                      setState(() {
-                                                        if (!listLikedMe
-                                                            .contains(uid)) {
-                                                          listLikedMe.add(uid);
-                                                        }
-                                                      });
-                                                      await FirebaseFirestore
-                                                          .instance
-                                                          .collection(
-                                                              'liked_me')
-                                                          .doc(userUid
-                                                              .toString())
-                                                          .set({
-                                                        "id": listLikedMe
-                                                      });
-                                                    },
+                                                            setState(() {
+                                                              if (!listLikedMe
+                                                                  .contains(
+                                                                      uid)) {
+                                                                listLikedMe
+                                                                    .add(uid);
+                                                              }
+                                                            });
+                                                            await FirebaseFirestore
+                                                                .instance
+                                                                .collection(
+                                                                    'liked_me')
+                                                                .doc(userUid
+                                                                    .toString())
+                                                                .set({
+                                                              "id": listLikedMe
+                                                            });
+                                                          }
+                                                        : () {
+                                                            print('ja curtiu');
+                                                          },
                                                     child: Container(
                                                         height: boxInfo / 2.5,
                                                         width: size.width * 0.4,
