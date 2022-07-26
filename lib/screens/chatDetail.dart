@@ -1,13 +1,19 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 
 class ChatDetail extends StatefulWidget {
   final friendUid;
@@ -24,19 +30,95 @@ class _ChatDetailState extends State<ChatDetail> {
   CollectionReference chats = FirebaseFirestore.instance.collection('chats');
   CollectionReference userFriend =
       FirebaseFirestore.instance.collection('users');
+
+  late AndroidNotificationChannel channel;
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   final friendUid;
   final friendName;
   final currentUserId = FirebaseAuth.instance.currentUser?.uid;
+  String? currentUserName = FirebaseAuth.instance.currentUser?.displayName;
   var chatDocId;
   var photo;
   var status;
   final _textController = TextEditingController();
+  String? tokenAuth = "";
+
   _ChatDetailState(this.friendUid, this.friendName);
   @override
   void initState() {
     super.initState();
     checkUser();
+    // getToken();
     photoUser(friendUid);
+    loadFCM();
+    listenFCM();
+  }
+
+  void sendPushMessage(
+      String message, String? currentUserName, String? token) async {
+    try {
+      await http.post(
+        Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization':
+              'key=AAAAhIRIRac:APA91bGld0gKYT_K5i7BTRCOdxBz14Qj4Cs85LmDd2bCSZOlEHaV2GvbxVGk307kQqGY5y3AXqjVbye-7CkIH0jTYnnAmfjNfxTpvGYTfvQ3CDvdlvdKRjrB-T7Lgn17YdanVXO4eQdZ',
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+            'notification': <String, dynamic>{
+              'body': '$message',
+              'title': '$currentUserName',
+            },
+            'priority': 'high',
+            'data': <String, dynamic>{
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'id': '1',
+              'status': 'done'
+            },
+            "to": "$token",
+          },
+        ),
+      );
+      print('sendeed');
+    } catch (e) {
+      print("error push notification");
+    }
+  }
+
+  // void getToken() async {
+  //   await FirebaseMessaging.instance.getToken().then((token) {
+  //     setState(() {
+  //       tokenAuth =
+  //           'cgCmtHNWT4KPcubS-t_lcz:APA91bHgSCX_9ZfgYJ5AOBa3wXXtbiaXI7giA4zRy3LNyyViA5JzNrgP3sl_c3nOfH9vrpOg58hJYGcahls-rxlrb8v7QR2JYggM1_3KdVGGpMHMrp-qobtirtL7TVAUzpo42ZXD2Ieu';
+  //       print(token);
+  //     });
+  //   });
+  // }
+
+  void listenFCM() async {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null && !kIsWeb) {
+        flutterLocalNotificationsPlugin.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              channel.id,
+              channel.name,
+              channelDescription: channel.description,
+              color: Colors.amber,
+              // TODO add a proper drawable resource to android, for now using
+              //      one that already exists in example app.
+              icon: 'ic_launcher',
+            ),
+          ),
+        );
+      }
+    });
   }
 
   void checkUser() async {
@@ -95,10 +177,45 @@ class _ChatDetailState extends State<ChatDetail> {
     List listPhotos = variable['photos'];
     String photoFriend = listPhotos[0]['url'];
     bool statusperson = variable['status'];
+    String tokens = variable['token'];
     setState(() {
       photo = photoFriend;
       status = statusperson;
+      tokenAuth = tokens;
     });
+  }
+
+  void loadFCM() async {
+    if (!kIsWeb) {
+      channel = const AndroidNotificationChannel(
+          'high_importance_channel', // id
+          'High Importance Notifications', // title
+          importance: Importance.defaultImportance,
+          ledColor: Colors.amber,
+          enableVibration: true);
+
+      flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+      /// Create an Android Notification Channel.
+      ///
+      /// We use this channel in the `AndroidManifest.xml` file to override the
+      /// default FCM channel to enable heads up notifications.
+      await flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>()
+          ?.createNotificationChannel(channel);
+
+      await flutterLocalNotificationsPlugin.cancelAll();
+
+      /// Update the iOS foreground notification presentation options to allow
+      /// heads up notifications.
+      await FirebaseMessaging.instance
+          .setForegroundNotificationPresentationOptions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+    }
   }
 
   @override
@@ -291,8 +408,11 @@ class _ChatDetailState extends State<ChatDetail> {
                           status == true
                               ? CupertinoButton(
                                   child: const Icon(Icons.send_sharp),
-                                  onPressed: () =>
-                                      sendMessage(_textController.text))
+                                  onPressed: () {
+                                    sendMessage(_textController.text);
+                                    sendPushMessage(_textController.text,
+                                        currentUserName, tokenAuth);
+                                  })
                               : CupertinoButton(
                                   child: const Icon(Icons.send_sharp,
                                       color: Colors.grey),

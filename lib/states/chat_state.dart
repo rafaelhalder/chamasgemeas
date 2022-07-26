@@ -18,6 +18,8 @@ abstract class _ChatState with Store {
 
   @action
   void refreshChatsForCurrentUser() async {
+    print(chats);
+    print('nova mensagem1');
     var chatDocuments = [];
     chats
         .where('users.$currentUser', isEqualTo: 1)
@@ -32,9 +34,11 @@ abstract class _ChatState with Store {
           'name': names.values.first,
           'key': names.keys.first,
           'photo': '',
-          'status': ''
+          'status': '',
+          'token': '',
         };
       }).toList();
+      print('nova mensagem2');
 
       for (var doc in chatDocuments) {
         String photo = '';
@@ -53,6 +57,7 @@ abstract class _ChatState with Store {
               if (docs['uid'] == doc['key']) {
                 doc['photo'] = docs["photos"][0]['url'];
                 doc['status'] = docs['status'];
+                doc['token'] = docs['token'];
               }
             });
 
@@ -64,6 +69,7 @@ abstract class _ChatState with Store {
                 'friendUid': doc['key'],
                 'photo': doc['photo'],
                 'status': doc['status'],
+                'token': doc['token'],
               };
             } else {
               messages[doc['name']] = {
@@ -73,11 +79,13 @@ abstract class _ChatState with Store {
                 'friendUid': doc['key'],
                 'photo': doc['photo'],
                 'status': doc['status'],
+                'token': doc['token'],
               };
             }
           });
         });
       }
+      print('nova mensagem3');
     });
   }
 }

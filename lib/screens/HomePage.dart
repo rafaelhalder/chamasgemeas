@@ -9,6 +9,7 @@ import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -47,6 +48,15 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     filterList();
     loadList();
+    getToken();
+  }
+
+  void getToken() async {
+    await FirebaseMessaging.instance.getToken().then((token) {
+      FirebaseFirestore.instance.collection('users').doc(uid).update({
+        'token': token,
+      });
+    });
   }
 
   Future<bool> _onWillPop(BuildContext context) async {
