@@ -18,7 +18,6 @@ abstract class _ChatState with Store {
 
   @action
   void refreshChatsForCurrentUser() async {
-    print(chats);
     print('nova mensagem1');
     var chatDocuments = [];
     chats

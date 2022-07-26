@@ -494,30 +494,188 @@ class _HomePageState extends State<HomePage> {
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 20),
-                                            child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                children: [
-                                                  GestureDetector(
-                                                    onTap: () async {
-                                                      superLike(
-                                                          userUid, userName);
+                                            child: !matchList.contains(userUid)
+                                                ? Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
+                                                    children: [
+                                                        GestureDetector(
+                                                          onTap: () async {
+                                                            superLike(userUid,
+                                                                userName);
+                                                          },
+                                                          child: Container(
+                                                              height:
+                                                                  boxInfo / 2.5,
+                                                              width:
+                                                                  size.width *
+                                                                      0.4,
+                                                              decoration: BoxDecoration(
+                                                                  color: !superLikedList
+                                                                          .contains(
+                                                                              userUid)
+                                                                      ? const Color
+                                                                              .fromARGB(
+                                                                          255,
+                                                                          204,
+                                                                          171,
+                                                                          123)
+                                                                      : Colors
+                                                                          .grey,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              20)),
+                                                              child: Center(
+                                                                child: Row(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .center,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: const [
+                                                                    FaIcon(
+                                                                      FontAwesomeIcons
+                                                                          .solidStar,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 6,
+                                                                    ),
+                                                                    Text(
+                                                                      'Super Like',
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .black87,
+                                                                          fontSize:
+                                                                              15,
+                                                                          fontWeight:
+                                                                              FontWeight.bold),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              )),
+                                                        ),
+                                                        likedList.contains(
+                                                                userUid)
+                                                            ? GestureDetector(
+                                                                onTap:
+                                                                    () async {
+                                                                  verifyMatch(
+                                                                      userUid,
+                                                                      userName);
+                                                                  setState(() {
+                                                                    if (!likedList
+                                                                        .contains(
+                                                                            userUid)) {
+                                                                      likedList.add(
+                                                                          userUid);
+                                                                    }
+                                                                  });
+                                                                  await FirebaseFirestore
+                                                                      .instance
+                                                                      .collection(
+                                                                          'liked')
+                                                                      .doc(uid)
+                                                                      .set({
+                                                                    "id":
+                                                                        likedList
+                                                                  });
+
+                                                                  List
+                                                                      listLikedMe =
+                                                                      [];
+
+                                                                  final likedme = await FirebaseFirestore
+                                                                      .instance
+                                                                      .collection(
+                                                                          'liked_me')
+                                                                      .doc(userUid
+                                                                          .toString())
+                                                                      .get();
+
+                                                                  if (likedme
+                                                                      .exists) {
+                                                                    List
+                                                                        listLikedMe =
+                                                                        likedme[
+                                                                            'id'];
+                                                                  }
+
+                                                                  setState(() {
+                                                                    if (!listLikedMe
+                                                                        .contains(
+                                                                            uid)) {
+                                                                      listLikedMe
+                                                                          .add(
+                                                                              uid);
+                                                                    }
+                                                                  });
+                                                                  await FirebaseFirestore
+                                                                      .instance
+                                                                      .collection(
+                                                                          'liked_me')
+                                                                      .doc(userUid
+                                                                          .toString())
+                                                                      .set({
+                                                                    "id":
+                                                                        listLikedMe
+                                                                  });
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                        height: boxInfo /
+                                                                            2.5,
+                                                                        width: size.width *
+                                                                            0.4,
+                                                                        decoration: BoxDecoration(
+                                                                            color: !likedList.contains(userUid)
+                                                                                ? const Color.fromARGB(255, 204, 171, 123)
+                                                                                : Colors.grey,
+                                                                            borderRadius: BorderRadius.circular(20)),
+                                                                        child: Center(
+                                                                          child:
+                                                                              Row(
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.center,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            children: const [
+                                                                              FaIcon(
+                                                                                FontAwesomeIcons.solidHeart,
+                                                                                color: Colors.red,
+                                                                              ),
+                                                                              SizedBox(
+                                                                                width: 6,
+                                                                              ),
+                                                                              Text(
+                                                                                'Like',
+                                                                                style: TextStyle(color: Colors.black87, fontSize: 15, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        )),
+                                                              )
+                                                            : Container(),
+                                                      ])
+                                                : GestureDetector(
+                                                    onTap: () {
+                                                      Navigator.popAndPushNamed(
+                                                          context, '/chats');
                                                     },
                                                     child: Container(
                                                         height: boxInfo / 2.5,
-                                                        width: size.width * 0.4,
+                                                        width: size.width * 0.8,
                                                         decoration: BoxDecoration(
-                                                            color: !superLikedList
-                                                                    .contains(
-                                                                        userUid)
-                                                                ? const Color
-                                                                        .fromARGB(
-                                                                    255,
-                                                                    204,
-                                                                    171,
-                                                                    123)
-                                                                : Colors.grey,
+                                                            color: const Color
+                                                                    .fromARGB(
+                                                                255,
+                                                                204,
+                                                                171,
+                                                                123),
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
@@ -541,7 +699,7 @@ class _HomePageState extends State<HomePage> {
                                                                 width: 6,
                                                               ),
                                                               Text(
-                                                                'Super Like',
+                                                                'Mensagem',
                                                                 style: TextStyle(
                                                                     color: Colors
                                                                         .black87,
@@ -555,121 +713,6 @@ class _HomePageState extends State<HomePage> {
                                                           ),
                                                         )),
                                                   ),
-                                                  GestureDetector(
-                                                    onTap: likedList
-                                                            .contains(userUid)
-                                                        ? () async {
-                                                            print('oie');
-                                                            verifyMatch(userUid,
-                                                                userName);
-                                                            setState(() {
-                                                              if (!likedList
-                                                                  .contains(
-                                                                      userUid)) {
-                                                                likedList.add(
-                                                                    userUid);
-                                                              }
-                                                            });
-                                                            await FirebaseFirestore
-                                                                .instance
-                                                                .collection(
-                                                                    'liked')
-                                                                .doc(uid)
-                                                                .set({
-                                                              "id": likedList
-                                                            });
-
-                                                            List listLikedMe =
-                                                                [];
-
-                                                            final likedme =
-                                                                await FirebaseFirestore
-                                                                    .instance
-                                                                    .collection(
-                                                                        'liked_me')
-                                                                    .doc(userUid
-                                                                        .toString())
-                                                                    .get();
-
-                                                            if (likedme
-                                                                .exists) {
-                                                              List listLikedMe =
-                                                                  likedme['id'];
-                                                            }
-
-                                                            setState(() {
-                                                              if (!listLikedMe
-                                                                  .contains(
-                                                                      uid)) {
-                                                                listLikedMe
-                                                                    .add(uid);
-                                                              }
-                                                            });
-                                                            await FirebaseFirestore
-                                                                .instance
-                                                                .collection(
-                                                                    'liked_me')
-                                                                .doc(userUid
-                                                                    .toString())
-                                                                .set({
-                                                              "id": listLikedMe
-                                                            });
-                                                          }
-                                                        : () {
-                                                            print('ja curtiu');
-                                                          },
-                                                    child: Container(
-                                                        height: boxInfo / 2.5,
-                                                        width: size.width * 0.4,
-                                                        decoration: BoxDecoration(
-                                                            color: !likedList
-                                                                    .contains(
-                                                                        userUid)
-                                                                ? const Color
-                                                                        .fromARGB(
-                                                                    255,
-                                                                    204,
-                                                                    171,
-                                                                    123)
-                                                                : Colors.grey,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        20)),
-                                                        child: Center(
-                                                          child: Row(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: const [
-                                                              FaIcon(
-                                                                FontAwesomeIcons
-                                                                    .solidHeart,
-                                                                color:
-                                                                    Colors.red,
-                                                              ),
-                                                              SizedBox(
-                                                                width: 6,
-                                                              ),
-                                                              Text(
-                                                                'Like',
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .black87,
-                                                                    fontSize:
-                                                                        15,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        )),
-                                                  ),
-                                                ]),
                                           ),
                                         ),
                                       ],
@@ -691,6 +734,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   verifyMatch(String likedUid, String userName) async {
+    print('qwer');
     Size size = MediaQuery.of(context).size;
     String urlPhotoLiked = '';
     String urlPhotoUser = '';
@@ -724,6 +768,7 @@ class _HomePageState extends State<HomePage> {
       listMatch2 = matchss2['id'];
     }
 
+    print('oie');
     usersLikedMe.contains(likedUid)
         ? await chats
             .where('users.$uid', isEqualTo: 1)
@@ -897,7 +942,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 10,
+                                  height: 20,
                                 ),
                                 SizedBox(
                                   width: size.width * 0.65,
@@ -1357,6 +1402,7 @@ class _HomePageState extends State<HomePage> {
       likedList = listLike;
       superLikedList = listSuperLike;
       matchList = matchs;
+      print(matchList);
     });
   }
 
