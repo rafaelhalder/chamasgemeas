@@ -228,7 +228,7 @@ class _HelpPageState extends State<HelpPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Icon(Icons.more_horiz_outlined,
+                                      Icon(Icons.sticky_note_2,
                                           size: 35, color: Colors.white),
                                       Text(
                                         'Manual',

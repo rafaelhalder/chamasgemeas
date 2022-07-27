@@ -36,39 +36,41 @@ class _RegisterStep7State extends State<RegisterStep7> {
 
   Future imgFromGallery() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-    final croppedFile = await ImageCropper().cropImage(
-        sourcePath: pickedFile!.path,
-        compressQuality: 100,
-        maxHeight: 640,
-        maxWidth: 480,
-        //cropStyle: CropStyle.circle,
-        aspectRatioPresets: [
-          CropAspectRatioPreset.square,
-          CropAspectRatioPreset.ratio3x2,
-          CropAspectRatioPreset.original,
-          CropAspectRatioPreset.ratio4x3,
-          CropAspectRatioPreset.ratio16x9
-        ],
-        uiSettings: [
-          AndroidUiSettings(
-              toolbarTitle: 'Cropper',
-              toolbarColor: Colors.deepOrange,
-              toolbarWidgetColor: Colors.white,
-              initAspectRatio: CropAspectRatioPreset.original,
-              lockAspectRatio: false),
-          IOSUiSettings(
-            title: 'Cropper',
-          ),
-        ]);
+    if (pickedFile != null) {
+      final croppedFile = await ImageCropper().cropImage(
+          sourcePath: pickedFile.path,
+          compressQuality: 100,
+          maxHeight: 640,
+          maxWidth: 480,
+          //cropStyle: CropStyle.circle,
+          aspectRatioPresets: [
+            CropAspectRatioPreset.square,
+            CropAspectRatioPreset.ratio3x2,
+            CropAspectRatioPreset.original,
+            CropAspectRatioPreset.ratio4x3,
+            CropAspectRatioPreset.ratio16x9
+          ],
+          uiSettings: [
+            AndroidUiSettings(
+                toolbarTitle: 'Cropper',
+                toolbarColor: Colors.deepOrange,
+                toolbarWidgetColor: Colors.white,
+                initAspectRatio: CropAspectRatioPreset.original,
+                lockAspectRatio: false),
+            IOSUiSettings(
+              title: 'Cropper',
+            ),
+          ]);
 
-    setState(() {
-      if (croppedFile != null) {
-        _photo = File(croppedFile.path);
-        uploadFile();
-      } else {
-        print('No image selected.');
-      }
-    });
+      setState(() {
+        if (croppedFile != null) {
+          _photo = File(croppedFile.path);
+          uploadFile();
+        } else {
+          print('No image selected.');
+        }
+      });
+    }
   }
 
   Future imgFromCamera() async {
@@ -117,13 +119,13 @@ class _RegisterStep7State extends State<RegisterStep7> {
           .doc(user?.uid)
           .update({"photos": listPhotos});
 
-      firebase_storage.Reference refsOld = firebase_storage
-          .FirebaseStorage.instance
-          .ref()
-          .child('images/user/$uid')
-          .child(oldPhoto);
+      // firebase_storage.Reference refsOld = firebase_storage
+      //     .FirebaseStorage.instance
+      //     .ref()
+      //     .child('images/user/$uid')
+      //     .child(oldPhoto);
 
-      refsOld.delete();
+      // refsOld.delete();
     } catch (e) {
       print(e);
     }
@@ -144,7 +146,7 @@ class _RegisterStep7State extends State<RegisterStep7> {
             child: SafeArea(
               child: SingleChildScrollView(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Container(
                       padding: const EdgeInsets.only(left: 50, top: 20),
@@ -159,6 +161,9 @@ class _RegisterStep7State extends State<RegisterStep7> {
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: 30,
+                    ),
                     Padding(
                       padding: EdgeInsets.zero,
                       child: FutureBuilder<dynamic>(
@@ -172,7 +177,7 @@ class _RegisterStep7State extends State<RegisterStep7> {
                                 },
                                 child: CircleAvatar(
                                   radius: 70,
-                                  backgroundColor: const Color(0xffFDCF09),
+                                  backgroundColor: Colors.transparent,
                                   child: snapshot.data != null
                                       ? ClipRRect(
                                           borderRadius:
@@ -200,6 +205,9 @@ class _RegisterStep7State extends State<RegisterStep7> {
                               ),
                             );
                           }),
+                    ),
+                    SizedBox(
+                      height: 30,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -316,12 +324,10 @@ class _RegisterStep7State extends State<RegisterStep7> {
     }
 
     try {
-      await Future.delayed(Duration(seconds: 4));
       firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
           .ref()
           .child('images/user/$uid')
           .child(fileName[0]['name']);
-      await Future.delayed(Duration(seconds: 4));
 
       var url = await ref.getDownloadURL();
 

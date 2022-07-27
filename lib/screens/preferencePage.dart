@@ -191,7 +191,7 @@ class _PreferencePageState extends State<PreferencePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Icon(Icons.more_horiz_outlined,
+                                      Icon(Icons.app_registration,
                                           size: 35, color: Colors.white),
                                       Text(
                                         'Preferências',
@@ -231,7 +231,7 @@ class _PreferencePageState extends State<PreferencePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Icon(Icons.more_horiz_outlined,
+                                      Icon(Icons.logout,
                                           size: 35, color: Colors.white),
                                       Text(
                                         'Logout',
@@ -270,7 +270,7 @@ class _PreferencePageState extends State<PreferencePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Icon(Icons.more_horiz_outlined,
+                                      Icon(Icons.lock,
                                           size: 35, color: Colors.white),
                                       Text(
                                         'Privacidade',
@@ -309,7 +309,7 @@ class _PreferencePageState extends State<PreferencePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Icon(Icons.more_horiz_outlined,
+                                      Icon(Icons.email,
                                           size: 35, color: Colors.white),
                                       Text(
                                         'Ajuda',

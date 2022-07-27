@@ -263,11 +263,11 @@ class _SuperLikeState extends State<SuperLike> {
                                                       MainAxisAlignment
                                                           .spaceBetween,
                                                   children: const [
-                                                    Text('1232131313',
+                                                    Text('',
                                                         style: TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 14)),
-                                                    Text('312313131313',
+                                                    Text('',
                                                         style: TextStyle(
                                                             color:
                                                                 Color.fromARGB(
@@ -373,11 +373,11 @@ class _SuperLikeState extends State<SuperLike> {
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 children: const [
-                                                  Text('1232131313',
+                                                  Text('',
                                                       style: TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 14)),
-                                                  Text('312313131313',
+                                                  Text('',
                                                       style: TextStyle(
                                                           color: Color.fromARGB(
                                                               255,

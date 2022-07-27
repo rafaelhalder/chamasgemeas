@@ -49,7 +49,7 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
             .collection('users')
             .doc(uid)
             .update({'status': false});
-        user?.delete();
+        await user?.delete();
         await AuthService().signOut();
         SystemNavigator.pop();
       },
@@ -228,7 +228,7 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Icon(Icons.more_horiz_outlined,
+                                      Icon(Icons.newspaper,
                                           size: 35, color: Colors.white),
                                       Text(
                                         'Termos de Uso',
@@ -272,7 +272,7 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Icon(Icons.more_horiz_outlined,
+                                      Icon(Icons.person_off,
                                           size: 35, color: Colors.white),
                                       Text(
                                         'Deletar Conta',

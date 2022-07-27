@@ -123,7 +123,10 @@ class _LikedMePageState extends State<LikedMePage> {
                             const Padding(
                               padding: EdgeInsets.all(20.0),
                               child: Center(
-                                  child: Text('Revele quem gostou de você')),
+                                  child: Text(
+                                'Revele quem gostou de você',
+                                style: TextStyle(color: Colors.white),
+                              )),
                             ),
                             GestureDetector(
                               onTap: () {

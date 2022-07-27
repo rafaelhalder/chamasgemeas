@@ -180,9 +180,9 @@ class _UserPageState extends State<UserPage> {
                             Padding(
                               padding: const EdgeInsets.only(top: 15),
                               child: Text(
-                                name,
+                                '$name,',
                                 style: const TextStyle(
-                                    color: Color.fromARGB(255, 204, 171, 123),
+                                    color: Color.fromARGB(255, 236, 200, 144),
                                     fontSize: 28,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -195,7 +195,7 @@ class _UserPageState extends State<UserPage> {
                               child: Text(
                                 '$age',
                                 style: const TextStyle(
-                                    color: Color.fromARGB(255, 204, 171, 123),
+                                    color: Color.fromARGB(255, 236, 200, 144),
                                     fontSize: 26,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -209,7 +209,7 @@ class _UserPageState extends State<UserPage> {
                         child: Text(
                           occupation,
                           style: const TextStyle(
-                              color: Color.fromARGB(255, 204, 171, 123),
+                              color: Color.fromARGB(255, 175, 147, 106),
                               fontSize: 20),
                         ),
                       ),
@@ -465,7 +465,7 @@ class _UserPageState extends State<UserPage> {
                 Padding(
                   padding: const EdgeInsets.all(15),
                   child: Container(
-                    height: size.height * 0.2,
+                    height: size.height * 0.25,
                     decoration: BoxDecoration(
                         border: Border.all(
                             color: const Color.fromARGB(255, 62, 62, 62)),
@@ -475,7 +475,7 @@ class _UserPageState extends State<UserPage> {
                       child: FlutterMap(
                         options: MapOptions(
                           center: lat.LatLng(latitude, longitude),
-                          zoom: 13.0,
+                          zoom: 12.0,
                         ),
                         layers: [
                           TileLayerOptions(

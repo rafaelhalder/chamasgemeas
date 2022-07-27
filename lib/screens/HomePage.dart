@@ -434,7 +434,7 @@ class _HomePageState extends State<HomePage> {
                                                 Row(
                                                   children: [
                                                     Text(
-                                                      userName,
+                                                      '$userName,',
                                                       style: const TextStyle(
                                                           color: Color.fromARGB(
                                                               255,
@@ -556,10 +556,9 @@ class _HomePageState extends State<HomePage> {
                                                         )),
                                                   ),
                                                   GestureDetector(
-                                                    onTap: likedList
+                                                    onTap: !likedList
                                                             .contains(userUid)
                                                         ? () async {
-                                                            print('oie');
                                                             verifyMatch(userUid,
                                                                 userName);
                                                             setState(() {
@@ -1126,6 +1125,11 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.black,
                               border: Border.all(color: Colors.white24)),
                           child: TextField(
+                              decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.all(10),
+                                  hintText: 'Envia uma mensagem para sua chama',
+                                  hintStyle: TextStyle(color: Colors.white)),
+                              style: TextStyle(color: Colors.white),
                               maxLines: 6,
                               onChanged: (value) {
                                 setState(() {
