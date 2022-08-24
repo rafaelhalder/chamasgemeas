@@ -34,7 +34,11 @@ class _RegisterStep4State extends State<RegisterStep4> {
 
     Size size = MediaQuery.of(context).size;
     return Container(
-      color: const Color.fromARGB(255, 27, 27, 27),
+      decoration: BoxDecoration(
+          image: DecorationImage(
+        image: AssetImage("assets/images/interfacesigno.png"),
+        fit: BoxFit.cover,
+      )),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: SafeArea(
@@ -206,7 +210,7 @@ class _RegisterStep4State extends State<RegisterStep4> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: TextFormField(
                                   keyboardType: TextInputType.number,
-                                  maxLength: 2,
+                                  maxLength: 3,
                                   style: const TextStyle(color: Colors.white),
                                   inputFormatters: <TextInputFormatter>[
                                     FilteringTextInputFormatter.digitsOnly,

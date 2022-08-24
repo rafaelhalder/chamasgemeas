@@ -28,8 +28,10 @@ class _RegisterStep3State extends State<RegisterStep3> {
         value: SystemUiOverlayStyle.light,
         child: Container(
             decoration: BoxDecoration(
-              color: Colors.black,
-            ),
+                image: DecorationImage(
+              image: AssetImage("assets/images/interfacesigno.png"),
+              fit: BoxFit.cover,
+            )),
             child: SafeArea(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

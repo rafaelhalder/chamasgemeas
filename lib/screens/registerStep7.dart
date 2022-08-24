@@ -141,8 +141,10 @@ class _RegisterStep7State extends State<RegisterStep7> {
         value: SystemUiOverlayStyle.light,
         child: Container(
             decoration: const BoxDecoration(
-              color: Colors.black,
-            ),
+                image: DecorationImage(
+              image: AssetImage("assets/images/interfacesigno.png"),
+              fit: BoxFit.cover,
+            )),
             child: SafeArea(
               child: SingleChildScrollView(
                 child: Column(

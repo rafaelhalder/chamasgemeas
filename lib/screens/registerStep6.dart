@@ -28,8 +28,10 @@ class _RegisterStep6PageState extends State<RegisterStep6Page> {
         value: SystemUiOverlayStyle.light,
         child: Container(
             decoration: const BoxDecoration(
-              color: Colors.black,
-            ),
+                image: DecorationImage(
+              image: AssetImage("assets/images/interfacesigno.png"),
+              fit: BoxFit.cover,
+            )),
             child: SafeArea(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -147,7 +149,7 @@ class _RegisterStep6PageState extends State<RegisterStep6Page> {
                           //     .collection('users')
                           //     .doc(user?.uid)
                           //     .update({
-                          //   'interested': selectedIndex,
+                          //   '': selectedIndex,
                           //   'typeInterested': typeInterested
                           // });
 

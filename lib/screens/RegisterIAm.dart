@@ -20,10 +20,12 @@ class _RegisterIAmState extends State<RegisterIAm> {
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: Container(
-          height: double.infinity,
+            height: double.infinity,
             decoration: BoxDecoration(
-              color: Colors.black,
-            ),
+                image: DecorationImage(
+              image: AssetImage("assets/images/interfacesigno.png"),
+              fit: BoxFit.cover,
+            )),
             child: SafeArea(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -49,7 +51,7 @@ class _RegisterIAmState extends State<RegisterIAm> {
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             List list = snapshot.data;
-        
+
                             return ListView.builder(
                                 shrinkWrap: true,
                                 itemCount: list.length,
@@ -71,8 +73,10 @@ class _RegisterIAmState extends State<RegisterIAm> {
                                                 BorderRadius.circular(40),
                                             color: selectedIndex !=
                                                     index.toString()
-                                                ? Color.fromARGB(255, 108, 90, 64)
-                                                : const Color.fromARGB(255, 204, 171, 123),
+                                                ? Color.fromARGB(
+                                                    255, 108, 90, 64)
+                                                : const Color.fromARGB(
+                                                    255, 204, 171, 123),
                                           ),
                                           alignment: Alignment.center,
                                           width: size.width * 0.8,
@@ -121,7 +125,7 @@ class _RegisterIAmState extends State<RegisterIAm> {
                               .collection('users')
                               .doc(user?.uid)
                               .update({'gender': selectedIndex});
-        
+
                           selectedIndex != ""
                               ? Navigator.pushNamed(context, '/registerStep2')
                               : null;

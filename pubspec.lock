@@ -23,7 +23,7 @@ packages:
     source: hosted
     version: "2.8.2"
   basic_utils:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: basic_utils
       url: "https://pub.dartlang.org"
@@ -37,7 +37,7 @@ packages:
     source: hosted
     version: "2.1.0"
   cached_network_image:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: cached_network_image
       url: "https://pub.dartlang.org"
@@ -58,7 +58,7 @@ packages:
     source: hosted
     version: "1.0.1"
   carousel_slider:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: carousel_slider
       url: "https://pub.dartlang.org"
@@ -86,28 +86,28 @@ packages:
     source: hosted
     version: "1.1.0"
   cloud_firestore:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: cloud_firestore
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.2.1"
+    version: "3.4.3"
   cloud_firestore_platform_interface:
     dependency: transitive
     description:
       name: cloud_firestore_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.5.10"
+    version: "5.7.0"
   cloud_firestore_web:
     dependency: transitive
     description:
       name: cloud_firestore_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.6.19"
+    version: "2.8.3"
   cloud_functions:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: cloud_functions
       url: "https://pub.dartlang.org"
@@ -142,7 +142,7 @@ packages:
     source: hosted
     version: "3.0.2"
   convex_bottom_bar:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: convex_bottom_bar
       url: "https://pub.dartlang.org"
@@ -170,14 +170,14 @@ packages:
     source: hosted
     version: "0.17.2"
   cupertino_icons:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: cupertino_icons
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
   cupertino_list_tile:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: cupertino_list_tile
       url: "https://pub.dartlang.org"
@@ -205,7 +205,7 @@ packages:
     source: hosted
     version: "2.1.0"
   dotted_border:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: dotted_border
       url: "https://pub.dartlang.org"
@@ -240,7 +240,7 @@ packages:
     source: hosted
     version: "6.1.2"
   firebase_auth:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: firebase_auth
       url: "https://pub.dartlang.org"
@@ -261,12 +261,12 @@ packages:
     source: hosted
     version: "3.3.19"
   firebase_core:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: firebase_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.19.1"
+    version: "1.20.0"
   firebase_core_platform_interface:
     dependency: transitive
     description:
@@ -317,14 +317,14 @@ packages:
     source: hosted
     version: "0.2.3+6"
   firebase_messaging:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: firebase_messaging
       url: "https://pub.dartlang.org"
     source: hosted
     version: "12.0.1"
   firebase_messaging_platform_interface:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: firebase_messaging_platform_interface
       url: "https://pub.dartlang.org"
@@ -338,7 +338,7 @@ packages:
     source: hosted
     version: "3.1.0"
   firebase_storage:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: firebase_storage
       url: "https://pub.dartlang.org"
@@ -378,14 +378,14 @@ packages:
     source: hosted
     version: "3.3.0"
   flutter_chat_bubble:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: flutter_chat_bubble
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
   flutter_facebook_auth:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: flutter_facebook_auth
       url: "https://pub.dartlang.org"
@@ -406,14 +406,14 @@ packages:
     source: hosted
     version: "3.2.0"
   flutter_launcher_icons:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: flutter_launcher_icons
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.3"
   flutter_local_notifications:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: flutter_local_notifications
       url: "https://pub.dartlang.org"
@@ -439,14 +439,14 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_map:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: flutter_map
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.1"
   flutter_mobx:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: flutter_mobx
       url: "https://pub.dartlang.org"
@@ -460,7 +460,7 @@ packages:
     source: hosted
     version: "2.0.6"
   flutter_staggered_animations:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: flutter_staggered_animations
       url: "https://pub.dartlang.org"
@@ -484,14 +484,14 @@ packages:
     source: sdk
     version: "0.0.0"
   flutterfire_ui:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: flutterfire_ui
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.2+2"
   font_awesome_flutter:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: font_awesome_flutter
       url: "https://pub.dartlang.org"
@@ -505,7 +505,7 @@ packages:
     source: hosted
     version: "1.1.0"
   geolocator:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: geolocator
       url: "https://pub.dartlang.org"
@@ -547,14 +547,14 @@ packages:
     source: hosted
     version: "0.1.1"
   google_fonts:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: google_fonts
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.3.3"
   google_sign_in:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: google_sign_in
       url: "https://pub.dartlang.org"
@@ -596,7 +596,7 @@ packages:
     source: hosted
     version: "0.15.0"
   http:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: http
       url: "https://pub.dartlang.org"
@@ -617,7 +617,7 @@ packages:
     source: hosted
     version: "3.2.0"
   image_cropper:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: image_cropper
       url: "https://pub.dartlang.org"
@@ -638,7 +638,7 @@ packages:
     source: hosted
     version: "2.0.0"
   image_picker:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: image_picker
       url: "https://pub.dartlang.org"
@@ -673,14 +673,14 @@ packages:
     source: hosted
     version: "2.5.0"
   intl:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: intl
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.17.0"
   introduction_screen:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: introduction_screen
       url: "https://pub.dartlang.org"
@@ -701,7 +701,7 @@ packages:
     source: hosted
     version: "4.6.0"
   latlong2:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: latlong2
       url: "https://pub.dartlang.org"
@@ -722,7 +722,7 @@ packages:
     source: hosted
     version: "1.0.2"
   mask_text_input_formatter:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: mask_text_input_formatter
       url: "https://pub.dartlang.org"
@@ -757,14 +757,14 @@ packages:
     source: hosted
     version: "2.0.0"
   mobx:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: mobx
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.7+4"
   modal_bottom_sheet:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: modal_bottom_sheet
       url: "https://pub.dartlang.org"
@@ -918,14 +918,14 @@ packages:
     source: hosted
     version: "2.0.0"
   provider:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.0.3"
   purchases_flutter:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: purchases_flutter
       url: "https://pub.dartlang.org"
@@ -939,7 +939,7 @@ packages:
     source: hosted
     version: "3.1.0"
   reorderable_grid_view:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: reorderable_grid_view
       url: "https://pub.dartlang.org"
@@ -974,7 +974,7 @@ packages:
     source: hosted
     version: "1.0.1"
   simple_shadow:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: simple_shadow
       url: "https://pub.dartlang.org"
@@ -1056,7 +1056,7 @@ packages:
     source: hosted
     version: "0.8.0"
   toggle_switch:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: toggle_switch
       url: "https://pub.dartlang.org"
@@ -1091,7 +1091,7 @@ packages:
     source: hosted
     version: "0.3.1"
   url_launcher:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: url_launcher
       url: "https://pub.dartlang.org"
@@ -1161,7 +1161,7 @@ packages:
     source: hosted
     version: "2.1.2"
   video_player:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: video_player
       url: "https://pub.dartlang.org"

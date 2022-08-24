@@ -31,130 +31,137 @@ class _RegisterStep5State extends State<RegisterStep5> {
     );
 
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 27, 27, 27),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Center(
-                    child: RichText(
-                      text: TextSpan(
-                        style: const TextStyle(
-                          fontSize: 22.0,
-                          color: Color.fromARGB(255, 238, 238, 238),
-                        ),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text:
-                                '${user!.displayName},\nqual é o seu SIGNO?  ',
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+        image: AssetImage("assets/images/interfacesigno.png"),
+        fit: BoxFit.cover,
+      )),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Center(
+                      child: RichText(
+                        text: TextSpan(
+                          style: const TextStyle(
+                            fontSize: 22.0,
+                            color: Color.fromARGB(255, 238, 238, 238),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: size.height * 0.05,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      zodiac('assets/images/aries.png', 'Gêmeos',
-                          '21 Maio-20 Jun', 'Áries'),
-                      zodiac('assets/images/touro.png', 'Gêmeos',
-                          '21 Maio-20 Jun', 'Touro'),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      zodiac('assets/images/gemeos.png', 'Gêmeos',
-                          '21 Maio-20 Jun', 'Gêmeos'),
-                      zodiac('assets/images/cancer.png', 'Gêmeos',
-                          '21 Maio-20 Jun', 'Câncer'),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      zodiac('assets/images/leao.png', 'Gêmeos',
-                          '21 Maio-20 Jun', 'Leão'),
-                      zodiac('assets/images/virgem.png', 'Gêmeos',
-                          '21 Maio-20 Jun', 'Virgem'),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      zodiac('assets/images/libra.png', 'Gêmeos',
-                          '21 Maio-20 Jun', 'Libra'),
-                      zodiac('assets/images/escorpiao.png', 'Gêmeos',
-                          '21 Maio-20 Jun', 'Escorpião'),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      zodiac('assets/images/sagitario.png', 'Gêmeos',
-                          '21 Maio-20 Jun', 'Sagitário'),
-                      zodiac('assets/images/capricornio.png', 'Gêmeos',
-                          '21 Maio-20 Jun', 'Capricórnio'),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      zodiac('assets/images/aquario.png', 'Gêmeos',
-                          '21 Maio-20 Jun', 'Aquário'),
-                      zodiac('assets/images/peixes.png', 'Gêmeos',
-                          '21 Maio-20 Jun', 'Peixes'),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  GestureDetector(
-                    onTap: () async {
-                      await FirebaseFirestore.instance
-                          .collection('users')
-                          .doc(user?.uid)
-                          .update({'zodiac': selectedIndex});
-                      Navigator.pushNamed(context, '/registerStep6');
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
-                      child: Container(
-                        width: size.width * 0.85,
-                        height: size.height * 0.065,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: activeButtonColor(),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'CONFIRMAR',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'CM Sans Serif',
-                                fontSize: 18),
-                          ),
+                          children: <TextSpan>[
+                            TextSpan(
+                              text:
+                                  '${user!.displayName},\nqual é o seu SIGNO?  ',
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: size.height * 0.05,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        zodiac('assets/images/aries.png', 'Gêmeos',
+                            '21 Maio-20 Jun', 'Áries'),
+                        zodiac('assets/images/touro.png', 'Gêmeos',
+                            '21 Maio-20 Jun', 'Touro'),
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        zodiac('assets/images/gemeos.png', 'Gêmeos',
+                            '21 Maio-20 Jun', 'Gêmeos'),
+                        zodiac('assets/images/cancer.png', 'Gêmeos',
+                            '21 Maio-20 Jun', 'Câncer'),
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        zodiac('assets/images/leao.png', 'Gêmeos',
+                            '21 Maio-20 Jun', 'Leão'),
+                        zodiac('assets/images/virgem.png', 'Gêmeos',
+                            '21 Maio-20 Jun', 'Virgem'),
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        zodiac('assets/images/libra.png', 'Gêmeos',
+                            '21 Maio-20 Jun', 'Libra'),
+                        zodiac('assets/images/escorpiao.png', 'Gêmeos',
+                            '21 Maio-20 Jun', 'Escorpião'),
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        zodiac('assets/images/sagitario.png', 'Gêmeos',
+                            '21 Maio-20 Jun', 'Sagitário'),
+                        zodiac('assets/images/capricornio.png', 'Gêmeos',
+                            '21 Maio-20 Jun', 'Capricórnio'),
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        zodiac('assets/images/aquario.png', 'Gêmeos',
+                            '21 Maio-20 Jun', 'Aquário'),
+                        zodiac('assets/images/peixes.png', 'Gêmeos',
+                            '21 Maio-20 Jun', 'Peixes'),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    GestureDetector(
+                      onTap: () async {
+                        await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(user?.uid)
+                            .update({'zodiac': selectedIndex});
+                        Navigator.pushNamed(context, '/registerStep6');
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: Container(
+                          width: size.width * 0.85,
+                          height: size.height * 0.065,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: activeButtonColor(),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'CONFIRMAR',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'CM Sans Serif',
+                                  fontSize: 18),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

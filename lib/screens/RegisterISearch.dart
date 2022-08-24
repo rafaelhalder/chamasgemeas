@@ -29,8 +29,10 @@ class _RegisterISearchPageState extends State<RegisterISearchPage> {
         value: SystemUiOverlayStyle.light,
         child: Container(
             decoration: BoxDecoration(
-              color: Colors.black,
-            ),
+                image: DecorationImage(
+              image: AssetImage("assets/images/interfacesigno.png"),
+              fit: BoxFit.cover,
+            )),
             child: SafeArea(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -84,8 +86,10 @@ class _RegisterISearchPageState extends State<RegisterISearchPage> {
                                                 BorderRadius.circular(40),
                                             color: selectedIndex !=
                                                     index.toString()
-                                                ? Color.fromARGB(255, 108, 90, 64)
-                                                : const Color.fromARGB(255, 204, 171, 123),
+                                                ? Color.fromARGB(
+                                                    255, 108, 90, 64)
+                                                : const Color.fromARGB(
+                                                    255, 204, 171, 123),
                                           ),
                                           alignment: Alignment.center,
                                           width: size.width * 0.8,

@@ -36,6 +36,8 @@ class _HomePageState extends State<HomePage> {
   CollectionReference chats = FirebaseFirestore.instance.collection('chats');
   CollectionReference match = FirebaseFirestore.instance.collection('match');
   String filter = '';
+  String gende = '';
+  String interest = '';
   List likedList = [];
   List superLikedList = [];
   List matchList = [];
@@ -264,6 +266,8 @@ class _HomePageState extends State<HomePage> {
                     String userName = user['name'];
                     String userOccupation = user['occupation'];
                     int userAge = user['age'];
+                    String userInt = user['interested'];
+                    String usergender = user['gender'];
                     int ageStartFilter = 0;
                     if (listFilterAge[0] != '') {
                       if (listFilterAge[0] != 0) {
@@ -273,6 +277,13 @@ class _HomePageState extends State<HomePage> {
                     }
                     int ageEndFilter =
                         double.parse(listFilterAge[1].toString()).round();
+
+                    if (interest != usergender) {
+                      return Container();
+                    }
+                    if (userInt != gende) {
+                      return Container();
+                    }
                     // if (userUid != uid) {
                     //   return Container();
                     // } else {
@@ -1333,12 +1344,22 @@ class _HomePageState extends State<HomePage> {
     List listLike = [];
     List listSuperLike = [];
     List matchs = [];
+    String gender = '';
+    String interested = '';
 
     final like =
         await FirebaseFirestore.instance.collection('liked').doc(uid).get();
 
     if (like.exists) {
       listLike = like['id'];
+    }
+
+    final gendes =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    if (gendes.exists) {
+      gender = gendes['gender'];
+      interested = gendes['interested'];
     }
 
     final match =
@@ -1358,6 +1379,8 @@ class _HomePageState extends State<HomePage> {
     }
 
     setState(() {
+      gende = gender;
+      interest = interested;
       likedList = listLike;
       superLikedList = listSuperLike;
       matchList = matchs;

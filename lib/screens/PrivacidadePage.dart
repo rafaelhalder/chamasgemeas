@@ -40,18 +40,21 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
     // set up the buttons
     Widget cancelButton = TextButton(
       child: Text("Não", style: TextStyle(color: Colors.white)),
-      onPressed: () {},
+      onPressed: () {
+        SystemNavigator.pop();
+      },
     );
     Widget continueButton = TextButton(
       child: Text("Sim", style: TextStyle(color: Colors.red)),
       onPressed: () async {
+        print(uid);
         await FirebaseFirestore.instance
             .collection('users')
             .doc(uid)
             .update({'status': false});
         await user?.delete();
         await AuthService().signOut();
-        SystemNavigator.pop();
+        await SystemNavigator.pop();
       },
     );
     // set up the AlertDialog
