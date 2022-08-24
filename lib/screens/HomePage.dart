@@ -115,7 +115,11 @@ class _HomePageState extends State<HomePage> {
           systemNavigationBarColor: Colors.black,
         ),
         child: Container(
-          color: const Color.fromARGB(255, 27, 27, 27),
+          decoration: BoxDecoration(
+              image: DecorationImage(
+            image: AssetImage("assets/images/interfacesigno.png"),
+            fit: BoxFit.cover,
+          )),
           // decoration: BoxDecoration(gradient: backgroundnew()),
           child: Scaffold(
             extendBodyBehindAppBar: true,
@@ -223,7 +227,7 @@ class _HomePageState extends State<HomePage> {
               headerSliverBuilder: (context, _) => [
                 SliverAppBar(
                   automaticallyImplyLeading: false,
-                  backgroundColor: const Color.fromARGB(255, 27, 27, 27),
+                  backgroundColor: Color.fromARGB(128, 0, 0, 0),
                   leading: Image.asset(
                     'assets/images/logo.png',
                     height: 45,
