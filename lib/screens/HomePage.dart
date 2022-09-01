@@ -18,6 +18,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:latlong2/latlong.dart' as lat;
 
 import '../paywall_widget.dart';
 
@@ -37,12 +38,14 @@ class _HomePageState extends State<HomePage> {
   CollectionReference match = FirebaseFirestore.instance.collection('match');
   String filter = '';
   String gende = '';
+  String userLat = '';
+  String userLng = '';
   String interest = '';
   List likedList = [];
   List superLikedList = [];
   List matchList = [];
   List listFilterAge = [0, 100];
-  int listFilterDistance = 30;
+  double listFilterDistance = 30;
   final double _value = 40.0;
   String superLikeText = '';
 
@@ -270,8 +273,26 @@ class _HomePageState extends State<HomePage> {
                     String userName = user['name'];
                     String userOccupation = user['occupation'];
                     int userAge = user['age'];
-                    String userInt = user['interested'];
+                    double userInt = double.parse(user['interested']);
+                    double lats = double.parse(user['latitude']);
+                    double lng = double.parse(user['longitude']);
+
+                    /// double lngU = double.parse(userLng);
+                    ///
                     String usergender = user['gender'];
+                    double distancia = listFilterDistance;
+                    var distance = const lat.Distance();
+
+                    if (userLng != '') {
+                      double lngU = double.parse(userLng);
+                      double latU = double.parse(userLat);
+                      final km = distance.as(lat.LengthUnit.Kilometer,
+                          lat.LatLng(lats, lng), lat.LatLng(latU, lngU));
+                      if (distancia < km) {
+                        return Container();
+                      }
+                    }
+
                     int ageStartFilter = 0;
                     if (listFilterAge[0] != '') {
                       if (listFilterAge[0] != 0) {
@@ -281,12 +302,15 @@ class _HomePageState extends State<HomePage> {
                     }
                     int ageEndFilter =
                         double.parse(listFilterAge[1].toString()).round();
-
-                    if (interest != usergender) {
-                      return Container();
+                    if (interest != '') {
+                      if (interest != usergender) {
+                        // return Container();
+                      }
                     }
-                    if (userInt != gende) {
-                      return Container();
+                    if (gende != '') {
+                      if (userInt != gende) {
+                        // return Container();
+                      }
                     }
                     // if (userUid != uid) {
                     //   return Container();
@@ -1350,6 +1374,8 @@ class _HomePageState extends State<HomePage> {
     List matchs = [];
     String gender = '';
     String interested = '';
+    String lat = '';
+    String lng = '';
 
     final like =
         await FirebaseFirestore.instance.collection('liked').doc(uid).get();
@@ -1364,6 +1390,8 @@ class _HomePageState extends State<HomePage> {
     if (gendes.exists) {
       gender = gendes['gender'];
       interested = gendes['interested'];
+      lat = gendes['latitude'];
+      lng = gendes['longitude'];
     }
 
     final match =
@@ -1388,6 +1416,8 @@ class _HomePageState extends State<HomePage> {
       likedList = listLike;
       superLikedList = listSuperLike;
       matchList = matchs;
+      userLat = lat;
+      userLng = lng;
     });
   }
 
@@ -1397,7 +1427,12 @@ class _HomePageState extends State<HomePage> {
 
     if (filter.exists) {
       listFilterAge = filter['age'];
-      listFilterDistance = filter['distance'];
+      String distance = filter['distance'].toString();
+      distance = distance.replaceAll("[", ""); // myString is "s t r"
+      distance = distance.replaceAll("]", ""); // myString is "s t r"
+
+      double distance_value = double.parse((distance).toString());
+      listFilterDistance = distance_value;
     }
   }
 }
