@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class PreferencePage extends StatefulWidget {
   const PreferencePage({Key? key}) : super(key: key);
@@ -43,40 +44,40 @@ class _PreferencePageState extends State<PreferencePage> {
         statusBarColor: Colors.transparent,
       ),
       child: Container(
-        color: const Color.fromARGB(255, 27, 27, 27),
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage("assets/images/interfacesigno.png"),
+          fit: BoxFit.cover,
+        )),
         child: Scaffold(
           bottomNavigationBar: ConvexAppBar(
+            color: Colors.black,
             gradient: const LinearGradient(colors: [
-              Color.fromARGB(255, 0, 0, 0),
-              Color.fromARGB(255, 2, 1, 3),
+              Color.fromARGB(255, 223, 223, 223),
+              Color.fromARGB(255, 223, 223, 223),
             ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
             // ignore: prefer_const_literals_to_create_immutables
             items: [
               // ignore: prefer_const_constructors
               TabItem(
                   activeIcon: const Icon(Icons.people, color: Colors.black),
-                  icon: const Icon(Icons.people,
-                      color: Color.fromARGB(255, 204, 171, 123)),
+                  icon: const Icon(Icons.people, color: Colors.black),
                   title: 'Home'),
               const TabItem(
                   activeIcon: Icon(Icons.star, color: Colors.black),
-                  icon: Icon(Icons.star,
-                      color: Color.fromARGB(255, 204, 171, 123)),
+                  icon: Icon(Icons.star, color: Colors.black),
                   title: 'Super'),
               const TabItem(
                   activeIcon: Icon(Icons.person, color: Colors.black),
-                  icon: Icon(Icons.person,
-                      color: Color.fromARGB(255, 204, 171, 123)),
+                  icon: Icon(Icons.person, color: Colors.black),
                   title: 'Perfil'),
               const TabItem(
                   activeIcon: Icon(Icons.message, color: Colors.black),
-                  icon: Icon(Icons.message,
-                      color: Color.fromARGB(255, 204, 171, 123)),
+                  icon: Icon(Icons.message, color: Colors.black),
                   title: 'Msg'),
               const TabItem(
                   activeIcon: Icon(Icons.settings, color: Colors.black),
-                  icon: Icon(Icons.settings,
-                      color: Color.fromARGB(255, 204, 171, 123)),
+                  icon: Icon(Icons.settings, color: Colors.black),
                   title: 'Opções'),
             ],
             initialActiveIndex: 4, //optional, default as 0
@@ -142,29 +143,33 @@ class _PreferencePageState extends State<PreferencePage> {
           backgroundColor: Colors.transparent,
           body: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(28.0),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.only(bottom: 12.0),
                     child: Container(
                       child: Center(
                           child: Text(
                         'Configurações',
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                        style: GoogleFonts.quicksand(
+                            fontSize: 25,
+                            color: Color.fromARGB(255, 147, 132, 100),
+                            fontWeight: FontWeight.w600),
                       )),
                     ),
+                  ),
+                  SizedBox(
+                    height: 30,
                   ),
                   AnimationLimiter(
                     child: GridView.count(
                       shrinkWrap: true,
-                      childAspectRatio: (200 / 150),
+                      childAspectRatio: (200 / 180),
                       crossAxisCount: 2,
-                      mainAxisSpacing: 20,
-                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 14,
+                      crossAxisSpacing: 14,
                       children: [
                         AnimationConfiguration.staggeredGrid(
                           position: 0,
@@ -178,25 +183,28 @@ class _PreferencePageState extends State<PreferencePage> {
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
+                                      borderRadius: BorderRadius.circular(25),
                                       color: Colors.transparent,
                                       border: Border.all(
                                           color: Color.fromARGB(
-                                              255, 204, 171, 123))),
+                                              255, 207, 202, 187))),
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
+                                      horizontal: 25),
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Icon(Icons.app_registration,
-                                          size: 35, color: Colors.white),
+                                          size: 60,
+                                          color: Color.fromARGB(
+                                              255, 207, 202, 187)),
                                       Text(
                                         'Preferências',
                                         style: TextStyle(
-                                            fontSize: 18, color: Colors.white),
+                                            fontSize: 18,
+                                            color: Color.fromARGB(
+                                                255, 207, 202, 187)),
                                       )
                                     ],
                                   ),
@@ -214,29 +222,32 @@ class _PreferencePageState extends State<PreferencePage> {
                               child: GestureDetector(
                                 onTap: () async {
                                   await AuthService().signOut();
-                                  SystemNavigator.pop();
+                                  await SystemNavigator.pop();
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
+                                      borderRadius: BorderRadius.circular(25),
                                       color: Colors.transparent,
                                       border: Border.all(
                                           color: Color.fromARGB(
-                                              255, 204, 171, 123))),
+                                              255, 207, 202, 187))),
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
+                                      horizontal: 25),
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Icon(Icons.logout,
-                                          size: 35, color: Colors.white),
+                                          size: 60,
+                                          color: Color.fromARGB(
+                                              255, 207, 202, 187)),
                                       Text(
                                         'Logout',
                                         style: TextStyle(
-                                            fontSize: 18, color: Colors.white),
+                                            fontSize: 18,
+                                            color: Color.fromARGB(
+                                                255, 207, 202, 187)),
                                       )
                                     ],
                                   ),
@@ -257,25 +268,28 @@ class _PreferencePageState extends State<PreferencePage> {
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
+                                      borderRadius: BorderRadius.circular(25),
                                       color: Colors.transparent,
                                       border: Border.all(
                                           color: Color.fromARGB(
-                                              255, 204, 171, 123))),
+                                              255, 207, 202, 187))),
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
+                                      horizontal: 25),
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Icon(Icons.lock,
-                                          size: 35, color: Colors.white),
+                                          size: 60,
+                                          color: Color.fromARGB(
+                                              255, 207, 202, 187)),
                                       Text(
                                         'Privacidade',
                                         style: TextStyle(
-                                            fontSize: 18, color: Colors.white),
+                                            fontSize: 18,
+                                            color: Color.fromARGB(
+                                                255, 207, 202, 187)),
                                       )
                                     ],
                                   ),
@@ -296,25 +310,28 @@ class _PreferencePageState extends State<PreferencePage> {
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
+                                      borderRadius: BorderRadius.circular(25),
                                       color: Colors.transparent,
                                       border: Border.all(
                                           color: Color.fromARGB(
-                                              255, 204, 171, 123))),
+                                              255, 207, 202, 187))),
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
+                                      horizontal: 25),
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Icon(Icons.email,
-                                          size: 35, color: Colors.white),
+                                          size: 60,
+                                          color: Color.fromARGB(
+                                              255, 207, 202, 187)),
                                       Text(
                                         'Ajuda',
                                         style: TextStyle(
-                                            fontSize: 18, color: Colors.white),
+                                            fontSize: 18,
+                                            color: Color.fromARGB(
+                                                255, 207, 202, 187)),
                                       )
                                     ],
                                   ),
@@ -340,7 +357,12 @@ class _PreferencePageState extends State<PreferencePage> {
         await FirebaseFirestore.instance.collection('filter').doc(uid).get();
 
     setState(() {
-      _value = double.parse(filter['distance'].toString());
+      String distance = filter['distance'].toString();
+      distance = distance.replaceAll("[", ""); // myString is "s t r"
+      distance = distance.replaceAll("]", ""); // myString is "s t r"
+
+      double distance_value = double.parse((distance).toString());
+      _value = distance_value;
       _startValue = double.parse(filter['age'][0].toString());
       _endValue = double.parse(filter['age'][1].toString());
     });

@@ -18,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _controller = VideoPlayerController.asset("assets/videos/background.mp4")
+    _controller = VideoPlayerController.asset("assets/videos/chamas.mp4")
       ..initialize().then((_) {
         // Once the video has been loaded we play the video and set looping to true.
         _controller.play();
@@ -59,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 30, right: 30, top: 150),
+              padding: const EdgeInsets.only(left: 30, right: 30, top: 0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
@@ -67,20 +67,20 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Center(
                       child: Container(
-                        height: size.height * 0.06,
+                        height: size.height * 0.4,
                         width: size.width * 0.7,
                         decoration: BoxDecoration(boxShadow: [
                           BoxShadow(
                             color: const Color.fromARGB(255, 0, 0, 0)
-                                .withOpacity(0.5),
+                                .withOpacity(0.0),
                             spreadRadius: 5,
                             blurRadius: 7,
                             offset: const Offset(
                                 0, 3), // changes position of shadow
                           ),
                         ], borderRadius: BorderRadius.circular(50)),
-                        child: Image.asset('assets/images/logo.png',
-                            height: size.height * 0.25),
+                        child: Image.asset('assets/images/ads-removebg.png',
+                            height: size.height * 0.80),
                       ),
                     ),
                   )
@@ -111,8 +111,8 @@ class _LoginPageState extends State<LoginPage> {
                           }
                         },
                         style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.white),
+                          backgroundColor: MaterialStateProperty.all(
+                              Color.fromARGB(18, 0, 0, 0)),
                           textStyle: MaterialStateProperty.all<TextStyle?>(
                               GoogleFonts.montserrat(
                                   color: Colors.pink,
@@ -131,10 +131,11 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             Image.asset('assets/images/google.png'),
                             Text(
-                              'Sign in with Google',
-                              style: GoogleFonts.montserrat(
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.w500),
+                              'Entrar com o Google',
+                              style: GoogleFonts.quicksand(
+                                  fontSize: 20,
+                                  color: Color.fromARGB(218, 255, 255, 255),
+                                  fontWeight: FontWeight.w600),
                             ),
                             const SizedBox(
                               width: 32,
@@ -149,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 30, vertical: 100),
+                  const EdgeInsets.symmetric(horizontal: 30, vertical: 130),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
@@ -172,9 +173,9 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
-                              const Color.fromARGB(255, 44, 98, 199)),
+                              Color.fromARGB(51, 0, 0, 0)),
                           textStyle: MaterialStateProperty.all<TextStyle?>(
-                            GoogleFonts.montserrat(
+                            GoogleFonts.quicksand(
                                 color: const Color.fromARGB(255, 255, 255, 255),
                                 fontWeight: FontWeight.w500),
                           ),
@@ -192,11 +193,11 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             Image.asset('assets/images/facebook.png'),
                             Text(
-                              'Acessar com Facebook',
-                              style: GoogleFonts.montserrat(
-                                  color:
-                                      const Color.fromARGB(255, 255, 255, 255),
-                                  fontWeight: FontWeight.w500),
+                              'Entrar com o Facebook',
+                              style: GoogleFonts.quicksand(
+                                  fontSize: 20,
+                                  color: Color.fromARGB(218, 255, 255, 255),
+                                  fontWeight: FontWeight.w600),
                             ),
                             const SizedBox(
                               width: 32,

@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:google_fonts/google_fonts.dart';
 
 class RegisterStep7 extends StatefulWidget {
   @override
@@ -19,7 +20,7 @@ class _RegisterStep7State extends State<RegisterStep7> {
   int? typeInterested = 0;
   User? user = FirebaseAuth.instance.currentUser;
   String? uid = FirebaseAuth.instance.currentUser?.uid;
-
+  String testes = '';
   String teste = FirebaseAuth.instance.currentUser!.photoURL!;
   late String teste2;
   List multipleSelected = [];
@@ -129,181 +130,219 @@ class _RegisterStep7State extends State<RegisterStep7> {
     } catch (e) {
       print(e);
     }
-    setState(() {});
+    setState(() {
+      testes = listPhotos[0]['name'];
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: Container(
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-              image: AssetImage("assets/images/interfacesigno.png"),
-              fit: BoxFit.cover,
-            )),
-            child: SafeArea(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.only(left: 50, top: 20),
-                      alignment: Alignment.bottomLeft,
-                      child: Text(
-                        '${user!.displayName},\nSelecion sua foto de perfil!',
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+        image: AssetImage("assets/images/interfacesigno.png"),
+        fit: BoxFit.cover,
+      )),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.light,
+          child: Container(
+              child: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(left: 50, top: 60),
+                    alignment: Alignment.bottomLeft,
+                    child: RichText(
+                      text: TextSpan(
                         style: const TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'CM Sans Serif',
-                          fontSize: 25.0,
-                          height: 1.5,
+                          fontSize: 22.0,
+                          color: Color.fromARGB(255, 238, 238, 238),
                         ),
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: '${user?.displayName}, \n',
+                              style: GoogleFonts.quicksand(
+                                  fontSize: 30,
+                                  color: Color.fromARGB(255, 147, 132, 100),
+                                  fontWeight: FontWeight.w700)),
+                          TextSpan(
+                              text: 'SELECIONE A SUA \n FOTO DE PERFIL',
+                              style: GoogleFonts.quicksand(
+                                  fontSize: 20,
+                                  color: Color.fromARGB(255, 207, 202, 187),
+                                  fontWeight: FontWeight.w700)),
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.zero,
-                      child: FutureBuilder<dynamic>(
-                          future: loadImage(),
-                          builder:
-                              (BuildContext context, AsyncSnapshot snapshot) {
-                            return Center(
-                              child: GestureDetector(
-                                onTap: () {
-                                  _showPicker(context);
-                                },
-                                child: CircleAvatar(
-                                  radius: 70,
-                                  backgroundColor: Colors.transparent,
-                                  child: snapshot.data != null
-                                      ? ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(70),
-                                          child: Image.network(
-                                            snapshot.data,
-                                            width: 140,
-                                            height: 140,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        )
-                                      : Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.grey[200],
-                                              borderRadius:
-                                                  BorderRadius.circular(70)),
-                                          width: 140,
-                                          height: 140,
-                                          child: Icon(
-                                            Icons.camera_alt,
-                                            color: Colors.grey[800],
-                                          ),
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.zero,
+                    child: FutureBuilder<dynamic>(
+                        future: loadImage(),
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          return Center(
+                            child: GestureDetector(
+                              onTap: () {
+                                _showPicker(context);
+                              },
+                              child: CircleAvatar(
+                                radius: 90,
+                                backgroundColor: Colors.transparent,
+                                child: snapshot.data != null
+                                    ? ClipRRect(
+                                        borderRadius: BorderRadius.circular(90),
+                                        child: Image.network(
+                                          snapshot.data,
+                                          width: 180,
+                                          height: 180,
+                                          fit: BoxFit.cover,
                                         ),
-                                ),
+                                      )
+                                    : Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey[200],
+                                            borderRadius:
+                                                BorderRadius.circular(90)),
+                                        width: 180,
+                                        height: 180,
+                                        child: Icon(
+                                          Icons.camera_alt,
+                                          color: Colors.grey[800],
+                                        ),
+                                      ),
                               ),
-                            );
-                          }),
+                            ),
+                          );
+                        }),
+                  ),
+                  SizedBox(
+                    height: 80,
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.symmetric(horizontal: 50),
+                    child: RichText(
+                      text: TextSpan(
+                        style: const TextStyle(
+                          fontSize: 18.0,
+                          color: Color.fromARGB(255, 238, 238, 238),
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(text: 'Sobre você:'),
+                        ],
+                      ),
                     ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 10),
-                      child: TextField(
-                        onChanged: (value) async {
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(user?.uid)
-                              .update({'aboutMe': value});
-                          setState(() {
-                            selectedIndex = value;
-                          });
-                        },
-                        keyboardType: TextInputType.multiline,
-                        maxLines: 4,
-                        cursorColor: Colors.pink,
-                        maxLength: 144,
-                        style: const TextStyle(color: Colors.white),
-                        decoration: const InputDecoration(
-                          hintText:
-                              'Escreva uma FRASE que revela tua essência!',
-                          hintStyle: TextStyle(color: Colors.white70),
-                          fillColor: Colors.white24,
-                          filled: true,
-                          labelText: 'Sua essência!',
-                          labelStyle: TextStyle(
-                            color: Color.fromARGB(255, 244, 238, 252),
-                          ),
-                          helperText: 'Limite',
-                          helperStyle: TextStyle(color: Colors.white),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xFFECB461)),
-                          ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: TextField(
+                      onChanged: (value) async {
+                        await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(user?.uid)
+                            .update({'aboutMe': value});
+                        setState(() {
+                          selectedIndex = value;
+                        });
+                      },
+                      keyboardType: TextInputType.multiline,
+                      maxLines: 1,
+                      cursorColor: Colors.pink,
+                      maxLength: 144,
+                      style: TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        focusColor: Colors.white,
+                        hoverColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(40.0),
+                        ),
+                        hintStyle: TextStyle(color: Colors.white70),
+                        fillColor: Color.fromARGB(0, 255, 255, 255),
+                        filled: true,
+                        labelStyle: TextStyle(
+                          color: Color.fromARGB(255, 244, 238, 252),
+                        ),
+                        helperStyle: TextStyle(color: Colors.white),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 207, 202, 187)),
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    Container(
-                      color: Colors.transparent,
-                      alignment: Alignment.center,
-                      height: size.height * 0.1,
-                      width: double.infinity,
-                      child: Center(
-                        child: GestureDetector(
-                          onTap: () async {
+                  ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  Container(
+                    color: Colors.transparent,
+                    alignment: Alignment.center,
+                    height: size.height * 0.1,
+                    width: double.infinity,
+                    child: Center(
+                      child: GestureDetector(
+                        onTap: () async {
+                          print(selectedIndex);
+                          print(testes);
+                          if (selectedIndex.length > 5 && testes != '') {
                             await FirebaseFirestore.instance
                                 .collection('users')
                                 .doc(user?.uid)
                                 .update({"finished": true}).then((value) =>
                                     Navigator.pushNamed(context, '/home'));
+                          }
 
-                            // await FirebaseFirestore.instance
-                            //     .collection('users')
-                            //     .doc(user?.uid)
-                            //     .update({
-                            //   'interested': selectedIndex,
-                            //   'typeInterested': typeInterested
-                            // });
+                          // await FirebaseFirestore.instance
+                          //     .collection('users')
+                          //     .doc(user?.uid)
+                          //     .update({
+                          //   'interested': selectedIndex,
+                          //   'typeInterested': typeInterested
+                          // });
 
-                            // selectedIndex != ""
-                            //     ? Navigator.pushNamed(context, '/home')
-                            //     : null;
-                          },
-                          child: Container(
-                            width: size.width * 0.7,
-                            height: size.height * 0.055,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40),
-                              color: selectedIndex.length > 5
-                                  ? const Color(0xFFECB461)
-                                  : Colors.black38,
-                            ),
-                            child: Center(
-                              child: Text(
-                                'CONFIRMAR',
-                                style: TextStyle(
-                                    color: selectedIndex.length > 5
-                                        ? Colors.white
-                                        : Colors.white24,
-                                    fontFamily: 'CM Sans Serif',
-                                    fontSize: 18),
-                              ),
+                          // selectedIndex != ""
+                          //     ? Navigator.pushNamed(context, '/home')
+                          //     : null;
+                        },
+                        child: Container(
+                          width: size.width * 0.35,
+                          height: size.height * 0.035,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(40),
+                            color: selectedIndex.length > 5
+                                ? Color.fromARGB(255, 200, 181, 152)
+                                : Color.fromARGB(0, 108, 90, 64),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'CONFIRMAR',
+                              style: TextStyle(
+                                  color: selectedIndex.length > 5
+                                      ? Colors.black
+                                      : Colors.white24,
+                                  fontFamily: 'CM Sans Serif',
+                                  fontSize: 18),
                             ),
                           ),
                         ),
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
-            )),
+            ),
+          )),
+        ),
       ),
     );
   }
@@ -340,8 +379,6 @@ class _RegisterStep7State extends State<RegisterStep7> {
 
       return url;
     }
-
-    print('travou aqui');
   }
 
   void _showPicker(context) {

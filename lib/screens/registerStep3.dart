@@ -138,17 +138,24 @@ class _RegisterStep3State extends State<RegisterStep3> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              width: size.width * 0.7,
-                              height: size.height * 0.055,
+                              width: size.width * 0.35,
+                              height: size.height * 0.035,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(40),
+                                color: selectedIndex != ''
+                                    ? Color.fromARGB(255, 200, 181, 152)
+                                    : Color.fromARGB(0, 108, 90, 64),
+                              ),
                               child: Center(
                                 child: Text(
                                   'CONFIRMAR',
                                   style: TextStyle(
                                       color: selectedIndex != ''
-                                          ? Color(0xFFECB461)
-                                          : Colors.white24,
+                                          ? Color.fromARGB(255, 0, 0, 0)
+                                          : Color.fromARGB(255, 207, 202, 187),
                                       fontFamily: 'CM Sans Serif',
-                                      fontSize: 18),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
                                 ),
                               ),
                             ),

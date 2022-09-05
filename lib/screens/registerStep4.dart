@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class RegisterStep4 extends StatefulWidget {
   @override
@@ -19,8 +20,6 @@ class _RegisterStep4State extends State<RegisterStep4> {
   String weight = '';
   String occupation = '';
   String city = '';
-  String country = '';
-  String whatsapp = '';
 
   final _formKey = GlobalKey<FormState>();
 
@@ -43,7 +42,7 @@ class _RegisterStep4State extends State<RegisterStep4> {
         backgroundColor: Colors.transparent,
         body: SafeArea(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Center(
               child: Form(
                 key: _formKey,
@@ -61,7 +60,7 @@ class _RegisterStep4State extends State<RegisterStep4> {
                           children: <TextSpan>[
                             TextSpan(
                                 text:
-                                    '${user!.displayName},\nme fale 7 coisas sobre VOCÊ!'),
+                                    '${user!.displayName},\nme fale 5 coisas sobre VOCÊ!'),
                           ],
                         ),
                       ),
@@ -69,451 +68,297 @@ class _RegisterStep4State extends State<RegisterStep4> {
                     SizedBox(
                       height: size.height * 0.05,
                     ),
-                    Row(
-                      children: [
-                        Flexible(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextFormField(
-                                  keyboardType: TextInputType.number,
-                                  maxLength: 2,
-                                  style: const TextStyle(color: Colors.white),
-                                  inputFormatters: <TextInputFormatter>[
-                                    FilteringTextInputFormatter.digitsOnly,
-                                  ],
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    focusColor: Colors.white,
-                                    labelText: 'Idade',
-                                    helperText: '27 Anos',
-                                    hintText: '27',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      letterSpacing: 0.5,
-                                    ),
-                                    errorStyle:
-                                        const TextStyle(color: Colors.white),
-                                    helperStyle: const TextStyle(
-                                        color:
-                                            Color.fromARGB(202, 255, 255, 255)),
-                                    hintStyle:
-                                        const TextStyle(color: Colors.white60),
-                                    errorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                        borderSide: BorderSide(
-                                            color: Colors.red.shade500)),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                        borderSide: const BorderSide(
-                                            color: Color(0xFFECB461))),
-                                    focusedBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Color.fromARGB(
-                                                255, 255, 255, 255))),
-                                    border: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.white, width: 0.0)),
-                                  ),
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Campo Obrigatório';
-                                    } else if (int.parse(value) < 18) {
-                                      return 'Proibido p/ menores';
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                  onChanged: (value) => setState(() {
-                                    if (value == "") {
-                                      value = "0";
-                                    }
-                                    age = int.parse(value);
-                                  }),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Flexible(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextFormField(
-                                  keyboardType: TextInputType.number,
-                                  maxLength: 4,
-                                  style: const TextStyle(color: Colors.white),
-                                  inputFormatters: <TextInputFormatter>[
-                                    FilteringTextInputFormatter.digitsOnly,
-                                    maskHeight
-                                  ],
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    focusColor: Colors.white,
-                                    labelText: 'Altura',
-                                    helperText: 'Altura 1.80',
-                                    hintText: '1.80',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      letterSpacing: 0.5,
-                                    ),
-                                    errorStyle:
-                                        const TextStyle(color: Colors.white),
-                                    helperStyle: const TextStyle(
-                                        color:
-                                            Color.fromARGB(202, 255, 255, 255)),
-                                    hintStyle:
-                                        const TextStyle(color: Colors.white60),
-                                    errorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                        borderSide: BorderSide(
-                                            color: Colors.red.shade500)),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                        borderSide: const BorderSide(
-                                            color: Color(0xFFECB461))),
-                                    focusedBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Color.fromARGB(
-                                                255, 255, 255, 255))),
-                                    border: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.white, width: 0.0)),
-                                  ),
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Campo Obrigatório';
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                  onChanged: (value) => setState(() {
-                                    height = value;
-                                  }),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                          padding: const EdgeInsets.only(bottom: 3.0, left: 20),
+                          child: Text(
+                            'Idade',
+                            style: GoogleFonts.quicksand(
+                                fontSize: 18,
+                                color: Color.fromARGB(255, 207, 202, 187),
+                                fontWeight: FontWeight.w500),
+                          )),
                     ),
-                    Row(
-                      children: [
-                        Flexible(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextFormField(
-                                  keyboardType: TextInputType.number,
-                                  maxLength: 3,
-                                  style: const TextStyle(color: Colors.white),
-                                  inputFormatters: <TextInputFormatter>[
-                                    FilteringTextInputFormatter.digitsOnly,
-                                  ],
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    focusColor: Colors.white,
-                                    labelText: 'Peso',
-                                    helperText: 'Kg',
-                                    hintText: '54',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      letterSpacing: 0.5,
-                                    ),
-                                    errorStyle:
-                                        const TextStyle(color: Colors.white),
-                                    helperStyle: const TextStyle(
-                                        color:
-                                            Color.fromARGB(202, 255, 255, 255)),
-                                    hintStyle:
-                                        const TextStyle(color: Colors.white60),
-                                    errorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                        borderSide: BorderSide(
-                                            color: Colors.red.shade500)),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                        borderSide: const BorderSide(
-                                            color: Color(0xFFECB461))),
-                                    focusedBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Color.fromARGB(
-                                                255, 255, 255, 255))),
-                                    border: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.white, width: 0.0)),
-                                  ),
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Campo Obrigatório';
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                  onChanged: (value) => setState(() {
-                                    weight = value;
-                                  }),
-                                ),
-                              )
-                            ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        maxLength: 2,
+                        style: const TextStyle(color: Colors.white),
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        decoration: InputDecoration(
+                          filled: true,
+                          focusColor: Colors.white,
+                          labelStyle: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            letterSpacing: 0.5,
                           ),
+                          errorStyle: const TextStyle(color: Colors.white),
+                          helperStyle: const TextStyle(
+                              color: Color.fromARGB(202, 255, 255, 255)),
+                          hintStyle: const TextStyle(color: Colors.white60),
+                          errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(40),
+                              borderSide:
+                                  BorderSide(color: Colors.red.shade500)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(40),
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 207, 202, 187))),
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 255, 255, 255))),
+                          border: const OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 0.0)),
                         ),
-                        Flexible(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextFormField(
-                                  style: TextStyle(color: Colors.white),
-                                  keyboardType: TextInputType.text,
-                                  textCapitalization:
-                                      TextCapitalization.sentences,
-                                  maxLength: 15,
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    focusColor: Colors.white,
-                                    labelText: 'País',
-                                    helperText: 'Brasil',
-                                    hintText: 'País',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      letterSpacing: 0.5,
-                                    ),
-                                    errorStyle:
-                                        const TextStyle(color: Colors.white),
-                                    helperStyle: const TextStyle(
-                                        color:
-                                            Color.fromARGB(202, 255, 255, 255)),
-                                    hintStyle:
-                                        const TextStyle(color: Colors.white60),
-                                    errorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                        borderSide: BorderSide(
-                                            color: Colors.red.shade500)),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                        borderSide: const BorderSide(
-                                            color: Color(0xFFECB461))),
-                                    focusedBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Color.fromARGB(
-                                                255, 255, 255, 255))),
-                                    border: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.white, width: 0.0)),
-                                  ),
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Campo Obrigatório';
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                  onChanged: (value) => setState(() {
-                                    country = value;
-                                  }),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Campo Obrigatório';
+                          } else if (int.parse(value) < 18) {
+                            return 'Proibido p/ menores';
+                          } else {
+                            return null;
+                          }
+                        },
+                        onChanged: (value) => setState(() {
+                          if (value == "") {
+                            value = "0";
+                          }
+                          age = int.parse(value);
+                        }),
+                      ),
                     ),
-                    Row(
-                      children: [
-                        Flexible(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextFormField(
-                                  style: TextStyle(color: Colors.white),
-                                  keyboardType: TextInputType.text,
-                                  textCapitalization:
-                                      TextCapitalization.sentences,
-                                  maxLength: 25,
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    focusColor: Colors.white,
-                                    labelText: 'Cidade',
-                                    helperText: 'Curitiba',
-                                    hintText: 'Cidade',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      letterSpacing: 0.5,
-                                    ),
-                                    errorStyle:
-                                        const TextStyle(color: Colors.white),
-                                    helperStyle: const TextStyle(
-                                        color:
-                                            Color.fromARGB(202, 255, 255, 255)),
-                                    hintStyle:
-                                        const TextStyle(color: Colors.white60),
-                                    errorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                        borderSide: BorderSide(
-                                            color: Colors.red.shade500)),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                        borderSide: const BorderSide(
-                                            color: Color(0xFFECB461))),
-                                    focusedBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Color.fromARGB(
-                                                255, 255, 255, 255))),
-                                    border: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.white, width: 0.0)),
-                                  ),
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Campo Obrigatório';
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                  onChanged: (value) => setState(() {
-                                    city = value;
-                                  }),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Flexible(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextFormField(
-                                  style: TextStyle(color: Colors.white),
-                                  keyboardType: TextInputType.text,
-                                  textCapitalization:
-                                      TextCapitalization.sentences,
-                                  maxLength: 25,
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    focusColor: Colors.white,
-                                    labelText: 'Ocupação',
-                                    hintText: 'Engenheiro',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      letterSpacing: 0.5,
-                                    ),
-                                    errorStyle:
-                                        const TextStyle(color: Colors.white),
-                                    helperStyle: const TextStyle(
-                                        color:
-                                            Color.fromARGB(202, 255, 255, 255)),
-                                    hintStyle:
-                                        const TextStyle(color: Colors.white60),
-                                    errorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                        borderSide: BorderSide(
-                                            color: Colors.red.shade500)),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                        borderSide: const BorderSide(
-                                            color: Color(0xFFECB461))),
-                                    focusedBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Color.fromARGB(
-                                                255, 255, 255, 255))),
-                                    border: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.white, width: 0.0)),
-                                  ),
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Campo Obrigatório';
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                  onChanged: (value) => setState(() {
-                                    occupation = value;
-                                  }),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                          padding: const EdgeInsets.only(bottom: 3.0, left: 20),
+                          child: Text(
+                            'Altura',
+                            style: GoogleFonts.quicksand(
+                                fontSize: 18,
+                                color: Color.fromARGB(255, 207, 202, 187),
+                                fontWeight: FontWeight.w500),
+                          )),
                     ),
-                    Row(
-                      children: [
-                        Flexible(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextFormField(
-                                  keyboardType: TextInputType.number,
-                                  maxLength: 15,
-                                  style: const TextStyle(color: Colors.white),
-                                  inputFormatters: <TextInputFormatter>[
-                                    maskFormatter
-                                  ],
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    focusColor: Colors.white,
-                                    labelText: 'Whatsapp',
-                                    hintText: '(99) 99999-9999',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      letterSpacing: 0.5,
-                                    ),
-                                    errorStyle:
-                                        const TextStyle(color: Colors.white),
-                                    helperStyle: const TextStyle(
-                                        color:
-                                            Color.fromARGB(202, 255, 255, 255)),
-                                    hintStyle:
-                                        const TextStyle(color: Colors.white60),
-                                    errorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                        borderSide: BorderSide(
-                                            color: Colors.red.shade500)),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                        borderSide: const BorderSide(
-                                            color: Color(0xFFECB461))),
-                                    focusedBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Color.fromARGB(
-                                                255, 255, 255, 255))),
-                                    border: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.white, width: 0.0)),
-                                  ),
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Campo Obrigatório';
-                                    } else if (value.length < 15) {
-                                      return 'Informe o número completo';
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                  onChanged: (value) => setState(() {
-                                    whatsapp = value;
-                                  }),
-                                ),
-                              )
-                            ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        maxLength: 4,
+                        style: const TextStyle(color: Colors.white),
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                          maskHeight
+                        ],
+                        decoration: InputDecoration(
+                          filled: true,
+                          focusColor: Colors.white,
+                          labelStyle: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            letterSpacing: 0.5,
                           ),
+                          errorStyle: const TextStyle(color: Colors.white),
+                          helperStyle: const TextStyle(
+                              color: Color.fromARGB(202, 255, 255, 255)),
+                          hintStyle: const TextStyle(color: Colors.white60),
+                          errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(40),
+                              borderSide:
+                                  BorderSide(color: Colors.red.shade500)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(40),
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 207, 202, 187))),
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 255, 255, 255))),
+                          border: const OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 0.0)),
                         ),
-                      ],
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Campo Obrigatório';
+                          } else {
+                            return null;
+                          }
+                        },
+                        onChanged: (value) => setState(() {
+                          height = value;
+                        }),
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                          padding: const EdgeInsets.only(bottom: 3.0, left: 20),
+                          child: Text(
+                            'Peso',
+                            style: GoogleFonts.quicksand(
+                                fontSize: 18,
+                                color: Color.fromARGB(255, 207, 202, 187),
+                                fontWeight: FontWeight.w500),
+                          )),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        maxLength: 3,
+                        style: const TextStyle(color: Colors.white),
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        decoration: InputDecoration(
+                          labelStyle: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            letterSpacing: 0.5,
+                          ),
+                          errorStyle: const TextStyle(color: Colors.white),
+                          helperStyle: const TextStyle(
+                              color: Color.fromARGB(202, 255, 255, 255)),
+                          hintStyle: const TextStyle(color: Colors.white60),
+                          errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(40),
+                              borderSide:
+                                  BorderSide(color: Colors.red.shade500)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(40),
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 207, 202, 187))),
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 255, 255, 255))),
+                          border: const OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 0.0)),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Campo Obrigatório';
+                          } else {
+                            return null;
+                          }
+                        },
+                        onChanged: (value) => setState(() {
+                          weight = value;
+                        }),
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                          padding: const EdgeInsets.only(bottom: 3.0, left: 20),
+                          child: Text(
+                            'Cidade',
+                            style: GoogleFonts.quicksand(
+                                fontSize: 18,
+                                color: Color.fromARGB(255, 207, 202, 187),
+                                fontWeight: FontWeight.w500),
+                          )),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: TextFormField(
+                        style: TextStyle(color: Colors.white),
+                        keyboardType: TextInputType.text,
+                        textCapitalization: TextCapitalization.sentences,
+                        maxLength: 25,
+                        decoration: InputDecoration(
+                          labelStyle: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            letterSpacing: 0.5,
+                          ),
+                          errorStyle: const TextStyle(color: Colors.white),
+                          helperStyle: const TextStyle(
+                              color: Color.fromARGB(202, 255, 255, 255)),
+                          hintStyle: const TextStyle(color: Colors.white60),
+                          errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(40),
+                              borderSide:
+                                  BorderSide(color: Colors.red.shade500)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(40),
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 207, 202, 187))),
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 255, 255, 255))),
+                          border: const OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 0.0)),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Campo Obrigatório';
+                          } else {
+                            return null;
+                          }
+                        },
+                        onChanged: (value) => setState(() {
+                          city = value;
+                        }),
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                          padding: const EdgeInsets.only(bottom: 3.0, left: 20),
+                          child: Text(
+                            'Ocupação',
+                            style: GoogleFonts.quicksand(
+                                fontSize: 18,
+                                color: Color.fromARGB(255, 207, 202, 187),
+                                fontWeight: FontWeight.w500),
+                          )),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: TextFormField(
+                        style: TextStyle(color: Colors.white),
+                        keyboardType: TextInputType.text,
+                        textCapitalization: TextCapitalization.sentences,
+                        maxLength: 25,
+                        decoration: InputDecoration(
+                          focusColor: Colors.white,
+                          errorStyle: const TextStyle(color: Colors.white),
+                          helperStyle: const TextStyle(
+                              color: Color.fromARGB(202, 255, 255, 255)),
+                          hintStyle: const TextStyle(color: Colors.white60),
+                          errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(40),
+                              borderSide:
+                                  BorderSide(color: Colors.red.shade500)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(40),
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 207, 202, 187))),
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 255, 255, 255))),
+                          border: const OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 0.0)),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Campo Obrigatório';
+                          } else {
+                            return null;
+                          }
+                        },
+                        onChanged: (value) => setState(() {
+                          occupation = value;
+                        }),
+                      ),
                     ),
                     const SizedBox(
                       height: 15,
@@ -530,10 +375,10 @@ class _RegisterStep4State extends State<RegisterStep4> {
                             'age': age,
                             'height': height,
                             'weight': weight,
-                            'country': country,
+                            'country': 'Brasil',
                             'city': city,
                             'occupation': occupation,
-                            'whatsapp': whatsapp,
+                            'whatsapp': '9999999999',
                           });
                           Timer(const Duration(seconds: 1), () {
                             Navigator.pushNamed(context, '/registerStep5');
@@ -541,19 +386,24 @@ class _RegisterStep4State extends State<RegisterStep4> {
                         }
                       },
                       child: Container(
-                        width: size.width * 0.9,
-                        height: size.height * 0.065,
+                        width: size.width * 0.35,
+                        height: size.height * 0.035,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: activeButtonColor(),
+                          borderRadius: BorderRadius.circular(40),
+                          color: selectedIndex != ''
+                              ? Color.fromARGB(255, 200, 181, 152)
+                              : Color.fromARGB(0, 108, 90, 64),
                         ),
                         child: Center(
                           child: Text(
                             'CONFIRMAR',
                             style: TextStyle(
-                                color: activeButton(),
+                                color: selectedIndex != ''
+                                    ? Color.fromARGB(255, 0, 0, 0)
+                                    : Color.fromARGB(255, 207, 202, 187),
                                 fontFamily: 'CM Sans Serif',
-                                fontSize: 18),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
                           ),
                         ),
                       ),
@@ -572,10 +422,8 @@ class _RegisterStep4State extends State<RegisterStep4> {
     if (age != 0 &&
         height != '' &&
         weight != '' &&
-        country != '' &&
         city != '' &&
-        occupation != '' &&
-        whatsapp != '') {
+        occupation != '') {
       return Colors.white;
     } else {
       return Colors.white24;
@@ -586,11 +434,9 @@ class _RegisterStep4State extends State<RegisterStep4> {
     if (age != 0 &&
         height != '' &&
         weight != '' &&
-        country != '' &&
         city != '' &&
-        occupation != '' &&
-        whatsapp != '') {
-      return const Color(0xFFECB461);
+        occupation != '') {
+      return const Color.fromARGB(255, 207, 202, 187);
     } else {
       return Colors.black26;
     }

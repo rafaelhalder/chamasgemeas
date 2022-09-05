@@ -30,7 +30,6 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
   @override
   void initState() {
     // TODO: implement initState
-    getFilters();
     super.initState();
   }
 
@@ -303,16 +302,5 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
 
   void _launchUrl() async {
     if (!await launchUrl(_url)) throw 'Could not launch $_url';
-  }
-
-  void getFilters() async {
-    final filter =
-        await FirebaseFirestore.instance.collection('filter').doc(uid).get();
-
-    setState(() {
-      _value = double.parse(filter['distance'].toString());
-      _startValue = double.parse(filter['age'][0].toString());
-      _endValue = double.parse(filter['age'][1].toString());
-    });
   }
 }

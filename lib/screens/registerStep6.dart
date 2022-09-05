@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class RegisterStep6Page extends StatefulWidget {
   @override
@@ -40,15 +41,31 @@ class _RegisterStep6PageState extends State<RegisterStep6Page> {
                       padding: const EdgeInsets.only(top: 20),
                       alignment: Alignment.center,
                       child: RichText(
-                        text: const TextSpan(
+                        text: TextSpan(
                           style: TextStyle(
                             fontSize: 19.0,
                             color: Color.fromARGB(255, 238, 238, 238),
                           ),
                           children: <TextSpan>[
                             TextSpan(
+                                text: 'Escolha até ',
+                                style: GoogleFonts.quicksand(
+                                    fontSize: 20,
+                                    color: Color.fromARGB(255, 207, 202, 187),
+                                    fontWeight: FontWeight.w700)),
+                            TextSpan(
+                                text: '7 (sete) ATIVIDADES \n',
+                                style: GoogleFonts.quicksand(
+                                    fontSize: 20,
+                                    color: Color.fromARGB(255, 147, 132, 100),
+                                    fontWeight: FontWeight.w700)),
+                            TextSpan(
                                 text:
-                                    'Escolha até 7 (sete) ATIVIDADES\nque gostaria de fazer com a pessoa\nque o Universo trará a você!'),
+                                    'que gostaria de fazer com a pessoa\nque o Universo trará a você!',
+                                style: GoogleFonts.quicksand(
+                                    fontSize: 20,
+                                    color: Color.fromARGB(255, 207, 202, 187),
+                                    fontWeight: FontWeight.w700))
                           ],
                         ),
                       )),
@@ -72,15 +89,26 @@ class _RegisterStep6PageState extends State<RegisterStep6Page> {
                                     decoration: BoxDecoration(
                                         border: Border.all(
                                             color: const Color.fromARGB(
-                                                255, 244, 198, 128)),
+                                                255, 238, 238, 238)),
                                         color: const Color.fromARGB(
-                                            157, 92, 64, 22),
+                                            10, 238, 238, 238),
                                         borderRadius:
-                                            BorderRadius.circular(12)),
+                                            BorderRadius.circular(40)),
                                     margin:
                                         const EdgeInsets.symmetric(vertical: 3),
                                     child: CheckboxListTile(
-                                      activeColor: const Color(0xFFECB461),
+                                      selectedTileColor: Colors.white,
+                                      checkboxShape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      activeColor: const Color.fromARGB(
+                                          255, 207, 202, 187),
+                                      tileColor:
+                                          Color.fromARGB(255, 207, 202, 187),
+                                      checkColor: Colors.black,
                                       controlAffinity:
                                           ListTileControlAffinity.leading,
                                       dense: true,
@@ -159,22 +187,22 @@ class _RegisterStep6PageState extends State<RegisterStep6Page> {
                         },
                         child: Container(
                           alignment: Alignment.topCenter,
-                          width: size.width * 0.8,
-                          height: size.height * 0.055,
+                          width: size.width * 0.35,
+                          height: size.height * 0.035,
                           decoration: BoxDecoration(
                             border: Border.all(
                                 color: const Color.fromARGB(24, 53, 41, 55)),
-                            borderRadius: BorderRadius.circular(5),
+                            borderRadius: BorderRadius.circular(40),
                             color: multipleSelected.isNotEmpty
-                                ? const Color(0xFFECB461)
-                                : Colors.white24,
+                                ? Color.fromARGB(255, 200, 181, 152)
+                                : Color.fromARGB(0, 108, 90, 64),
                           ),
                           child: Center(
                             child: Text(
                               'CONTINUAR',
                               style: TextStyle(
                                   color: multipleSelected.isNotEmpty
-                                      ? Colors.white
+                                      ? Colors.black
                                       : Colors.white24,
                                   fontFamily: 'CM Sans Serif',
                                   fontSize: 18),

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:simple_shadow/simple_shadow.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class RegisterStep5 extends StatefulWidget {
   @override
@@ -58,8 +59,13 @@ class _RegisterStep5State extends State<RegisterStep5> {
                           ),
                           children: <TextSpan>[
                             TextSpan(
-                              text:
-                                  '${user!.displayName},\nqual é o seu SIGNO?  ',
+                                text: '${user?.displayName}, \n',
+                                style: GoogleFonts.quicksand(
+                                    fontSize: 30,
+                                    color: Color.fromARGB(255, 147, 132, 100),
+                                    fontWeight: FontWeight.w700)),
+                            TextSpan(
+                              text: 'Qual é o seu SIGNO?  ',
                             ),
                           ],
                         ),
@@ -142,19 +148,24 @@ class _RegisterStep5State extends State<RegisterStep5> {
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 20),
                         child: Container(
-                          width: size.width * 0.85,
-                          height: size.height * 0.065,
+                          width: size.width * 0.35,
+                          height: size.height * 0.035,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: activeButtonColor(),
+                            borderRadius: BorderRadius.circular(40),
+                            color: selectedIndex != ''
+                                ? Color.fromARGB(255, 200, 181, 152)
+                                : Color.fromARGB(0, 108, 90, 64),
                           ),
                           child: Center(
                             child: Text(
                               'CONFIRMAR',
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: selectedIndex != ''
+                                      ? Color.fromARGB(255, 0, 0, 0)
+                                      : Color.fromARGB(255, 207, 202, 187),
                                   fontFamily: 'CM Sans Serif',
-                                  fontSize: 18),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16),
                             ),
                           ),
                         ),

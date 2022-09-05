@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class RegisterIAm extends StatefulWidget {
   @override
@@ -33,14 +34,12 @@ class _RegisterIAmState extends State<RegisterIAm> {
                   Container(
                     padding: const EdgeInsets.only(top: 60, left: 50),
                     alignment: Alignment.bottomLeft,
-                    child: const Text(
-                      'Eu sou',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'CM Sans Serif',
-                        fontSize: 35.0,
-                        height: 1.5,
-                      ),
+                    child: Text(
+                      'SOBRE MIM',
+                      style: GoogleFonts.quicksand(
+                          fontSize: 40,
+                          color: Color.fromARGB(255, 147, 132, 100),
+                          fontWeight: FontWeight.w700),
                     ),
                   ),
                   SizedBox(
@@ -67,16 +66,15 @@ class _RegisterIAmState extends State<RegisterIAm> {
                                               vertical: 5),
                                           decoration: BoxDecoration(
                                             border: Border.all(
-                                                color: const Color.fromARGB(
-                                                    24, 53, 41, 55)),
+                                                color: Color.fromARGB(
+                                                    255, 147, 132, 100)),
                                             borderRadius:
                                                 BorderRadius.circular(40),
                                             color: selectedIndex !=
                                                     index.toString()
-                                                ? Color.fromARGB(
-                                                    255, 108, 90, 64)
-                                                : const Color.fromARGB(
-                                                    255, 204, 171, 123),
+                                                ? Color.fromARGB(0, 108, 90, 64)
+                                                : Color.fromARGB(
+                                                    255, 147, 132, 100),
                                           ),
                                           alignment: Alignment.center,
                                           width: size.width * 0.8,
@@ -85,7 +83,7 @@ class _RegisterIAmState extends State<RegisterIAm> {
                                               style: TextStyle(
                                                 color: selectedIndex ==
                                                         index.toString()
-                                                    ? Colors.white
+                                                    ? Colors.black
                                                     : Colors.white60,
                                                 fontWeight: selectedIndex ==
                                                         index.toString()
@@ -131,23 +129,24 @@ class _RegisterIAmState extends State<RegisterIAm> {
                               : null;
                         },
                         child: Container(
-                          width: size.width * 0.7,
-                          height: size.height * 0.055,
+                          width: size.width * 0.35,
+                          height: size.height * 0.035,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(40),
                             color: selectedIndex != ''
-                                ? const Color.fromARGB(255, 204, 171, 123)
-                                : const Color.fromARGB(255, 108, 90, 64),
+                                ? Color.fromARGB(255, 200, 181, 152)
+                                : Color.fromARGB(0, 108, 90, 64),
                           ),
                           child: Center(
                             child: Text(
                               'CONFIRMAR',
                               style: TextStyle(
                                   color: selectedIndex != ''
-                                      ? Colors.white
-                                      : Colors.white24,
+                                      ? Color.fromARGB(255, 0, 0, 0)
+                                      : Color.fromARGB(255, 207, 202, 187),
                                   fontFamily: 'CM Sans Serif',
-                                  fontSize: 18),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16),
                             ),
                           ),
                         ),

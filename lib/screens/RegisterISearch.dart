@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class RegisterISearchPage extends StatefulWidget {
   @override
@@ -40,13 +41,26 @@ class _RegisterISearchPageState extends State<RegisterISearchPage> {
                   Container(
                     padding: const EdgeInsets.only(left: 50),
                     alignment: Alignment.bottomLeft,
-                    child: const Text(
-                      'Como é a chama gêmea\n que você PROCURA?',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'CM Sans Serif',
-                        fontSize: 25.0,
-                        height: 1.5,
+                    child: RichText(
+                      text: TextSpan(
+                        style: const TextStyle(
+                          fontSize: 22.0,
+                          color: Color.fromARGB(255, 238, 238, 238),
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: '${user?.displayName}, \n',
+                              style: GoogleFonts.quicksand(
+                                  fontSize: 40,
+                                  color: Color.fromARGB(255, 147, 132, 100),
+                                  fontWeight: FontWeight.w700)),
+                          TextSpan(
+                              text: 'como a sua alma se manifesta?',
+                              style: GoogleFonts.quicksand(
+                                  fontSize: 20,
+                                  color: Color.fromARGB(255, 207, 202, 187),
+                                  fontWeight: FontWeight.w700)),
+                        ],
                       ),
                     ),
                   ),
@@ -67,12 +81,66 @@ class _RegisterISearchPageState extends State<RegisterISearchPage> {
                                 itemCount: list?.length,
                                 itemBuilder: (context, index) {
                                   String nameGender = list?[index]['name'];
-                                  if (nameGender == 'Homem') {
-                                    nameGender = 'Masculina';
-                                  } else if (nameGender == 'Mulher') {
-                                    nameGender = 'Feminina';
+
+                                  if (selectedIndex == '0' ||
+                                      selectedIndex == '1') {
+                                    if (index.toString() == '3' ||
+                                        index.toString() == '4' ||
+                                        index.toString() == '5') {
+                                      return Container();
+                                    }
+                                  }
+                                  if (index.toString() == '3' ||
+                                      index.toString() == '4' ||
+                                      index.toString() == '5') {
+                                    if (index.toString() == '3' ||
+                                        index.toString() == '4' ||
+                                        index.toString() == '5') {
+                                      return ListTile(
+                                          title: Center(
+                                            child: Container(
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 0),
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Color.fromARGB(
+                                                        255, 147, 132, 100)),
+                                                borderRadius:
+                                                    BorderRadius.circular(40),
+                                                color: selectedIndex !=
+                                                        index.toString()
+                                                    ? Color.fromARGB(
+                                                        0, 108, 90, 64)
+                                                    : Color.fromARGB(
+                                                        255, 147, 132, 100),
+                                              ),
+                                              alignment: Alignment.center,
+                                              width: size.width * 0.4,
+                                              height: size.height * 0.045,
+                                              child: Text(nameGender,
+                                                  style: TextStyle(
+                                                    color: selectedIndex ==
+                                                            index.toString()
+                                                        ? Color.fromARGB(
+                                                            255, 0, 0, 0)
+                                                        : Colors.white60,
+                                                    fontWeight: selectedIndex ==
+                                                            index.toString()
+                                                        ? FontWeight.bold
+                                                        : null,
+                                                  )),
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            setState(() {
+                                              selectedIndex = index.toString();
+                                            });
+                                          });
+                                    }
                                   }
 
+                                  print(selectedIndex);
                                   return ListTile(
                                       title: Center(
                                         child: Container(
@@ -80,16 +148,15 @@ class _RegisterISearchPageState extends State<RegisterISearchPage> {
                                               vertical: 5),
                                           decoration: BoxDecoration(
                                             border: Border.all(
-                                                color: const Color.fromARGB(
-                                                    24, 53, 41, 55)),
+                                                color: Color.fromARGB(
+                                                    255, 147, 132, 100)),
                                             borderRadius:
                                                 BorderRadius.circular(40),
                                             color: selectedIndex !=
                                                     index.toString()
-                                                ? Color.fromARGB(
-                                                    255, 108, 90, 64)
-                                                : const Color.fromARGB(
-                                                    255, 204, 171, 123),
+                                                ? Color.fromARGB(0, 108, 90, 64)
+                                                : Color.fromARGB(
+                                                    255, 147, 132, 100),
                                           ),
                                           alignment: Alignment.center,
                                           width: size.width * 0.8,
@@ -98,7 +165,8 @@ class _RegisterISearchPageState extends State<RegisterISearchPage> {
                                               style: TextStyle(
                                                 color: selectedIndex ==
                                                         index.toString()
-                                                    ? Colors.white
+                                                    ? Color.fromARGB(
+                                                        255, 0, 0, 0)
                                                     : Colors.white60,
                                                 fontWeight: selectedIndex ==
                                                         index.toString()
@@ -143,8 +211,8 @@ class _RegisterISearchPageState extends State<RegisterISearchPage> {
                         FontAwesomeIcons.peopleGroup
                       ],
                       activeBgColors: const [
-                        [Color.fromARGB(255, 236, 180, 97)],
-                        [Color.fromARGB(255, 0, 129, 234)]
+                        [Color.fromARGB(255, 147, 132, 100)],
+                        [Color.fromARGB(255, 147, 132, 100)]
                       ],
                       onToggle: (index) {
                         typeInterested = index;
@@ -173,23 +241,24 @@ class _RegisterISearchPageState extends State<RegisterISearchPage> {
                               : null;
                         },
                         child: Container(
-                          width: size.width * 0.7,
-                          height: size.height * 0.055,
+                          width: size.width * 0.35,
+                          height: size.height * 0.035,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(40),
                             color: selectedIndex != ''
-                                ? const Color.fromARGB(255, 204, 171, 123)
-                                : const Color.fromARGB(255, 108, 90, 64),
+                                ? Color.fromARGB(255, 200, 181, 152)
+                                : Color.fromARGB(0, 108, 90, 64),
                           ),
                           child: Center(
                             child: Text(
                               'CONFIRMAR',
                               style: TextStyle(
                                   color: selectedIndex != ''
-                                      ? Colors.white
-                                      : Colors.white24,
+                                      ? Color.fromARGB(255, 0, 0, 0)
+                                      : Color.fromARGB(255, 207, 202, 187),
                                   fontFamily: 'CM Sans Serif',
-                                  fontSize: 18),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16),
                             ),
                           ),
                         ),

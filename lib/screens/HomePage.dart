@@ -288,7 +288,7 @@ class _HomePageState extends State<HomePage> {
                       double latU = double.parse(userLat);
                       final km = distance.as(lat.LengthUnit.Kilometer,
                           lat.LatLng(lats, lng), lat.LatLng(latU, lngU));
-                      if (distancia < km) {
+                      if (distancia > km) {
                         return Container();
                       }
                     }
