@@ -16,6 +16,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:reorderable_grid_view/reorderable_grid_view.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:latlong2/latlong.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -216,9 +217,9 @@ class _ProfilePageState extends State<ProfilePage> {
           items: [
             // ignore: prefer_const_constructors
             TabItem(
-                activeIcon: const Icon(Icons.people, color: Colors.black),
-                icon: const Icon(Icons.people,
-                    color: Color.fromARGB(255, 204, 171, 123)),
+                activeIcon: Icon(Icons.home, color: Colors.black),
+                icon:
+                    Icon(Icons.home, color: Color.fromARGB(255, 204, 171, 123)),
                 title: 'Home'),
             const TabItem(
                 activeIcon: Icon(Icons.star, color: Colors.black),
@@ -234,7 +235,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 activeIcon: Icon(Icons.message, color: Colors.black),
                 icon: Icon(Icons.message,
                     color: Color.fromARGB(255, 204, 171, 123)),
-                title: 'Msg'),
+                title: 'Chats'),
             const TabItem(
                 activeIcon: Icon(Icons.settings, color: Colors.black),
                 icon: Icon(Icons.settings,

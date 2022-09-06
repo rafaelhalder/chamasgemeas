@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PrivacidadePage extends StatefulWidget {
   const PrivacidadePage({Key? key}) : super(key: key);
@@ -93,8 +94,8 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
             items: [
               // ignore: prefer_const_constructors
               TabItem(
-                  activeIcon: const Icon(Icons.people, color: Colors.black),
-                  icon: const Icon(Icons.people,
+                  activeIcon: Icon(Icons.home, color: Colors.black),
+                  icon: Icon(Icons.home,
                       color: Color.fromARGB(255, 204, 171, 123)),
                   title: 'Home'),
               const TabItem(
@@ -111,7 +112,7 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
                   activeIcon: Icon(Icons.message, color: Colors.black),
                   icon: Icon(Icons.message,
                       color: Color.fromARGB(255, 204, 171, 123)),
-                  title: 'Msg'),
+                  title: 'Chats'),
               const TabItem(
                   activeIcon: Icon(Icons.settings, color: Colors.black),
                   icon: Icon(Icons.settings,

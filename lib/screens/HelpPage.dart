@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HelpPage extends StatefulWidget {
   const HelpPage({Key? key}) : super(key: key);
@@ -30,7 +31,6 @@ class _HelpPageState extends State<HelpPage> {
   @override
   void initState() {
     // TODO: implement initState
-    getFilters();
     super.initState();
   }
 
@@ -91,8 +91,8 @@ class _HelpPageState extends State<HelpPage> {
             items: [
               // ignore: prefer_const_constructors
               TabItem(
-                  activeIcon: const Icon(Icons.people, color: Colors.black),
-                  icon: const Icon(Icons.people,
+                  activeIcon: Icon(Icons.home, color: Colors.black),
+                  icon: Icon(Icons.home,
                       color: Color.fromARGB(255, 204, 171, 123)),
                   title: 'Home'),
               const TabItem(
@@ -109,7 +109,7 @@ class _HelpPageState extends State<HelpPage> {
                   activeIcon: Icon(Icons.message, color: Colors.black),
                   icon: Icon(Icons.message,
                       color: Color.fromARGB(255, 204, 171, 123)),
-                  title: 'Msg'),
+                  title: 'Chats'),
               const TabItem(
                   activeIcon: Icon(Icons.settings, color: Colors.black),
                   icon: Icon(Icons.settings,
@@ -256,16 +256,5 @@ class _HelpPageState extends State<HelpPage> {
 
   void _launchUrl() async {
     if (!await launchUrl(_url)) throw 'Could not launch $_url';
-  }
-
-  void getFilters() async {
-    final filter =
-        await FirebaseFirestore.instance.collection('filter').doc(uid).get();
-
-    setState(() {
-      _value = double.parse(filter['distance'].toString());
-      _startValue = double.parse(filter['age'][0].toString());
-      _endValue = double.parse(filter['age'][1].toString());
-    });
   }
 }

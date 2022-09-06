@@ -137,8 +137,8 @@ class _HomePageState extends State<HomePage> {
               items: [
                 // ignore: prefer_const_constructors
                 TabItem(
-                    activeIcon: const Icon(Icons.people, color: Colors.black),
-                    icon: const Icon(Icons.people,
+                    activeIcon: Icon(Icons.home, color: Colors.black),
+                    icon: Icon(Icons.home,
                         color: Color.fromARGB(255, 204, 171, 123)),
                     title: 'Home'),
                 const TabItem(
@@ -155,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                     activeIcon: Icon(Icons.message, color: Colors.black),
                     icon: Icon(Icons.message,
                         color: Color.fromARGB(255, 204, 171, 123)),
-                    title: 'Msg'),
+                    title: 'Chats'),
                 const TabItem(
                     activeIcon: Icon(Icons.settings, color: Colors.black),
                     icon: Icon(Icons.settings,
