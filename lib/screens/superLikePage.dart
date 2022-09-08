@@ -70,28 +70,23 @@ class _SuperLikeState extends State<SuperLike> {
             // ignore: prefer_const_constructors
             TabItem(
                 activeIcon: Icon(Icons.home, color: Colors.black),
-                icon:
-                    Icon(Icons.home, color: Color.fromARGB(255, 204, 171, 123)),
+                icon: Icon(Icons.home, color: Colors.black),
                 title: 'Home'),
             const TabItem(
                 activeIcon: Icon(Icons.star, color: Colors.black),
-                icon:
-                    Icon(Icons.star, color: Color.fromARGB(255, 204, 171, 123)),
+                icon: Icon(Icons.star, color: Colors.black),
                 title: 'Super'),
             const TabItem(
                 activeIcon: Icon(Icons.person, color: Colors.black),
-                icon: Icon(Icons.person,
-                    color: Color.fromARGB(255, 204, 171, 123)),
+                icon: Icon(Icons.person, color: Colors.black),
                 title: 'Perfil'),
             const TabItem(
                 activeIcon: Icon(Icons.message, color: Colors.black),
-                icon: Icon(Icons.message,
-                    color: Color.fromARGB(255, 204, 171, 123)),
+                icon: Icon(Icons.message, color: Colors.black),
                 title: 'Chats'),
             const TabItem(
                 activeIcon: Icon(Icons.settings, color: Colors.black),
-                icon: Icon(Icons.settings,
-                    color: Color.fromARGB(255, 204, 171, 123)),
+                icon: Icon(Icons.settings, color: Colors.black),
                 title: 'Opções'),
           ],
           initialActiveIndex: 1, //optional, default as 0

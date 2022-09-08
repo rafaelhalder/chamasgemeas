@@ -60,8 +60,7 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       backgroundColor: Colors.black,
-      shape: RoundedRectangleBorder(
-          side: BorderSide(color: Color.fromARGB(255, 204, 171, 123))),
+      shape: RoundedRectangleBorder(side: BorderSide(color: Colors.black)),
       elevation: 2,
       title: Text("Aviso!", style: TextStyle(color: Colors.white)),
       content: Text(
@@ -83,40 +82,40 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
         statusBarColor: Colors.transparent,
       ),
       child: Container(
-        color: const Color.fromARGB(255, 27, 27, 27),
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage("assets/images/interfacesigno.png"),
+          fit: BoxFit.cover,
+        )),
         child: Scaffold(
           bottomNavigationBar: ConvexAppBar(
+            color: Colors.black,
             gradient: const LinearGradient(colors: [
-              Color.fromARGB(255, 0, 0, 0),
-              Color.fromARGB(255, 2, 1, 3),
+              Color.fromARGB(255, 223, 223, 223),
+              Color.fromARGB(255, 223, 223, 223),
             ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
             // ignore: prefer_const_literals_to_create_immutables
             items: [
               // ignore: prefer_const_constructors
               TabItem(
                   activeIcon: Icon(Icons.home, color: Colors.black),
-                  icon: Icon(Icons.home,
-                      color: Color.fromARGB(255, 204, 171, 123)),
+                  icon: Icon(Icons.home, color: Colors.black),
                   title: 'Home'),
               const TabItem(
                   activeIcon: Icon(Icons.star, color: Colors.black),
-                  icon: Icon(Icons.star,
-                      color: Color.fromARGB(255, 204, 171, 123)),
+                  icon: Icon(Icons.star, color: Colors.black),
                   title: 'Super'),
               const TabItem(
                   activeIcon: Icon(Icons.person, color: Colors.black),
-                  icon: Icon(Icons.person,
-                      color: Color.fromARGB(255, 204, 171, 123)),
+                  icon: Icon(Icons.person, color: Colors.black),
                   title: 'Perfil'),
               const TabItem(
                   activeIcon: Icon(Icons.message, color: Colors.black),
-                  icon: Icon(Icons.message,
-                      color: Color.fromARGB(255, 204, 171, 123)),
+                  icon: Icon(Icons.message, color: Colors.black),
                   title: 'Chats'),
               const TabItem(
                   activeIcon: Icon(Icons.settings, color: Colors.black),
-                  icon: Icon(Icons.settings,
-                      color: Color.fromARGB(255, 204, 171, 123)),
+                  icon: Icon(Icons.settings, color: Colors.black),
                   title: 'Opções'),
             ],
             initialActiveIndex: 4, //optional, default as 0
@@ -218,21 +217,20 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
+                                      borderRadius: BorderRadius.circular(25),
                                       color: Colors.transparent,
                                       border: Border.all(
                                           color: Color.fromARGB(
-                                              255, 204, 171, 123))),
+                                              255, 207, 202, 187))),
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 15),
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Icon(Icons.newspaper,
-                                          size: 35, color: Colors.white),
+                                          size: 60, color: Colors.white),
                                       Text(
                                         'Termos de Uso',
                                         style: TextStyle(
@@ -262,21 +260,20 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
+                                      borderRadius: BorderRadius.circular(25),
                                       color: Colors.transparent,
                                       border: Border.all(
                                           color: Color.fromARGB(
-                                              255, 204, 171, 123))),
+                                              255, 207, 202, 187))),
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 15),
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Icon(Icons.person_off,
-                                          size: 35, color: Colors.white),
+                                          size: 60, color: Colors.white),
                                       Text(
                                         'Deletar Conta',
                                         style: TextStyle(

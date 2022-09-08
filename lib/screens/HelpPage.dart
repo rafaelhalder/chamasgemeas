@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HelpPage extends StatefulWidget {
   const HelpPage({Key? key}) : super(key: key);
@@ -58,7 +59,7 @@ class _HelpPageState extends State<HelpPage> {
     AlertDialog alert = AlertDialog(
       backgroundColor: Colors.black,
       shape: RoundedRectangleBorder(
-          side: BorderSide(color: Color.fromARGB(255, 204, 171, 123))),
+          side: BorderSide(color: Color.fromARGB(255, 207, 202, 187))),
       elevation: 2,
       title: Text("Aviso!", style: TextStyle(color: Colors.white)),
       content: Text(
@@ -80,40 +81,40 @@ class _HelpPageState extends State<HelpPage> {
         statusBarColor: Colors.transparent,
       ),
       child: Container(
-        color: const Color.fromARGB(255, 27, 27, 27),
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage("assets/images/interfacesigno.png"),
+          fit: BoxFit.cover,
+        )),
         child: Scaffold(
           bottomNavigationBar: ConvexAppBar(
+            color: Colors.black,
             gradient: const LinearGradient(colors: [
-              Color.fromARGB(255, 0, 0, 0),
-              Color.fromARGB(255, 2, 1, 3),
+              Color.fromARGB(255, 223, 223, 223),
+              Color.fromARGB(255, 223, 223, 223),
             ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
             // ignore: prefer_const_literals_to_create_immutables
             items: [
               // ignore: prefer_const_constructors
               TabItem(
                   activeIcon: Icon(Icons.home, color: Colors.black),
-                  icon: Icon(Icons.home,
-                      color: Color.fromARGB(255, 204, 171, 123)),
+                  icon: Icon(Icons.home, color: Colors.black),
                   title: 'Home'),
               const TabItem(
                   activeIcon: Icon(Icons.star, color: Colors.black),
-                  icon: Icon(Icons.star,
-                      color: Color.fromARGB(255, 204, 171, 123)),
+                  icon: Icon(Icons.star, color: Colors.black),
                   title: 'Super'),
               const TabItem(
                   activeIcon: Icon(Icons.person, color: Colors.black),
-                  icon: Icon(Icons.person,
-                      color: Color.fromARGB(255, 204, 171, 123)),
+                  icon: Icon(Icons.person, color: Colors.black),
                   title: 'Perfil'),
               const TabItem(
                   activeIcon: Icon(Icons.message, color: Colors.black),
-                  icon: Icon(Icons.message,
-                      color: Color.fromARGB(255, 204, 171, 123)),
+                  icon: Icon(Icons.message, color: Colors.black),
                   title: 'Chats'),
               const TabItem(
                   activeIcon: Icon(Icons.settings, color: Colors.black),
-                  icon: Icon(Icons.settings,
-                      color: Color.fromARGB(255, 204, 171, 123)),
+                  icon: Icon(Icons.settings, color: Colors.black),
                   title: 'Opções'),
             ],
             initialActiveIndex: 4, //optional, default as 0
@@ -177,76 +178,74 @@ class _HelpPageState extends State<HelpPage> {
             },
           ),
           backgroundColor: Colors.transparent,
-          body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Container(
-                      child: Center(
-                          child: Text(
-                        'Privacidade',
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      )),
-                    ),
+          body: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12.0),
+                  child: Container(
+                    child: Center(
+                        child: Text(
+                      'Ajuda',
+                      style: GoogleFonts.quicksand(
+                          fontSize: 25,
+                          color: Color.fromARGB(255, 147, 132, 100),
+                          fontWeight: FontWeight.w600),
+                    )),
                   ),
-                  AnimationLimiter(
-                    child: GridView.count(
-                      shrinkWrap: true,
-                      childAspectRatio: (200 / 150),
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 20,
-                      crossAxisSpacing: 20,
-                      children: [
-                        AnimationConfiguration.staggeredGrid(
-                          position: 0,
-                          duration: const Duration(milliseconds: 375),
-                          columnCount: columnCount,
-                          child: ScaleAnimation(
-                            child: FadeInAnimation(
-                              child: GestureDetector(
-                                onTap: () {
-                                  _launchUrl();
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      color: Colors.transparent,
-                                      border: Border.all(
-                                          color: Color.fromARGB(
-                                              255, 204, 171, 123))),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Icon(Icons.sticky_note_2,
-                                          size: 35, color: Colors.white),
-                                      Text(
-                                        'Manual',
-                                        style: TextStyle(
-                                            fontSize: 18, color: Colors.white),
-                                      )
-                                    ],
-                                  ),
+                ),
+                AnimationLimiter(
+                  child: GridView.count(
+                    shrinkWrap: true,
+                    childAspectRatio: (200 / 150),
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 20,
+                    crossAxisSpacing: 20,
+                    children: [
+                      AnimationConfiguration.staggeredGrid(
+                        position: 0,
+                        duration: const Duration(milliseconds: 375),
+                        columnCount: columnCount,
+                        child: ScaleAnimation(
+                          child: FadeInAnimation(
+                            child: GestureDetector(
+                              onTap: () {
+                                _launchUrl();
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(25),
+                                    color: Colors.transparent,
+                                    border: Border.all(
+                                        color: Color.fromARGB(
+                                            255, 207, 202, 187))),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.sticky_note_2,
+                                        size: 60, color: Colors.white),
+                                    Text(
+                                      'Manual',
+                                      style: TextStyle(
+                                          fontSize: 18, color: Colors.white),
+                                    )
+                                  ],
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

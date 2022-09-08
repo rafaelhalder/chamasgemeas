@@ -73,7 +73,7 @@ class _UserPageState extends State<UserPage> {
           // floatingActionButton:
           //     Column(mainAxisAlignment: MainAxisAlignment.end, children: [
           //   FloatingActionButton(
-          //     backgroundColor: const Color.fromARGB(255, 204, 171, 123),
+          //     backgroundColor: const Color.fromARGB(255, 207, 202, 187),
           //     onPressed: () {
           //       //...
           //     },
@@ -87,7 +87,7 @@ class _UserPageState extends State<UserPage> {
           //     height: 10,
           //   ),
           //   FloatingActionButton(
-          //     backgroundColor: const Color.fromARGB(255, 204, 171, 123),
+          //     backgroundColor: const Color.fromARGB(255, 207, 202, 187),
           //     onPressed: () {},
           //     heroTag: null,
           //     child: const FaIcon(
@@ -225,13 +225,13 @@ class _UserPageState extends State<UserPage> {
                                 size: size,
                                 icon: const FaIcon(
                                     FontAwesomeIcons.houseChimney,
-                                    color: Color.fromARGB(255, 204, 171, 123)),
+                                    color: Colors.black),
                               ),
                               infos(
                                 text: '$km km',
                                 size: size,
                                 icon: const FaIcon(FontAwesomeIcons.locationDot,
-                                    color: Color.fromARGB(255, 204, 171, 123)),
+                                    color: Colors.black),
                               ),
                             ],
                           ),
@@ -241,13 +241,13 @@ class _UserPageState extends State<UserPage> {
                                 text: userList['height'].toString() + ' cm',
                                 size: size,
                                 icon: const FaIcon(FontAwesomeIcons.ruler,
-                                    color: Color.fromARGB(255, 204, 171, 123)),
+                                    color: Colors.black),
                               ),
                               infos(
                                 text: userList['country'],
                                 size: size,
                                 icon: const FaIcon(FontAwesomeIcons.fontAwesome,
-                                    color: Color.fromARGB(255, 204, 171, 123)),
+                                    color: Colors.black),
                               ),
                             ],
                           ),
@@ -258,7 +258,7 @@ class _UserPageState extends State<UserPage> {
                                 size: size,
                                 icon: const FaIcon(
                                     FontAwesomeIcons.starAndCrescent,
-                                    color: Color.fromARGB(255, 204, 171, 123)),
+                                    color: Colors.black),
                               )
                             ],
                           ),
@@ -269,7 +269,7 @@ class _UserPageState extends State<UserPage> {
                                 size: size,
                                 icon: const FaIcon(
                                     FontAwesomeIcons.magnifyingGlass,
-                                    color: Color.fromARGB(255, 204, 171, 123)),
+                                    color: Colors.black),
                               )
                             ],
                           ),
@@ -307,7 +307,7 @@ class _UserPageState extends State<UserPage> {
                           aboutMe,
                           style: const TextStyle(
                               letterSpacing: 0.2,
-                              color: Color.fromARGB(255, 204, 171, 123),
+                              color: Colors.black,
                               fontSize: 20),
                         ),
                       ),
@@ -418,7 +418,7 @@ class _UserPageState extends State<UserPage> {
                                         tex,
                                         style: TextStyle(
                                             color: Color.fromARGB(
-                                                255, 204, 171, 123)),
+                                                255, 207, 202, 187)),
                                       ),
                                       onTap: () {});
                                 }),
@@ -570,8 +570,7 @@ class infos extends StatelessWidget {
             child: Text(
               text,
               maxLines: 2,
-              style: const TextStyle(
-                  color: Color.fromARGB(255, 204, 171, 123), fontSize: 18),
+              style: const TextStyle(color: Colors.black, fontSize: 18),
             ),
           ),
         ],
@@ -608,8 +607,7 @@ class infos2 extends StatelessWidget {
           ),
           Text(
             text,
-            style: const TextStyle(
-                color: Color.fromARGB(255, 204, 171, 123), fontSize: 18),
+            style: const TextStyle(color: Colors.black, fontSize: 18),
           ),
         ],
       ),
@@ -645,8 +643,7 @@ class infos3 extends StatelessWidget {
           ),
           Text(
             text,
-            style: const TextStyle(
-                color: Color.fromARGB(255, 204, 171, 123), fontSize: 18),
+            style: const TextStyle(color: Colors.black, fontSize: 18),
           ),
         ],
       ),

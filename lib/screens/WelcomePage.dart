@@ -28,10 +28,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     text: 'Relacionamento de ',
                     style:
                         TextStyle(color: Color.fromARGB(255, 207, 202, 187))),
-                TextSpan(
-                    text: 'Alma',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 204, 171, 123))),
+                TextSpan(text: 'Alma', style: TextStyle(color: Colors.black)),
               ],
             ),
           ),
@@ -55,29 +52,21 @@ class _WelcomePageState extends State<WelcomePage> {
                         'O Chamas Gêmeas é um caminho para você que já tem a consciência da tua '),
                 TextSpan(
                     text: 'jornada espiritual ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 204, 171, 123))),
+                    style: TextStyle(color: Colors.black)),
                 TextSpan(
                     text:
                         'e que sabe que existe outra pessoa, na mesma jornada, procurando por você! Uma pessoa de '),
-                TextSpan(
-                    text: 'valor ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 204, 171, 123))),
+                TextSpan(text: 'valor ', style: TextStyle(color: Colors.black)),
                 TextSpan(
                     text:
                         'que caminhará ao teu lado, que pode ler teus pensamentos, adivinhar teus desejos, pois apesar do tempo e do espaço, jamais esteve separarada em pensamento e sentimento! Essa é a tua '),
                 TextSpan(
                     text: 'Chama Gêmea, ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 204, 171, 123))),
+                    style: TextStyle(color: Colors.black)),
                 TextSpan(
                     text:
                         'a tua alma espelho, que nesse exato momento busca também por '),
-                TextSpan(
-                    text: 'você!',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 204, 171, 123))),
+                TextSpan(text: 'você!', style: TextStyle(color: Colors.black)),
               ],
             ),
           ),
@@ -103,8 +92,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 TextSpan(
                     text: 'frequências.',
                     style: const TextStyle(
-                        fontStyle: FontStyle.italic,
-                        color: Color.fromARGB(255, 204, 171, 123))),
+                        fontStyle: FontStyle.italic, color: Colors.black)),
               ],
             ),
           ),
@@ -118,21 +106,18 @@ class _WelcomePageState extends State<WelcomePage> {
                 TextSpan(text: 'No Universo  '),
                 TextSpan(
                     text: 'semelhantes  ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 204, 171, 123))),
+                    style: TextStyle(color: Colors.black)),
                 TextSpan(text: 'se atraem.'),
                 TextSpan(
                     text:
                         'A atração é por semelhança de interesses, gostos, pensamentos, atitudes e sentimentos. Se o destino te trouxe até aqui, certamente trouxe também quem está na mesma'),
                 TextSpan(
                     text: 'frequência  ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 204, 171, 123))),
+                    style: TextStyle(color: Colors.black)),
                 TextSpan(text: 'que você, no mesmo momento de busca pela '),
                 TextSpan(
                     text: 'Chama Gêmea, ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 204, 171, 123))),
+                    style: TextStyle(color: Colors.black)),
                 TextSpan(
                     text:
                         'com o mesmo sentimento inexplicável de saudedes de alguém que não conhece. Mas que na verdade, apenas não encontrou ainda nessa vida.'),
@@ -167,16 +152,14 @@ class _WelcomePageState extends State<WelcomePage> {
                 TextSpan(
                     text: 'começar ',
                     style: const TextStyle(
-                        fontStyle: FontStyle.italic,
-                        color: Color.fromARGB(255, 204, 171, 123))),
+                        fontStyle: FontStyle.italic, color: Colors.black)),
                 TextSpan(
                     text: 'ou ',
                     style: const TextStyle(fontStyle: FontStyle.italic)),
                 TextSpan(
                     text: 'recomeçar.',
                     style: const TextStyle(
-                        fontStyle: FontStyle.italic,
-                        color: Color.fromARGB(255, 204, 171, 123))),
+                        fontStyle: FontStyle.italic, color: Colors.black)),
               ],
             ),
           ),
@@ -191,24 +174,20 @@ class _WelcomePageState extends State<WelcomePage> {
                     text:
                         'Não deixe para depois o que você pode resolver no aqui e agora! No Chamas Gêmeas você encontrará uma '),
                 TextSpan(
-                    text: 'comunidade ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 204, 171, 123))),
+                    text: 'comunidade ', style: TextStyle(color: Colors.black)),
                 TextSpan(text: 'se atraem.'),
                 TextSpan(
                     text:
                         'de pessoas com os mesmos interesses, que entendem o objetivo da vida e que dão valor aos '),
                 TextSpan(
                     text: 'relacionamentos de alma. ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 204, 171, 123))),
+                    style: TextStyle(color: Colors.black)),
                 TextSpan(
                     text:
                         'Seja para um relacionamento ou amizade, aqui você poderá expressar livremente a tua '),
                 TextSpan(
                     text: 'centelha divina ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 204, 171, 123))),
+                    style: TextStyle(color: Colors.black)),
                 TextSpan(
                     text:
                         'e encontrar pessoas que te valorizam pelo que você sabe e pelo que você é!'),
@@ -237,13 +216,10 @@ class _WelcomePageState extends State<WelcomePage> {
             globalBackgroundColor: Colors.transparent,
             pages: getPages(),
             showNextButton: true,
-            next: Text('Avançar',
-                style: TextStyle(color: Color.fromARGB(255, 204, 171, 123))),
+            next: Text('Avançar', style: TextStyle(color: Colors.black)),
             showBackButton: true,
-            back: Text("Voltar",
-                style: TextStyle(color: Color.fromARGB(255, 204, 171, 123))),
-            done: Text("Concluir",
-                style: TextStyle(color: Color.fromARGB(255, 204, 171, 123))),
+            back: Text("Voltar", style: TextStyle(color: Colors.black)),
+            done: Text("Concluir", style: TextStyle(color: Colors.black)),
             onDone: () async {
               Future<bool> result = _determinePosition();
               await result == true

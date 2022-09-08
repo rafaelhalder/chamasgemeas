@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Chats extends StatefulWidget {
   const Chats({Key? key}) : super(key: key);
@@ -39,41 +40,41 @@ class _ChatsState extends State<Chats> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color.fromARGB(255, 27, 27, 27),
+      decoration: BoxDecoration(
+          image: DecorationImage(
+        image: AssetImage("assets/images/interfacesigno.png"),
+        fit: BoxFit.cover,
+      )),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         bottomNavigationBar: ConvexAppBar(
+          color: Colors.black,
           gradient: const LinearGradient(colors: [
-            Color.fromARGB(255, 0, 0, 0),
-            Color.fromARGB(255, 2, 1, 3),
+            Color.fromARGB(255, 223, 223, 223),
+            Color.fromARGB(255, 223, 223, 223),
           ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
           // ignore: prefer_const_literals_to_create_immutables
           items: [
             // ignore: prefer_const_constructors
             TabItem(
                 activeIcon: Icon(Icons.home, color: Colors.black),
-                icon:
-                    Icon(Icons.home, color: Color.fromARGB(255, 204, 171, 123)),
+                icon: Icon(Icons.home, color: Colors.black),
                 title: 'Home'),
             const TabItem(
                 activeIcon: Icon(Icons.star, color: Colors.black),
-                icon:
-                    Icon(Icons.star, color: Color.fromARGB(255, 204, 171, 123)),
+                icon: Icon(Icons.star, color: Colors.black),
                 title: 'Super'),
             const TabItem(
                 activeIcon: Icon(Icons.person, color: Colors.black),
-                icon: Icon(Icons.person,
-                    color: Color.fromARGB(255, 204, 171, 123)),
+                icon: Icon(Icons.person, color: Colors.black),
                 title: 'Perfil'),
             const TabItem(
                 activeIcon: Icon(Icons.message, color: Colors.black),
-                icon: Icon(Icons.message,
-                    color: Color.fromARGB(255, 204, 171, 123)),
+                icon: Icon(Icons.message, color: Colors.black),
                 title: 'Chats'),
             const TabItem(
                 activeIcon: Icon(Icons.settings, color: Colors.black),
-                icon: Icon(Icons.settings,
-                    color: Color.fromARGB(255, 204, 171, 123)),
+                icon: Icon(Icons.settings, color: Colors.black),
                 title: 'Opções'),
           ],
           initialActiveIndex: 3, //optional, default as 0
@@ -140,12 +141,15 @@ class _ChatsState extends State<Chats> {
         body: Observer(
             builder: (BuildContext context) => CustomScrollView(
                   slivers: [
-                    const CupertinoSliverNavigationBar(
+                    CupertinoSliverNavigationBar(
                       leading: Text(''),
-                      backgroundColor: Color.fromARGB(255, 27, 27, 27),
+                      backgroundColor: Colors.transparent,
                       largeTitle: Text(
-                        "Match",
-                        style: TextStyle(color: Colors.white),
+                        'Chamas Gêmeas',
+                        style: GoogleFonts.quicksand(
+                            fontSize: 25,
+                            color: Color.fromARGB(255, 147, 132, 100),
+                            fontWeight: FontWeight.w600),
                       ),
                     ),
                     SliverList(
@@ -154,12 +158,16 @@ class _ChatsState extends State<Chats> {
                       String timer = data['time'] != ''
                           ? DateFormat('hh:mm a').format(data['time'].toDate())
                           : '';
-                      return CupertinoListTile(
+                      return ListTile(
+                        contentPadding: EdgeInsets.all(20),
+                        minVerticalPadding: 13,
+                        dense: true,
+                        visualDensity: VisualDensity(vertical: 4), // to
                         leading: CircleAvatar(
-                            radius: 25,
+                            radius: 33,
                             backgroundColor: const Color(0xffFDCF09),
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
+                              borderRadius: BorderRadius.circular(200),
                               child: CachedNetworkImage(
                                 fadeInDuration: const Duration(milliseconds: 0),
                                 fadeOutDuration:
@@ -171,7 +179,9 @@ class _ChatsState extends State<Chats> {
                               ),
                             )),
                         title: Text(data['friendName'],
-                            style: const TextStyle(color: Colors.white)),
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 207, 202, 187),
+                                fontSize: 16)),
                         subtitle: data['msg'] != ''
                             ? Row(
                                 mainAxisAlignment:
@@ -179,12 +189,9 @@ class _ChatsState extends State<Chats> {
                                 children: [
                                   Text(data['msg'],
                                       style: const TextStyle(
-                                          color: Colors.white, fontSize: 14)),
-                                  Text(timer,
-                                      style: const TextStyle(
                                           color: Color.fromARGB(
-                                              255, 206, 206, 206),
-                                          fontSize: 12)),
+                                              255, 147, 132, 100),
+                                          fontSize: 16))
                                 ],
                               )
                             : Text(

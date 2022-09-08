@@ -47,8 +47,6 @@ class _ChatDetailState extends State<ChatDetail> {
   var photo;
   var photome;
   var status;
-  String defaultPhoto =
-      'https://firebasestorage.googleapis.com/v0/b/chamas-gemeas.appspot.com/o/images%2Fdefault%2Fperson_blank.png?alt=media&token=a48cac17-1f89-4aed-a0b2-ba38699d516f';
   final _textController = TextEditingController();
   String? tokenAuth = "";
 
@@ -377,7 +375,7 @@ class _ChatDetailState extends State<ChatDetail> {
                                 fadeOutDuration:
                                     const Duration(milliseconds: 0),
                                 fit: BoxFit.cover,
-                                imageUrl: photo != null ? photo : defaultPhoto,
+                                imageUrl: photo,
                                 width: 80,
                                 height: 80,
                               ),
@@ -433,9 +431,7 @@ class _ChatDetailState extends State<ChatDetail> {
                                                 fadeOutDuration: const Duration(
                                                     milliseconds: 0),
                                                 fit: BoxFit.cover,
-                                                imageUrl: photo != null
-                                                    ? photo
-                                                    : defaultPhoto,
+                                                imageUrl: photo,
                                                 width: 80,
                                                 height: 80,
                                               ),
@@ -543,9 +539,7 @@ class _ChatDetailState extends State<ChatDetail> {
                                                 fadeOutDuration: const Duration(
                                                     milliseconds: 0),
                                                 fit: BoxFit.cover,
-                                                imageUrl: photo != null
-                                                    ? photo
-                                                    : defaultPhoto,
+                                                imageUrl: photo,
                                                 width: 80,
                                                 height: 80,
                                               ),
