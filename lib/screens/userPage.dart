@@ -114,56 +114,82 @@ class _UserPageState extends State<UserPage> {
             child: Container(
               color: const Color.fromARGB(255, 27, 27, 27),
               child: Column(children: [
-                ClipPath(
-                  clipper: CustomClipPath(),
-                  child: Container(
-                    height: size.height / 1.74,
-                    width: size.width,
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
+                Stack(
+                  children: [
+                    Container(
+                      height: size.height / 1.74,
+                      width: size.width,
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(10),
+                            topLeft: Radius.circular(10),
+                          ),
+                          color: Color.fromARGB(255, 27, 27, 27)),
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
                           topRight: Radius.circular(10),
                           topLeft: Radius.circular(10),
                         ),
-                        color: Color.fromARGB(255, 27, 27, 27)),
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(10),
-                        topLeft: Radius.circular(10),
-                      ),
-                      child: CarouselSlider.builder(
-                        carouselController: _controller,
-                        options: CarouselOptions(
-                            height: size.height,
-                            autoPlay: false,
-                            autoPlayInterval: const Duration(seconds: 7),
-                            reverse: false,
-                            viewportFraction: 1,
-                            aspectRatio: 2.0,
-                            initialPage: 0,
-                            enableInfiniteScroll: true,
-                            autoPlayAnimationDuration:
-                                const Duration(milliseconds: 800),
-                            autoPlayCurve: Curves.fastOutSlowIn,
-                            scrollDirection: Axis.horizontal,
-                            onPageChanged: (index, reason) {
-                              setState(() {
-                                _current = index;
-                              });
-                            }),
-                        itemCount: filterPhoto.length,
-                        itemBuilder: (context, itemIndex, realIndex) {
-                          return CachedNetworkImage(
-                            fadeInDuration: const Duration(milliseconds: 0),
-                            fadeOutDuration: const Duration(milliseconds: 0),
-                            fit: BoxFit.cover,
-                            imageUrl: filterPhoto[itemIndex]['url'],
-                            width: size.width,
-                            height: size.height,
-                          );
-                        },
+                        child: CarouselSlider.builder(
+                          carouselController: _controller,
+                          options: CarouselOptions(
+                              height: size.height,
+                              autoPlay: false,
+                              autoPlayInterval: const Duration(seconds: 7),
+                              reverse: false,
+                              viewportFraction: 1,
+                              aspectRatio: 2.0,
+                              initialPage: 0,
+                              enableInfiniteScroll: true,
+                              autoPlayAnimationDuration:
+                                  const Duration(milliseconds: 800),
+                              autoPlayCurve: Curves.fastOutSlowIn,
+                              scrollDirection: Axis.horizontal,
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  _current = index;
+                                });
+                              }),
+                          itemCount: filterPhoto.length,
+                          itemBuilder: (context, itemIndex, realIndex) {
+                            return CachedNetworkImage(
+                              fadeInDuration: const Duration(milliseconds: 0),
+                              fadeOutDuration: const Duration(milliseconds: 0),
+                              fit: BoxFit.cover,
+                              imageUrl: filterPhoto[itemIndex]['url'],
+                              width: size.width,
+                              height: size.height,
+                            );
+                          },
+                        ),
                       ),
                     ),
-                  ),
+                    Positioned.fill(
+                      bottom: 10,
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: filterPhoto.map((url) {
+                            int index = filterPhoto.indexOf(url);
+                            return Container(
+                              width: 20.0,
+                              height: 10.0,
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 4.0, horizontal: 2.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                shape: BoxShape.rectangle,
+                                color: _current == index
+                                    ? Color.fromARGB(153, 231, 231, 231)
+                                    : Color.fromRGBO(0, 0, 0, 0.4),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 Container(
                   alignment: Alignment.centerLeft,

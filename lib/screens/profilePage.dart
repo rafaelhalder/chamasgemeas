@@ -442,6 +442,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(40)),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 25, vertical: 8),
                           child: TextFormField(
@@ -502,7 +504,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: Colors.white24,
+                                color: Color.fromARGB(255, 223, 223, 223),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(12.0),
@@ -514,17 +516,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceAround,
                                       children: [
-                                        const Icon(Icons.book,
-                                            color: Colors.white),
+                                        const Icon(Icons.edit_note,
+                                            color: Color.fromARGB(
+                                                255, 84, 75, 57)),
                                         const SizedBox(
-                                          width: 10,
+                                          width: 95,
                                         ),
                                         const Text(
                                           'Ocupação:',
                                           style: TextStyle(
                                               letterSpacing: 0.2,
                                               color: Color.fromARGB(
-                                                  255, 255, 255, 255),
+                                                  255, 84, 75, 57),
                                               fontSize: 16),
                                         ),
                                         const SizedBox(
@@ -535,13 +538,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                           style: const TextStyle(
                                               letterSpacing: 0.2,
                                               color: Color.fromARGB(
-                                                  255, 255, 255, 255),
+                                                  255, 84, 75, 57),
                                               fontSize: 16),
                                         ),
                                       ],
                                     ),
-                                    const Icon(Icons.arrow_forward,
-                                        color: Colors.white),
                                   ],
                                 ),
                               ),
@@ -574,7 +575,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Colors.white24,
+                        color: Color.fromARGB(255, 223, 223, 223),
                       ),
                       child: FutureBuilder<dynamic>(
                           future: loadHeight(),
@@ -583,22 +584,22 @@ class _ProfilePageState extends State<ProfilePage> {
                               return Padding(
                                 padding: const EdgeInsets.all(12.0),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Row(
                                       children: [
-                                        const Icon(Icons.book,
-                                            color: Colors.white),
+                                        const Icon(Icons.edit_note,
+                                            color: Color.fromARGB(
+                                                255, 84, 75, 57)),
                                         const SizedBox(
-                                          width: 10,
+                                          width: 95,
                                         ),
-                                        const Text(
+                                        Text(
                                           'Altura: ',
                                           style: TextStyle(
                                               letterSpacing: 0.2,
                                               color: Color.fromARGB(
-                                                  255, 255, 255, 255),
+                                                  255, 84, 75, 57),
                                               fontSize: 16),
                                         ),
                                         Text(
@@ -606,13 +607,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                           style: const TextStyle(
                                               letterSpacing: 0.2,
                                               color: Color.fromARGB(
-                                                  255, 255, 255, 255),
+                                                  255, 84, 75, 57),
                                               fontSize: 16),
                                         ),
                                       ],
                                     ),
-                                    const Icon(Icons.arrow_forward,
-                                        color: Colors.white),
                                   ],
                                 ),
                               );
@@ -632,7 +631,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Colors.white24,
+                        color: Color.fromARGB(255, 223, 223, 223),
                       ),
                       child: FutureBuilder<dynamic>(
                           future: loadAge(),
@@ -645,31 +644,30 @@ class _ProfilePageState extends State<ProfilePage> {
                                 children: [
                                   Row(
                                     children: [
-                                      const Icon(Icons.book,
-                                          color: Colors.white),
+                                      const Icon(Icons.edit_note,
+                                          color:
+                                              Color.fromARGB(255, 84, 75, 57)),
                                       const SizedBox(
-                                        width: 10,
+                                        width: 95,
                                       ),
                                       const Text(
                                         'Idade: ',
                                         style: TextStyle(
                                             letterSpacing: 0.2,
-                                            color: Color.fromARGB(
-                                                255, 255, 255, 255),
+                                            color:
+                                                Color.fromARGB(255, 84, 75, 57),
                                             fontSize: 16),
                                       ),
                                       Text(
                                         snapshot.data.toString(),
                                         style: const TextStyle(
                                             letterSpacing: 0.2,
-                                            color: Color.fromARGB(
-                                                255, 255, 255, 255),
+                                            color:
+                                                Color.fromARGB(255, 84, 75, 57),
                                             fontSize: 16),
                                       ),
                                     ],
                                   ),
-                                  const Icon(Icons.arrow_forward,
-                                      color: Colors.white),
                                 ],
                               ),
                             );
@@ -687,7 +685,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Colors.white24,
+                        color: Color.fromARGB(255, 223, 223, 223),
                       ),
                       child: FutureBuilder<dynamic>(
                           future: loadCity(),
@@ -701,17 +699,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                   children: [
                                     Row(
                                       children: [
-                                        const Icon(Icons.book,
-                                            color: Colors.white),
+                                        const Icon(Icons.edit_note,
+                                            color: Color.fromARGB(
+                                                255, 84, 75, 57)),
                                         const SizedBox(
-                                          width: 10,
+                                          width: 95,
                                         ),
                                         const Text(
                                           'Cidade: ',
                                           style: TextStyle(
                                               letterSpacing: 0.2,
                                               color: Color.fromARGB(
-                                                  255, 255, 255, 255),
+                                                  255, 84, 75, 57),
                                               fontSize: 16),
                                         ),
                                         Text(
@@ -719,13 +718,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                           style: const TextStyle(
                                               letterSpacing: 0.2,
                                               color: Color.fromARGB(
-                                                  255, 255, 255, 255),
+                                                  255, 84, 75, 57),
                                               fontSize: 16),
                                         ),
                                       ],
                                     ),
-                                    const Icon(Icons.arrow_forward,
-                                        color: Colors.white),
                                   ],
                                 ),
                               );
@@ -745,7 +742,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Colors.white24,
+                        color: Color.fromARGB(255, 223, 223, 223),
                       ),
                       child: FutureBuilder<dynamic>(
                           future: loadCountry(),
@@ -759,17 +756,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                   children: [
                                     Row(
                                       children: [
-                                        const Icon(Icons.book,
-                                            color: Colors.white),
+                                        const Icon(Icons.edit_note,
+                                            color: Color.fromARGB(
+                                                255, 84, 75, 57)),
                                         const SizedBox(
-                                          width: 10,
+                                          width: 95,
                                         ),
                                         const Text(
                                           'Pais: ',
                                           style: TextStyle(
                                               letterSpacing: 0.2,
                                               color: Color.fromARGB(
-                                                  255, 255, 255, 255),
+                                                  255, 84, 75, 57),
                                               fontSize: 16),
                                         ),
                                         Text(
@@ -777,13 +775,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                           style: const TextStyle(
                                               letterSpacing: 0.2,
                                               color: Color.fromARGB(
-                                                  255, 255, 255, 255),
+                                                  255, 84, 75, 57),
                                               fontSize: 16),
                                         ),
                                       ],
                                     ),
-                                    const Icon(Icons.arrow_forward,
-                                        color: Colors.white),
                                   ],
                                 ),
                               );
@@ -803,7 +799,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Colors.white24,
+                        color: Color.fromARGB(255, 223, 223, 223),
                       ),
                       child: FutureBuilder<dynamic>(
                           future: loadWeight(),
@@ -817,17 +813,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                   children: [
                                     Row(
                                       children: [
-                                        const Icon(Icons.book,
-                                            color: Colors.white),
+                                        const Icon(Icons.edit_note,
+                                            color: Color.fromARGB(
+                                                255, 84, 75, 57)),
                                         const SizedBox(
-                                          width: 10,
+                                          width: 95,
                                         ),
                                         const Text(
                                           'Peso: ',
                                           style: TextStyle(
                                               letterSpacing: 0.2,
                                               color: Color.fromARGB(
-                                                  255, 255, 255, 255),
+                                                  255, 84, 75, 57),
                                               fontSize: 16),
                                         ),
                                         Text(
@@ -835,13 +832,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                           style: const TextStyle(
                                               letterSpacing: 0.2,
                                               color: Color.fromARGB(
-                                                  255, 255, 255, 255),
+                                                  255, 84, 75, 57),
                                               fontSize: 16),
                                         ),
                                       ],
                                     ),
-                                    const Icon(Icons.arrow_forward,
-                                        color: Colors.white),
                                   ],
                                 ),
                               );
@@ -861,7 +856,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Colors.white24,
+                        color: Color.fromARGB(255, 223, 223, 223),
                       ),
                       child: FutureBuilder<dynamic>(
                           future: loadGenero(),
@@ -875,17 +870,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                   children: [
                                     Row(
                                       children: [
-                                        const Icon(Icons.book,
-                                            color: Colors.white),
+                                        const Icon(Icons.edit_note,
+                                            color: Color.fromARGB(
+                                                255, 84, 75, 57)),
                                         const SizedBox(
-                                          width: 10,
+                                          width: 95,
                                         ),
                                         const Text(
                                           'Genero: ',
                                           style: TextStyle(
                                               letterSpacing: 0.2,
                                               color: Color.fromARGB(
-                                                  255, 255, 255, 255),
+                                                  255, 84, 75, 57),
                                               fontSize: 16),
                                         ),
                                         Text(
@@ -893,13 +889,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                           style: const TextStyle(
                                               letterSpacing: 0.2,
                                               color: Color.fromARGB(
-                                                  255, 255, 255, 255),
+                                                  255, 84, 75, 57),
                                               fontSize: 16),
                                         ),
                                       ],
                                     ),
-                                    const Icon(Icons.arrow_forward,
-                                        color: Colors.white),
                                   ],
                                 ),
                               );
