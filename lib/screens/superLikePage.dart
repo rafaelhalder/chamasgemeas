@@ -107,7 +107,7 @@ class _SuperLikeState extends State<SuperLike> {
                       context,
                       PageRouteBuilder(
                         pageBuilder: (context, animation1, animation2) =>
-                            const HomePage(),
+                            HomePage(),
                         transitionDuration: Duration.zero,
                         reverseTransitionDuration: Duration.zero,
                       ),

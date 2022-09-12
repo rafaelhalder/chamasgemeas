@@ -298,7 +298,7 @@ class _ChatDetailState extends State<ChatDetail> {
                           context,
                           PageRouteBuilder(
                             pageBuilder: (context, animation1, animation2) =>
-                                const HomePage(),
+                                HomePage(),
                             transitionDuration: Duration.zero,
                             reverseTransitionDuration: Duration.zero,
                           ),

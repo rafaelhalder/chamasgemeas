@@ -28,7 +28,7 @@ class _VerifyUserState extends State<VerifyUser> {
       return WelcomePage();
     } else if (newUser == 2) {
       // return const WelcomePage();
-      return const HomePage();
+      return HomePage();
     } else {
       return const Center(
         child: CircularProgressIndicator(),

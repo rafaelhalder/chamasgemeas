@@ -251,7 +251,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       context,
                       PageRouteBuilder(
                         pageBuilder: (context, animation1, animation2) =>
-                            const HomePage(),
+                            HomePage(),
                         transitionDuration: Duration.zero,
                         reverseTransitionDuration: Duration.zero,
                       ),

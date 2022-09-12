@@ -8,39 +8,36 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong2/latlong.dart' as lat;
 import 'package:provider/provider.dart';
 
-class UserPage extends StatefulWidget {
-  const UserPage({Key? key}) : super(key: key);
+class UserPageHome extends StatefulWidget {
+  const UserPageHome({Key? key}) : super(key: key);
 
   @override
-  State<UserPage> createState() => _UserPageState();
+  State<UserPageHome> createState() => _UserPageHomeState();
 }
 
-class _UserPageState extends State<UserPage> {
+class _UserPageHomeState extends State<UserPageHome> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
-    var userList = arguments['info'];
-    String name = userList['name'];
-    String imagemLink = userList['soul'] + '.png';
-    int typeInte = userList['typeInterested'];
+    final provider = Provider.of<CardProvider>(context);
+    final userData = provider.users.last;
+    String name = userData.name;
+    String imagemLink = userData.soul + '.png';
+    int typeInte = int.parse(userData.interested);
+    String occupation = 'Gari';
+    String aboutMe = userData.aboutMe;
+    int age = userData.age;
+    List photos = userData.photos;
+    double lati = double.parse(userData.latitude);
+    double latitude = double.parse(userData.latitude);
+    double long = double.parse(userData.longitude);
+    double longitude = double.parse(userData.longitude);
     String interested = '';
     typeInte == 0 ? interested = 'Namoro' : interested = 'Amizade';
-    double lati = double.parse(arguments['lat']);
-    double latitude = double.parse(userList['latitude']);
-    double long = double.parse(arguments['lng']);
-    double longitude = double.parse(userList['longitude']);
-    String occupation = userList['occupation'];
-    String aboutMe = userList['aboutMe'];
-    print(userList);
-    int age = userList['age'];
-    List photos = userList['photos'];
-    final provider = Provider.of<CardProvider>(context);
-    final users = provider.users;
-    print(users.last.aboutMe);
+
     List filterPhoto = [];
     var distance = const lat.Distance();
 
@@ -106,8 +103,7 @@ class _UserPageState extends State<UserPage> {
             elevation: 0,
             backgroundColor: const Color.fromARGB(0, 0, 0, 0),
             centerTitle: true,
-            title: Text('${arguments['name']}',
-                style: TextStyle(color: Colors.white)),
+            title: Text('$name', style: TextStyle(color: Colors.white)),
             leading: Container(
                 decoration: BoxDecoration(
                     color: const Color.fromARGB(42, 86, 86, 86),
@@ -252,7 +248,7 @@ class _UserPageState extends State<UserPage> {
                           Row(
                             children: [
                               infos(
-                                text: userList['city'],
+                                text: userData.city,
                                 size: size,
                                 icon: const FaIcon(
                                     FontAwesomeIcons.houseChimney,
@@ -269,13 +265,13 @@ class _UserPageState extends State<UserPage> {
                           Row(
                             children: [
                               infos(
-                                text: userList['height'].toString() + ' cm',
+                                text: userData.height.toString() + ' cm',
                                 size: size,
                                 icon: const FaIcon(FontAwesomeIcons.ruler,
                                     color: Colors.black),
                               ),
                               infos(
-                                text: userList['country'],
+                                text: userData.country,
                                 size: size,
                                 icon: const FaIcon(FontAwesomeIcons.fontAwesome,
                                     color: Colors.black),
@@ -285,7 +281,7 @@ class _UserPageState extends State<UserPage> {
                           Row(
                             children: [
                               infos(
-                                text: userList['zodiac'],
+                                text: userData.zodiac,
                                 size: size,
                                 icon: const FaIcon(
                                     FontAwesomeIcons.starAndCrescent,
@@ -312,7 +308,7 @@ class _UserPageState extends State<UserPage> {
                               infos3(
                                   size: size,
                                   image: 'assets/images/$imagemLink',
-                                  text: userList['soul']),
+                                  text: userData.soul),
                             ],
                           )
                         ],
@@ -359,10 +355,10 @@ class _UserPageState extends State<UserPage> {
                             child: ListView.builder(
                                 padding: EdgeInsets.zero,
                                 shrinkWrap: true,
-                                itemCount: userList['listFocus']?.length,
+                                itemCount: userData.listFocus?.length,
                                 itemBuilder: (context, index) {
                                   String tex = '';
-                                  int valor = userList['listFocus'][index];
+                                  int valor = userData.listFocus[index];
                                   switch (valor) {
                                     case 0:
                                       tex = '';
@@ -485,7 +481,7 @@ class _UserPageState extends State<UserPage> {
                       const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                   child: Flexible(
                     child: Text(
-                      'Proximidades de ${arguments['name']}',
+                      'Proximidades de ${userData.name}',
                       style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,

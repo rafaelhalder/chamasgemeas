@@ -88,7 +88,7 @@ class _PreferencePageState extends State<PreferencePage> {
                       context,
                       PageRouteBuilder(
                         pageBuilder: (context, animation1, animation2) =>
-                            const HomePage(),
+                            HomePage(),
                         transitionDuration: Duration.zero,
                         reverseTransitionDuration: Duration.zero,
                       ),
