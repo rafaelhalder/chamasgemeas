@@ -133,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                             Text(
                               'Entrar com o Google',
                               style: GoogleFonts.quicksand(
-                                  fontSize: 20,
+                                  fontSize: 18,
                                   color: Color.fromARGB(218, 255, 255, 255),
                                   fontWeight: FontWeight.w600),
                             ),
@@ -195,7 +195,7 @@ class _LoginPageState extends State<LoginPage> {
                             Text(
                               'Entrar com o Facebook',
                               style: GoogleFonts.quicksand(
-                                  fontSize: 20,
+                                  fontSize: 17,
                                   color: Color.fromARGB(218, 255, 255, 255),
                                   fontWeight: FontWeight.w600),
                             ),

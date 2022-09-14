@@ -4,7 +4,6 @@ import 'package:chamasgemeas/screens/preferencePage.dart';
 import 'package:chamasgemeas/screens/profilePage.dart';
 import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../widget/tinder_card.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
@@ -160,7 +159,7 @@ class _HomePageState extends State<HomePage> {
                   Align(
                       alignment: Alignment.bottomCenter,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 35),
+                        padding: const EdgeInsets.symmetric(horizontal: 23),
                         child: Container(
                             padding: EdgeInsets.symmetric(vertical: 5),
                             decoration: BoxDecoration(
@@ -227,6 +226,7 @@ class _HomePageState extends State<HomePage> {
             },
           )
         : Container(
+            height: 55,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

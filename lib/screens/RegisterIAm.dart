@@ -55,6 +55,67 @@ class _RegisterIAmState extends State<RegisterIAm> {
                                 shrinkWrap: true,
                                 itemCount: list.length,
                                 itemBuilder: (context, index) {
+                                  if (selectedIndex == '0' ||
+                                      selectedIndex == '1') {
+                                    if (index.toString() == '3' ||
+                                        index.toString() == '4' ||
+                                        index.toString() == '5') {
+                                      return Container();
+                                    }
+                                  }
+                                  if (index.toString() == '3' ||
+                                      index.toString() == '4' ||
+                                      index.toString() == '5') {
+                                    if (index.toString() == '3' ||
+                                        index.toString() == '4' ||
+                                        index.toString() == '5') {
+                                      return ListTile(
+                                          tileColor:
+                                              selectedIndex == index.toString()
+                                                  ? Colors.red
+                                                  : null,
+                                          title: Center(
+                                            child: Container(
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 5),
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Color.fromARGB(
+                                                        255, 147, 132, 100)),
+                                                borderRadius:
+                                                    BorderRadius.circular(40),
+                                                color: selectedIndex !=
+                                                        index.toString()
+                                                    ? Color.fromARGB(
+                                                        0, 108, 90, 64)
+                                                    : Color.fromARGB(
+                                                        255, 147, 132, 100),
+                                              ),
+                                              alignment: Alignment.center,
+                                              width: size.width * 0.4,
+                                              height: size.height * 0.055,
+                                              child: Text(list[index]['name'],
+                                                  style: TextStyle(
+                                                    color: selectedIndex ==
+                                                            index.toString()
+                                                        ? Colors.black
+                                                        : Colors.white60,
+                                                    fontWeight: selectedIndex ==
+                                                            index.toString()
+                                                        ? FontWeight.bold
+                                                        : null,
+                                                  )),
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            setState(() {
+                                              selectedIndex = index.toString();
+                                            });
+                                          });
+                                    }
+                                  }
+
                                   return ListTile(
                                       tileColor:
                                           selectedIndex == index.toString()
@@ -161,8 +222,10 @@ class _RegisterIAmState extends State<RegisterIAm> {
   }
 
   Future<List> getData() async {
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection('genders').get();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('genders')
+        .orderBy('id')
+        .get();
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
 
     return allData;

@@ -196,7 +196,7 @@ class _RegisterISearchPageState extends State<RegisterISearchPage> {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.only(bottom: 60),
+                    margin: const EdgeInsets.only(bottom: 25, top: 20),
                     child: ToggleSwitch(
                       minWidth: 130.0,
                       initialLabelIndex: typeInterested,

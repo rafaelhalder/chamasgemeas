@@ -155,19 +155,19 @@ class _RegisterStep7State extends State<RegisterStep7> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
-                    padding: const EdgeInsets.only(left: 50, top: 60),
+                    padding: const EdgeInsets.only(left: 50, top: 20),
                     alignment: Alignment.bottomLeft,
                     child: RichText(
                       text: TextSpan(
                         style: const TextStyle(
-                          fontSize: 22.0,
+                          fontSize: 20.0,
                           color: Color.fromARGB(255, 238, 238, 238),
                         ),
                         children: <TextSpan>[
                           TextSpan(
                               text: '${user?.displayName}, \n',
                               style: GoogleFonts.quicksand(
-                                  fontSize: 30,
+                                  fontSize: 27,
                                   color: Color.fromARGB(255, 147, 132, 100),
                                   fontWeight: FontWeight.w700)),
                           TextSpan(
@@ -181,7 +181,7 @@ class _RegisterStep7State extends State<RegisterStep7> {
                     ),
                   ),
                   SizedBox(
-                    height: 50,
+                    height: 25,
                   ),
                   Padding(
                     padding: EdgeInsets.zero,
@@ -225,7 +225,7 @@ class _RegisterStep7State extends State<RegisterStep7> {
                         }),
                   ),
                   SizedBox(
-                    height: 80,
+                    height: 50,
                   ),
                   Container(
                     alignment: Alignment.centerLeft,

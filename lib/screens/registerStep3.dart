@@ -135,7 +135,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                         },
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
                               width: size.width * 0.35,
@@ -159,23 +159,6 @@ class _RegisterStep3State extends State<RegisterStep3> {
                                 ),
                               ),
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                _launchUrl();
-                              },
-                              child: Container(
-                                child: Text(
-                                  'Saber Mais',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'CM Sans Serif',
-                                      fontSize: 12),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 3,
-                            )
                           ],
                         ),
                       ),

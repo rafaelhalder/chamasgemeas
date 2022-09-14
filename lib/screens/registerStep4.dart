@@ -424,8 +424,11 @@ class _RegisterStep4State extends State<RegisterStep4> {
         weight != '' &&
         city != '' &&
         occupation != '') {
+      print('bateu meta');
       return Colors.white;
     } else {
+      print('n bateu meta');
+
       return Colors.white24;
     }
   }
