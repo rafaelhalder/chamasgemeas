@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
 import '../widget/tinder_card.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -16,6 +18,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  User? user = FirebaseAuth.instance.currentUser;
+  String? uid = FirebaseAuth.instance.currentUser?.uid;
   @override
   Widget build(BuildContext context) => Container(
         decoration: BoxDecoration(
@@ -150,10 +154,9 @@ class _HomePageState extends State<HomePage> {
               child: Stack(
                 alignment: Alignment.topCenter,
                 children: [
-                  Expanded(
-                      child: Container(
-                          height: MediaQuery.of(context).size.height * 0.70,
-                          child: buildCards())),
+                  Container(
+                      height: MediaQuery.of(context).size.height * 0.70,
+                      child: buildCards()),
                   Align(
                       alignment: Alignment.bottomCenter,
                       child: Padding(
@@ -270,13 +273,30 @@ class _HomePageState extends State<HomePage> {
                     final provider =
                         Provider.of<CardProvider>(context, listen: false);
 
-                    print(users.last.name);
+                    String actualUser = users.last.uid.toString();
+
+                    print(actualUser);
                     provider.like();
+                    verifyMatch(actualUser);
                   },
                 ),
               ],
             ),
           );
+  }
+
+  verifyMatch(actualUser) async {
+    List likedMe = [];
+
+    final foundLikeMe =
+        await FirebaseFirestore.instance.collection('liked_me').doc(uid).get();
+    if (foundLikeMe.exists) {
+      likedMe = foundLikeMe['id'];
+    }
+
+    if (likedMe.contains(actualUser)) {
+      Navigator.pushNamed(context, '/matchScreen');
+    }
   }
 
   MaterialStateProperty<Color> getColor(

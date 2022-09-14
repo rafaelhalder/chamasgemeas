@@ -10,6 +10,7 @@ import 'package:chamasgemeas/screens/chats.dart';
 import 'package:chamasgemeas/screens/filterPage.dart';
 import 'package:chamasgemeas/screens/likedMePage.dart';
 import 'package:chamasgemeas/screens/matchPage.dart';
+import 'package:chamasgemeas/screens/matchUsers.dart';
 import 'package:chamasgemeas/screens/preferencePage.dart';
 import 'package:chamasgemeas/screens/profilePage.dart';
 import 'package:chamasgemeas/screens/registerStep3.dart';
@@ -96,6 +97,7 @@ class MyApp extends StatelessWidget {
           '/chats': (context) => const Chats(),
           '/match': (context) => const MatchPage(),
           '/chat': (context) => const ChatDetail(),
+          '/matchScreen': (context) => const MatchUsers(),
           '/superlike': (context) => const SuperLike(),
           '/filter': (context) => const FilterPage(),
           '/likeMe': (context) => const LikedMePage(),

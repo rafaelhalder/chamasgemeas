@@ -3,18 +3,26 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:chamasgemeas/model/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 enum CardStatus { like, dislike, superLike }
 
 class CardProvider extends ChangeNotifier {
   List<Users> _users = [];
+  List _liked = [];
   bool _isDragging = false;
-  bool _match = false;
+  bool _match = true;
   double _angle = 0;
   Offset _position = Offset.zero;
   Size _screenSize = Size.zero;
+  User? user = FirebaseAuth.instance.currentUser;
+  String? uid = FirebaseAuth.instance.currentUser?.uid;
+  CollectionReference chats = FirebaseFirestore.instance.collection('chats');
+  CollectionReference matchs = FirebaseFirestore.instance.collection('match');
 
   List<Users> get users => _users;
+  List get liked => _liked;
   bool get isDragging => _isDragging;
   bool get match => _match;
   Offset get position => _position;
@@ -114,21 +122,47 @@ class CardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void like() {
+  void like() async {
     _angle = 20;
     _position += Offset(2 * _screenSize.width, 0);
-    //_nextCard();
-    print(_users.last);
-    _match = true;
-
+    _liked.add(_users.last.uid);
+    updateLike();
+    userLiked();
+    await _nextCard();
     notifyListeners();
+  }
+
+  void updateLike() async {
+    await FirebaseFirestore.instance
+        .collection('liked')
+        .doc(uid)
+        .set({"id": _liked});
+  }
+
+  void userLiked() async {
+    List listLikedMe = [];
+
+    final likedme = await FirebaseFirestore.instance
+        .collection('liked_me')
+        .doc(users.last.uid)
+        .get();
+
+    if (likedme.exists) {
+      listLikedMe = likedme['id'];
+    }
+
+    if (!listLikedMe.contains(uid)) listLikedMe.add(uid);
+
+    await FirebaseFirestore.instance
+        .collection('liked_me')
+        .doc(users.last.uid)
+        .set({"id": listLikedMe});
   }
 
   void superLike() {
     _angle = 0;
     _position -= Offset(0, _screenSize.height);
     _nextCard();
-
     notifyListeners();
   }
 
@@ -141,6 +175,13 @@ class CardProvider extends ChangeNotifier {
   }
 
   void resetUsers() async {
+    final like =
+        await FirebaseFirestore.instance.collection('liked').doc(uid).get();
+
+    if (like.exists) {
+      _liked = like['id'];
+    }
+
     final QuerySnapshot result = await FirebaseFirestore.instance
         .collection('users')
         .where('status', isEqualTo: true)
@@ -149,7 +190,6 @@ class CardProvider extends ChangeNotifier {
 
     documents.forEach((snapshot) {
       var teste = (snapshot.data() as Map<String, dynamic>);
-      print(teste);
       if (teste['photos'][0]['url'] != 'nulo') {
         _users.add(Users(
             age: teste['age'],

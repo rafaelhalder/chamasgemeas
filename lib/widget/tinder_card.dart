@@ -67,21 +67,21 @@ class _TinderCardState extends State<TinderCard> {
         onDoubleTap: () {
           Navigator.pushNamed(context, '/userHome');
         },
-        onPanStart: (details) {
-          final provider = Provider.of<CardProvider>(context, listen: false);
+        // onPanStart: (details) {
+        //   final provider = Provider.of<CardProvider>(context, listen: false);
 
-          provider.startPosition(details);
-        },
-        onPanUpdate: (details) {
-          final provider = Provider.of<CardProvider>(context, listen: false);
+        //   provider.startPosition(details);
+        // },
+        // onPanUpdate: (details) {
+        //   final provider = Provider.of<CardProvider>(context, listen: false);
 
-          provider.updatePosition(details);
-        },
-        onPanEnd: (details) {
-          final provider = Provider.of<CardProvider>(context, listen: false);
+        //   provider.updatePosition(details);
+        // },
+        // onPanEnd: (details) {
+        //   final provider = Provider.of<CardProvider>(context, listen: false);
 
-          provider.endPosition();
-        },
+        //   provider.endPosition();
+        // },
       );
 
   Widget buildCard() => buildCardShadow(
