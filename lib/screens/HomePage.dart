@@ -159,9 +159,9 @@ class _HomePageState extends State<HomePage> {
                   Align(
                       alignment: Alignment.bottomCenter,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 28),
+                        padding: const EdgeInsets.symmetric(horizontal: 22),
                         child: Container(
-                            width: MediaQuery.of(context).size.width * 0.70,
+                            width: MediaQuery.of(context).size.width * 0.75,
                             padding: EdgeInsets.symmetric(vertical: 5),
                             decoration: BoxDecoration(
                                 color: Color.fromARGB(255, 207, 202, 189),
@@ -227,7 +227,7 @@ class _HomePageState extends State<HomePage> {
             },
           )
         : Container(
-            height: 75,
+            height: 70,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

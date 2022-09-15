@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:chamasgemeas/model/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
 enum CardStatus { like, dislike, superLike }
 
 class CardProvider extends ChangeNotifier {
   List<Users> _users = [];
   List _liked = [];
+  List<Object?> _disliked = [];
   bool _isDragging = false;
   bool _match = true;
   double _angle = 0;
@@ -23,6 +23,7 @@ class CardProvider extends ChangeNotifier {
 
   List<Users> get users => _users;
   List get liked => _liked;
+  List get disliked => _disliked;
   bool get isDragging => _isDragging;
   bool get match => _match;
   Offset get position => _position;
@@ -112,14 +113,39 @@ class CardProvider extends ChangeNotifier {
         return CardStatus.dislike;
       }
     }
+    return null;
   }
 
-  void dislike() {
+  void dislike() async {
     _angle = -20;
     _position -= Offset(2 * _screenSize.width, 0);
+    List listDislikedMe = [];
+
+    final disliked =
+        await FirebaseFirestore.instance.collection('dislike').doc(uid).get();
+
+    if (disliked.exists) {
+      listDislikedMe = disliked['id'];
+    }
+
+    if (!listDislikedMe.contains(users.last.uid))
+      listDislikedMe.add(users.last.uid);
+
+    await FirebaseFirestore.instance
+        .collection('dislike')
+        .doc(uid)
+        .set({"id": listDislikedMe});
+
     _nextCard();
 
     notifyListeners();
+  }
+
+  void updateDislike() async {
+    await FirebaseFirestore.instance
+        .collection('liked')
+        .doc(uid)
+        .set({"id": _liked});
   }
 
   void like() async {
@@ -151,8 +177,7 @@ class CardProvider extends ChangeNotifier {
       listLikedMe = likedme['id'];
     }
 
-    if (!listLikedMe.contains(uid)) listLikedMe.add(uid);
-
+    if (!listLikedMe.contains(uid) && uid != null) listLikedMe.add(uid);
     await FirebaseFirestore.instance
         .collection('liked_me')
         .doc(users.last.uid)
@@ -182,10 +207,19 @@ class CardProvider extends ChangeNotifier {
       _liked = like['id'];
     }
 
+    final dislike =
+        await FirebaseFirestore.instance.collection('dislike').doc(uid).get();
+
+    if (dislike.exists) {
+      _disliked = dislike['id'];
+    }
+
     final QuerySnapshot result = await FirebaseFirestore.instance
         .collection('users')
         .where('status', isEqualTo: true)
+        .where('uid', whereNotIn: _disliked)
         .get();
+
     final List<DocumentSnapshot> documents = result.docs;
 
     documents.forEach((snapshot) {

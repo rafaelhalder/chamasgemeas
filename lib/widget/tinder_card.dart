@@ -96,6 +96,7 @@ class _TinderCardState extends State<TinderCard> {
               ),
             ),
             child: Container(
+              alignment: Alignment.bottomCenter,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [Colors.transparent, Colors.black],
@@ -104,15 +105,8 @@ class _TinderCardState extends State<TinderCard> {
                   stops: [0.2, 1],
                 ),
               ),
-              padding: EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  Spacer(),
-                  buildName(),
-                  const SizedBox(height: 8),
-                  buildActive(),
-                ],
-              ),
+              padding: EdgeInsets.symmetric(vertical: 80),
+              child: buildName(),
             ),
           ),
         ),
@@ -179,7 +173,10 @@ class _TinderCardState extends State<TinderCard> {
 
         return Positioned(bottom: 128, right: 0, left: 0, child: child);
       default:
-        return Container();
+        return Container(
+          padding: EdgeInsets.all(15),
+          child: CircularProgressIndicator(),
+        );
     }
   }
 
@@ -232,20 +229,21 @@ class _TinderCardState extends State<TinderCard> {
       );
 
   Widget buildName() => Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             widget.user.name,
             style: TextStyle(
-              fontSize: 26,
+              fontSize: 23,
               color: Colors.white,
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(width: 16),
           Text(
-            '${widget.user.age}',
+            ', ${widget.user.age}',
             style: TextStyle(
-              fontSize: 32,
+              fontSize: 24,
               color: Colors.white,
             ),
           ),
