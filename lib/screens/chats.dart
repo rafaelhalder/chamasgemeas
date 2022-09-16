@@ -6,12 +6,10 @@ import 'package:chamasgemeas/screens/HomePage.dart';
 import 'package:chamasgemeas/screens/profilePage.dart';
 import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:chamasgemeas/states/lib.dart';
-import 'package:cupertino_list_tile/cupertino_list_tile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Chats extends StatefulWidget {
@@ -39,6 +37,9 @@ class _ChatsState extends State<Chats> {
 
   @override
   Widget build(BuildContext context) {
+    String defaultPhoto =
+        'https://firebasestorage.googleapis.com/v0/b/chamas-gemeas.appspot.com/o/images%2Fdefault%2Fperson_blank.png?alt=media&token=a48cac17-1f89-4aed-a0b2-ba38699d516f';
+
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
@@ -158,6 +159,10 @@ class _ChatsState extends State<Chats> {
                       String timer = data['time'] != ''
                           ? DateFormat('hh:mm a').format(data['time'].toDate())
                           : '';
+
+                      if (data['photo'] == '') {
+                        data['photo'] = defaultPhoto;
+                      }
                       return ListTile(
                         contentPadding: EdgeInsets.all(20),
                         minVerticalPadding: 13,

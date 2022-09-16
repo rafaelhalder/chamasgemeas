@@ -9,7 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
-
+import 'package:latlong2/latlong.dart' as lati;
 import '../paywall_widget.dart';
 
 class TinderCard extends StatefulWidget {
@@ -157,9 +157,13 @@ class _TinderCardState extends State<TinderCard> {
     final opacity = provider.getStatusOpacity();
     print(lat);
     print(widget.user.latitude);
+    var distance = const lati.Distance();
 
-    // final km = distance.as(lat.LengthUnit.Kilometer,
-    //     lat.LatLng(1234.21, 1234.32), lat.LatLng(1234, 12345));
+    final km = distance.as(
+        lati.LengthUnit.Kilometer,
+        lati.LatLng(double.parse(widget.user.latitude),
+            double.parse(widget.user.longitude)),
+        lati.LatLng(lat, lng));
 
     switch (status) {
       case CardStatus.like:
@@ -218,7 +222,7 @@ class _TinderCardState extends State<TinderCard> {
               SizedBox(),
               Container(
                 child: Center(
-                    child: Text('2.5 km', style: TextStyle(fontSize: 12))),
+                    child: Text('$km km', style: TextStyle(fontSize: 11))),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(30)),
@@ -265,7 +269,7 @@ class _TinderCardState extends State<TinderCard> {
               onClickedPackage: (package) async {
                 final isSuccess = await PurchaseApi.purchasePackage(package);
                 if (isSuccess) {
-                  await addCoinsPackag2e(package);
+                  await addCoinsPackag2ePremium(package);
                 }
 
                 Navigator.pop(context);
@@ -312,6 +316,15 @@ class _TinderCardState extends State<TinderCard> {
       final offer = offerings.first;
       print('Offer: $offer');
     }
+  }
+
+  Future<void> addCoinsPackag2ePremium(Package package) async {
+    String? uid = FirebaseAuth.instance.currentUser?.uid;
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .update({'premium': true});
   }
 
   Future<void> addCoinsPackag2e(Package package) async {

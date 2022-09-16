@@ -4,17 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:chamasgemeas/model/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:latlong2/latlong.dart' as lati;
 
 enum CardStatus { like, dislike, superLike }
 
 class CardProvider extends ChangeNotifier {
   List<Users> _users = [];
   List _liked = [];
+  double _distanceUser = 0;
   String? uid = FirebaseAuth.instance.currentUser?.uid;
   List<Object?> _disliked = [FirebaseAuth.instance.currentUser?.uid];
   bool _isDragging = false;
   bool _match = true;
   double _angle = 0;
+  double _latUser = 0;
+  double _lngUser = 0;
   Offset _position = Offset.zero;
   Size _screenSize = Size.zero;
   User? user = FirebaseAuth.instance.currentUser;
@@ -24,6 +28,9 @@ class CardProvider extends ChangeNotifier {
   List<Users> get users => _users;
   List get liked => _liked;
   List get disliked => _disliked;
+  double get distanceUser => _distanceUser;
+  double get latUser => _latUser;
+  double get lngUser => _lngUser;
   bool get isDragging => _isDragging;
   bool get match => _match;
   Offset get position => _position;
@@ -231,6 +238,23 @@ class CardProvider extends ChangeNotifier {
       _liked = like['id'];
     }
 
+    final distances =
+        await FirebaseFirestore.instance.collection('filter').doc(uid).get();
+
+    if (distances.exists) {
+      print(_distanceUser);
+      print(distances['distance']);
+      _distanceUser = double.parse(distances['distance'].toString());
+    }
+
+    final userInfo =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    if (userInfo.exists) {
+      _latUser = double.parse(userInfo['latitude'].toString());
+      _lngUser = double.parse(userInfo['longitude'].toString());
+    }
+
     final dislike =
         await FirebaseFirestore.instance.collection('dislike').doc(uid).get();
 
@@ -248,24 +272,35 @@ class CardProvider extends ChangeNotifier {
 
     documents.forEach((snapshot) {
       var teste = (snapshot.data() as Map<String, dynamic>);
+
+      var distance = const lati.Distance();
+
+      final km = distance.as(
+          lati.LengthUnit.Kilometer,
+          lati.LatLng(double.parse(teste['latitude']),
+              double.parse(teste['longitude'])),
+          lati.LatLng(latUser, lngUser));
+
       if (teste['photos'][0]['url'] != 'nulo') {
-        _users.add(Users(
-            age: teste['age'],
-            city: teste['city'],
-            country: teste['country'],
-            height: teste['height'],
-            interested: teste['interested'],
-            latitude: teste['latitude'],
-            longitude: teste['longitude'],
-            listFocus: teste['listFocus'],
-            soul: teste['soul'],
-            uid: teste['uid'],
-            zodiac: teste['zodiac'],
-            photos: teste['photos'],
-            weight: teste['weight'],
-            aboutMe: teste['aboutMe'],
-            name: teste['name'],
-            urlImage: teste['photos'][0]['url']));
+        if (distanceUser >= km) {
+          _users.add(Users(
+              age: teste['age'],
+              city: teste['city'],
+              country: teste['country'],
+              height: teste['height'],
+              interested: teste['interested'],
+              latitude: teste['latitude'],
+              longitude: teste['longitude'],
+              listFocus: teste['listFocus'],
+              soul: teste['soul'],
+              uid: teste['uid'],
+              zodiac: teste['zodiac'],
+              photos: teste['photos'],
+              weight: teste['weight'],
+              aboutMe: teste['aboutMe'],
+              name: teste['name'],
+              urlImage: teste['photos'][0]['url']));
+        }
       }
     });
 

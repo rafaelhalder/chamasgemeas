@@ -185,9 +185,10 @@ class _ChatDetailState extends State<ChatDetail> {
 
     List listPhotosme = variableme['photos'];
     String photoFriendme = listPhotosme[0]['url'];
+    String photoFriend = defaultPhoto;
 
     List listPhotos = variable['photos'];
-    String photoFriend = listPhotos[0]['url'];
+    photoFriend = listPhotos[0]['url'];
     bool statusperson = variable['status'];
     String tokens = variable['token'];
     setState(() {
@@ -463,7 +464,7 @@ class _ChatDetailState extends State<ChatDetail> {
                                           maxWidth: MediaQuery.of(context)
                                                   .size
                                                   .width *
-                                              0.65,
+                                              0.60,
                                         ),
                                         child: Column(
                                           children: [
@@ -531,7 +532,7 @@ class _ChatDetailState extends State<ChatDetail> {
                                     isSender(data['uid'].toString())
                                         ? Text('')
                                         : CircleAvatar(
-                                            radius: 33,
+                                            radius: 30,
                                             backgroundColor:
                                                 const Color(0xffFDCF09),
                                             child: ClipRRect(
