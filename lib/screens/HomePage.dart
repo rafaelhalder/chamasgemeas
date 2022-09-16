@@ -1,3 +1,5 @@
+import 'package:chamasgemeas/api/purchase_api.dart';
+import 'package:chamasgemeas/paywall_widget.dart';
 import 'package:chamasgemeas/provider/card_provider.dart';
 import 'package:chamasgemeas/screens/chats.dart';
 import 'package:chamasgemeas/screens/preferencePage.dart';
@@ -10,6 +12,10 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
+
+import '../paywall_widget.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -198,6 +204,64 @@ class _HomePageState extends State<HomePage> {
                     ))
                 .toList(),
           );
+  }
+
+  Future fetchOffers() async {
+    final offerings = await PurchaseApi.fetchOffersByIds(Coins.allIds);
+
+    if (offerings.isEmpty) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('No Plans Found')));
+    } else {
+      final packages = offerings
+          .map((offer) => offer.availablePackages)
+          .expand((pair) => pair)
+          .toList();
+
+      showMaterialModalBottomSheet(
+        expand: false,
+        context: context,
+        backgroundColor: Color.fromARGB(231, 0, 0, 0),
+        builder: (context) => PaywallWidget(
+            packages: packages,
+            title: 'Chamas Premium',
+            description: 'Veja quem te curtiu.',
+            onClickedPackage: (package) async {
+              final isSuccess = await PurchaseApi.purchasePackage(package);
+
+              if (isSuccess) {
+                await addCoinsPackag2e(package);
+              }
+
+              Navigator.pop(context);
+            }),
+      );
+
+      final offer = offerings.first;
+      print('Offer: $offer');
+    }
+  }
+
+  Future<void> addCoinsPackag2e(Package package) async {
+    String? uid = FirebaseAuth.instance.currentUser?.uid;
+
+    final foundLikeMe =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    int coins = foundLikeMe['coin'];
+
+    switch (package.offeringIdentifier) {
+      case Coins.idCoins1:
+        coins += 1;
+        break;
+      default:
+        break;
+    }
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .update({'coin': coins});
   }
 
   Widget buildButtons() {

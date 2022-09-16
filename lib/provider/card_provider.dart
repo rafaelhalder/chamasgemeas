@@ -10,14 +10,14 @@ enum CardStatus { like, dislike, superLike }
 class CardProvider extends ChangeNotifier {
   List<Users> _users = [];
   List _liked = [];
-  List<Object?> _disliked = [];
+  String? uid = FirebaseAuth.instance.currentUser?.uid;
+  List<Object?> _disliked = [FirebaseAuth.instance.currentUser?.uid];
   bool _isDragging = false;
   bool _match = true;
   double _angle = 0;
   Offset _position = Offset.zero;
   Size _screenSize = Size.zero;
   User? user = FirebaseAuth.instance.currentUser;
-  String? uid = FirebaseAuth.instance.currentUser?.uid;
   CollectionReference chats = FirebaseFirestore.instance.collection('chats');
   CollectionReference matchs = FirebaseFirestore.instance.collection('match');
 
@@ -39,6 +39,30 @@ class CardProvider extends ChangeNotifier {
     _isDragging = true;
 
     notifyListeners();
+  }
+
+  void rollback() async {
+    List rollbackList = [];
+
+    final disliked =
+        await FirebaseFirestore.instance.collection('dislike').doc(uid).get();
+
+    if (disliked.exists) {
+      rollbackList = disliked['id'];
+    }
+
+    if (rollbackList.isNotEmpty && rollbackList.last != null) {
+      String lastUser = rollbackList.last;
+      rollbackList.remove(lastUser);
+
+      await FirebaseFirestore.instance
+          .collection('dislike')
+          .doc(uid)
+          .set({"id": rollbackList});
+
+      resetUsers();
+      notifyListeners();
+    }
   }
 
   void updatePosition(DragUpdateDetails details) {
@@ -211,7 +235,7 @@ class CardProvider extends ChangeNotifier {
         await FirebaseFirestore.instance.collection('dislike').doc(uid).get();
 
     if (dislike.exists) {
-      _disliked = dislike['id'];
+      _disliked.add(dislike['id']);
     }
 
     final QuerySnapshot result = await FirebaseFirestore.instance

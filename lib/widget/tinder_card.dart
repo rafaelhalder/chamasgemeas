@@ -4,6 +4,13 @@ import 'package:chamasgemeas/provider/card_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:chamasgemeas/model/user.dart';
+import 'package:chamasgemeas/api/purchase_api.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
+
+import '../paywall_widget.dart';
 
 class TinderCard extends StatefulWidget {
   final Users user;
@@ -20,9 +27,14 @@ class TinderCard extends StatefulWidget {
 }
 
 class _TinderCardState extends State<TinderCard> {
+  String? uid = FirebaseAuth.instance.currentUser?.uid;
+  double lat = 0;
+  double lng = 0;
+
   @override
   void initState() {
     super.initState();
+    LatLng();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final size = MediaQuery.of(context).size;
@@ -36,6 +48,17 @@ class _TinderCardState extends State<TinderCard> {
   Widget build(BuildContext context) => SizedBox.expand(
         child: widget.isFront ? buildFrontCard() : buildCard(),
       );
+  void LatLng() async {
+    final list =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    if (list.exists) {
+      setState(() {
+        lat = double.parse(list['latitude']);
+        lng = double.parse(list['longitude']);
+      });
+    }
+  }
 
   Widget buildFrontCard() => GestureDetector(
         child: LayoutBuilder(
@@ -132,6 +155,11 @@ class _TinderCardState extends State<TinderCard> {
     final provider = Provider.of<CardProvider>(context);
     final status = provider.getStatus();
     final opacity = provider.getStatusOpacity();
+    print(lat);
+    print(widget.user.latitude);
+
+    // final km = distance.as(lat.LengthUnit.Kilometer,
+    //     lat.LatLng(1234.21, 1234.32), lat.LatLng(1234, 12345));
 
     switch (status) {
       case CardStatus.like:
@@ -175,9 +203,137 @@ class _TinderCardState extends State<TinderCard> {
       default:
         return Container(
           padding: EdgeInsets.all(15),
-          child: CircularProgressIndicator(),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CircleAvatar(
+                  radius: 15,
+                  child: GestureDetector(
+                      child: Icon(Icons.settings_backup_restore),
+                      onTap: () {
+                        fetchOffersPremium(uid);
+                        //provider.rollback();
+                        print('clicked');
+                      })),
+              SizedBox(),
+              Container(
+                child: Center(
+                    child: Text('2.5 km', style: TextStyle(fontSize: 12))),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30)),
+                height: 30,
+                width: 50,
+              )
+            ],
+          ),
         );
     }
+  }
+
+  Future fetchOffersPremium(user) async {
+    final foundLikeMe =
+        await FirebaseFirestore.instance.collection('users').doc(user).get();
+    final provider = Provider.of<CardProvider>(context, listen: false);
+
+    bool premium2 = foundLikeMe['premium'];
+
+    if (premium2 == true) {
+      provider.rollback();
+      print('clicked');
+    } else {
+      final offerings = await PurchaseApi.fetchOffers(all: false);
+
+      if (offerings.isEmpty) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('No Plans Found')));
+      } else {
+        final packages = offerings
+            .map((offer) => offer.availablePackages)
+            .expand((pair) => pair)
+            .toList();
+
+        showMaterialModalBottomSheet(
+          expand: false,
+          context: context,
+          backgroundColor: Color.fromARGB(231, 255, 255, 255),
+          builder: (context) => PaywallWidget(
+              packages: packages,
+              title: 'Chamas Premium',
+              description:
+                  'Veja quem te curtiu e de uma segunda chance a quem não curtiu!.',
+              onClickedPackage: (package) async {
+                final isSuccess = await PurchaseApi.purchasePackage(package);
+                if (isSuccess) {
+                  await addCoinsPackag2e(package);
+                }
+
+                Navigator.pop(context);
+              }),
+        );
+
+        final offer = offerings.first;
+        print('Offer: $offer');
+      }
+    }
+  }
+
+  Future fetchOffers() async {
+    final offerings = await PurchaseApi.fetchOffersByIds(Coins.allIds);
+
+    if (offerings.isEmpty) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('No Plans Found')));
+    } else {
+      final packages = offerings
+          .map((offer) => offer.availablePackages)
+          .expand((pair) => pair)
+          .toList();
+
+      showMaterialModalBottomSheet(
+        expand: false,
+        context: context,
+        backgroundColor: Color.fromARGB(231, 255, 255, 255),
+        builder: (context) => PaywallWidget(
+            packages: packages,
+            title: 'Chamas Premium',
+            description: 'Seja Premium para obter essa funcionalidade',
+            onClickedPackage: (package) async {
+              final isSuccess = await PurchaseApi.purchasePackage(package);
+
+              if (isSuccess) {
+                await addCoinsPackag2e(package);
+              }
+
+              Navigator.pop(context);
+            }),
+      );
+
+      final offer = offerings.first;
+      print('Offer: $offer');
+    }
+  }
+
+  Future<void> addCoinsPackag2e(Package package) async {
+    String? uid = FirebaseAuth.instance.currentUser?.uid;
+
+    final foundLikeMe =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    int coins = foundLikeMe['coin'];
+
+    switch (package.offeringIdentifier) {
+      case Coins.idCoins1:
+        coins += 1;
+        break;
+      default:
+        break;
+    }
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .update({'coin': coins});
   }
 
   Widget buildStamp({
