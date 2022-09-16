@@ -11,6 +11,7 @@ enum CardStatus { like, dislike, superLike }
 class CardProvider extends ChangeNotifier {
   List<Users> _users = [];
   List _liked = [];
+  List _superliked = [];
   double _distanceUser = 0;
   String? uid = FirebaseAuth.instance.currentUser?.uid;
   List<Object?> _disliked = [FirebaseAuth.instance.currentUser?.uid];
@@ -71,6 +72,8 @@ class CardProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  void textSuperLike(value) {}
 
   void updatePosition(DragUpdateDetails details) {
     _position += details.delta;
@@ -189,11 +192,37 @@ class CardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateSuperLike() async {
+    await FirebaseFirestore.instance
+        .collection('superliked')
+        .doc(uid)
+        .set({"id": _superliked});
+  }
+
   void updateLike() async {
     await FirebaseFirestore.instance
         .collection('liked')
         .doc(uid)
         .set({"id": _liked});
+  }
+
+  void userSuperLiked() async {
+    List listLikedMe = [];
+
+    final likedme = await FirebaseFirestore.instance
+        .collection('superlikedme')
+        .doc(users.last.uid)
+        .get();
+
+    if (likedme.exists) {
+      listLikedMe = likedme['id'];
+    }
+
+    if (!listLikedMe.contains(uid) && uid != null) listLikedMe.add(uid);
+    await FirebaseFirestore.instance
+        .collection('superlikedme')
+        .doc(users.last.uid)
+        .set({"id": listLikedMe});
   }
 
   void userLiked() async {
@@ -218,7 +247,13 @@ class CardProvider extends ChangeNotifier {
   void superLike() {
     _angle = 0;
     _position -= Offset(0, _screenSize.height);
-    _nextCard();
+    _superliked.add(_users.last.uid);
+    _liked.add(_users.last.uid);
+    updateSuperLike();
+    updateLike();
+    userSuperLiked();
+    userLiked();
+    // await _nextCard();
     notifyListeners();
   }
 
@@ -236,6 +271,15 @@ class CardProvider extends ChangeNotifier {
 
     if (like.exists) {
       _liked = like['id'];
+    }
+
+    final superlike = await FirebaseFirestore.instance
+        .collection('superliked')
+        .doc(uid)
+        .get();
+
+    if (superlike.exists) {
+      _superliked = superlike['id'];
     }
 
     final distances =

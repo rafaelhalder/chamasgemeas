@@ -14,6 +14,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import '../paywall_widget.dart';
 
@@ -25,6 +27,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   User? user = FirebaseAuth.instance.currentUser;
   String? uid = FirebaseAuth.instance.currentUser?.uid;
+  String textoChat = '';
+
   @override
   Widget build(BuildContext context) => Container(
         decoration: BoxDecoration(
@@ -264,13 +268,26 @@ class _HomePageState extends State<HomePage> {
         .update({'coin': coins});
   }
 
+  Future<int> consUser() async {
+    final verifyCoin =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    int coins = verifyCoin['coin'];
+    return coins;
+  }
+
   Widget buildButtons() {
+    Size size = MediaQuery.of(context).size;
     final provider = Provider.of<CardProvider>(context);
     final users = provider.users;
     final status = provider.getStatus();
     final isLike = status == CardStatus.like;
     final isDislike = status == CardStatus.dislike;
     final isSuperLike = status == CardStatus.superLike;
+    String photoUserActual = '';
+    if (users.isNotEmpty) {
+      photoUserActual = users.last.photos[0]['url'];
+    }
 
     return users.isEmpty
         ? ElevatedButton(
@@ -319,11 +336,164 @@ class _HomePageState extends State<HomePage> {
                     side: getBorder(Colors.white, Colors.white, isSuperLike),
                   ),
                   child: Icon(Icons.star, size: 40),
-                  onPressed: () {
+                  onPressed: () async {
+                    int coin = await consUser();
+                    print(coin);
+                    if (coin == 0) {
+                      fetchOffers();
+                      return null;
+                    }
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Dialog(
+                            insetPadding: const EdgeInsets.all(20),
+
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    40.0)), //this right here
+                            child: Container(
+                              height: size.height * 0.8,
+                              width: size.width * 1,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: const Color.fromARGB(
+                                          255, 207, 202, 187)),
+                                  color: Colors.black87,
+                                  borderRadius: BorderRadius.circular(40)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Stack(children: [
+                                  Positioned.fill(
+                                    child: Align(
+                                        alignment: Alignment.topCenter,
+                                        child: Column(
+                                          children: [
+                                            DefaultTextStyle(
+                                              style: GoogleFonts.acme(
+                                                color: Colors.white,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                              child: const Text('Super Like'),
+                                            ),
+                                            DefaultTextStyle(
+                                              style: GoogleFonts.acme(
+                                                color: Colors.white,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                              child: const Text(
+                                                  'Envie uma mensagem'),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            CircleAvatar(
+                                              radius: 55,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              child: CircleAvatar(
+                                                  radius: 80,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            55),
+                                                    child: CachedNetworkImage(
+                                                      fadeInDuration:
+                                                          const Duration(
+                                                              milliseconds: 0),
+                                                      fadeOutDuration:
+                                                          const Duration(
+                                                              milliseconds: 0),
+                                                      fit: BoxFit.cover,
+                                                      imageUrl: photoUserActual,
+                                                      width: 120,
+                                                      height: 120,
+                                                    ),
+                                                  )),
+                                            )
+                                          ],
+                                        )),
+                                  ),
+                                  Positioned.fill(
+                                    top: 80,
+                                    child: Align(
+                                        alignment: Alignment.center,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.black,
+                                              border: Border.all(
+                                                  color: Colors.white24)),
+                                          child: TextField(
+                                              decoration: InputDecoration(
+                                                  contentPadding:
+                                                      EdgeInsets.all(10),
+                                                  hintText:
+                                                      'Envia uma mensagem para sua chama',
+                                                  hintStyle: TextStyle(
+                                                      color: Colors.white)),
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                              maxLines: 6,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  textoChat = value;
+                                                });
+                                              }),
+                                        )),
+                                  ),
+                                  Positioned.fill(
+                                    child: Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        width: size.width * 0.65,
+                                        height: size.height * 0.055,
+                                        child: ElevatedButton.icon(
+                                          style: ElevatedButton.styleFrom(
+                                            shape: const StadiumBorder(),
+                                            primary: const Color.fromARGB(
+                                                255, 0, 0, 0),
+                                            side: const BorderSide(
+                                              width: 1,
+                                              color: Color.fromARGB(
+                                                  152, 255, 255, 255),
+                                            ),
+                                          ),
+                                          onPressed: () async {
+                                            final provider =
+                                                Provider.of<CardProvider>(
+                                                    context,
+                                                    listen: false);
+
+                                            if (textoChat != '') {
+                                              provider.superLike();
+                                              print(textoChat);
+                                            }
+                                          },
+                                          icon: const Icon(
+                                            null,
+                                            size: 24.0,
+                                          ),
+                                          label:
+                                              const Text('Enviar'), // <-- Text
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ]),
+                              ),
+                            ),
+                          );
+                        });
+
                     final provider =
                         Provider.of<CardProvider>(context, listen: false);
 
-                    provider.superLike();
+                    // provider.superLike();
                   },
                 ),
                 ElevatedButton(
