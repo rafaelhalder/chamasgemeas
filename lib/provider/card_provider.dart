@@ -253,7 +253,7 @@ class CardProvider extends ChangeNotifier {
     updateLike();
     userSuperLiked();
     userLiked();
-    // await _nextCard();
+    //  _nextCard();
     notifyListeners();
   }
 
@@ -286,8 +286,6 @@ class CardProvider extends ChangeNotifier {
         await FirebaseFirestore.instance.collection('filter').doc(uid).get();
 
     if (distances.exists) {
-      print(_distanceUser);
-      print(distances['distance']);
       _distanceUser = double.parse(distances['distance'].toString());
     }
 
