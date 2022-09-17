@@ -1,4 +1,5 @@
 import 'package:chamasgemeas/api/purchase_api.dart';
+import 'package:chamasgemeas/model/user.dart';
 import 'package:chamasgemeas/paywall_widget.dart';
 import 'package:chamasgemeas/provider/card_provider.dart';
 import 'package:chamasgemeas/screens/chats.dart';
@@ -509,10 +510,10 @@ class _HomePageState extends State<HomePage> {
                         Provider.of<CardProvider>(context, listen: false);
 
                     String actualUser = users.last.uid.toString();
+                    String fileActual = users.last.photos[0]['url'];
 
-                    print(actualUser);
                     provider.like();
-                    verifyMatch(actualUser);
+                    verifyMatch(actualUser, fileActual);
                   },
                 ),
               ],
@@ -520,7 +521,7 @@ class _HomePageState extends State<HomePage> {
           );
   }
 
-  verifyMatch(actualUser) async {
+  verifyMatch(actualUser, photo) async {
     List likedMe = [];
 
     final foundLikeMe =
@@ -530,7 +531,8 @@ class _HomePageState extends State<HomePage> {
     }
 
     if (likedMe.contains(actualUser)) {
-      Navigator.pushNamed(context, '/matchScreen');
+      Navigator.pushNamed(context, '/matchScreen',
+          arguments: {"userLiked": actualUser, 'photo': photo});
     }
   }
 

@@ -236,7 +236,7 @@ class CardProvider extends ChangeNotifier {
     if (likedme.exists) {
       listLikedMe = likedme['id'];
     }
-
+    print(users.last.name);
     if (!listLikedMe.contains(uid) && uid != null) listLikedMe.add(uid);
     await FirebaseFirestore.instance
         .collection('liked_me')
@@ -286,7 +286,16 @@ class CardProvider extends ChangeNotifier {
         await FirebaseFirestore.instance.collection('filter').doc(uid).get();
 
     if (distances.exists) {
-      _distanceUser = double.parse(distances['distance'].toString());
+      print('ooooo');
+      print(distances['distance']);
+      print(distances['distance']);
+      String distance = distances['distance'].toString();
+      distance = distance.replaceAll("[", ""); // myString is "s t r"
+      distance = distance.replaceAll("]", ""); // myString is "s t r"
+
+      double distance_value = double.parse((distance).toString());
+
+      _distanceUser = distance_value;
     }
 
     final userInfo =

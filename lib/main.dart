@@ -97,7 +97,7 @@ class MyApp extends StatelessWidget {
           '/chats': (context) => const Chats(),
           '/match': (context) => const MatchPage(),
           '/chat': (context) => const ChatDetail(),
-          '/matchScreen': (context) => const MatchUsers(),
+          '/matchScreen': (context) => MatchUsers(),
           '/superlike': (context) => const SuperLike(),
           '/filter': (context) => const FilterPage(),
           '/likeMe': (context) => const LikedMePage(),
