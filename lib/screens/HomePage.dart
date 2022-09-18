@@ -509,11 +509,13 @@ class _HomePageState extends State<HomePage> {
                     final provider =
                         Provider.of<CardProvider>(context, listen: false);
 
+                    String photo = provider.photoUser;
                     String actualUser = users.last.uid.toString();
+                    String actualUserName = users.last.name.toString();
                     String fileActual = users.last.photos[0]['url'];
 
                     provider.like();
-                    verifyMatch(actualUser, fileActual);
+                    verifyMatch(actualUser, fileActual, actualUserName, photo);
                   },
                 ),
               ],
@@ -521,7 +523,7 @@ class _HomePageState extends State<HomePage> {
           );
   }
 
-  verifyMatch(actualUser, photo) async {
+  verifyMatch(actualUser, photo, name, photoUser) async {
     List likedMe = [];
 
     final foundLikeMe =
@@ -531,8 +533,12 @@ class _HomePageState extends State<HomePage> {
     }
 
     if (likedMe.contains(actualUser)) {
-      Navigator.pushNamed(context, '/matchScreen',
-          arguments: {"userLiked": actualUser, 'photo': photo});
+      Navigator.pushNamed(context, '/matchScreen', arguments: {
+        "userLiked": actualUser,
+        'photo': photo,
+        'name': name,
+        'photoUser': photoUser
+      });
     }
   }
 

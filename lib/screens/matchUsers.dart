@@ -1,10 +1,16 @@
 import 'dart:async';
 
 import 'package:animate_do/animate_do.dart';
+import 'package:chamasgemeas/provider/card_provider.dart';
+import 'package:chamasgemeas/services/user_verify.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
 class MatchUsers extends StatefulWidget {
   const MatchUsers({Key? key}) : super(key: key);
@@ -15,84 +21,286 @@ class MatchUsers extends StatefulWidget {
 
 class _MatchUsersState extends State<MatchUsers> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
     String userList = arguments['userLiked'];
     var photoUserActual = arguments['photo'];
+    var photoUserAt = arguments['photoUser'];
+    var photoUserName = arguments['name'];
     bool _visible = true;
+    String photoUser = '';
+    updateMatch(userList, photoUserName, photoUserAt);
 
-    return Container(
-      decoration: BoxDecoration(
-          color: Color.fromARGB(0, 241, 95, 95),
-          image: DecorationImage(
-            image: AssetImage("assets/images/interfacesigno.png"),
-            fit: BoxFit.cover,
-          )),
-      height: size.height * 0.8,
-      child: Stack(
-        children: [
-          Positioned.fill(
-              child: Align(
-            alignment: Alignment.center,
-            child: AnimatedOpacity(
-              opacity: _visible == true ? 1.0 : 0.0,
-              duration: const Duration(milliseconds: 2000),
-              child: CircleAvatar(
-                radius: 120,
-                child: Center(
-                  child: new ClipRRect(
-                    borderRadius: BorderRadius.circular(120),
-                    child: new Row(
-                      children: <Widget>[
-                        Image.network(
-                          'https://images.unsplash.com/photo-1535593063927-5c40dee9cb83?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=3bfc6e7c6043924de9c4746bef6dc969&auto=format&fit=crop&w=500&q=60',
-                          width: 120.0,
-                          height: 240.0,
-                          fit: BoxFit.cover,
-                        ),
-                        ClipRRect(
-                          child: Image.network(
-                            'https://images.unsplash.com/photo-1535603863228-ded98173a95d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=78dee486ac6c9bffda623b83a36ecb1f&auto=format&fit=crop&w=500&q=60',
+    return SafeArea(
+      child: Container(
+        decoration: BoxDecoration(
+            color: Color.fromARGB(0, 241, 95, 95),
+            image: DecorationImage(
+              image: AssetImage("assets/images/interfacesigno.png"),
+              fit: BoxFit.cover,
+            )),
+        height: size.height * 0.8,
+        child: Stack(
+          children: [
+            Positioned.fill(
+                child: Align(
+              alignment: Alignment.center,
+              child: AnimatedOpacity(
+                opacity: _visible == true ? 1.0 : 0.0,
+                duration: const Duration(milliseconds: 2000),
+                child: CircleAvatar(
+                  radius: 120,
+                  child: Center(
+                    child: new ClipRRect(
+                      borderRadius: BorderRadius.circular(120),
+                      child: new Row(
+                        children: <Widget>[
+                          Image.network(
+                            photoUserActual,
                             width: 120.0,
                             height: 240.0,
                             fit: BoxFit.cover,
                           ),
-                        )
-                      ],
+                          ClipRRect(
+                            child: Image.network(
+                              photoUserAt,
+                              width: 120.0,
+                              height: 240.0,
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          )),
-          Positioned.fill(
-              child: Align(
-            alignment: Alignment.center,
-            child: AnimatedOpacity(
-              opacity: 0,
-              duration: const Duration(milliseconds: 2000),
-              child: Image.asset(
-                'assets/images/ying.png',
-                height: 120,
+            )),
+            Positioned.fill(
+                child: Align(
+              alignment: Alignment.center,
+              child: AnimatedOpacity(
+                onEnd: () => print('Fade FlutterLogo'),
+                opacity: _visible == true ? 0.1 : 0.0,
+                duration: const Duration(milliseconds: 5000),
+                child: Spin(
+                  infinite: true,
+                  child: Image.asset(
+                    'assets/images/ying.png',
+                    height: 280,
+                  ),
+                ),
+              ),
+            )),
+            Positioned.fill(
+                child: Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 80),
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    style: const TextStyle(
+                      fontSize: 22.0,
+                      color: Color.fromARGB(255, 238, 238, 238),
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: 'VOCÊS SE\n',
+                          style: GoogleFonts.quicksand(
+                              fontSize: 25,
+                              color: Color.fromARGB(255, 207, 202, 187),
+                              fontWeight: FontWeight.w700)),
+                      TextSpan(
+                          text: 'COMPLETAM',
+                          style: GoogleFonts.quicksand(
+                              fontSize: 40,
+                              color: Color.fromARGB(255, 207, 202, 187),
+                              fontWeight: FontWeight.w700)),
+                    ],
+                  ),
+                ),
+              ),
+            )),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 50),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 50),
+                    child: Container(
+                      height: size.height * 0.06,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Color.fromARGB(255, 115, 114, 114)),
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Icon(
+                            Icons.message,
+                            color: Colors.white,
+                          ),
+                          SizedBox(),
+                          Center(
+                              child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: const TextStyle(
+                                fontSize: 22.0,
+                                color: Color.fromARGB(255, 238, 238, 238),
+                              ),
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: 'ENVIAR MENSAGEM',
+                                    style: GoogleFonts.quicksand(
+                                        fontSize: 18,
+                                        color:
+                                            Color.fromARGB(255, 207, 202, 187),
+                                        fontWeight: FontWeight.w700)),
+                              ],
+                            ),
+                          )),
+                          SizedBox(),
+                          SizedBox(),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 30),
+                    child: Container(
+                      height: size.height * 0.06,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Color.fromARGB(255, 115, 114, 114)),
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Icon(
+                            Icons.person,
+                            color: Colors.white,
+                          ),
+                          SizedBox(),
+                          Center(
+                              child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: const TextStyle(
+                                fontSize: 22.0,
+                                color: Color.fromARGB(255, 238, 238, 238),
+                              ),
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: 'CONTINUAR NAVEGANDO',
+                                    style: GoogleFonts.quicksand(
+                                        fontSize: 18,
+                                        color:
+                                            Color.fromARGB(255, 207, 202, 187),
+                                        fontWeight: FontWeight.w700)),
+                              ],
+                            ),
+                          )),
+                          SizedBox(),
+                          SizedBox(),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          )),
-          Positioned.fill(
-              child: Align(
-            alignment: Alignment.topCenter,
-            child: Image.asset(
-              'assets/images/ying.png',
-              height: 120,
-            ),
-          )),
-          Center(
-              child: Text(
-            'userList',
-            style: TextStyle(color: Colors.white),
-          )),
-        ],
+          ],
+        ),
       ),
     );
+  }
+
+  void updateMatch(userLiked, name, photo) async {
+    CollectionReference chats = FirebaseFirestore.instance.collection('chats');
+
+    String urlPhotoLiked = '';
+    String urlPhotoUser = '';
+    String? uid = FirebaseAuth.instance.currentUser?.uid;
+    List usersLikedMe = [];
+    List listMatch = [];
+    List listMatch2 = [];
+    String userList = userLiked;
+    String userListName = '';
+    String userListPhoto = photo;
+
+    final foundLikeMe =
+        await FirebaseFirestore.instance.collection('liked_me').doc(uid).get();
+    if (foundLikeMe.exists) {
+      DocumentSnapshot variable = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userList)
+          .get();
+      urlPhotoLiked = variable['photos'][0]['url'];
+      DocumentSnapshot variableUser =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      urlPhotoUser = variableUser['photos'][0]['url'];
+      userListName = variableUser['name'];
+      usersLikedMe = foundLikeMe['id'];
+    }
+    final matchss =
+        await FirebaseFirestore.instance.collection('matchs').doc(uid).get();
+    if (matchss.exists) {
+      listMatch = matchss['id'];
+    }
+    final matchss2 = await FirebaseFirestore.instance
+        .collection('matchs')
+        .doc(userList)
+        .get();
+    if (matchss2.exists) {
+      listMatch2 = matchss2['id'];
+    }
+
+    usersLikedMe.contains(userList)
+        ? await chats
+            .where('users.$uid', isEqualTo: 1)
+            .where('users.$userList', whereIn: [1, 2])
+            .limit(1)
+            .get()
+            .then(
+              (QuerySnapshot querySnapshot) async {
+                if (querySnapshot.docs.isEmpty) {
+                  await chats.add({
+                    'users': {userList: 1, uid: 1},
+                    'names': {
+                      userList: name,
+                      uid: FirebaseAuth.instance.currentUser?.displayName
+                    }
+                  });
+                  listMatch.add(userList);
+                  await FirebaseFirestore.instance
+                      .collection('matchs')
+                      .doc(uid)
+                      .set({'id': listMatch});
+
+                  listMatch2.add(uid);
+                  await FirebaseFirestore.instance
+                      .collection('matchs')
+                      .doc(userList)
+                      .set({'id': listMatch});
+                }
+              },
+            )
+            .catchError((error) {})
+        : print('');
   }
 }

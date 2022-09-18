@@ -20,6 +20,7 @@ class CardProvider extends ChangeNotifier {
   double _angle = 0;
   double _latUser = 0;
   double _lngUser = 0;
+  String _photoUser = '';
   Offset _position = Offset.zero;
   Size _screenSize = Size.zero;
   User? user = FirebaseAuth.instance.currentUser;
@@ -32,6 +33,7 @@ class CardProvider extends ChangeNotifier {
   double get distanceUser => _distanceUser;
   double get latUser => _latUser;
   double get lngUser => _lngUser;
+  String get photoUser => _photoUser;
   bool get isDragging => _isDragging;
   bool get match => _match;
   Offset get position => _position;
@@ -304,6 +306,7 @@ class CardProvider extends ChangeNotifier {
     if (userInfo.exists) {
       _latUser = double.parse(userInfo['latitude'].toString());
       _lngUser = double.parse(userInfo['longitude'].toString());
+      _photoUser = userInfo['photos'][0]['url'];
     }
 
     final dislike =
