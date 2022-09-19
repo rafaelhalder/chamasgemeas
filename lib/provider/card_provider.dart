@@ -19,6 +19,7 @@ class CardProvider extends ChangeNotifier {
   bool _match = true;
   double _angle = 0;
   double _latUser = 0;
+  int _coinUser = 0;
   double _lngUser = 0;
   String _photoUser = '';
   Offset _position = Offset.zero;
@@ -32,6 +33,7 @@ class CardProvider extends ChangeNotifier {
   List get disliked => _disliked;
   double get distanceUser => _distanceUser;
   double get latUser => _latUser;
+  int get coinUser => _coinUser;
   double get lngUser => _lngUser;
   String get photoUser => _photoUser;
   bool get isDragging => _isDragging;
@@ -259,6 +261,8 @@ class CardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void chatsSuper() async {}
+
   Future _nextCard() async {
     if (users.isEmpty) return;
 
@@ -307,6 +311,7 @@ class CardProvider extends ChangeNotifier {
       _latUser = double.parse(userInfo['latitude'].toString());
       _lngUser = double.parse(userInfo['longitude'].toString());
       _photoUser = userInfo['photos'][0]['url'];
+      _coinUser = userInfo['coin'];
     }
 
     final dislike =

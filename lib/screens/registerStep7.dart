@@ -247,6 +247,33 @@ class _RegisterStep7State extends State<RegisterStep7> {
                         horizontal: 20, vertical: 10),
                     child: TextField(
                       onChanged: (value) async {
+                        value = value.toLowerCase();
+                        value = value.replaceAll(' Bicha ', '***');
+                        value = value.replaceAll(' Buceta ', '***');
+                        value = value.replaceAll(' bosta ', '***');
+                        value = value.replaceAll(' Cagar ', '***');
+                        value = value.replaceAll('caralho ', '***');
+                        value = value.replaceAll(' cu ', '***');
+                        value = value.replaceAll('fodase', '***');
+                        value = value.replaceAll('foda-se', '***');
+                        value = value.replaceAll('foder', '***');
+                        value = value.replaceAll('porra', '***');
+                        value = value.replaceAll('puta', '***');
+                        value = value.replaceAll('merda', '***');
+                        value = value.replaceAll('viado', '***');
+                        value = value.replaceAll('Boquete', '***');
+                        value = value.replaceAll(' Pau ', '***');
+                        value = value.replaceAll(' Pica', '***');
+                        value = value.replaceAll('Punheta', '***');
+                        value = value.replaceAll('Xoxota', '***');
+                        value = value.replaceAll('Siririca', '***');
+                        value = value.replaceAll('Cacete', '***');
+                        value = value.replaceAll('Boiola', '***');
+                        value = value.replaceAll('Arrombado', '***');
+                        value = value.replaceAll('Vagabund', '***');
+                        value = value.replaceAll('Corno', '***');
+                        value = value.replaceAll('Boiola', '***');
+                        value = value.replaceAll('Trouxa', '***');
                         await FirebaseFirestore.instance
                             .collection('users')
                             .doc(user?.uid)
@@ -257,7 +284,7 @@ class _RegisterStep7State extends State<RegisterStep7> {
                       },
                       keyboardType: TextInputType.multiline,
                       maxLines: 1,
-                      cursorColor: Colors.pink,
+                      cursorColor: Colors.white,
                       maxLength: 144,
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(

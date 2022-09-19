@@ -469,10 +469,219 @@ class _HomePageState extends State<HomePage> {
                                                 Provider.of<CardProvider>(
                                                     context,
                                                     listen: false);
-
+                                            CollectionReference chats =
+                                                FirebaseFirestore.instance
+                                                    .collection('chats');
                                             if (textoChat != '') {
+                                              List usersLikedMe = [];
+                                              String usuarioUid =
+                                                  users.last.uid;
+                                              String usuarioName =
+                                                  users.last.name;
+                                              int coins = 0;
                                               provider.superLike();
-                                              print(textoChat);
+
+                                              final foundLikeMe =
+                                                  await FirebaseFirestore
+                                                      .instance
+                                                      .collection('liked_me')
+                                                      .doc(uid)
+                                                      .get();
+                                              if (foundLikeMe.exists) {
+                                                usersLikedMe =
+                                                    foundLikeMe['id'];
+                                              }
+
+                                              final distances =
+                                                  await FirebaseFirestore
+                                                      .instance
+                                                      .collection('users')
+                                                      .doc(uid)
+                                                      .get();
+
+                                              if (distances.exists) {
+                                                coins = distances['coin'];
+                                              }
+
+                                              await FirebaseFirestore.instance
+                                                  .collection('users')
+                                                  .doc(user?.uid)
+                                                  .update({'coin': coins - 1});
+                                              usersLikedMe.contains(usuarioUid)
+                                                  ? await chats
+                                                      .where('users.$uid',
+                                                          isEqualTo: 1)
+                                                      .where(
+                                                          'users.$usuarioUid',
+                                                          whereIn: [1, 2])
+                                                      .limit(1)
+                                                      .get()
+                                                      .then(
+                                                        (QuerySnapshot
+                                                            querySnapshot) async {
+                                                          if (querySnapshot
+                                                              .docs.isEmpty) {
+                                                            await chats
+                                                                .where(
+                                                                    'users.$uid',
+                                                                    isEqualTo:
+                                                                        2)
+                                                                .where(
+                                                                    'users.$usuarioUid',
+                                                                    whereIn: [
+                                                                      1,
+                                                                      2
+                                                                    ])
+                                                                .limit(1)
+                                                                .get()
+                                                                .then((QuerySnapshot
+                                                                    querySnapshot) async {
+                                                                  if (querySnapshot
+                                                                      .docs
+                                                                      .isEmpty) {
+                                                                    await chats
+                                                                        .add({
+                                                                      'users': {
+                                                                        uid: 1,
+                                                                        usuarioUid:
+                                                                            1
+                                                                      },
+                                                                      'names': {
+                                                                        uid: FirebaseAuth
+                                                                            .instance
+                                                                            .currentUser
+                                                                            ?.displayName,
+                                                                        usuarioUid:
+                                                                            usuarioName
+                                                                      }
+                                                                    });
+                                                                  }
+                                                                });
+
+                                                            await chats
+                                                                .where(
+                                                                    'users.$uid',
+                                                                    isEqualTo:
+                                                                        1)
+                                                                .where(
+                                                                    'users.$usuarioUid',
+                                                                    isEqualTo:
+                                                                        1)
+                                                                .limit(1)
+                                                                .get()
+                                                                .then(
+                                                              (QuerySnapshot
+                                                                  querySnapshot) async {
+                                                                if (querySnapshot
+                                                                    .docs
+                                                                    .isNotEmpty) {
+                                                                  chats
+                                                                      .doc(querySnapshot
+                                                                          .docs
+                                                                          .single
+                                                                          .id)
+                                                                      .collection(
+                                                                          'messages')
+                                                                      .add({
+                                                                    'createdOn':
+                                                                        DateTime
+                                                                            .now(),
+                                                                    'uid': uid,
+                                                                    'friendName':
+                                                                        usuarioName,
+                                                                    'msg':
+                                                                        textoChat
+                                                                  });
+                                                                  print(
+                                                                      querySnapshot
+                                                                          .docs
+                                                                          .single
+                                                                          .id);
+                                                                }
+                                                              },
+                                                            ).catchError(
+                                                                    (error) {});
+                                                          }
+                                                        },
+                                                      )
+                                                      .catchError((error) {})
+                                                  : await chats
+                                                      .where(
+                                                          'users.$usuarioUid',
+                                                          isEqualTo: 1)
+                                                      .where('users.$uid',
+                                                          whereIn: [1, 2])
+                                                      .limit(1)
+                                                      .get()
+                                                      .then(
+                                                        (QuerySnapshot
+                                                            querySnapshot) async {
+                                                          if (querySnapshot
+                                                              .docs.isEmpty) {
+                                                            await chats.add({
+                                                              'users': {
+                                                                uid: 2,
+                                                                usuarioUid: 1
+                                                              },
+                                                              'names': {
+                                                                uid: FirebaseAuth
+                                                                    .instance
+                                                                    .currentUser
+                                                                    ?.displayName,
+                                                                usuarioUid:
+                                                                    usuarioName
+                                                              }
+                                                            });
+
+                                                            await chats
+                                                                .where(
+                                                                    'users.$uid',
+                                                                    isEqualTo:
+                                                                        2)
+                                                                .where(
+                                                                    'users.$usuarioUid',
+                                                                    isEqualTo:
+                                                                        1)
+                                                                .limit(1)
+                                                                .get()
+                                                                .then(
+                                                              (QuerySnapshot
+                                                                  querySnapshot) async {
+                                                                if (querySnapshot
+                                                                    .docs
+                                                                    .isNotEmpty) {
+                                                                  chats
+                                                                      .doc(querySnapshot
+                                                                          .docs
+                                                                          .single
+                                                                          .id)
+                                                                      .collection(
+                                                                          'messages')
+                                                                      .add({
+                                                                    'createdOn':
+                                                                        DateTime
+                                                                            .now(),
+                                                                    'uid': uid,
+                                                                    'friendName':
+                                                                        usuarioName,
+                                                                    'msg':
+                                                                        textoChat
+                                                                  });
+                                                                  print(
+                                                                      querySnapshot
+                                                                          .docs
+                                                                          .single
+                                                                          .id);
+                                                                }
+                                                              },
+                                                            ).catchError(
+                                                                    (error) {});
+                                                          }
+                                                        },
+                                                      )
+                                                      .catchError((error) {});
+
+                                              Navigator.of(context).pop();
                                             }
                                           },
                                           icon: const Icon(
@@ -513,7 +722,6 @@ class _HomePageState extends State<HomePage> {
                     String actualUser = users.last.uid.toString();
                     String actualUserName = users.last.name.toString();
                     String fileActual = users.last.photos[0]['url'];
-
                     provider.like();
                     verifyMatch(actualUser, fileActual, actualUserName, photo);
                   },
