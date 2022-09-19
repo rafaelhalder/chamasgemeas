@@ -77,7 +77,11 @@ class _UserPageHomeState extends State<UserPageHome> {
         statusBarColor: Colors.transparent,
       ),
       child: Container(
-        color: Colors.red,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage("assets/images/interfacesigno.png"),
+          fit: BoxFit.cover,
+        )),
         child: Scaffold(
           bottomNavigationBar: ConvexAppBar(
             color: Colors.black,
