@@ -243,7 +243,6 @@ class CardProvider extends ChangeNotifier {
     if (likedme.exists) {
       listLikedMe = likedme['id'];
     }
-    print(users.last.name);
     if (!listLikedMe.contains(uid) && uid != null) listLikedMe.add(uid);
     await FirebaseFirestore.instance
         .collection('liked_me')
@@ -260,7 +259,7 @@ class CardProvider extends ChangeNotifier {
     updateLike();
     userSuperLiked();
     userLiked();
-    //  _nextCard();
+    _nextCard();
     notifyListeners();
   }
 

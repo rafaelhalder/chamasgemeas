@@ -16,7 +16,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:reorderable_grid_view/reorderable_grid_view.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:latlong2/latlong.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -357,19 +356,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                             decoration: BoxDecoration(
                                                 color: Color.fromARGB(
                                                     255, 223, 223, 223)),
-                                            child: DottedBorder(
-                                              color: Colors.transparent,
-                                              borderType: BorderType.Rect,
-                                              dashPattern: const [8, 4],
-                                              strokeWidth: 2,
-                                              child: Center(
-                                                  child: Icon(
-                                                size: 40,
-                                                Icons.image,
-                                                color: Color.fromARGB(
-                                                    255, 147, 132, 100),
-                                              )),
-                                            ),
+                                            child: Center(
+                                                child: Icon(
+                                              size: 40,
+                                              Icons.image,
+                                              color: Color.fromARGB(
+                                                  255, 147, 132, 100),
+                                            )),
                                           ),
                                   ),
                                 );
@@ -994,7 +987,7 @@ class beforeLoad extends StatelessWidget {
         color: Color.fromARGB(255, 43, 43, 43),
       ),
       child: DottedBorder(
-        color: Colors.white,
+        color: Color.fromARGB(0, 255, 255, 255),
         borderType: BorderType.Rect,
         dashPattern: const [8, 4],
         strokeWidth: 2,

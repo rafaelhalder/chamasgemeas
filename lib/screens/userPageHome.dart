@@ -299,23 +299,26 @@ class _UserPageHomeState extends State<UserPageHome> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 34, vertical: 12),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/home');
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  borderRadius: BorderRadius.circular(30)),
-                              width: 30.0,
-                              height: 30,
-                              child: Center(
-                                  child: FaIcon(FontAwesomeIcons.circleLeft)),
+                      Positioned.fill(
+                        top: 10,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 34, vertical: 6),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, '/home');
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(30)),
+                                width: 30.0,
+                                height: 30,
+                                child: Center(
+                                    child: FaIcon(FontAwesomeIcons.circleLeft)),
+                              ),
                             ),
                           ),
                         ),
@@ -370,7 +373,7 @@ class _UserPageHomeState extends State<UserPageHome> {
                                 child: Text(
                                   '$name,',
                                   style: GoogleFonts.quicksand(
-                                    color: Colors.white,
+                                    color: Color.fromARGB(255, 207, 202, 187),
                                     fontSize: 22,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -384,7 +387,7 @@ class _UserPageHomeState extends State<UserPageHome> {
                                 child: Text(
                                   '$age',
                                   style: GoogleFonts.quicksand(
-                                    color: Colors.white,
+                                    color: Color.fromARGB(255, 207, 202, 187),
                                     fontSize: 22,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -399,7 +402,7 @@ class _UserPageHomeState extends State<UserPageHome> {
                           child: Text(
                             occupation,
                             style: GoogleFonts.quicksand(
-                              color: Colors.white,
+                              color: Color.fromARGB(255, 194, 180, 129),
                               fontSize: 22,
                               fontWeight: FontWeight.w600,
                             ),
@@ -408,8 +411,8 @@ class _UserPageHomeState extends State<UserPageHome> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 28),
                           child: Divider(
-                            color: Colors.white,
-                          ),
+                              thickness: 2,
+                              color: Color.fromARGB(255, 121, 108, 82)),
                         ),
                         const SizedBox(
                           height: 20,
@@ -422,7 +425,7 @@ class _UserPageHomeState extends State<UserPageHome> {
                               text: userData.city,
                               size: size,
                               icon: const FaIcon(FontAwesomeIcons.houseChimney,
-                                  color: Color.fromARGB(255, 84, 75, 57)),
+                                  color: Color.fromARGB(198, 255, 230, 180)),
                             ),
                             Row(
                               children: [
@@ -430,14 +433,8 @@ class _UserPageHomeState extends State<UserPageHome> {
                                   text: userData.height.toString() + ' cm',
                                   size: size,
                                   icon: const FaIcon(FontAwesomeIcons.ruler,
-                                      color: Colors.black),
-                                ),
-                                infos(
-                                  text: userData.country,
-                                  size: size,
-                                  icon: const FaIcon(
-                                      FontAwesomeIcons.fontAwesome,
-                                      color: Colors.black),
+                                      color:
+                                          Color.fromARGB(198, 255, 230, 180)),
                                 ),
                               ],
                             ),
@@ -448,23 +445,27 @@ class _UserPageHomeState extends State<UserPageHome> {
                                   size: size,
                                   icon: const FaIcon(
                                       FontAwesomeIcons.starAndCrescent,
-                                      color: Colors.black),
+                                      color:
+                                          Color.fromARGB(198, 255, 230, 180)),
                                 )
                               ],
                             ),
-                            Row(
-                              children: [
-                                infos(
-                                  text: interested,
-                                  size: size,
-                                  icon: const FaIcon(
-                                      FontAwesomeIcons.magnifyingGlass,
-                                      color: Colors.black),
-                                )
-                              ],
+                            infos(
+                              text: interested,
+                              size: size,
+                              icon: const FaIcon(
+                                  FontAwesomeIcons.magnifyingGlass,
+                                  color: Color.fromARGB(198, 255, 230, 180)),
                             ),
                             const SizedBox(
-                              height: 40,
+                              height: 20,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30),
+                              child: Divider(
+                                  thickness: 2,
+                                  color: Color.fromARGB(255, 121, 108, 82)),
                             ),
                             Row(
                               children: [
@@ -479,41 +480,52 @@ class _UserPageHomeState extends State<UserPageHome> {
                         const SizedBox(height: 20),
                         Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 15),
-                          child: Center(
-                            child: const Text(
-                              'Sobre mim',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                              horizontal: 35, vertical: 15),
+                          child: const Text(
+                            'Sobre mim',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 8),
-                          child: Text(
-                            aboutMe,
-                            style: const TextStyle(
-                                letterSpacing: 0.2,
-                                color: Colors.black,
-                                fontSize: 20),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          child: Container(
+                            width: size.width,
+                            height: 120,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Color.fromARGB(197, 254, 235, 197),
+                                ),
+                                borderRadius: BorderRadius.circular(20)),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 8),
+                            child: Text(
+                              aboutMe,
+                              style: const TextStyle(
+                                  letterSpacing: 0.2,
+                                  color: Color.fromARGB(198, 255, 230, 180),
+                                  fontSize: 18),
+                            ),
                           ),
                         ),
                         const SizedBox(height: 20),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 35),
                               child: const Text(
-                                'Meus Objetivos',
+                                'INTERESSES:',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
-                            const SizedBox(height: 20),
+                            const SizedBox(height: 10),
                             Container(
                               child: ListView.builder(
                                   padding: EdgeInsets.zero,
@@ -604,14 +616,28 @@ class _UserPageHomeState extends State<UserPageHome> {
                                         tex = 'DANÇAR como dervishes!';
                                         break;
                                     }
-                                    return ListTile(
-                                        title: Text(
-                                          tex,
-                                          style: TextStyle(
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 6),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
                                               color: Color.fromARGB(
-                                                  255, 207, 202, 187)),
+                                                  197, 254, 235, 197)),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
                                         ),
-                                        onTap: () {});
+                                        child: ListTile(
+                                            title: Text(
+                                              tex,
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Color.fromARGB(
+                                                      255, 207, 202, 187)),
+                                            ),
+                                            onTap: () {}),
+                                      ),
+                                    );
                                   }),
                             ),
                           ],
@@ -767,7 +793,7 @@ class infos extends StatelessWidget {
               text,
               maxLines: 2,
               style: const TextStyle(
-                  color: Color.fromARGB(255, 84, 75, 57), fontSize: 18),
+                  color: Color.fromARGB(255, 145, 130, 99), fontSize: 17),
             ),
           ),
         ],
@@ -841,7 +867,8 @@ class infos3 extends StatelessWidget {
           ),
           Text(
             text,
-            style: const TextStyle(color: Colors.black, fontSize: 18),
+            style: const TextStyle(
+                color: Color.fromARGB(198, 255, 230, 180), fontSize: 18),
           ),
         ],
       ),
