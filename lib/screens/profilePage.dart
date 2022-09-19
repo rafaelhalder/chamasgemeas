@@ -492,7 +492,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               horizontal: 25, vertical: 10),
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context, '/registerStep4');
+                              Navigator.pushNamed(context, '/accept');
+
+                              // Navigator.pushNamed(context, '/registerStep4');
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -563,7 +565,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/registerStep4');
+                      Navigator.pushNamed(context, '/accept');
+                      // Navigator.pushNamed(context, '/registerStep4');
                     },
                     child: Container(
                       decoration: BoxDecoration(

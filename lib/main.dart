@@ -19,6 +19,7 @@ import 'package:chamasgemeas/screens/registerStep5.dart';
 import 'package:chamasgemeas/screens/registerStep6.dart';
 import 'package:chamasgemeas/screens/registerStep7.dart';
 import 'package:chamasgemeas/screens/superLikePage.dart';
+import 'package:chamasgemeas/screens/termsAccept.dart';
 import 'package:chamasgemeas/screens/userPage.dart';
 import 'package:chamasgemeas/screens/userPageHome.dart';
 import 'package:chamasgemeas/services/auth_service.dart';
@@ -104,6 +105,7 @@ class MyApp extends StatelessWidget {
           '/preference': (context) => const PreferencePage(),
           '/privacidade': (context) => const PrivacidadePage(),
           '/help': (context) => const HelpPage(),
+          '/accept': (context) => TermsAccept(),
         },
       ),
     );
