@@ -22,6 +22,7 @@ class CardProvider extends ChangeNotifier {
   int _coinUser = 0;
   double _lngUser = 0;
   String _photoUser = '';
+  String _interestedUser = '';
   Offset _position = Offset.zero;
   Size _screenSize = Size.zero;
   User? user = FirebaseAuth.instance.currentUser;
@@ -35,7 +36,9 @@ class CardProvider extends ChangeNotifier {
   double get latUser => _latUser;
   int get coinUser => _coinUser;
   double get lngUser => _lngUser;
+
   String get photoUser => _photoUser;
+  String get interestedUser => _interestedUser;
   bool get isDragging => _isDragging;
   bool get match => _match;
   Offset get position => _position;
@@ -292,9 +295,6 @@ class CardProvider extends ChangeNotifier {
         await FirebaseFirestore.instance.collection('filter').doc(uid).get();
 
     if (distances.exists) {
-      print('ooooo');
-      print(distances['distance']);
-      print(distances['distance']);
       String distance = distances['distance'].toString();
       distance = distance.replaceAll("[", ""); // myString is "s t r"
       distance = distance.replaceAll("]", ""); // myString is "s t r"
@@ -312,6 +312,7 @@ class CardProvider extends ChangeNotifier {
       _lngUser = double.parse(userInfo['longitude'].toString());
       _photoUser = userInfo['photos'][0]['url'];
       _coinUser = userInfo['coin'];
+      _interestedUser = userInfo['interested'];
     }
 
     final dislike =
@@ -324,7 +325,7 @@ class CardProvider extends ChangeNotifier {
     final QuerySnapshot result = await FirebaseFirestore.instance
         .collection('users')
         .where('status', isEqualTo: true)
-        .where('uid', whereNotIn: _disliked)
+        .where('gender', isEqualTo: _interestedUser)
         .get();
 
     final List<DocumentSnapshot> documents = result.docs;
@@ -342,23 +343,28 @@ class CardProvider extends ChangeNotifier {
 
       if (teste['photos'][0]['url'] != 'nulo') {
         if (distanceUser >= km) {
-          _users.add(Users(
-              age: teste['age'],
-              city: teste['city'],
-              country: teste['country'],
-              height: teste['height'],
-              interested: teste['interested'],
-              latitude: teste['latitude'],
-              longitude: teste['longitude'],
-              listFocus: teste['listFocus'],
-              soul: teste['soul'],
-              uid: teste['uid'],
-              zodiac: teste['zodiac'],
-              photos: teste['photos'],
-              weight: teste['weight'],
-              aboutMe: teste['aboutMe'],
-              name: teste['name'],
-              urlImage: teste['photos'][0]['url']));
+          if (!_disliked.contains(teste['uid'])) {
+            if (!_liked.contains(teste['uid'])) {
+              _users.add(Users(
+                  age: teste['age'],
+                  city: teste['city'],
+                  country: teste['country'],
+                  height: teste['height'],
+                  occupation: teste['occupation'],
+                  interested: teste['interested'],
+                  latitude: teste['latitude'],
+                  longitude: teste['longitude'],
+                  listFocus: teste['listFocus'],
+                  soul: teste['soul'],
+                  uid: teste['uid'],
+                  zodiac: teste['zodiac'],
+                  photos: teste['photos'],
+                  weight: teste['weight'],
+                  aboutMe: teste['aboutMe'],
+                  name: teste['name'],
+                  urlImage: teste['photos'][0]['url']));
+            }
+          }
         }
       }
     });

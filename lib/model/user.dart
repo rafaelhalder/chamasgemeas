@@ -3,6 +3,7 @@ class Users {
   final int age;
   final String urlImage;
   final String aboutMe;
+  final String occupation;
   var city;
   var weight;
   var listFocus;
@@ -21,6 +22,7 @@ class Users {
     required this.age,
     required this.urlImage,
     required this.aboutMe,
+    required this.occupation,
     required this.city,
     required this.listFocus,
     required this.longitude,

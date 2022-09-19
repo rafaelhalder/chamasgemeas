@@ -1,12 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:chamasgemeas/provider/card_provider.dart';
+import 'package:chamasgemeas/screens/chats.dart';
+import 'package:chamasgemeas/screens/preferencePage.dart';
+import 'package:chamasgemeas/screens/profilePage.dart';
+import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong2/latlong.dart' as lat;
 import 'package:provider/provider.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+
+import 'HomePage.dart';
 
 class UserPageHome extends StatefulWidget {
   const UserPageHome({Key? key}) : super(key: key);
@@ -27,8 +34,8 @@ class _UserPageHomeState extends State<UserPageHome> {
     String name = userData.name;
     String imagemLink = userData.soul + '.png';
     int typeInte = int.parse(userData.interested);
-    String occupation = 'Gari';
     String aboutMe = userData.aboutMe;
+    String occupation = userData.occupation;
     int age = userData.age;
     List photos = userData.photos;
     double lati = double.parse(userData.latitude);
@@ -72,6 +79,99 @@ class _UserPageHomeState extends State<UserPageHome> {
       child: Container(
         color: Colors.red,
         child: Scaffold(
+          bottomNavigationBar: ConvexAppBar(
+            color: Colors.black,
+            gradient: const LinearGradient(colors: [
+              Color.fromARGB(255, 223, 223, 223),
+              Color.fromARGB(255, 223, 223, 223),
+            ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+            // ignore: prefer_const_literals_to_create_immutables
+            items: [
+              // ignore: prefer_const_constructors
+              TabItem(
+                  activeIcon: Icon(Icons.home, color: Colors.black),
+                  icon: Icon(Icons.home, color: Colors.black),
+                  title: 'Home'),
+              const TabItem(
+                  activeIcon: Icon(Icons.star, color: Colors.black),
+                  icon: Icon(Icons.star, color: Colors.black),
+                  title: 'Super'),
+              const TabItem(
+                  activeIcon: Icon(Icons.person, color: Colors.black),
+                  icon: Icon(Icons.person, color: Colors.black),
+                  title: 'Perfil'),
+              const TabItem(
+                  activeIcon: Icon(Icons.message, color: Colors.black),
+                  icon: Icon(Icons.message, color: Colors.black),
+                  title: 'Chats'),
+              const TabItem(
+                  activeIcon: Icon(Icons.settings, color: Colors.black),
+                  icon: Icon(Icons.settings, color: Colors.black),
+                  title: 'Opções'),
+            ],
+            initialActiveIndex: 0, //optional, default as 0
+            onTap: (int i) {
+              i == 0
+                  ? Navigator.pushReplacement(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation1, animation2) =>
+                            HomePage(),
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                      ),
+                    )
+                  : const Text('');
+              i == 1
+                  ? Navigator.pushReplacement(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation1, animation2) =>
+                            SuperLike(),
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                      ),
+                    )
+                  : const Text('');
+              i == 2
+                  ? Navigator.pushReplacement(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation1, animation2) =>
+                            // Container(),
+                            const ProfilePage(),
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                      ),
+                    )
+                  : const Text('');
+              i == 3
+                  ? Navigator.pushReplacement(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation1, animation2) =>
+                            // Container(),
+                            const Chats(),
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                      ),
+                    )
+                  : const Text('');
+              i == 4
+                  ? Navigator.pushReplacement(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation1, animation2) =>
+                            const PreferencePage(),
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                      ),
+                    )
+                  : const Text('');
+
+              print('click index=$i');
+            },
+          ),
           // floatingActionButton:
           //     Column(mainAxisAlignment: MainAxisAlignment.end, children: [
           //   FloatingActionButton(
