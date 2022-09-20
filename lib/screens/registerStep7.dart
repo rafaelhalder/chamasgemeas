@@ -96,7 +96,7 @@ class _RegisterStep7State extends State<RegisterStep7> {
     List listPhotos = variable['photos'];
     String oldPhoto = listPhotos[0]['name'];
     String name = DateTime.now().toString();
-    print(listPhotos);
+    print('uploading foto');
 
     try {
       final ref = storage.ref('images/user/$uid').child(name);
@@ -319,9 +319,8 @@ class _RegisterStep7State extends State<RegisterStep7> {
                     child: Center(
                       child: GestureDetector(
                         onTap: () async {
-                          print(selectedIndex);
-                          print(testes);
                           if (selectedIndex.length > 5 && testes != '') {
+                            print(12345);
                             await FirebaseFirestore.instance
                                 .collection('users')
                                 .doc(user?.uid)

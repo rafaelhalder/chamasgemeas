@@ -918,12 +918,21 @@ class _ProfilePageState extends State<ProfilePage> {
     // return fileName;
     for (int i = 0; i < fileName.length; i++) {
       if (fileName[i]['name'] != 'nulo') {
-        firebase_storage.Reference ref = firebase_storage
-            .FirebaseStorage.instance
-            .ref()
-            .child('images/user/$uid')
-            .child(fileName[i]['name']);
-        var url = await ref.getDownloadURL();
+        var url = '';
+
+        var fotoDefault =
+            'https://firebasestorage.googleapis.com/v0/b/chamas-gemeas.appspot.com/o/images%2Fdefault%2Fperson_blank.png?alt=media&token=a48cac17-1f89-4aed-a0b2-ba38699d516f';
+        if (fileName[i]['url'] == fotoDefault) {
+          url = fotoDefault;
+        } else {
+          firebase_storage.Reference ref = firebase_storage
+              .FirebaseStorage.instance
+              .ref()
+              .child('images/user/$uid')
+              .child(fileName[i]['name']);
+          url = await ref.getDownloadURL();
+        }
+
         // ignore: unnecessary_string_interpolations
         fileName[i]['url'] = '$url';
       }

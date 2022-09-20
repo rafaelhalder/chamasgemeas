@@ -294,7 +294,7 @@ class _HomePageState extends State<HomePage> {
         ? ElevatedButton(
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(40),
               ),
             ),
             child: Text(

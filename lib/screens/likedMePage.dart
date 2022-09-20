@@ -27,65 +27,152 @@ class _LikedMePageState extends State<LikedMePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 27, 27, 27),
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 27, 27, 27),
-        centerTitle: true,
-        title: const Text('Likes'),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: FutureBuilder<bool>(
-              future: getPremium(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return snapshot.data == true
-                      ? Column(
-                          children: [
-                            FutureBuilder(
-                                future: refreshList(),
-                                builder: (context, AsyncSnapshot query) {
-                                  if (query.hasData) {
-                                    List data = query.data;
-                                    return GridView.builder(
-                                        shrinkWrap: true,
-                                        gridDelegate:
-                                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                                                maxCrossAxisExtent: 200,
-                                                childAspectRatio: 2 / 2,
-                                                crossAxisSpacing: 20,
-                                                mainAxisSpacing: 20),
-                                        itemCount: data.length,
-                                        itemBuilder: (BuildContext ctx, index) {
-                                          return GestureDetector(
-                                            onTap: () async {
-                                              String? uid = FirebaseAuth
-                                                  .instance.currentUser?.uid;
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+        image: AssetImage("assets/images/interfacesigno.png"),
+        fit: BoxFit.cover,
+      )),
+      child: Scaffold(
+        backgroundColor: Color.fromARGB(0, 27, 27, 27),
+        appBar: AppBar(
+          backgroundColor: Color.fromARGB(0, 27, 27, 27),
+          centerTitle: true,
+          title: const Text('Likes'),
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: FutureBuilder<bool>(
+                future: getPremium(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return snapshot.data == true
+                        ? Column(
+                            children: [
+                              FutureBuilder(
+                                  future: refreshList(),
+                                  builder: (context, AsyncSnapshot query) {
+                                    if (query.hasData) {
+                                      List data = query.data;
+                                      return GridView.builder(
+                                          shrinkWrap: true,
+                                          gridDelegate:
+                                              const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                  maxCrossAxisExtent: 200,
+                                                  childAspectRatio: 2 / 2,
+                                                  crossAxisSpacing: 20,
+                                                  mainAxisSpacing: 20),
+                                          itemCount: data.length,
+                                          itemBuilder:
+                                              (BuildContext ctx, index) {
+                                            return GestureDetector(
+                                              onTap: () async {
+                                                String? uid = FirebaseAuth
+                                                    .instance.currentUser?.uid;
 
-                                              DocumentSnapshot variable =
-                                                  await FirebaseFirestore
-                                                      .instance
-                                                      .collection('users')
-                                                      .doc(uid)
-                                                      .get();
+                                                DocumentSnapshot variable =
+                                                    await FirebaseFirestore
+                                                        .instance
+                                                        .collection('users')
+                                                        .doc(uid)
+                                                        .get();
 
-                                              String lat = variable['latitude'];
-                                              String lng =
-                                                  variable['longitude'];
+                                                String lat =
+                                                    variable['latitude'];
+                                                String lng =
+                                                    variable['longitude'];
 
-                                              Navigator.pushNamed(
-                                                  context, '/userPage',
-                                                  arguments: {
-                                                    "uid": data[index]["uid"],
-                                                    'name': data[index]["name"],
-                                                    'info': data[index]["info"],
-                                                    'lat': lat,
-                                                    'lng': lng,
-                                                  });
-                                            },
-                                            child: CircleAvatar(
+                                                Navigator.pushNamed(
+                                                    context, '/userPage',
+                                                    arguments: {
+                                                      "uid": data[index]["uid"],
+                                                      'name': data[index]
+                                                          ["name"],
+                                                      'info': data[index]
+                                                          ["info"],
+                                                      'lat': lat,
+                                                      'lng': lng,
+                                                    });
+                                              },
+                                              child: CircleAvatar(
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  child: SizedBox(
+                                                      width: 140,
+                                                      height: 140,
+                                                      child: ClipOval(
+                                                        child: ClipRRect(
+                                                          child:
+                                                              CachedNetworkImage(
+                                                            fadeInDuration:
+                                                                const Duration(
+                                                                    milliseconds:
+                                                                        0),
+                                                            fadeOutDuration:
+                                                                const Duration(
+                                                                    milliseconds:
+                                                                        0),
+                                                            fit: BoxFit.cover,
+                                                            imageUrl:
+                                                                data[index]
+                                                                    ["photos"],
+                                                            width: 140,
+                                                            height: 140,
+                                                          ),
+                                                        ),
+                                                      ))),
+                                            );
+                                          });
+                                    }
+                                    return Container();
+                                  }),
+                            ],
+                          )
+                        : Column(
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.all(20.0),
+                                child: Center(
+                                    child: Text(
+                                  'Revele quem gostou de você',
+                                  style: TextStyle(color: Colors.white),
+                                )),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  fetchOffers();
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.amber,
+                                  ),
+                                  height: 40,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  child: const Center(
+                                    child: Text('Revelar'),
+                                  ),
+                                ),
+                              ),
+                              FutureBuilder(
+                                  future: refreshList(),
+                                  builder: (context, AsyncSnapshot query) {
+                                    if (query.hasData) {
+                                      List data = query.data;
+                                      return GridView.builder(
+                                          shrinkWrap: true,
+                                          gridDelegate:
+                                              const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                  maxCrossAxisExtent: 200,
+                                                  childAspectRatio: 2 / 2,
+                                                  crossAxisSpacing: 20,
+                                                  mainAxisSpacing: 20),
+                                          itemCount: data.length,
+                                          itemBuilder:
+                                              (BuildContext ctx, index) {
+                                            return CircleAvatar(
                                                 backgroundColor:
                                                     Colors.transparent,
                                                 child: SizedBox(
@@ -93,115 +180,43 @@ class _LikedMePageState extends State<LikedMePage> {
                                                     height: 140,
                                                     child: ClipOval(
                                                       child: ClipRRect(
-                                                        child:
-                                                            CachedNetworkImage(
-                                                          fadeInDuration:
-                                                              const Duration(
-                                                                  milliseconds:
-                                                                      0),
-                                                          fadeOutDuration:
-                                                              const Duration(
-                                                                  milliseconds:
-                                                                      0),
-                                                          fit: BoxFit.cover,
-                                                          imageUrl: data[index]
-                                                              ["photos"],
-                                                          width: 140,
-                                                          height: 140,
+                                                        child: ImageFiltered(
+                                                          imageFilter:
+                                                              ImageFilter.blur(
+                                                                  sigmaX: 5,
+                                                                  sigmaY: 5),
+                                                          child:
+                                                              CachedNetworkImage(
+                                                            fadeInDuration:
+                                                                const Duration(
+                                                                    milliseconds:
+                                                                        0),
+                                                            fadeOutDuration:
+                                                                const Duration(
+                                                                    milliseconds:
+                                                                        0),
+                                                            fit: BoxFit.cover,
+                                                            imageUrl:
+                                                                data[index]
+                                                                    ["photos"],
+                                                            width: 140,
+                                                            height: 140,
+                                                          ),
                                                         ),
                                                       ),
-                                                    ))),
-                                          );
-                                        });
-                                  }
-                                  return Container();
-                                }),
-                          ],
-                        )
-                      : Column(
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: Center(
-                                  child: Text(
-                                'Revele quem gostou de você',
-                                style: TextStyle(color: Colors.white),
-                              )),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                fetchOffers();
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.amber,
-                                ),
-                                height: 40,
-                                width: MediaQuery.of(context).size.width * 0.5,
-                                child: const Center(
-                                  child: Text('Revelar'),
-                                ),
-                              ),
-                            ),
-                            FutureBuilder(
-                                future: refreshList(),
-                                builder: (context, AsyncSnapshot query) {
-                                  if (query.hasData) {
-                                    List data = query.data;
-                                    return GridView.builder(
-                                        shrinkWrap: true,
-                                        gridDelegate:
-                                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                                                maxCrossAxisExtent: 200,
-                                                childAspectRatio: 2 / 2,
-                                                crossAxisSpacing: 20,
-                                                mainAxisSpacing: 20),
-                                        itemCount: data.length,
-                                        itemBuilder: (BuildContext ctx, index) {
-                                          return CircleAvatar(
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              child: SizedBox(
-                                                  width: 140,
-                                                  height: 140,
-                                                  child: ClipOval(
-                                                    child: ClipRRect(
-                                                      child: ImageFiltered(
-                                                        imageFilter:
-                                                            ImageFilter.blur(
-                                                                sigmaX: 5,
-                                                                sigmaY: 5),
-                                                        child:
-                                                            CachedNetworkImage(
-                                                          fadeInDuration:
-                                                              const Duration(
-                                                                  milliseconds:
-                                                                      0),
-                                                          fadeOutDuration:
-                                                              const Duration(
-                                                                  milliseconds:
-                                                                      0),
-                                                          fit: BoxFit.cover,
-                                                          imageUrl: data[index]
-                                                              ["photos"],
-                                                          width: 140,
-                                                          height: 140,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  )));
-                                        });
-                                  }
-                                  return Container();
-                                }),
-                          ],
-                        );
-                }
-                return Container(
-                  child: Text('ie'),
-                );
-              }),
+                                                    )));
+                                          });
+                                    }
+                                    return Container();
+                                  }),
+                            ],
+                          );
+                  }
+                  return Container(
+                    child: Text('ie'),
+                  );
+                }),
+          ),
         ),
       ),
     );
