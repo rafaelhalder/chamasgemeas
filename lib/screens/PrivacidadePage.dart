@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PrivacidadePage extends StatefulWidget {
   const PrivacidadePage({Key? key}) : super(key: key);
@@ -52,7 +51,8 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
             .collection('users')
             .doc(uid)
             .update({'status': false});
-        await user?.delete();
+        await FirebaseAuth.instance.userChanges();
+        await FirebaseAuth.instance.currentUser?.delete();
         await AuthService().signOut();
         await SystemNavigator.pop();
       },
@@ -234,7 +234,7 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
                                       Text(
                                         'Termos de Uso',
                                         style: TextStyle(
-                                            fontSize: 18, color: Colors.white),
+                                            fontSize: 16, color: Colors.white),
                                       )
                                     ],
                                   ),
@@ -277,7 +277,7 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
                                       Text(
                                         'Deletar Conta',
                                         style: TextStyle(
-                                            fontSize: 18, color: Colors.white),
+                                            fontSize: 16, color: Colors.white),
                                       )
                                     ],
                                   ),

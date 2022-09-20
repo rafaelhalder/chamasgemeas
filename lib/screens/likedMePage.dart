@@ -272,6 +272,13 @@ class _LikedMePageState extends State<LikedMePage> {
   Future<void> addCoinsPackag2e(Package package) async {
     String? uid = FirebaseAuth.instance.currentUser?.uid;
 
+    print('>>>>>>>>');
+    print(package.offeringIdentifier);
+    print('<<<<<<<<<');
+    print('>>>>>@@>>>');
+    print(package.product.identifier);
+    print('<<<<@@<<<<<');
+
     await FirebaseFirestore.instance
         .collection('users')
         .doc(uid)

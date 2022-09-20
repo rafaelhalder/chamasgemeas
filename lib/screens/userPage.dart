@@ -308,7 +308,7 @@ class _UserPageState extends State<UserPage> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 34, vertical: 12),
                           child: Align(
-                            alignment: Alignment.centerLeft,
+                            alignment: Alignment.topLeft,
                             child: GestureDetector(
                               onTap: () {
                                 print('12345');
@@ -323,6 +323,7 @@ class _UserPageState extends State<UserPage> {
                                 child: GestureDetector(
                                   onTap: () {
                                     print('12345');
+                                    Navigator.pushNamed(context, '/home');
                                   },
                                   child: Center(
                                       child:
@@ -339,7 +340,7 @@ class _UserPageState extends State<UserPage> {
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: Container(
-                            width: 68.0,
+                            width: 70.0,
                             height: 30,
                             child: Container(
                               padding: const EdgeInsets.symmetric(
@@ -354,9 +355,10 @@ class _UserPageState extends State<UserPage> {
                                       MainAxisAlignment.spaceAround,
                                   children: [
                                     FaIcon(FontAwesomeIcons.locationDot,
-                                        size: 16),
+                                        size: 14),
                                     Text('$km km',
-                                        style: TextStyle(color: Colors.black)),
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 12)),
                                   ],
                                 ),
                               ),

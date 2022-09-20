@@ -216,7 +216,7 @@ class _TinderCardState extends State<TinderCard> {
                       child: Icon(Icons.settings_backup_restore),
                       onTap: () {
                         fetchOffersPremium(uid);
-                        //provider.rollback();
+                        provider.rollback();
                         print('clicked');
                       })),
               SizedBox(),
@@ -244,7 +244,7 @@ class _TinderCardState extends State<TinderCard> {
 
     if (premium2 == true) {
       provider.rollback();
-      print('clicked');
+      print('clicked2');
     } else {
       final offerings = await PurchaseApi.fetchOffers(all: false);
 
@@ -321,6 +321,12 @@ class _TinderCardState extends State<TinderCard> {
   Future<void> addCoinsPackag2ePremium(Package package) async {
     String? uid = FirebaseAuth.instance.currentUser?.uid;
 
+    print('>>>>>>>>');
+    print(package.offeringIdentifier);
+    print('<<<<<<<<<');
+    print('>>>>>@@>>>');
+    print(package.product.identifier);
+    print('<<<<@@<<<<<');
     await FirebaseFirestore.instance
         .collection('users')
         .doc(uid)
@@ -335,6 +341,9 @@ class _TinderCardState extends State<TinderCard> {
 
     int coins = foundLikeMe['coin'];
 
+    print('>>>>>>>>');
+    print(package.offeringIdentifier);
+    print('<<<<<<<<<');
     switch (package.offeringIdentifier) {
       case Coins.idCoins1:
         coins += 1;

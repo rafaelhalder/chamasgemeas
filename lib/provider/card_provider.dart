@@ -342,28 +342,28 @@ class CardProvider extends ChangeNotifier {
 
       if (teste['photos'][0]['url'] != 'nulo') {
         if (distanceUser >= km) {
-          if (!_disliked.contains(teste['uid'])) {
-            if (!_liked.contains(teste['uid'])) {
-              _users.add(Users(
-                  age: teste['age'],
-                  city: teste['city'],
-                  country: teste['country'],
-                  height: teste['height'],
-                  occupation: teste['occupation'],
-                  interested: teste['interested'],
-                  latitude: teste['latitude'],
-                  longitude: teste['longitude'],
-                  listFocus: teste['listFocus'],
-                  soul: teste['soul'],
-                  uid: teste['uid'],
-                  zodiac: teste['zodiac'],
-                  photos: teste['photos'],
-                  weight: teste['weight'],
-                  aboutMe: teste['aboutMe'],
-                  name: teste['name'],
-                  urlImage: teste['photos'][0]['url']));
-            }
-          }
+          // if (!_disliked.contains(teste['uid'])) {
+          // if (!_liked.contains(teste['uid'])) {
+          _users.add(Users(
+              age: teste['age'],
+              city: teste['city'],
+              country: teste['country'],
+              height: teste['height'],
+              occupation: teste['occupation'],
+              interested: teste['interested'],
+              latitude: teste['latitude'],
+              longitude: teste['longitude'],
+              listFocus: teste['listFocus'],
+              soul: teste['soul'],
+              uid: teste['uid'],
+              zodiac: teste['zodiac'],
+              photos: teste['photos'],
+              weight: teste['weight'],
+              aboutMe: teste['aboutMe'],
+              name: teste['name'],
+              urlImage: teste['photos'][0]['url']));
+          // }
+          // }
         }
       }
     });

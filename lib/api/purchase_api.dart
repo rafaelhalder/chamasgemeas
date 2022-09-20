@@ -3,6 +3,9 @@ import 'package:purchases_flutter/purchases_flutter.dart';
 
 class Coins {
   static const idCoins1 = 'coins';
+  static const idCoins2 = 'coin_chamas_1';
+  static const idCoins3 = 'chamas_10';
+  static const idCoins4 = 'chamas_100';
 
   static const allIds = [idCoins1];
 }

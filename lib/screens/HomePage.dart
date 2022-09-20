@@ -1,5 +1,4 @@
 import 'package:chamasgemeas/api/purchase_api.dart';
-import 'package:chamasgemeas/model/user.dart';
 import 'package:chamasgemeas/paywall_widget.dart';
 import 'package:chamasgemeas/provider/card_provider.dart';
 import 'package:chamasgemeas/screens/chats.dart';
@@ -254,10 +253,15 @@ class _HomePageState extends State<HomePage> {
         await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
     int coins = foundLikeMe['coin'];
-
-    switch (package.offeringIdentifier) {
-      case Coins.idCoins1:
+    switch (package.product.identifier) {
+      case Coins.idCoins2:
         coins += 1;
+        break;
+      case Coins.idCoins3:
+        coins += 10;
+        break;
+      case Coins.idCoins4:
+        coins += 100;
         break;
       default:
         break;
