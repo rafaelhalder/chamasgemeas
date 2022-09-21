@@ -3,6 +3,7 @@ import 'package:chamasgemeas/screens/WelcomePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class VerifyUser extends StatefulWidget {
   const VerifyUser({Key? key}) : super(key: key);
@@ -36,6 +37,19 @@ class _VerifyUserState extends State<VerifyUser> {
     }
   }
 
+  void saveToken(String token) async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(uid)
+        .update({'token': token});
+  }
+
+  void getToken() async {
+    await FirebaseMessaging.instance.getToken().then((token) {
+      saveToken(token!);
+    });
+  }
+
   verify() async {
     final snapShot =
         await FirebaseFirestore.instance.collection('users').doc(uid).get();
@@ -53,6 +67,7 @@ class _VerifyUserState extends State<VerifyUser> {
           'interested': '',
           'latitude': '',
           'longitude': '',
+          'token': '',
           'zodiac': '',
           'whatsapp': '',
           'finished': false,
@@ -96,6 +111,8 @@ class _VerifyUserState extends State<VerifyUser> {
     } else {
       DocumentSnapshot variable =
           await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+      getToken();
 
       bool finishedRegister = variable['finished'];
       if (finishedRegister == true) {

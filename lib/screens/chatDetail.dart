@@ -10,7 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart'
+    as not;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
@@ -37,9 +38,9 @@ class _ChatDetailState extends State<ChatDetail> {
   CollectionReference userFriend =
       FirebaseFirestore.instance.collection('users');
 
-  late AndroidNotificationChannel channel;
-  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  late not.AndroidNotificationChannel channel;
+  late not.FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      not.FlutterLocalNotificationsPlugin();
   final friendUid;
   final friendName;
   final currentUserId = FirebaseAuth.instance.currentUser?.uid;
@@ -60,6 +61,7 @@ class _ChatDetailState extends State<ChatDetail> {
     requestPermission();
     getToken();
     photoUser(friendUid);
+    initInfo();
     loadFCM();
     listenFCM();
   }
@@ -100,6 +102,7 @@ class _ChatDetailState extends State<ChatDetail> {
             'notification': <String, dynamic>{
               'body': '$message',
               'title': '$currentUserName',
+              'android-channel_id': 'dbfood'
             },
             'priority': 'high',
             'data': <String, dynamic>{
@@ -119,9 +122,9 @@ class _ChatDetailState extends State<ChatDetail> {
 
   void saveToken(String token) async {
     await FirebaseFirestore.instance
-        .collection("UserTokens")
+        .collection("users")
         .doc(currentUserId)
-        .set({'token': token});
+        .update({'token': token});
   }
 
   void getToken() async {
@@ -136,10 +139,10 @@ class _ChatDetailState extends State<ChatDetail> {
 
   initInfo() {
     var androidInitialize =
-        const AndroidInitializationSettings('@mipmap/ic_launcher');
-    var iOSInitialize = const IOSInitializationSettings();
-    var initializationSettings =
-        InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
+        const not.AndroidInitializationSettings('@mipmap/ic_launcher');
+    var iOSInitialize = const not.IOSInitializationSettings();
+    var initializationSettings = not.InitializationSettings(
+        android: androidInitialize, iOS: iOSInitialize);
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: (String? payload) async {
       try {
@@ -147,6 +150,36 @@ class _ChatDetailState extends State<ChatDetail> {
         } else {}
       } catch (e) {}
       return;
+    });
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      print('------------onMessage------------');
+      print(
+          "onMessage: ${message.notification?.title}/${message.notification?.body}");
+      not.BigTextStyleInformation bigTextStyleInformation =
+          not.BigTextStyleInformation(
+        message.notification!.body.toString(),
+        htmlFormatBigText: true,
+        contentTitle: message.notification?.title.toString(),
+        htmlFormatContentTitle: true,
+      );
+      not.AndroidNotificationDetails androidPlatformChannelSpeficics =
+          not.AndroidNotificationDetails(
+        'dbfood',
+        'dbfood',
+        importance: not.Importance.high,
+        styleInformation: bigTextStyleInformation,
+        priority: not.Priority.high,
+        playSound: true,
+      );
+
+      not.NotificationDetails platformChannelSpeficics =
+          not.NotificationDetails(
+              android: androidPlatformChannelSpeficics,
+              iOS: const not.IOSNotificationDetails());
+      await flutterLocalNotificationsPlugin.show(0, message.notification?.title,
+          message.notification?.body, platformChannelSpeficics,
+          payload: message.data['body']);
     });
   }
 
@@ -246,14 +279,14 @@ class _ChatDetailState extends State<ChatDetail> {
 
   void loadFCM() async {
     if (!kIsWeb) {
-      channel = const AndroidNotificationChannel(
+      channel = const not.AndroidNotificationChannel(
           'high_importance_channel', // id
           'High Importance Notifications', // title
-          importance: Importance.defaultImportance,
+          importance: not.Importance.defaultImportance,
           ledColor: Colors.amber,
           enableVibration: true);
 
-      flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+      flutterLocalNotificationsPlugin = not.FlutterLocalNotificationsPlugin();
 
       /// Create an Android Notification Channel.
       ///
@@ -262,7 +295,7 @@ class _ChatDetailState extends State<ChatDetail> {
       await flutterLocalNotificationsPlugin.cancelAll();
       await flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>()
+              not.AndroidFlutterLocalNotificationsPlugin>()
           ?.createNotificationChannel(channel);
 
       /// Update the iOS foreground notification presentation options to allow
