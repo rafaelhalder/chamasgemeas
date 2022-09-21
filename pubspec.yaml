@@ -85,7 +85,7 @@ dev_dependencies:
     sdk: flutter
 
 flutter_icons:
-  image_path: "assets/images/chamas2.png"
+  image_path: "assets/images/logo_cg_botao_2.png"
   android: true
   ios: true
   remove_alpha_ios: true

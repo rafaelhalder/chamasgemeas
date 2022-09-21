@@ -38,7 +38,8 @@ class _ChatDetailState extends State<ChatDetail> {
       FirebaseFirestore.instance.collection('users');
 
   late AndroidNotificationChannel channel;
-  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
   final friendUid;
   final friendName;
   final currentUserId = FirebaseAuth.instance.currentUser?.uid;
@@ -51,16 +52,37 @@ class _ChatDetailState extends State<ChatDetail> {
       'https://firebasestorage.googleapis.com/v0/b/chamas-gemeas.appspot.com/o/images%2Fdefault%2Fperson_blank.png?alt=media&token=a48cac17-1f89-4aed-a0b2-ba38699d516f';
   final _textController = TextEditingController();
   String? tokenAuth = "";
-
   _ChatDetailState(this.friendUid, this.friendName);
   @override
   void initState() {
     super.initState();
     checkUser();
-    // getToken();
+    requestPermission();
+    getToken();
     photoUser(friendUid);
     loadFCM();
     listenFCM();
+  }
+
+  void requestPermission() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true);
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('user granted per');
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      print('provisional grant');
+    } else {
+      print('declined');
+    }
   }
 
   void sendPushMessage(
@@ -95,15 +117,38 @@ class _ChatDetailState extends State<ChatDetail> {
     }
   }
 
-  // void getToken() async {
-  //   await FirebaseMessaging.instance.getToken().then((token) {
-  //     setState(() {
-  //       tokenAuth =
-  //           'cgCmtHNWT4KPcubS-t_lcz:APA91bHgSCX_9ZfgYJ5AOBa3wXXtbiaXI7giA4zRy3LNyyViA5JzNrgP3sl_c3nOfH9vrpOg58hJYGcahls-rxlrb8v7QR2JYggM1_3KdVGGpMHMrp-qobtirtL7TVAUzpo42ZXD2Ieu';
-  //       print(token);
-  //     });
-  //   });
-  // }
+  void saveToken(String token) async {
+    await FirebaseFirestore.instance
+        .collection("UserTokens")
+        .doc(currentUserId)
+        .set({'token': token});
+  }
+
+  void getToken() async {
+    await FirebaseMessaging.instance.getToken().then((token) {
+      setState(() {
+        tokenAuth = token;
+        print('my token is $token');
+      });
+      saveToken(token!);
+    });
+  }
+
+  initInfo() {
+    var androidInitialize =
+        const AndroidInitializationSettings('@mipmap/ic_launcher');
+    var iOSInitialize = const IOSInitializationSettings();
+    var initializationSettings =
+        InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: (String? payload) async {
+      try {
+        if (payload != null && payload.isNotEmpty) {
+        } else {}
+      } catch (e) {}
+      return;
+    });
+  }
 
   void listenFCM() async {
     // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
