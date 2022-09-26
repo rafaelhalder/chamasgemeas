@@ -344,6 +344,7 @@ class CardProvider extends ChangeNotifier {
         if (distanceUser >= km) {
           // if (!_disliked.contains(teste['uid'])) {
           // if (!_liked.contains(teste['uid'])) {
+          teste['listFocus'] == null ? teste['listFocus'] = [1] : '';
           _users.add(Users(
               age: teste['age'],
               city: teste['city'],

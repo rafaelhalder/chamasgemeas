@@ -139,11 +139,13 @@ class _RegisterStep5State extends State<RegisterStep5> {
                     ),
                     GestureDetector(
                       onTap: () async {
-                        await FirebaseFirestore.instance
-                            .collection('users')
-                            .doc(user?.uid)
-                            .update({'zodiac': selectedIndex});
-                        Navigator.pushNamed(context, '/registerStep6');
+                        if (selectedIndex != "") {
+                          await FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(user?.uid)
+                              .update({'zodiac': selectedIndex});
+                          Navigator.pushNamed(context, '/registerStep6');
+                        }
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 20),

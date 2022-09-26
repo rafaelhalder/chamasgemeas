@@ -13,6 +13,14 @@ class _RegisterIAmState extends State<RegisterIAm> {
   @override
   String selectedIndex = '';
   User? user = FirebaseAuth.instance.currentUser;
+  bool finished = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    catchDatasUser();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +63,8 @@ class _RegisterIAmState extends State<RegisterIAm> {
                                 shrinkWrap: true,
                                 itemCount: list.length,
                                 itemBuilder: (context, index) {
-                                  if (selectedIndex == '0' ||
+                                  if (selectedIndex == '' ||
+                                      selectedIndex == '0' ||
                                       selectedIndex == '1') {
                                     if (index.toString() == '3' ||
                                         index.toString() == '4' ||
@@ -180,14 +189,26 @@ class _RegisterIAmState extends State<RegisterIAm> {
                     child: Center(
                       child: GestureDetector(
                         onTap: () async {
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(user?.uid)
-                              .update({'gender': selectedIndex});
+                          if (selectedIndex != '') {
+                            int numero = int.parse(selectedIndex);
+                            numero = numero + 1;
+                            String retornoString = numero.toString();
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(user?.uid)
+                                .update({'gender': retornoString});
 
-                          selectedIndex != ""
-                              ? Navigator.pushNamed(context, '/registerStep2')
-                              : null;
+                            if (finished == true) {
+                              selectedIndex != ""
+                                  ? Navigator.pushNamed(context, '/profilePage')
+                                  : null;
+                            } else {
+                              selectedIndex != ""
+                                  ? Navigator.pushNamed(
+                                      context, '/registerStep2')
+                                  : null;
+                            }
+                          }
                         },
                         child: Container(
                           width: size.width * 0.35,
@@ -229,5 +250,17 @@ class _RegisterIAmState extends State<RegisterIAm> {
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
 
     return allData;
+  }
+
+  void catchDatasUser() async {
+    final userInfo = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user?.uid)
+        .get();
+
+    setState(() {
+      finished = userInfo['finished'];
+      print(finished);
+    });
   }
 }

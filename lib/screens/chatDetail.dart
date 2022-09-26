@@ -47,6 +47,7 @@ class _ChatDetailState extends State<ChatDetail> {
   String? currentUserName = FirebaseAuth.instance.currentUser?.displayName;
   var chatDocId;
   var photo;
+  var photoFriendme;
   var photome;
   var status;
   String defaultPhoto =
@@ -256,14 +257,17 @@ class _ChatDetailState extends State<ChatDetail> {
         .doc(friendUid)
         .get();
 
+    final currentUsers = FirebaseAuth.instance.currentUser?.uid;
+
     DocumentSnapshot variableme = await FirebaseFirestore.instance
         .collection('users')
-        .doc(currentUserId)
+        .doc(currentUsers)
         .get();
 
     List listPhotosme = variableme['photos'];
     String photoFriendme = listPhotosme[0]['url'];
     String photoFriend = defaultPhoto;
+    print(photoFriendme);
 
     List listPhotos = variable['photos'];
     photoFriend = listPhotos[0]['url'];
@@ -512,8 +516,8 @@ class _ChatDetailState extends State<ChatDetail> {
                                                 fadeOutDuration: const Duration(
                                                     milliseconds: 0),
                                                 fit: BoxFit.cover,
-                                                imageUrl: photo != null
-                                                    ? photo
+                                                imageUrl: photome != null
+                                                    ? photome
                                                     : defaultPhoto,
                                                 width: 80,
                                                 height: 80,

@@ -172,7 +172,9 @@ class _RegisterStep6PageState extends State<RegisterStep6Page> {
                     child: Center(
                       child: GestureDetector(
                         onTap: () async {
-                          Navigator.pushNamed(context, '/registerStep7');
+                          if (multipleSelected.length > 0) {
+                            Navigator.pushNamed(context, '/registerStep7');
+                          }
                           // await FirebaseFirestore.instance
                           //     .collection('users')
                           //     .doc(user?.uid)

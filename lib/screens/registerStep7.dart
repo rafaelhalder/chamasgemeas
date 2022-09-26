@@ -319,8 +319,7 @@ class _RegisterStep7State extends State<RegisterStep7> {
                     child: Center(
                       child: GestureDetector(
                         onTap: () async {
-                          if (selectedIndex.length > 5 && testes != '') {
-                            print(12345);
+                          if (selectedIndex.length > 0) {
                             await FirebaseFirestore.instance
                                 .collection('users')
                                 .doc(user?.uid)
@@ -345,7 +344,7 @@ class _RegisterStep7State extends State<RegisterStep7> {
                           height: size.height * 0.035,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(40),
-                            color: selectedIndex.length > 5
+                            color: selectedIndex.length > 0
                                 ? Color.fromARGB(255, 200, 181, 152)
                                 : Color.fromARGB(0, 108, 90, 64),
                           ),
@@ -353,7 +352,7 @@ class _RegisterStep7State extends State<RegisterStep7> {
                             child: Text(
                               'CONFIRMAR',
                               style: TextStyle(
-                                  color: selectedIndex.length > 5
+                                  color: selectedIndex.length > 0
                                       ? Colors.black
                                       : Colors.white24,
                                   fontFamily: 'CM Sans Serif',

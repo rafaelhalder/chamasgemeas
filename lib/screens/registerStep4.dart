@@ -13,13 +13,22 @@ class RegisterStep4 extends StatefulWidget {
 }
 
 class _RegisterStep4State extends State<RegisterStep4> {
-  String selectedIndex = '';
-  User? user = FirebaseAuth.instance.currentUser;
-  int age = 0;
+  int age = 2;
   String height = '';
   String weight = '';
   String occupation = '';
   String city = '';
+  bool finished = false;
+  String selectedIndex = '';
+  String? uid = FirebaseAuth.instance.currentUser?.uid;
+  User? user = FirebaseAuth.instance.currentUser;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    catchDatasUser();
+  }
 
   final _formKey = GlobalKey<FormState>();
 
@@ -39,6 +48,18 @@ class _RegisterStep4State extends State<RegisterStep4> {
         fit: BoxFit.cover,
       )),
       child: Scaffold(
+        appBar: AppBar(
+            backgroundColor: Color.fromARGB(0, 27, 27, 27),
+            leading: finished == false
+                ? Text('')
+                : IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/profilePage');
+                    },
+                    tooltip:
+                        MaterialLocalizations.of(context).openAppDrawerTooltip,
+                  )),
         backgroundColor: Colors.transparent,
         body: SafeArea(
           child: SingleChildScrollView(
@@ -83,6 +104,8 @@ class _RegisterStep4State extends State<RegisterStep4> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: TextFormField(
+                        key: Key(age.toString()), // <- Magic!
+                        initialValue: age.toString(),
                         keyboardType: TextInputType.number,
                         maxLength: 2,
                         style: const TextStyle(color: Colors.white),
@@ -148,6 +171,8 @@ class _RegisterStep4State extends State<RegisterStep4> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: TextFormField(
+                        key: Key(height.toString()), // <- Magic!
+                        initialValue: height.toString(),
                         keyboardType: TextInputType.number,
                         maxLength: 4,
                         style: const TextStyle(color: Colors.white),
@@ -209,6 +234,8 @@ class _RegisterStep4State extends State<RegisterStep4> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: TextFormField(
+                        key: Key(weight.toString()), // <- Magic!
+                        initialValue: weight.toString(),
                         keyboardType: TextInputType.number,
                         maxLength: 3,
                         style: const TextStyle(color: Colors.white),
@@ -267,6 +294,8 @@ class _RegisterStep4State extends State<RegisterStep4> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: TextFormField(
+                        key: Key(city.toString()), // <- Magic!
+                        initialValue: city.toString(),
                         style: TextStyle(color: Colors.white),
                         keyboardType: TextInputType.text,
                         textCapitalization: TextCapitalization.sentences,
@@ -323,6 +352,8 @@ class _RegisterStep4State extends State<RegisterStep4> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: TextFormField(
+                        key: Key(occupation.toString()), // <- Magic!
+                        initialValue: occupation.toString(),
                         style: TextStyle(color: Colors.white),
                         keyboardType: TextInputType.text,
                         textCapitalization: TextCapitalization.sentences,
@@ -381,7 +412,10 @@ class _RegisterStep4State extends State<RegisterStep4> {
                             'whatsapp': '9999999999',
                           });
                           Timer(const Duration(seconds: 1), () {
-                            Navigator.pushNamed(context, '/registerStep5');
+                            finished == true
+                                ? Navigator.pushNamed(context, '/profilePage')
+                                : Navigator.pushNamed(
+                                    context, '/registerStep5');
                           });
                         }
                       },
@@ -390,17 +424,13 @@ class _RegisterStep4State extends State<RegisterStep4> {
                         height: size.height * 0.035,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(40),
-                          color: selectedIndex != ''
-                              ? Color.fromARGB(255, 200, 181, 152)
-                              : Color.fromARGB(0, 108, 90, 64),
+                          color: activeButtonColor(),
                         ),
                         child: Center(
                           child: Text(
                             'CONFIRMAR',
                             style: TextStyle(
-                                color: selectedIndex != ''
-                                    ? Color.fromARGB(255, 0, 0, 0)
-                                    : Color.fromARGB(255, 207, 202, 187),
+                                color: activeButton(),
                                 fontFamily: 'CM Sans Serif',
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16),
@@ -425,11 +455,11 @@ class _RegisterStep4State extends State<RegisterStep4> {
         city != '' &&
         occupation != '') {
       print('bateu meta');
-      return Colors.white;
+      return Color.fromARGB(255, 0, 0, 0);
     } else {
       print('n bateu meta');
 
-      return Colors.white24;
+      return Color.fromARGB(255, 207, 202, 187);
     }
   }
 
@@ -439,9 +469,9 @@ class _RegisterStep4State extends State<RegisterStep4> {
         weight != '' &&
         city != '' &&
         occupation != '') {
-      return const Color.fromARGB(255, 207, 202, 187);
+      return const Color.fromARGB(255, 200, 181, 152);
     } else {
-      return Colors.black26;
+      return Color.fromARGB(0, 108, 90, 64);
     }
   }
 
@@ -505,6 +535,21 @@ class _RegisterStep4State extends State<RegisterStep4> {
         ),
       ),
     );
+  }
+
+  void catchDatasUser() async {
+    final userInfo =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    setState(() {
+      age = userInfo['age'];
+      height = userInfo['height'];
+      weight = userInfo['weight'];
+      occupation = userInfo['occupation'];
+      city = userInfo['city'];
+      finished = userInfo['finished'];
+      print(finished);
+    });
   }
 
   var maskFormatter = MaskTextInputFormatter(

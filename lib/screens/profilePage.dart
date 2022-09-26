@@ -513,7 +513,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             color: Color.fromARGB(
                                                 255, 84, 75, 57)),
                                         const SizedBox(
-                                          width: 95,
+                                          width: 1,
                                         ),
                                         const Text(
                                           'Ocupação:',
@@ -584,9 +584,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                         const Icon(Icons.edit_note,
                                             color: Color.fromARGB(
                                                 255, 84, 75, 57)),
-                                        const SizedBox(
-                                          width: 95,
-                                        ),
                                         Text(
                                           'Altura: ',
                                           style: TextStyle(
@@ -641,7 +638,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           color:
                                               Color.fromARGB(255, 84, 75, 57)),
                                       const SizedBox(
-                                        width: 95,
+                                        width: 1,
                                       ),
                                       const Text(
                                         'Idade: ',
@@ -696,7 +693,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             color: Color.fromARGB(
                                                 255, 84, 75, 57)),
                                         const SizedBox(
-                                          width: 95,
+                                          width: 1,
                                         ),
                                         const Text(
                                           'Cidade: ',
@@ -753,7 +750,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             color: Color.fromARGB(
                                                 255, 84, 75, 57)),
                                         const SizedBox(
-                                          width: 95,
+                                          width: 1,
                                         ),
                                         const Text(
                                           'Pais: ',
@@ -810,7 +807,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             color: Color.fromARGB(
                                                 255, 84, 75, 57)),
                                         const SizedBox(
-                                          width: 95,
+                                          width: 1,
                                         ),
                                         const Text(
                                           'Peso: ',
@@ -867,7 +864,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             color: Color.fromARGB(
                                                 255, 84, 75, 57)),
                                         const SizedBox(
-                                          width: 95,
+                                          width: 1,
                                         ),
                                         const Text(
                                           'Genero: ',

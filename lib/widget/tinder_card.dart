@@ -87,7 +87,7 @@ class _TinderCardState extends State<TinderCard> {
             );
           },
         ),
-        onDoubleTap: () {
+        onTap: () {
           Navigator.pushNamed(context, '/userHome');
         },
         // onPanStart: (details) {

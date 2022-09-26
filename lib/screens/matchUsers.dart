@@ -1,16 +1,8 @@
-import 'dart:async';
-
 import 'package:animate_do/animate_do.dart';
-import 'package:chamasgemeas/provider/card_provider.dart';
-import 'package:chamasgemeas/services/user_verify.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
 
 class MatchUsers extends StatefulWidget {
   const MatchUsers({Key? key}) : super(key: key);
@@ -153,25 +145,30 @@ class _MatchUsersState extends State<MatchUsers> {
                             color: Colors.white,
                           ),
                           SizedBox(),
-                          Center(
-                              child: RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                              style: const TextStyle(
-                                fontSize: 22.0,
-                                color: Color.fromARGB(255, 238, 238, 238),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, '/chats');
+                            },
+                            child: Center(
+                                child: RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 22.0,
+                                  color: Color.fromARGB(255, 238, 238, 238),
+                                ),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text: 'ENVIAR MENSAGEM',
+                                      style: GoogleFonts.quicksand(
+                                          fontSize: 18,
+                                          color: Color.fromARGB(
+                                              255, 207, 202, 187),
+                                          fontWeight: FontWeight.w700)),
+                                ],
                               ),
-                              children: <TextSpan>[
-                                TextSpan(
-                                    text: 'ENVIAR MENSAGEM',
-                                    style: GoogleFonts.quicksand(
-                                        fontSize: 18,
-                                        color:
-                                            Color.fromARGB(255, 207, 202, 187),
-                                        fontWeight: FontWeight.w700)),
-                              ],
-                            ),
-                          )),
+                            )),
+                          ),
                           SizedBox(),
                           SizedBox(),
                         ],
@@ -196,25 +193,30 @@ class _MatchUsersState extends State<MatchUsers> {
                             color: Colors.white,
                           ),
                           SizedBox(),
-                          Center(
-                              child: RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                              style: const TextStyle(
-                                fontSize: 22.0,
-                                color: Color.fromARGB(255, 238, 238, 238),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, '/home');
+                            },
+                            child: Center(
+                                child: RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 22.0,
+                                  color: Color.fromARGB(255, 238, 238, 238),
+                                ),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text: 'CONTINUAR NAVEGANDO',
+                                      style: GoogleFonts.quicksand(
+                                          fontSize: 18,
+                                          color: Color.fromARGB(
+                                              255, 207, 202, 187),
+                                          fontWeight: FontWeight.w700)),
+                                ],
                               ),
-                              children: <TextSpan>[
-                                TextSpan(
-                                    text: 'CONTINUAR NAVEGANDO',
-                                    style: GoogleFonts.quicksand(
-                                        fontSize: 18,
-                                        color:
-                                            Color.fromARGB(255, 207, 202, 187),
-                                        fontWeight: FontWeight.w700)),
-                              ],
-                            ),
-                          )),
+                            )),
+                          ),
                           SizedBox(),
                           SizedBox(),
                         ],

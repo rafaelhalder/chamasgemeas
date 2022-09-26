@@ -56,6 +56,11 @@ class _UserPageState extends State<UserPage> {
     final km = distance.as(lat.LengthUnit.Kilometer, lat.LatLng(lati, long),
         lat.LatLng(latitude, longitude));
 
+    print(lati);
+    print(long);
+    print(latitude);
+    print(longitude);
+
     for (int i = 0; i < photos.length; i++) {
       if (photos[i]['name'] != 'nulo') {
         filterPhoto.add(photos[i]);

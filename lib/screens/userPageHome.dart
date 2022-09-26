@@ -39,10 +39,11 @@ class _UserPageHomeState extends State<UserPageHome> {
     String occupation = userData.occupation;
     int age = userData.age;
     List photos = userData.photos;
-    double lati = double.parse(userData.latitude);
+    double lati = provider.latUser;
+    double long = provider.lngUser;
     double latitude = double.parse(userData.latitude);
-    double long = double.parse(userData.longitude);
     double longitude = double.parse(userData.longitude);
+
     String interested = '';
     typeInte == 0 ? interested = 'Namoro' : interested = 'Amizade';
 
@@ -206,7 +207,6 @@ class _UserPageHomeState extends State<UserPageHome> {
             // ]),
             extendBodyBehindAppBar: true,
             appBar: AppBar(
-              leading: Container(),
               elevation: 0,
               backgroundColor: const Color.fromARGB(0, 0, 0, 0),
             ),
@@ -296,30 +296,6 @@ class _UserPageHomeState extends State<UserPageHome> {
                                 ),
                               );
                             }).toList(),
-                          ),
-                        ),
-                      ),
-                      Positioned.fill(
-                        top: 10,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 34, vertical: 6),
-                          child: Align(
-                            alignment: Alignment.topLeft,
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.pushNamed(context, '/home');
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(30)),
-                                width: 30.0,
-                                height: 30,
-                                child: Center(
-                                    child: FaIcon(FontAwesomeIcons.circleLeft)),
-                              ),
-                            ),
                           ),
                         ),
                       ),
