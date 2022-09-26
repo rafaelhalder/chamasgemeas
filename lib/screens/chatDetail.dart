@@ -62,8 +62,8 @@ class _ChatDetailState extends State<ChatDetail> {
     getToken();
     photoUser(friendUid);
     initInfo();
-    loadFCM();
-    listenFCM();
+    // loadFCM();
+    // listenFCM();
   }
 
   void requestPermission() async {
@@ -283,7 +283,7 @@ class _ChatDetailState extends State<ChatDetail> {
           'high_importance_channel', // id
           'High Importance Notifications', // title
           importance: not.Importance.defaultImportance,
-          ledColor: Colors.amber,
+          ledColor: Colors.red,
           enableVibration: true);
 
       flutterLocalNotificationsPlugin = not.FlutterLocalNotificationsPlugin();
