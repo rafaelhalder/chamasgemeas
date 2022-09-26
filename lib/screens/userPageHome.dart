@@ -32,6 +32,7 @@ class _UserPageHomeState extends State<UserPageHome> {
     Size size = MediaQuery.of(context).size;
     final provider = Provider.of<CardProvider>(context);
     final userData = provider.users.last;
+    print(userData.zodiac);
     String name = userData.name.toUpperCase();
     String imagemLink = userData.soul + '.png';
     int typeInte = int.parse(userData.interested);

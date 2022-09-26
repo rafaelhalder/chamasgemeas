@@ -227,7 +227,7 @@ class _FilterPageState extends State<FilterPage> {
                     ),
                     child: RangeSlider(
                         min: 0.0,
-                        max: 150.0,
+                        max: 99.0,
                         inactiveColor: Colors.transparent,
                         activeColor: Color.fromARGB(255, 165, 150, 118),
                         values: RangeValues(_startValue, _endValue),

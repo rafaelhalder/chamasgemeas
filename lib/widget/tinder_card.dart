@@ -46,7 +46,7 @@ class _TinderCardState extends State<TinderCard> {
 
   @override
   Widget build(BuildContext context) => SizedBox.expand(
-        child: widget.isFront ? buildFrontCard() : buildCard(),
+        child: widget.isFront ? buildFrontCard() : null,
       );
   void LatLng() async {
     final list =

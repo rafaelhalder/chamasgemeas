@@ -192,7 +192,7 @@ class _HomePageState extends State<HomePage> {
     return users.isEmpty
         ? Center(
             child: Text(
-              '💔  The End.',
+              '',
               style: TextStyle(
                 fontSize: 42,
                 fontWeight: FontWeight.bold,
