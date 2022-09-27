@@ -183,31 +183,6 @@ class CardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void dislikehome() async {
-    _angle = -20;
-    _position -= Offset(2 * _screenSize.width, 0);
-    List listDislikedMe = [];
-
-    final disliked =
-        await FirebaseFirestore.instance.collection('dislike').doc(uid).get();
-
-    if (disliked.exists) {
-      listDislikedMe = disliked['id'];
-    }
-
-    if (!listDislikedMe.contains(users.last.uid))
-      listDislikedMe.add(users.last.uid);
-
-    await FirebaseFirestore.instance
-        .collection('dislike')
-        .doc(uid)
-        .set({"id": listDislikedMe});
-
-    _nextCardhome();
-
-    notifyListeners();
-  }
-
   void updateDislike() async {
     await FirebaseFirestore.instance
         .collection('liked')
@@ -310,9 +285,11 @@ class CardProvider extends ChangeNotifier {
   void resetUsers() async {
     final like =
         await FirebaseFirestore.instance.collection('liked').doc(uid).get();
+    List likeTe = [];
 
     if (like.exists) {
       _liked = like['id'];
+      likeTe = like['id'];
     }
 
     final superlike = await FirebaseFirestore.instance
@@ -351,9 +328,15 @@ class CardProvider extends ChangeNotifier {
     final dislike =
         await FirebaseFirestore.instance.collection('dislike').doc(uid).get();
 
+    List dislikeTe = [];
+
     if (dislike.exists) {
       _disliked.add(dislike['id']);
+      dislikeTe = dislike['id'];
     }
+    print('----------------------------------------------------');
+    print(dislikeTe);
+    print('----------------------------------------------------');
 
     final QuerySnapshot result = await FirebaseFirestore.instance
         .collection('users')
@@ -376,30 +359,31 @@ class CardProvider extends ChangeNotifier {
 
       if (teste['photos'][0]['url'] != 'nulo') {
         if (distanceUser >= km) {
-          // if (!_disliked.contains(teste['uid'])) {
-          // if (!_liked.contains(teste['uid'])) {
-          teste['listFocus'] == null ? teste['listFocus'] = [1] : '';
-          _users.add(Users(
-              age: teste['age'],
-              city: teste['city'],
-              country: teste['country'],
-              height: teste['height'],
-              occupation: teste['occupation'],
-              interested: teste['interested'],
-              latitude: teste['latitude'],
-              longitude: teste['longitude'],
-              listFocus: teste['listFocus'],
-              soul: teste['soul'],
-              token: teste['token'],
-              uid: teste['uid'],
-              zodiac: teste['zodiac'],
-              photos: teste['photos'],
-              weight: teste['weight'],
-              aboutMe: teste['aboutMe'],
-              name: teste['name'],
-              urlImage: teste['photos'][0]['url']));
-          // }
-          // }
+          if (!dislikeTe.contains(teste['uid'])) {
+            if (!likeTe.contains(teste['uid'])) {
+              teste['listFocus'] == null ? teste['listFocus'] = [1] : '';
+              if (teste['uid'] != uid)
+                _users.add(Users(
+                    age: teste['age'],
+                    city: teste['city'],
+                    country: teste['country'],
+                    height: teste['height'],
+                    occupation: teste['occupation'],
+                    interested: teste['interested'],
+                    latitude: teste['latitude'],
+                    longitude: teste['longitude'],
+                    listFocus: teste['listFocus'],
+                    soul: teste['soul'],
+                    token: teste['token'],
+                    uid: teste['uid'],
+                    zodiac: teste['zodiac'],
+                    photos: teste['photos'],
+                    weight: teste['weight'],
+                    aboutMe: teste['aboutMe'],
+                    name: teste['name'],
+                    urlImage: teste['photos'][0]['url']));
+            }
+          }
         }
       }
     });

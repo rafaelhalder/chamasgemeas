@@ -322,8 +322,8 @@ class _UserPageHomeState extends State<UserPageHome> {
                               bottom: 10,
                               child: Align(
                                 alignment: Alignment.bottomCenter,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: filterPhoto.map((url) {
                                     int index = filterPhoto.indexOf(url);
                                     return Container(
@@ -950,7 +950,9 @@ class _UserPageHomeState extends State<UserPageHome> {
                                                                     fit: BoxFit
                                                                         .cover,
                                                                     imageUrl:
-                                                                        photoUserActual,
+                                                                        photos[0]
+                                                                            [
+                                                                            'url'],
                                                                     width: 120,
                                                                     height: 120,
                                                                   ),
@@ -1212,9 +1214,9 @@ class _UserPageHomeState extends State<UserPageHome> {
                                                                 'Maria',
                                                                 tokenUsuaria);
 
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop();
+                                                            Navigator.pushNamed(
+                                                                context,
+                                                                '/home');
                                                           }
                                                         },
                                                         icon: const Icon(
@@ -1402,6 +1404,8 @@ class _UserPageHomeState extends State<UserPageHome> {
         'name': name,
         'photoUser': photoUser
       });
+    } else {
+      Navigator.pushNamed(context, '/home');
     }
   }
 
