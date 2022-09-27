@@ -73,7 +73,7 @@ class _ChatDetailState extends State<ChatDetail> {
     NotificationSettings settings = await messaging.requestPermission(
         alert: true,
         announcement: false,
-        badge: true,
+        badge: false,
         carPlay: false,
         criticalAlert: false,
         provisional: false,
@@ -155,32 +155,32 @@ class _ChatDetailState extends State<ChatDetail> {
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       print('------------onMessage------------');
-      print(
-          "onMessage: ${message.notification?.title}/${message.notification?.body}");
-      not.BigTextStyleInformation bigTextStyleInformation =
-          not.BigTextStyleInformation(
-        message.notification!.body.toString(),
-        htmlFormatBigText: true,
-        contentTitle: message.notification?.title.toString(),
-        htmlFormatContentTitle: true,
-      );
-      not.AndroidNotificationDetails androidPlatformChannelSpeficics =
-          not.AndroidNotificationDetails(
-        'dbfood',
-        'dbfood',
-        importance: not.Importance.high,
-        styleInformation: bigTextStyleInformation,
-        priority: not.Priority.high,
-        playSound: true,
-      );
+      // print(
+      //     "onMessage: ${message.notification?.title}/${message.notification?.body}");
+      // not.BigTextStyleInformation bigTextStyleInformation =
+      //     not.BigTextStyleInformation(
+      //   message.notification!.body.toString(),
+      //   htmlFormatBigText: true,
+      //   contentTitle: message.notification?.title.toString(),
+      //   htmlFormatContentTitle: true,
+      // );
+      // not.AndroidNotificationDetails androidPlatformChannelSpeficics =
+      //     not.AndroidNotificationDetails(
+      //   'dbfood',
+      //   'dbfood',
+      //   importance: not.Importance.high,
+      //   styleInformation: bigTextStyleInformation,
+      //   priority: not.Priority.high,
+      //   playSound: true,
+      // );
 
-      not.NotificationDetails platformChannelSpeficics =
-          not.NotificationDetails(
-              android: androidPlatformChannelSpeficics,
-              iOS: const not.IOSNotificationDetails());
-      await flutterLocalNotificationsPlugin.show(0, message.notification?.title,
-          message.notification?.body, platformChannelSpeficics,
-          payload: message.data['body']);
+      // not.NotificationDetails platformChannelSpeficics =
+      //     not.NotificationDetails(
+      //         android: androidPlatformChannelSpeficics,
+      //         iOS: const not.IOSNotificationDetails());
+      // await flutterLocalNotificationsPlugin.show(0, message.notification?.title,
+      //     message.notification?.body, platformChannelSpeficics,
+      //     payload: message.data['body']);
     });
   }
 
@@ -331,14 +331,6 @@ class _ChatDetailState extends State<ChatDetail> {
           if (snapshot.hasError) {
             return const Center(
               child: Text("Something went wrong"),
-            );
-          }
-
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: DefaultTextStyle(
-                  style: TextStyle(color: Colors.grey),
-                  child: Text("Carregando")),
             );
           }
 
@@ -650,7 +642,6 @@ class _ChatDetailState extends State<ChatDetail> {
                               child: SizedBox(
                                 height: MediaQuery.of(context).size.width * 0.1,
                                 child: CupertinoTextField(
-                                  readOnly: status == true ? false : true,
                                   style: GoogleFonts.raleway(
                                     color: Colors.black,
                                     fontSize: 15,
@@ -664,21 +655,18 @@ class _ChatDetailState extends State<ChatDetail> {
                               ),
                             ),
                           ),
-                          status == true
-                              ? CupertinoButton(
-                                  child: const Icon(
-                                    Icons.send_sharp,
-                                    color: Color.fromARGB(255, 223, 223, 223),
-                                  ),
-                                  onPressed: () {
-                                    sendMessage(_textController.text);
-                                    sendPushMessage(_textController.text,
-                                        currentUserName, tokenAuth);
-                                  })
-                              : CupertinoButton(
-                                  child: const Icon(Icons.send_sharp,
-                                      color: Colors.grey),
-                                  onPressed: () => {})
+                          CupertinoButton(
+                              child: const Icon(
+                                Icons.send_sharp,
+                                color: Color.fromARGB(255, 223, 223, 223),
+                              ),
+                              onPressed: () {
+                                if (_textController.text != "") {
+                                  sendMessage(_textController.text);
+                                  sendPushMessage(_textController.text,
+                                      currentUserName, tokenAuth);
+                                }
+                              })
                         ],
                       ),
                       SizedBox(

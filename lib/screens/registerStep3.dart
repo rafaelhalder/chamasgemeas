@@ -53,66 +53,67 @@ class _RegisterStep3State extends State<RegisterStep3> {
                     ),
                   ),
                   SizedBox(
-                    height: size.height * 0.05,
+                    height: size.height * 0.01,
                   ),
-                  SizedBox(
-                    height: size.height * 0.60,
-                    child: Center(
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: FirebaseFirestore.instance
-                            .collection('souls')
-                            .orderBy('id')
-                            .snapshots(),
-                        builder: (context, querySnapShot) {
-                          if (querySnapShot.hasData) {
-                            final list = querySnapShot.data?.docs;
+                  Flexible(
+                    child: SingleChildScrollView(
+                      child: Center(
+                        child: StreamBuilder<QuerySnapshot>(
+                          stream: FirebaseFirestore.instance
+                              .collection('souls')
+                              .orderBy('id')
+                              .snapshots(),
+                          builder: (context, querySnapShot) {
+                            if (querySnapShot.hasData) {
+                              final list = querySnapShot.data?.docs;
 
-                            return ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: list?.length,
-                                itemBuilder: (context, index) {
-                                  String nameGender = list?[index]['name'];
-                                  return ListTile(
-                                      minVerticalPadding: 15,
-                                      leading: Image.asset(
-                                          'assets/images/$nameGender.png'),
-                                      title: Center(
-                                        child: Container(
-                                          alignment: Alignment.centerLeft,
-                                          width: size.width * 0.8,
-                                          height: size.height * 0.065,
-                                          child: Text(nameGender,
-                                              style: TextStyle(
-                                                fontSize: 22,
-                                                color: selectedIndex ==
-                                                        index.toString()
-                                                    ? Color(0xFFECB461)
-                                                    : Colors.white60,
-                                                fontWeight: selectedIndex ==
-                                                        index.toString()
-                                                    ? FontWeight.bold
-                                                    : null,
-                                              )),
+                              return ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: list?.length,
+                                  itemBuilder: (context, index) {
+                                    String nameGender = list?[index]['name'];
+                                    return ListTile(
+                                        minVerticalPadding: 11,
+                                        leading: Image.asset(
+                                            'assets/images/$nameGender.png'),
+                                        title: Center(
+                                          child: Container(
+                                            alignment: Alignment.centerLeft,
+                                            width: size.width * 0.8,
+                                            height: size.height * 0.065,
+                                            child: Text(nameGender,
+                                                style: TextStyle(
+                                                  fontSize: 22,
+                                                  color: selectedIndex ==
+                                                          index.toString()
+                                                      ? Color(0xFFECB461)
+                                                      : Colors.white60,
+                                                  fontWeight: selectedIndex ==
+                                                          index.toString()
+                                                      ? FontWeight.bold
+                                                      : null,
+                                                )),
+                                          ),
                                         ),
-                                      ),
-                                      onTap: () {
-                                        setState(() {
-                                          selectedIndex = index.toString();
-                                          typeInterested = nameGender;
+                                        onTap: () {
+                                          setState(() {
+                                            selectedIndex = index.toString();
+                                            typeInterested = nameGender;
+                                          });
                                         });
-                                      });
-                                });
-                          }
-                          if (querySnapShot.hasError) {
-                            return const Text('some error');
-                          }
-                          if (querySnapShot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const CircularProgressIndicator();
-                          } else {
-                            return Container();
-                          }
-                        },
+                                  });
+                            }
+                            if (querySnapShot.hasError) {
+                              return const Text('some error');
+                            }
+                            if (querySnapShot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const CircularProgressIndicator();
+                            } else {
+                              return Container();
+                            }
+                          },
+                        ),
                       ),
                     ),
                   ),
@@ -135,10 +136,14 @@ class _RegisterStep3State extends State<RegisterStep3> {
                         },
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Container(
-                              width: size.width * 0.35,
+                              width: size.width * 0.30,
+                              child: Text('  '),
+                            ),
+                            Container(
+                              width: size.width * 0.30,
                               height: size.height * 0.035,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(40),
@@ -156,6 +161,30 @@ class _RegisterStep3State extends State<RegisterStep3> {
                                       fontFamily: 'CM Sans Serif',
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16),
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                _launchUrl();
+                              },
+                              child: Container(
+                                width: size.width * 0.30,
+                                height: size.height * 0.035,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  color: Color.fromARGB(0, 108, 90, 64),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'SABER MAIS',
+                                    style: TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255),
+                                        fontFamily: 'CM Sans Serif',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 10),
+                                  ),
                                 ),
                               ),
                             ),

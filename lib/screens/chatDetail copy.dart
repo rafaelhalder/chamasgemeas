@@ -10,7 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart'
+    as not;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
@@ -37,28 +38,54 @@ class _ChatDetailState extends State<ChatDetail> {
   CollectionReference userFriend =
       FirebaseFirestore.instance.collection('users');
 
-  late AndroidNotificationChannel channel;
-  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  late not.AndroidNotificationChannel channel;
+  late not.FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      not.FlutterLocalNotificationsPlugin();
   final friendUid;
   final friendName;
   final currentUserId = FirebaseAuth.instance.currentUser?.uid;
   String? currentUserName = FirebaseAuth.instance.currentUser?.displayName;
   var chatDocId;
   var photo;
+  var photoFriendme;
   var photome;
   var status;
+  String defaultPhoto =
+      'https://firebasestorage.googleapis.com/v0/b/chamas-gemeas.appspot.com/o/images%2Fdefault%2Fperson_blank.png?alt=media&token=a48cac17-1f89-4aed-a0b2-ba38699d516f';
   final _textController = TextEditingController();
   String? tokenAuth = "";
-
   _ChatDetailState(this.friendUid, this.friendName);
   @override
   void initState() {
     super.initState();
     checkUser();
-    // getToken();
+    requestPermission();
+    getToken();
     photoUser(friendUid);
-    loadFCM();
-    listenFCM();
+    initInfo();
+    // loadFCM();
+    // listenFCM();
+  }
+
+  void requestPermission() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: false,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true);
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('user granted per');
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      print('provisional grant');
+    } else {
+      print('declined');
+    }
   }
 
   void sendPushMessage(
@@ -76,6 +103,7 @@ class _ChatDetailState extends State<ChatDetail> {
             'notification': <String, dynamic>{
               'body': '$message',
               'title': '$currentUserName',
+              'android-channel_id': 'dbfood'
             },
             'priority': 'high',
             'data': <String, dynamic>{
@@ -93,34 +121,37 @@ class _ChatDetailState extends State<ChatDetail> {
     }
   }
 
-  // void getToken() async {
-  //   await FirebaseMessaging.instance.getToken().then((token) {
-  //     setState(() {
-  //       tokenAuth =
-  //           'cgCmtHNWT4KPcubS-t_lcz:APA91bHgSCX_9ZfgYJ5AOBa3wXXtbiaXI7giA4zRy3LNyyViA5JzNrgP3sl_c3nOfH9vrpOg58hJYGcahls-rxlrb8v7QR2JYggM1_3KdVGGpMHMrp-qobtirtL7TVAUzpo42ZXD2Ieu';
-  //       print(token);
-  //     });
-  //   });
-  // }
+  void saveToken(String token) async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(currentUserId)
+        .update({'token': token});
+  }
 
-  void listenFCM() async {
-    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    //   RemoteNotification? notification = message.notification;
-    //   AndroidNotification? android = message.notification?.android;
-    //   if (notification != null && android != null && !kIsWeb) {
-    //     flutterLocalNotificationsPlugin.show(
-    //       notification.hashCode,
-    //       notification.title,
-    //       notification.body,
-    //       NotificationDetails(
-    //         android: AndroidNotificationDetails(
-    //           channel.id,
-    //           channel.name,
-    //         ),
-    //       ),
-    //     );
-    //   }
-    // });
+  void getToken() async {
+    await FirebaseMessaging.instance.getToken().then((token) {
+      setState(() {
+        tokenAuth = token;
+        print('my token is $token');
+      });
+      saveToken(token!);
+    });
+  }
+
+  initInfo() {
+    var androidInitialize =
+        const not.AndroidInitializationSettings('@mipmap/ic_launcher');
+    var iOSInitialize = const not.IOSInitializationSettings();
+    var initializationSettings = not.InitializationSettings(
+        android: androidInitialize, iOS: iOSInitialize);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: (String? payload) async {
+      try {
+        if (payload != null && payload.isNotEmpty) {
+        } else {}
+      } catch (e) {}
+      return;
+    });
   }
 
   void checkUser() async {
@@ -176,16 +207,20 @@ class _ChatDetailState extends State<ChatDetail> {
         .doc(friendUid)
         .get();
 
+    final currentUsers = FirebaseAuth.instance.currentUser?.uid;
+
     DocumentSnapshot variableme = await FirebaseFirestore.instance
         .collection('users')
-        .doc(currentUserId)
+        .doc(currentUsers)
         .get();
 
     List listPhotosme = variableme['photos'];
     String photoFriendme = listPhotosme[0]['url'];
+    String photoFriend = defaultPhoto;
+    print(photoFriendme);
 
     List listPhotos = variable['photos'];
-    String photoFriend = listPhotos[0]['url'];
+    photoFriend = listPhotos[0]['url'];
     bool statusperson = variable['status'];
     String tokens = variable['token'];
     setState(() {
@@ -198,14 +233,14 @@ class _ChatDetailState extends State<ChatDetail> {
 
   void loadFCM() async {
     if (!kIsWeb) {
-      channel = const AndroidNotificationChannel(
+      channel = const not.AndroidNotificationChannel(
           'high_importance_channel', // id
           'High Importance Notifications', // title
-          importance: Importance.defaultImportance,
-          ledColor: Colors.amber,
+          importance: not.Importance.defaultImportance,
+          ledColor: Colors.red,
           enableVibration: true);
 
-      flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+      flutterLocalNotificationsPlugin = not.FlutterLocalNotificationsPlugin();
 
       /// Create an Android Notification Channel.
       ///
@@ -214,7 +249,7 @@ class _ChatDetailState extends State<ChatDetail> {
       await flutterLocalNotificationsPlugin.cancelAll();
       await flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>()
+              not.AndroidFlutterLocalNotificationsPlugin>()
           ?.createNotificationChannel(channel);
 
       /// Update the iOS foreground notification presentation options to allow
@@ -246,14 +281,6 @@ class _ChatDetailState extends State<ChatDetail> {
           if (snapshot.hasError) {
             return const Center(
               child: Text("Something went wrong"),
-            );
-          }
-
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: DefaultTextStyle(
-                  style: TextStyle(color: Colors.grey),
-                  child: Text("Carregando")),
             );
           }
 
@@ -375,7 +402,7 @@ class _ChatDetailState extends State<ChatDetail> {
                                 fadeOutDuration:
                                     const Duration(milliseconds: 0),
                                 fit: BoxFit.cover,
-                                imageUrl: photo,
+                                imageUrl: photo != null ? photo : defaultPhoto,
                                 width: 80,
                                 height: 80,
                               ),
@@ -431,7 +458,9 @@ class _ChatDetailState extends State<ChatDetail> {
                                                 fadeOutDuration: const Duration(
                                                     milliseconds: 0),
                                                 fit: BoxFit.cover,
-                                                imageUrl: photo,
+                                                imageUrl: photome != null
+                                                    ? photome
+                                                    : defaultPhoto,
                                                 width: 80,
                                                 height: 80,
                                               ),
@@ -459,7 +488,7 @@ class _ChatDetailState extends State<ChatDetail> {
                                           maxWidth: MediaQuery.of(context)
                                                   .size
                                                   .width *
-                                              0.65,
+                                              0.60,
                                         ),
                                         child: Column(
                                           children: [
@@ -527,7 +556,7 @@ class _ChatDetailState extends State<ChatDetail> {
                                     isSender(data['uid'].toString())
                                         ? Text('')
                                         : CircleAvatar(
-                                            radius: 33,
+                                            radius: 30,
                                             backgroundColor:
                                                 const Color(0xffFDCF09),
                                             child: ClipRRect(
@@ -539,7 +568,9 @@ class _ChatDetailState extends State<ChatDetail> {
                                                 fadeOutDuration: const Duration(
                                                     milliseconds: 0),
                                                 fit: BoxFit.cover,
-                                                imageUrl: photo,
+                                                imageUrl: photo != null
+                                                    ? photo
+                                                    : defaultPhoto,
                                                 width: 80,
                                                 height: 80,
                                               ),
@@ -561,7 +592,6 @@ class _ChatDetailState extends State<ChatDetail> {
                               child: SizedBox(
                                 height: MediaQuery.of(context).size.width * 0.1,
                                 child: CupertinoTextField(
-                                  readOnly: status == true ? false : true,
                                   style: GoogleFonts.raleway(
                                     color: Colors.black,
                                     fontSize: 15,
@@ -575,21 +605,18 @@ class _ChatDetailState extends State<ChatDetail> {
                               ),
                             ),
                           ),
-                          status == true
-                              ? CupertinoButton(
-                                  child: const Icon(
-                                    Icons.send_sharp,
-                                    color: Color.fromARGB(255, 223, 223, 223),
-                                  ),
-                                  onPressed: () {
-                                    sendMessage(_textController.text);
-                                    sendPushMessage(_textController.text,
-                                        currentUserName, tokenAuth);
-                                  })
-                              : CupertinoButton(
-                                  child: const Icon(Icons.send_sharp,
-                                      color: Colors.grey),
-                                  onPressed: () => {})
+                          CupertinoButton(
+                              child: const Icon(
+                                Icons.send_sharp,
+                                color: Color.fromARGB(255, 223, 223, 223),
+                              ),
+                              onPressed: () {
+                                if (_textController.text != "") {
+                                  sendMessage(_textController.text);
+                                  sendPushMessage(_textController.text,
+                                      currentUserName, tokenAuth);
+                                }
+                              })
                         ],
                       ),
                       SizedBox(

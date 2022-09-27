@@ -16,6 +16,7 @@ class Users {
   var soul;
   var zodiac;
   var photos;
+  var token;
 
   Users({
     required this.name,
@@ -35,5 +36,6 @@ class Users {
     required this.zodiac,
     required this.photos,
     required this.weight,
+    required this.token,
   });
 }

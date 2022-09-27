@@ -15,7 +15,6 @@ class RegisterStep4 extends StatefulWidget {
 class _RegisterStep4State extends State<RegisterStep4> {
   int age = 2;
   String height = '';
-  String weight = '';
   String occupation = '';
   String city = '';
   bool finished = false;
@@ -81,7 +80,7 @@ class _RegisterStep4State extends State<RegisterStep4> {
                           children: <TextSpan>[
                             TextSpan(
                                 text:
-                                    '${user!.displayName},\nme fale 5 coisas sobre VOCÊ!'),
+                                    '${user!.displayName},\nme fale 4 coisas sobre VOCÊ!'),
                           ],
                         ),
                       ),
@@ -224,66 +223,6 @@ class _RegisterStep4State extends State<RegisterStep4> {
                       child: Padding(
                           padding: const EdgeInsets.only(bottom: 3.0, left: 20),
                           child: Text(
-                            'Peso',
-                            style: GoogleFonts.quicksand(
-                                fontSize: 18,
-                                color: Color.fromARGB(255, 207, 202, 187),
-                                fontWeight: FontWeight.w500),
-                          )),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: TextFormField(
-                        key: Key(weight.toString()), // <- Magic!
-                        initialValue: weight.toString(),
-                        keyboardType: TextInputType.number,
-                        maxLength: 3,
-                        style: const TextStyle(color: Colors.white),
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
-                        decoration: InputDecoration(
-                          labelStyle: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            letterSpacing: 0.5,
-                          ),
-                          errorStyle: const TextStyle(color: Colors.white),
-                          helperStyle: const TextStyle(
-                              color: Color.fromARGB(202, 255, 255, 255)),
-                          hintStyle: const TextStyle(color: Colors.white60),
-                          errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(40),
-                              borderSide:
-                                  BorderSide(color: Colors.red.shade500)),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(40),
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 207, 202, 187))),
-                          focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 255, 255, 255))),
-                          border: const OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.white, width: 0.0)),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Campo Obrigatório';
-                          } else {
-                            return null;
-                          }
-                        },
-                        onChanged: (value) => setState(() {
-                          weight = value;
-                        }),
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                          padding: const EdgeInsets.only(bottom: 3.0, left: 20),
-                          child: Text(
                             'Cidade',
                             style: GoogleFonts.quicksand(
                                 fontSize: 18,
@@ -405,7 +344,7 @@ class _RegisterStep4State extends State<RegisterStep4> {
                               .update({
                             'age': age,
                             'height': height,
-                            'weight': weight,
+                            'weight': '999',
                             'country': 'Brasil',
                             'city': city,
                             'occupation': occupation,
@@ -449,11 +388,7 @@ class _RegisterStep4State extends State<RegisterStep4> {
   }
 
   Color activeButton() {
-    if (age != 0 &&
-        height != '' &&
-        weight != '' &&
-        city != '' &&
-        occupation != '') {
+    if (age != 0 && height != '' && city != '' && occupation != '') {
       print('bateu meta');
       return Color.fromARGB(255, 0, 0, 0);
     } else {
@@ -464,11 +399,7 @@ class _RegisterStep4State extends State<RegisterStep4> {
   }
 
   Color activeButtonColor() {
-    if (age != 0 &&
-        height != '' &&
-        weight != '' &&
-        city != '' &&
-        occupation != '') {
+    if (age != 0 && height != '' && city != '' && occupation != '') {
       return const Color.fromARGB(255, 200, 181, 152);
     } else {
       return Color.fromARGB(0, 108, 90, 64);
@@ -544,7 +475,6 @@ class _RegisterStep4State extends State<RegisterStep4> {
     setState(() {
       age = userInfo['age'];
       height = userInfo['height'];
-      weight = userInfo['weight'];
       occupation = userInfo['occupation'];
       city = userInfo['city'];
       finished = userInfo['finished'];

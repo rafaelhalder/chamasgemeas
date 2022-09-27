@@ -4,6 +4,7 @@ import 'package:chamasgemeas/provider/card_provider.dart';
 import 'package:chamasgemeas/screens/chats.dart';
 import 'package:chamasgemeas/screens/preferencePage.dart';
 import 'package:chamasgemeas/screens/profilePage.dart';
+import 'package:chamasgemeas/screens/registerStep7.dart';
 import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,8 +17,12 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-
 import '../paywall_widget.dart';
+import 'package:http/http.dart' as http;
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart'
+    as not;
+import 'dart:convert';
 
 class HomePage extends StatefulWidget {
   @override
@@ -28,6 +33,137 @@ class _HomePageState extends State<HomePage> {
   User? user = FirebaseAuth.instance.currentUser;
   String? uid = FirebaseAuth.instance.currentUser?.uid;
   String textoChat = '';
+  String? tokenAuth = "";
+
+  late not.AndroidNotificationChannel channel;
+  late not.FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      not.FlutterLocalNotificationsPlugin();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    requestPermission();
+    // getToken();
+    initInfo();
+  }
+
+  initInfo() {
+    var androidInitialize =
+        const not.AndroidInitializationSettings('@mipmap/ic_launcher');
+    var iOSInitialize = const not.IOSInitializationSettings();
+    var initializationSettings = not.InitializationSettings(
+        android: androidInitialize, iOS: iOSInitialize);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: (String? payload) async {
+      try {
+        if (payload != null && payload.isNotEmpty) {
+        } else {}
+      } catch (e) {}
+      return;
+    });
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      print('------------onMessage------------');
+      print(
+          "onMessage: ${message.notification?.title}/${message.notification?.body}");
+      not.BigTextStyleInformation bigTextStyleInformation =
+          not.BigTextStyleInformation(
+        message.notification!.body.toString(),
+        htmlFormatBigText: true,
+        contentTitle: message.notification?.title.toString(),
+        htmlFormatContentTitle: true,
+      );
+      not.AndroidNotificationDetails androidPlatformChannelSpeficics =
+          not.AndroidNotificationDetails(
+        'dbfood',
+        'dbfood',
+        importance: not.Importance.high,
+        styleInformation: bigTextStyleInformation,
+        priority: not.Priority.high,
+        playSound: true,
+      );
+
+      not.NotificationDetails platformChannelSpeficics =
+          not.NotificationDetails(
+              android: androidPlatformChannelSpeficics,
+              iOS: const not.IOSNotificationDetails());
+      await flutterLocalNotificationsPlugin.show(0, message.notification?.title,
+          message.notification?.body, platformChannelSpeficics,
+          payload: message.data['body']);
+    });
+  }
+
+  void sendPushMessage(
+      String message, String? currentUserName, String? token) async {
+    try {
+      await http.post(
+        Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization':
+              'key=AAAAhIRIRac:APA91bGld0gKYT_K5i7BTRCOdxBz14Qj4Cs85LmDd2bCSZOlEHaV2GvbxVGk307kQqGY5y3AXqjVbye-7CkIH0jTYnnAmfjNfxTpvGYTfvQ3CDvdlvdKRjrB-T7Lgn17YdanVXO4eQdZ',
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+            'notification': <String, dynamic>{
+              'body': '$message',
+              'title': '$currentUserName',
+              'android-channel_id': 'dbfood'
+            },
+            'priority': 'high',
+            'data': <String, dynamic>{
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'id': '1',
+              'status': 'done'
+            },
+            "to": "$token",
+          },
+        ),
+      );
+      print('sendeed');
+    } catch (e) {
+      print("error push notification");
+    }
+  }
+
+  void requestPermission() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: false,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true);
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('user granted per');
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      print('provisional grant');
+    } else {
+      print('declined');
+    }
+  }
+
+  // void saveToken(String token) async {
+  //   await FirebaseFirestore.instance
+  //       .collection("users")
+  //       .doc(uid)
+  //       .update({'token': token});
+  // }
+
+  // void getToken() async {
+  //   await FirebaseMessaging.instance.getToken().then((token) {
+  //     setState(() {
+  //       tokenAuth = token;
+  //       print('my token is $token');
+  //     });
+  //     saveToken(token!);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) => Container(
@@ -91,6 +227,10 @@ class _HomePageState extends State<HomePage> {
                   activeIcon: Icon(Icons.settings, color: Colors.black),
                   icon: Icon(Icons.settings, color: Colors.black),
                   title: 'Opções'),
+              const TabItem(
+                  activeIcon: Icon(Icons.settings, color: Colors.black),
+                  icon: Icon(Icons.settings, color: Colors.black),
+                  title: '22222'),
             ],
             initialActiveIndex: 0, //optional, default as 0
             onTap: (int i) {
@@ -146,6 +286,17 @@ class _HomePageState extends State<HomePage> {
                       PageRouteBuilder(
                         pageBuilder: (context, animation1, animation2) =>
                             const PreferencePage(),
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                      ),
+                    )
+                  : const Text('');
+              i == 5
+                  ? Navigator.pushReplacement(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation1, animation2) =>
+                            RegisterStep7(),
                         transitionDuration: Duration.zero,
                         reverseTransitionDuration: Duration.zero,
                       ),
@@ -482,6 +633,8 @@ class _HomePageState extends State<HomePage> {
                                                   users.last.uid;
                                               String usuarioName =
                                                   users.last.name;
+                                              String tokenUsuaria =
+                                                  users.last.token;
                                               int coins = 0;
                                               provider.superLike();
 
@@ -684,13 +837,17 @@ class _HomePageState extends State<HomePage> {
                                                         },
                                                       )
                                                       .catchError((error) {});
+                                              sendPushMessage(
+                                                  'um debiloide te deu super like',
+                                                  'Maria',
+                                                  tokenUsuaria);
 
                                               Navigator.of(context).pop();
                                             }
                                           },
                                           icon: const Icon(
                                             null,
-                                            size: 24.0,
+                                            size: 1.0,
                                           ),
                                           label:
                                               const Text('Enviar'), // <-- Text

@@ -22,6 +22,7 @@ class CardProvider extends ChangeNotifier {
   int _coinUser = 0;
   double _lngUser = 0;
   String _photoUser = '';
+  String _token = '';
   String _interestedUser = '';
   Offset _position = Offset.zero;
   Size _screenSize = Size.zero;
@@ -182,6 +183,31 @@ class CardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void dislikehome() async {
+    _angle = -20;
+    _position -= Offset(2 * _screenSize.width, 0);
+    List listDislikedMe = [];
+
+    final disliked =
+        await FirebaseFirestore.instance.collection('dislike').doc(uid).get();
+
+    if (disliked.exists) {
+      listDislikedMe = disliked['id'];
+    }
+
+    if (!listDislikedMe.contains(users.last.uid))
+      listDislikedMe.add(users.last.uid);
+
+    await FirebaseFirestore.instance
+        .collection('dislike')
+        .doc(uid)
+        .set({"id": listDislikedMe});
+
+    _nextCardhome();
+
+    notifyListeners();
+  }
+
   void updateDislike() async {
     await FirebaseFirestore.instance
         .collection('liked')
@@ -271,6 +297,14 @@ class CardProvider extends ChangeNotifier {
     await Future.delayed(Duration(milliseconds: 200));
     _users.removeLast();
     resetPosition();
+    notifyListeners();
+  }
+
+  Future _nextCardhome() async {
+    if (users.isEmpty) return;
+
+    await Future.delayed(Duration(milliseconds: 200));
+    _users.removeLast();
   }
 
   void resetUsers() async {
@@ -356,6 +390,7 @@ class CardProvider extends ChangeNotifier {
               longitude: teste['longitude'],
               listFocus: teste['listFocus'],
               soul: teste['soul'],
+              token: teste['token'],
               uid: teste['uid'],
               zodiac: teste['zodiac'],
               photos: teste['photos'],

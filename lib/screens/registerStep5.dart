@@ -39,6 +39,28 @@ class _RegisterStep5State extends State<RegisterStep5> {
         fit: BoxFit.cover,
       )),
       child: Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: Container(
+          width: size.width * 0.35,
+          height: size.height * 0.035,
+          child: FloatingActionButton(
+            backgroundColor: selectedIndex == ''
+                ? Color.fromARGB(255, 0, 0, 0)
+                : Color.fromARGB(255, 207, 202, 187),
+            shape: BeveledRectangleBorder(borderRadius: BorderRadius.zero),
+            onPressed: () {
+              update();
+            },
+            child: Text('CONFIRMAR',
+                style: TextStyle(
+                    color: selectedIndex != ''
+                        ? Color.fromARGB(255, 0, 0, 0)
+                        : Color.fromARGB(255, 207, 202, 187),
+                    fontFamily: 'CM Sans Serif',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16)),
+          ),
+        ),
         backgroundColor: Colors.transparent,
         body: SafeArea(
           child: SingleChildScrollView(
@@ -181,6 +203,16 @@ class _RegisterStep5State extends State<RegisterStep5> {
         ),
       ),
     );
+  }
+
+  void update() async {
+    if (selectedIndex != "") {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user?.uid)
+          .update({'zodiac': selectedIndex});
+      Navigator.pushNamed(context, '/registerStep6');
+    }
   }
 
   Flexible zodiac(String image, String sign, String date, String number) {

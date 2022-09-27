@@ -55,7 +55,7 @@ class _RegisterISearchPageState extends State<RegisterISearchPage> {
                                   color: Color.fromARGB(255, 147, 132, 100),
                                   fontWeight: FontWeight.w700)),
                           TextSpan(
-                              text: 'como a sua alma se manifesta?',
+                              text: 'Como é a chama gêmea que você procura?',
                               style: GoogleFonts.quicksand(
                                   fontSize: 20,
                                   color: Color.fromARGB(255, 207, 202, 187),
@@ -82,7 +82,8 @@ class _RegisterISearchPageState extends State<RegisterISearchPage> {
                                 itemBuilder: (context, index) {
                                   String nameGender = list?[index]['name'];
 
-                                  if (selectedIndex == '0' ||
+                                  if (selectedIndex == '' ||
+                                      selectedIndex == '0' ||
                                       selectedIndex == '1') {
                                     if (index.toString() == '3' ||
                                         index.toString() == '4' ||
@@ -228,11 +229,15 @@ class _RegisterISearchPageState extends State<RegisterISearchPage> {
                     child: Center(
                       child: GestureDetector(
                         onTap: () async {
+                          int numero = int.parse(selectedIndex);
+                          numero = numero + 1;
+                          String retornoString = numero.toString();
+
                           await FirebaseFirestore.instance
                               .collection('users')
                               .doc(user?.uid)
                               .update({
-                            'interested': selectedIndex,
+                            'interested': retornoString,
                             'typeInterested': typeInterested
                           });
 
