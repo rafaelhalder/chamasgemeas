@@ -319,9 +319,472 @@ class _UserPageHomeState extends State<UserPageHome> {
                               ),
                             ),
                             Positioned.fill(
-                              bottom: 10,
                               child: Align(
                                 alignment: Alignment.bottomCenter,
+                                child: Container(
+                                  height: 70,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ElevatedButton(
+                                        style: ButtonStyle(
+                                          foregroundColor: getColor(
+                                              Colors.white,
+                                              Colors.white,
+                                              isDislike),
+                                          backgroundColor: getColor(Colors.grey,
+                                              Colors.red, isDislike),
+                                          side: getBorder(Colors.white,
+                                              Colors.white, isDislike),
+                                        ),
+                                        child: Icon(Icons.clear, size: 46),
+                                        onPressed: () {
+                                          final provider =
+                                              Provider.of<CardProvider>(context,
+                                                  listen: false);
+                                          provider.dislike();
+                                          Navigator.pushNamed(context, '/home');
+                                        },
+                                      ),
+                                      ElevatedButton(
+                                        style: ButtonStyle(
+                                          foregroundColor: getColor(
+                                              Colors.white,
+                                              Colors.white,
+                                              isSuperLike),
+                                          backgroundColor: getColor(
+                                              Colors.amber,
+                                              Colors.amber,
+                                              isSuperLike),
+                                          side: getBorder(Colors.white,
+                                              Colors.white, isSuperLike),
+                                        ),
+                                        child: Icon(Icons.star, size: 40),
+                                        onPressed: () async {
+                                          int coin = await consUser();
+                                          print(coin);
+                                          if (coin == 0) {
+                                            fetchOffers();
+                                            return null;
+                                          }
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return Dialog(
+                                                  insetPadding:
+                                                      const EdgeInsets.all(20),
+
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              40.0)), //this right here
+                                                  child: Container(
+                                                    height: size.height * 0.8,
+                                                    width: size.width * 1,
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: const Color
+                                                                    .fromARGB(
+                                                                255,
+                                                                207,
+                                                                202,
+                                                                187)),
+                                                        color: Colors.black87,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(40)),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              12.0),
+                                                      child: Stack(children: [
+                                                        Positioned.fill(
+                                                          child: Align(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .topCenter,
+                                                              child: Column(
+                                                                children: [
+                                                                  DefaultTextStyle(
+                                                                    style:
+                                                                        GoogleFonts
+                                                                            .acme(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          20,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                    ),
+                                                                    child: const Text(
+                                                                        'Super Like'),
+                                                                  ),
+                                                                  DefaultTextStyle(
+                                                                    style:
+                                                                        GoogleFonts
+                                                                            .acme(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          20,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                    ),
+                                                                    child: const Text(
+                                                                        'Envie uma mensagem'),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                    height: 10,
+                                                                  ),
+                                                                  CircleAvatar(
+                                                                    radius: 55,
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    child: CircleAvatar(
+                                                                        radius: 80,
+                                                                        backgroundColor: Colors.transparent,
+                                                                        child: ClipRRect(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(55),
+                                                                          child:
+                                                                              CachedNetworkImage(
+                                                                            fadeInDuration:
+                                                                                const Duration(milliseconds: 0),
+                                                                            fadeOutDuration:
+                                                                                const Duration(milliseconds: 0),
+                                                                            fit:
+                                                                                BoxFit.cover,
+                                                                            imageUrl:
+                                                                                photos[0]['url'],
+                                                                            width:
+                                                                                120,
+                                                                            height:
+                                                                                120,
+                                                                          ),
+                                                                        )),
+                                                                  )
+                                                                ],
+                                                              )),
+                                                        ),
+                                                        Positioned.fill(
+                                                          top: 80,
+                                                          child: Align(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              child: Container(
+                                                                decoration: BoxDecoration(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    border: Border.all(
+                                                                        color: Colors
+                                                                            .white24)),
+                                                                child:
+                                                                    TextField(
+                                                                        decoration: InputDecoration(
+                                                                            contentPadding: EdgeInsets.all(
+                                                                                10),
+                                                                            hintText:
+                                                                                'Envia uma mensagem para sua chama',
+                                                                            hintStyle: TextStyle(
+                                                                                color: Colors
+                                                                                    .white)),
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .white),
+                                                                        maxLines:
+                                                                            6,
+                                                                        onChanged:
+                                                                            (value) {
+                                                                          setState(
+                                                                              () {
+                                                                            textoChat =
+                                                                                value;
+                                                                          });
+                                                                        }),
+                                                              )),
+                                                        ),
+                                                        Positioned.fill(
+                                                          child: Align(
+                                                            alignment: Alignment
+                                                                .bottomCenter,
+                                                            child: Container(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              width:
+                                                                  size.width *
+                                                                      0.65,
+                                                              height:
+                                                                  size.height *
+                                                                      0.055,
+                                                              child:
+                                                                  ElevatedButton
+                                                                      .icon(
+                                                                style: ElevatedButton
+                                                                    .styleFrom(
+                                                                  shape:
+                                                                      const StadiumBorder(),
+                                                                  primary:
+                                                                      const Color
+                                                                              .fromARGB(
+                                                                          255,
+                                                                          0,
+                                                                          0,
+                                                                          0),
+                                                                  side:
+                                                                      const BorderSide(
+                                                                    width: 1,
+                                                                    color: Color
+                                                                        .fromARGB(
+                                                                            152,
+                                                                            255,
+                                                                            255,
+                                                                            255),
+                                                                  ),
+                                                                ),
+                                                                onPressed:
+                                                                    () async {
+                                                                  final provider = Provider.of<
+                                                                          CardProvider>(
+                                                                      context,
+                                                                      listen:
+                                                                          false);
+                                                                  CollectionReference
+                                                                      chats =
+                                                                      FirebaseFirestore
+                                                                          .instance
+                                                                          .collection(
+                                                                              'chats');
+                                                                  if (textoChat !=
+                                                                      '') {
+                                                                    List
+                                                                        usersLikedMe =
+                                                                        [];
+                                                                    String
+                                                                        usuarioUid =
+                                                                        users
+                                                                            .last
+                                                                            .uid;
+                                                                    String
+                                                                        usuarioName =
+                                                                        users
+                                                                            .last
+                                                                            .name;
+                                                                    String
+                                                                        tokenUsuaria =
+                                                                        users
+                                                                            .last
+                                                                            .token;
+                                                                    int coins =
+                                                                        0;
+                                                                    provider
+                                                                        .superLike();
+
+                                                                    final foundLikeMe = await FirebaseFirestore
+                                                                        .instance
+                                                                        .collection(
+                                                                            'liked_me')
+                                                                        .doc(
+                                                                            uid)
+                                                                        .get();
+                                                                    if (foundLikeMe
+                                                                        .exists) {
+                                                                      usersLikedMe =
+                                                                          foundLikeMe[
+                                                                              'id'];
+                                                                    }
+
+                                                                    final distances = await FirebaseFirestore
+                                                                        .instance
+                                                                        .collection(
+                                                                            'users')
+                                                                        .doc(
+                                                                            uid)
+                                                                        .get();
+
+                                                                    if (distances
+                                                                        .exists) {
+                                                                      coins = distances[
+                                                                          'coin'];
+                                                                    }
+
+                                                                    await FirebaseFirestore
+                                                                        .instance
+                                                                        .collection(
+                                                                            'users')
+                                                                        .doc(user
+                                                                            ?.uid)
+                                                                        .update({
+                                                                      'coin':
+                                                                          coins -
+                                                                              1
+                                                                    });
+                                                                    usersLikedMe.contains(
+                                                                            usuarioUid)
+                                                                        ? await chats
+                                                                            .where('users.$uid',
+                                                                                isEqualTo:
+                                                                                    1)
+                                                                            .where('users.$usuarioUid', whereIn: [
+                                                                              1,
+                                                                              2
+                                                                            ])
+                                                                            .limit(
+                                                                                1)
+                                                                            .get()
+                                                                            .then(
+                                                                              (QuerySnapshot querySnapshot) async {
+                                                                                if (querySnapshot.docs.isEmpty) {
+                                                                                  await chats.where('users.$uid', isEqualTo: 2).where('users.$usuarioUid', whereIn: [1, 2]).limit(1).get().then((QuerySnapshot querySnapshot) async {
+                                                                                        if (querySnapshot.docs.isEmpty) {
+                                                                                          await chats.add({
+                                                                                            'users': {
+                                                                                              uid: 1,
+                                                                                              usuarioUid: 1
+                                                                                            },
+                                                                                            'names': {
+                                                                                              uid: FirebaseAuth.instance.currentUser?.displayName,
+                                                                                              usuarioUid: usuarioName
+                                                                                            }
+                                                                                          });
+                                                                                        }
+                                                                                      });
+
+                                                                                  await chats.where('users.$uid', isEqualTo: 1).where('users.$usuarioUid', isEqualTo: 1).limit(1).get().then(
+                                                                                    (QuerySnapshot querySnapshot) async {
+                                                                                      if (querySnapshot.docs.isNotEmpty) {
+                                                                                        chats.doc(querySnapshot.docs.single.id).collection('messages').add({
+                                                                                          'createdOn': DateTime.now(),
+                                                                                          'uid': uid,
+                                                                                          'friendName': usuarioName,
+                                                                                          'msg': textoChat
+                                                                                        });
+                                                                                        print(querySnapshot.docs.single.id);
+                                                                                      }
+                                                                                    },
+                                                                                  ).catchError((error) {});
+                                                                                }
+                                                                              },
+                                                                            )
+                                                                            .catchError(
+                                                                                (error) {})
+                                                                        : await chats
+                                                                            .where('users.$usuarioUid',
+                                                                                isEqualTo:
+                                                                                    1)
+                                                                            .where('users.$uid', whereIn: [
+                                                                              1,
+                                                                              2
+                                                                            ])
+                                                                            .limit(1)
+                                                                            .get()
+                                                                            .then(
+                                                                              (QuerySnapshot querySnapshot) async {
+                                                                                if (querySnapshot.docs.isEmpty) {
+                                                                                  await chats.add({
+                                                                                    'users': {
+                                                                                      uid: 2,
+                                                                                      usuarioUid: 1
+                                                                                    },
+                                                                                    'names': {
+                                                                                      uid: FirebaseAuth.instance.currentUser?.displayName,
+                                                                                      usuarioUid: usuarioName
+                                                                                    }
+                                                                                  });
+
+                                                                                  await chats.where('users.$uid', isEqualTo: 2).where('users.$usuarioUid', isEqualTo: 1).limit(1).get().then(
+                                                                                    (QuerySnapshot querySnapshot) async {
+                                                                                      if (querySnapshot.docs.isNotEmpty) {
+                                                                                        chats.doc(querySnapshot.docs.single.id).collection('messages').add({
+                                                                                          'createdOn': DateTime.now(),
+                                                                                          'uid': uid,
+                                                                                          'friendName': usuarioName,
+                                                                                          'msg': textoChat
+                                                                                        });
+                                                                                        print(querySnapshot.docs.single.id);
+                                                                                      }
+                                                                                    },
+                                                                                  ).catchError((error) {});
+                                                                                }
+                                                                              },
+                                                                            )
+                                                                            .catchError((error) {});
+                                                                    sendPushMessage(
+                                                                        'Você recebeu um super like',
+                                                                        'Super Like',
+                                                                        tokenUsuaria);
+
+                                                                    Navigator.pushNamed(
+                                                                        context,
+                                                                        '/home');
+                                                                  }
+                                                                },
+                                                                icon:
+                                                                    const Icon(
+                                                                  null,
+                                                                  size: 1.0,
+                                                                ),
+                                                                label: const Text(
+                                                                    'Enviar'), // <-- Text
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ]),
+                                                    ),
+                                                  ),
+                                                );
+                                              });
+
+                                          final provider =
+                                              Provider.of<CardProvider>(context,
+                                                  listen: false);
+
+                                          // provider.superLike();
+                                        },
+                                      ),
+                                      ElevatedButton(
+                                        style: ButtonStyle(
+                                          foregroundColor: getColor(
+                                              Colors.white,
+                                              Colors.white,
+                                              isLike),
+                                          backgroundColor: getColor(
+                                              Colors.pink, Colors.pink, isLike),
+                                          side: getBorder(Colors.white,
+                                              Colors.white, isLike),
+                                        ),
+                                        child: Icon(Icons.favorite, size: 40),
+                                        onPressed: () {
+                                          final provider =
+                                              Provider.of<CardProvider>(context,
+                                                  listen: false);
+
+                                          String photo = provider.photoUser;
+                                          String actualUser =
+                                              users.last.uid.toString();
+                                          String actualUserName =
+                                              users.last.name.toString();
+                                          String fileActual =
+                                              users.last.photos[0]['url'];
+                                          provider.like();
+                                          verifyMatch(actualUser, fileActual,
+                                              actualUserName, photo);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Positioned.fill(
+                              bottom: 10,
+                              child: Align(
+                                alignment: Alignment.topCenter,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: filterPhoto.map((url) {
@@ -821,456 +1284,6 @@ class _UserPageHomeState extends State<UserPageHome> {
                                   ),
                                 )
                               : Container(),
-                        Container(
-                          height: 70,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              ElevatedButton(
-                                style: ButtonStyle(
-                                  foregroundColor: getColor(
-                                      Colors.white, Colors.white, isDislike),
-                                  backgroundColor: getColor(
-                                      Colors.grey, Colors.red, isDislike),
-                                  side: getBorder(
-                                      Colors.white, Colors.white, isDislike),
-                                ),
-                                child: Icon(Icons.clear, size: 46),
-                                onPressed: () {
-                                  final provider = Provider.of<CardProvider>(
-                                      context,
-                                      listen: false);
-                                  provider.dislike();
-                                  Navigator.pushNamed(context, '/home');
-                                },
-                              ),
-                              ElevatedButton(
-                                style: ButtonStyle(
-                                  foregroundColor: getColor(
-                                      Colors.white, Colors.white, isSuperLike),
-                                  backgroundColor: getColor(
-                                      Colors.amber, Colors.amber, isSuperLike),
-                                  side: getBorder(
-                                      Colors.white, Colors.white, isSuperLike),
-                                ),
-                                child: Icon(Icons.star, size: 40),
-                                onPressed: () async {
-                                  int coin = await consUser();
-                                  print(coin);
-                                  if (coin == 0) {
-                                    fetchOffers();
-                                    return null;
-                                  }
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Dialog(
-                                          insetPadding:
-                                              const EdgeInsets.all(20),
-
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      40.0)), //this right here
-                                          child: Container(
-                                            height: size.height * 0.8,
-                                            width: size.width * 1,
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: const Color.fromARGB(
-                                                        255, 207, 202, 187)),
-                                                color: Colors.black87,
-                                                borderRadius:
-                                                    BorderRadius.circular(40)),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(12.0),
-                                              child: Stack(children: [
-                                                Positioned.fill(
-                                                  child: Align(
-                                                      alignment:
-                                                          Alignment.topCenter,
-                                                      child: Column(
-                                                        children: [
-                                                          DefaultTextStyle(
-                                                            style: GoogleFonts
-                                                                .acme(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 20,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                            ),
-                                                            child: const Text(
-                                                                'Super Like'),
-                                                          ),
-                                                          DefaultTextStyle(
-                                                            style: GoogleFonts
-                                                                .acme(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 20,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                            ),
-                                                            child: const Text(
-                                                                'Envie uma mensagem'),
-                                                          ),
-                                                          const SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          CircleAvatar(
-                                                            radius: 55,
-                                                            backgroundColor:
-                                                                Colors
-                                                                    .transparent,
-                                                            child: CircleAvatar(
-                                                                radius: 80,
-                                                                backgroundColor:
-                                                                    Colors
-                                                                        .transparent,
-                                                                child:
-                                                                    ClipRRect(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              55),
-                                                                  child:
-                                                                      CachedNetworkImage(
-                                                                    fadeInDuration:
-                                                                        const Duration(
-                                                                            milliseconds:
-                                                                                0),
-                                                                    fadeOutDuration:
-                                                                        const Duration(
-                                                                            milliseconds:
-                                                                                0),
-                                                                    fit: BoxFit
-                                                                        .cover,
-                                                                    imageUrl:
-                                                                        photos[0]
-                                                                            [
-                                                                            'url'],
-                                                                    width: 120,
-                                                                    height: 120,
-                                                                  ),
-                                                                )),
-                                                          )
-                                                        ],
-                                                      )),
-                                                ),
-                                                Positioned.fill(
-                                                  top: 80,
-                                                  child: Align(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child: Container(
-                                                        decoration: BoxDecoration(
-                                                            color: Colors.black,
-                                                            border: Border.all(
-                                                                color: Colors
-                                                                    .white24)),
-                                                        child: TextField(
-                                                            decoration: InputDecoration(
-                                                                contentPadding:
-                                                                    EdgeInsets
-                                                                        .all(
-                                                                            10),
-                                                                hintText:
-                                                                    'Envia uma mensagem para sua chama',
-                                                                hintStyle: TextStyle(
-                                                                    color: Colors
-                                                                        .white)),
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white),
-                                                            maxLines: 6,
-                                                            onChanged: (value) {
-                                                              setState(() {
-                                                                textoChat =
-                                                                    value;
-                                                              });
-                                                            }),
-                                                      )),
-                                                ),
-                                                Positioned.fill(
-                                                  child: Align(
-                                                    alignment:
-                                                        Alignment.bottomCenter,
-                                                    child: Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: size.width * 0.65,
-                                                      height:
-                                                          size.height * 0.055,
-                                                      child:
-                                                          ElevatedButton.icon(
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                          shape:
-                                                              const StadiumBorder(),
-                                                          primary: const Color
-                                                                  .fromARGB(
-                                                              255, 0, 0, 0),
-                                                          side:
-                                                              const BorderSide(
-                                                            width: 1,
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    152,
-                                                                    255,
-                                                                    255,
-                                                                    255),
-                                                          ),
-                                                        ),
-                                                        onPressed: () async {
-                                                          final provider = Provider
-                                                              .of<CardProvider>(
-                                                                  context,
-                                                                  listen:
-                                                                      false);
-                                                          CollectionReference
-                                                              chats =
-                                                              FirebaseFirestore
-                                                                  .instance
-                                                                  .collection(
-                                                                      'chats');
-                                                          if (textoChat != '') {
-                                                            List usersLikedMe =
-                                                                [];
-                                                            String usuarioUid =
-                                                                users.last.uid;
-                                                            String usuarioName =
-                                                                users.last.name;
-                                                            String
-                                                                tokenUsuaria =
-                                                                users
-                                                                    .last.token;
-                                                            int coins = 0;
-                                                            provider
-                                                                .superLike();
-
-                                                            final foundLikeMe =
-                                                                await FirebaseFirestore
-                                                                    .instance
-                                                                    .collection(
-                                                                        'liked_me')
-                                                                    .doc(uid)
-                                                                    .get();
-                                                            if (foundLikeMe
-                                                                .exists) {
-                                                              usersLikedMe =
-                                                                  foundLikeMe[
-                                                                      'id'];
-                                                            }
-
-                                                            final distances =
-                                                                await FirebaseFirestore
-                                                                    .instance
-                                                                    .collection(
-                                                                        'users')
-                                                                    .doc(uid)
-                                                                    .get();
-
-                                                            if (distances
-                                                                .exists) {
-                                                              coins = distances[
-                                                                  'coin'];
-                                                            }
-
-                                                            await FirebaseFirestore
-                                                                .instance
-                                                                .collection(
-                                                                    'users')
-                                                                .doc(user?.uid)
-                                                                .update({
-                                                              'coin': coins - 1
-                                                            });
-                                                            usersLikedMe.contains(
-                                                                    usuarioUid)
-                                                                ? await chats
-                                                                    .where('users.$uid',
-                                                                        isEqualTo:
-                                                                            1)
-                                                                    .where(
-                                                                        'users.$usuarioUid',
-                                                                        whereIn: [
-                                                                          1,
-                                                                          2
-                                                                        ])
-                                                                    .limit(1)
-                                                                    .get()
-                                                                    .then(
-                                                                      (QuerySnapshot
-                                                                          querySnapshot) async {
-                                                                        if (querySnapshot
-                                                                            .docs
-                                                                            .isEmpty) {
-                                                                          await chats
-                                                                              .where('users.$uid', isEqualTo: 2)
-                                                                              .where('users.$usuarioUid', whereIn: [1, 2])
-                                                                              .limit(1)
-                                                                              .get()
-                                                                              .then((QuerySnapshot querySnapshot) async {
-                                                                                if (querySnapshot.docs.isEmpty) {
-                                                                                  await chats.add({
-                                                                                    'users': {
-                                                                                      uid: 1,
-                                                                                      usuarioUid: 1
-                                                                                    },
-                                                                                    'names': {
-                                                                                      uid: FirebaseAuth.instance.currentUser?.displayName,
-                                                                                      usuarioUid: usuarioName
-                                                                                    }
-                                                                                  });
-                                                                                }
-                                                                              });
-
-                                                                          await chats
-                                                                              .where('users.$uid', isEqualTo: 1)
-                                                                              .where('users.$usuarioUid', isEqualTo: 1)
-                                                                              .limit(1)
-                                                                              .get()
-                                                                              .then(
-                                                                            (QuerySnapshot
-                                                                                querySnapshot) async {
-                                                                              if (querySnapshot.docs.isNotEmpty) {
-                                                                                chats.doc(querySnapshot.docs.single.id).collection('messages').add({
-                                                                                  'createdOn': DateTime.now(),
-                                                                                  'uid': uid,
-                                                                                  'friendName': usuarioName,
-                                                                                  'msg': textoChat
-                                                                                });
-                                                                                print(querySnapshot.docs.single.id);
-                                                                              }
-                                                                            },
-                                                                          ).catchError((error) {});
-                                                                        }
-                                                                      },
-                                                                    )
-                                                                    .catchError(
-                                                                        (error) {})
-                                                                : await chats
-                                                                    .where(
-                                                                        'users.$usuarioUid',
-                                                                        isEqualTo:
-                                                                            1)
-                                                                    .where(
-                                                                        'users.$uid',
-                                                                        whereIn: [
-                                                                          1,
-                                                                          2
-                                                                        ])
-                                                                    .limit(1)
-                                                                    .get()
-                                                                    .then(
-                                                                      (QuerySnapshot
-                                                                          querySnapshot) async {
-                                                                        if (querySnapshot
-                                                                            .docs
-                                                                            .isEmpty) {
-                                                                          await chats
-                                                                              .add({
-                                                                            'users':
-                                                                                {
-                                                                              uid: 2,
-                                                                              usuarioUid: 1
-                                                                            },
-                                                                            'names':
-                                                                                {
-                                                                              uid: FirebaseAuth.instance.currentUser?.displayName,
-                                                                              usuarioUid: usuarioName
-                                                                            }
-                                                                          });
-
-                                                                          await chats
-                                                                              .where('users.$uid', isEqualTo: 2)
-                                                                              .where('users.$usuarioUid', isEqualTo: 1)
-                                                                              .limit(1)
-                                                                              .get()
-                                                                              .then(
-                                                                            (QuerySnapshot
-                                                                                querySnapshot) async {
-                                                                              if (querySnapshot.docs.isNotEmpty) {
-                                                                                chats.doc(querySnapshot.docs.single.id).collection('messages').add({
-                                                                                  'createdOn': DateTime.now(),
-                                                                                  'uid': uid,
-                                                                                  'friendName': usuarioName,
-                                                                                  'msg': textoChat
-                                                                                });
-                                                                                print(querySnapshot.docs.single.id);
-                                                                              }
-                                                                            },
-                                                                          ).catchError((error) {});
-                                                                        }
-                                                                      },
-                                                                    )
-                                                                    .catchError(
-                                                                        (error) {});
-                                                            sendPushMessage(
-                                                                'um debiloide te deu super like',
-                                                                'Maria',
-                                                                tokenUsuaria);
-
-                                                            Navigator.pushNamed(
-                                                                context,
-                                                                '/home');
-                                                          }
-                                                        },
-                                                        icon: const Icon(
-                                                          null,
-                                                          size: 1.0,
-                                                        ),
-                                                        label: const Text(
-                                                            'Enviar'), // <-- Text
-                                                      ),
-                                                    ),
-                                                  ),
-                                                )
-                                              ]),
-                                            ),
-                                          ),
-                                        );
-                                      });
-
-                                  final provider = Provider.of<CardProvider>(
-                                      context,
-                                      listen: false);
-
-                                  // provider.superLike();
-                                },
-                              ),
-                              ElevatedButton(
-                                style: ButtonStyle(
-                                  foregroundColor: getColor(
-                                      Colors.white, Colors.white, isLike),
-                                  backgroundColor: getColor(
-                                      Colors.pink, Colors.pink, isLike),
-                                  side: getBorder(
-                                      Colors.white, Colors.white, isLike),
-                                ),
-                                child: Icon(Icons.favorite, size: 40),
-                                onPressed: () {
-                                  final provider = Provider.of<CardProvider>(
-                                      context,
-                                      listen: false);
-
-                                  String photo = provider.photoUser;
-                                  String actualUser = users.last.uid.toString();
-                                  String actualUserName =
-                                      users.last.name.toString();
-                                  String fileActual =
-                                      users.last.photos[0]['url'];
-                                  provider.like();
-                                  verifyMatch(actualUser, fileActual,
-                                      actualUserName, photo);
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
                       ]),
                     ),
                   )

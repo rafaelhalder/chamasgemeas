@@ -57,7 +57,7 @@ class _RegisterStep6PageState extends State<RegisterStep6Page> {
                                 text: '7 (sete) ATIVIDADES \n',
                                 style: GoogleFonts.quicksand(
                                     fontSize: 20,
-                                    color: Color.fromARGB(255, 147, 132, 100),
+                                    color: Color.fromARGB(255, 185, 166, 126),
                                     fontWeight: FontWeight.w700)),
                             TextSpan(
                                 text:
@@ -88,8 +88,8 @@ class _RegisterStep6PageState extends State<RegisterStep6Page> {
                                   child: Container(
                                     decoration: BoxDecoration(
                                         border: Border.all(
-                                            color: const Color.fromARGB(
-                                                255, 238, 238, 238)),
+                                            color: Color.fromARGB(
+                                                255, 199, 191, 167)),
                                         color: const Color.fromARGB(
                                             10, 238, 238, 238),
                                         borderRadius:
@@ -97,15 +97,16 @@ class _RegisterStep6PageState extends State<RegisterStep6Page> {
                                     margin:
                                         const EdgeInsets.symmetric(vertical: 3),
                                     child: CheckboxListTile(
-                                      selectedTileColor: Colors.white,
+                                      selectedTileColor:
+                                          Color.fromARGB(255, 147, 132, 100),
                                       checkboxShape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(10)),
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(10)),
-                                      activeColor: const Color.fromARGB(
-                                          255, 207, 202, 187),
+                                      activeColor:
+                                          Color.fromARGB(255, 185, 166, 126),
                                       tileColor:
                                           Color.fromARGB(255, 207, 202, 187),
                                       checkColor: Colors.black,
@@ -119,10 +120,10 @@ class _RegisterStep6PageState extends State<RegisterStep6Page> {
                                           height: 1.2,
                                           color: multipleSelected
                                                   .contains(list[index]['id'])
-                                              ? const Color.fromARGB(
-                                                  255, 255, 255, 255)
-                                              : const Color.fromARGB(
-                                                  255, 211, 211, 211),
+                                              ? Color.fromARGB(
+                                                  255, 199, 191, 167)
+                                              : Color.fromARGB(
+                                                  223, 153, 148, 128),
                                         ),
                                       ),
                                       value: multipleSelected

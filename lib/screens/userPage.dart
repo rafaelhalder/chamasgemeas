@@ -15,6 +15,15 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'HomePage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:chamasgemeas/api/purchase_api.dart';
+import 'package:chamasgemeas/paywall_widget.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
+import '../paywall_widget.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class UserPage extends StatefulWidget {
   const UserPage({Key? key}) : super(key: key);
@@ -33,6 +42,7 @@ class _UserPageState extends State<UserPage> {
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
     var userList = arguments['info'];
     String name = userList['name'];
+    String friendID = userList['uid'];
     String imagemLink = userList['soul'] + '.png';
     int typeInte = userList['typeInterested'];
     String interested = '';
@@ -43,19 +53,23 @@ class _UserPageState extends State<UserPage> {
     double longitude = double.parse(userList['longitude']);
     String occupation = userList['occupation'];
     String aboutMe = userList['aboutMe'];
-    print(userList);
     int age = userList['age'];
     List photos = userList['photos'];
     final provider = Provider.of<CardProvider>(context);
     final users = provider.users;
-    print(users.last.aboutMe);
     List filterPhoto = [];
     var distance = const lat.Distance();
-
+    final status = provider.getStatus();
+    final isLike = status == CardStatus.like;
+    final isDislike = status == CardStatus.dislike;
+    final isSuperLike = status == CardStatus.superLike;
     // km = 423
     final km = distance.as(lat.LengthUnit.Kilometer, lat.LatLng(lati, long),
         lat.LatLng(latitude, longitude));
-
+    String textoChat = '';
+    String? tokenAuth = "";
+    String? uid = FirebaseAuth.instance.currentUser?.uid;
+    User? user = FirebaseAuth.instance.currentUser;
     print(lati);
     print(long);
     print(latitude);
@@ -214,7 +228,6 @@ class _UserPageState extends State<UserPage> {
             // ]),
             extendBodyBehindAppBar: true,
             appBar: AppBar(
-              leading: Container(),
               elevation: 0,
               backgroundColor: const Color.fromARGB(0, 0, 0, 0),
             ),
@@ -283,11 +296,59 @@ class _UserPageState extends State<UserPage> {
                         ),
                       ),
                       Positioned.fill(
-                        bottom: 10,
                         child: Align(
                           alignment: Alignment.bottomCenter,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                          child: Container(
+                            height: 70,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ElevatedButton(
+                                  style: ButtonStyle(
+                                    foregroundColor: getColor(
+                                        Colors.white, Colors.white, isDislike),
+                                    backgroundColor: getColor(
+                                        Colors.grey, Colors.red, isDislike),
+                                    side: getBorder(
+                                        Colors.white, Colors.white, isDislike),
+                                  ),
+                                  child: Icon(Icons.clear, size: 46),
+                                  onPressed: () {
+                                    final provider = Provider.of<CardProvider>(
+                                        context,
+                                        listen: false);
+                                    dislike2(friendID);
+                                    //friendID
+                                    Navigator.pushNamed(context, '/home');
+                                  },
+                                ),
+                                ElevatedButton(
+                                  style: ButtonStyle(
+                                    foregroundColor: getColor(
+                                        Colors.white, Colors.white, isLike),
+                                    backgroundColor: getColor(
+                                        Colors.pink, Colors.pink, isLike),
+                                    side: getBorder(
+                                        Colors.white, Colors.white, isLike),
+                                  ),
+                                  child: Icon(Icons.favorite, size: 40),
+                                  onPressed: () {
+                                    like(friendID);
+                                    verifyMatch(
+                                        friendID, name, photos[0]['url']);
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned.fill(
+                        bottom: 10,
+                        child: Align(
+                          alignment: Alignment.topCenter,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: filterPhoto.map((url) {
                               int index = filterPhoto.indexOf(url);
                               return Container(
@@ -304,38 +365,6 @@ class _UserPageState extends State<UserPage> {
                                 ),
                               );
                             }).toList(),
-                          ),
-                        ),
-                      ),
-                      Positioned.fill(
-                        top: 10,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 34, vertical: 12),
-                          child: Align(
-                            alignment: Alignment.topLeft,
-                            child: GestureDetector(
-                              onTap: () {
-                                print('12345');
-                                Navigator.pushNamed(context, '/home');
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(30)),
-                                width: 30.0,
-                                height: 30,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    print('12345');
-                                    Navigator.pushNamed(context, '/home');
-                                  },
-                                  child: Center(
-                                      child:
-                                          FaIcon(FontAwesomeIcons.circleLeft)),
-                                ),
-                              ),
-                            ),
                           ),
                         ),
                       ),
@@ -779,6 +808,226 @@ class _UserPageState extends State<UserPage> {
         ),
       ),
     );
+  }
+
+  void like(String uids) async {
+    String? uid = FirebaseAuth.instance.currentUser?.uid;
+
+    List listDislikedMe = [];
+
+    final disliked =
+        await FirebaseFirestore.instance.collection('liked').doc(uid).get();
+
+    if (disliked.exists) {
+      listDislikedMe = disliked['id'];
+    }
+
+    if (!listDislikedMe.contains(uids)) listDislikedMe.add(uids);
+
+    await FirebaseFirestore.instance
+        .collection('liked')
+        .doc(uid)
+        .set({"id": listDislikedMe});
+
+    List listLikedMe = [];
+
+    final likedme =
+        await FirebaseFirestore.instance.collection('liked_me').doc(uids).get();
+
+    if (likedme.exists) {
+      listLikedMe = likedme['id'];
+    }
+    if (!listLikedMe.contains(uid) && uid != null) listLikedMe.add(uid);
+    await FirebaseFirestore.instance
+        .collection('liked_me')
+        .doc(uids)
+        .set({"id": listLikedMe});
+  }
+
+  void dislike2(String uids) async {
+    String? uid = FirebaseAuth.instance.currentUser?.uid;
+
+    List listDislikedMe = [];
+
+    final disliked =
+        await FirebaseFirestore.instance.collection('dislike').doc(uid).get();
+
+    if (disliked.exists) {
+      listDislikedMe = disliked['id'];
+    }
+
+    if (!listDislikedMe.contains(uids)) listDislikedMe.add(uids);
+
+    await FirebaseFirestore.instance
+        .collection('dislike')
+        .doc(uid)
+        .set({"id": listDislikedMe});
+  }
+
+  Future<int> consUser() async {
+    String? uid = FirebaseAuth.instance.currentUser?.uid;
+
+    final verifyCoin =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    int coins = verifyCoin['coin'];
+    return coins;
+  }
+
+  Future fetchOffers() async {
+    final offerings = await PurchaseApi.fetchOffersByIds(Coins.allIds);
+
+    if (offerings.isEmpty) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('No Plans Found')));
+    } else {
+      final packages = offerings
+          .map((offer) => offer.availablePackages)
+          .expand((pair) => pair)
+          .toList();
+
+      showMaterialModalBottomSheet(
+        expand: false,
+        context: context,
+        backgroundColor: Color.fromARGB(231, 0, 0, 0),
+        builder: (context) => PaywallWidget(
+            packages: packages,
+            title: 'Chamas Premium',
+            description: 'Veja quem te curtiu.',
+            onClickedPackage: (package) async {
+              final isSuccess = await PurchaseApi.purchasePackage(package);
+
+              if (isSuccess) {
+                await addCoinsPackag2e(package);
+              }
+
+              Navigator.pop(context);
+            }),
+      );
+
+      final offer = offerings.first;
+      print('Offer: $offer');
+    }
+  }
+
+  void sendPushMessage(
+      String message, String? currentUserName, String? token) async {
+    try {
+      await http.post(
+        Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization':
+              'key=AAAAhIRIRac:APA91bGld0gKYT_K5i7BTRCOdxBz14Qj4Cs85LmDd2bCSZOlEHaV2GvbxVGk307kQqGY5y3AXqjVbye-7CkIH0jTYnnAmfjNfxTpvGYTfvQ3CDvdlvdKRjrB-T7Lgn17YdanVXO4eQdZ',
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+            'notification': <String, dynamic>{
+              'body': '$message',
+              'title': '$currentUserName',
+              'android-channel_id': 'dbfood'
+            },
+            'priority': 'high',
+            'data': <String, dynamic>{
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'id': '1',
+              'status': 'done'
+            },
+            "to": "$token",
+          },
+        ),
+      );
+      print('sendeed');
+    } catch (e) {
+      print("error push notification");
+    }
+  }
+
+  Future<void> addCoinsPackag2e(Package package) async {
+    String? uid = FirebaseAuth.instance.currentUser?.uid;
+
+    final foundLikeMe =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    int coins = foundLikeMe['coin'];
+    switch (package.product.identifier) {
+      case Coins.idCoins2:
+        coins += 1;
+        break;
+      case Coins.idCoins3:
+        coins += 10;
+        break;
+      case Coins.idCoins4:
+        coins += 100;
+        break;
+      default:
+        break;
+    }
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .update({'coin': coins});
+  }
+
+  verifyMatch(actualUser, name, photoUser) async {
+    List photoUs = [];
+    List likedMe = [];
+    String? uid = FirebaseAuth.instance.currentUser?.uid;
+
+    final foundLikeMe =
+        await FirebaseFirestore.instance.collection('liked_me').doc(uid).get();
+    if (foundLikeMe.exists) {
+      likedMe = foundLikeMe['id'];
+    }
+
+    final foMe =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    if (foMe.exists) {
+      photoUs = foMe['photos'];
+    }
+
+    print('---------------');
+    print(photoUs[0]['url']);
+    print(photoUser);
+    print('---------------');
+
+    if (likedMe.contains(actualUser)) {
+      Navigator.pushNamed(context, '/matchScreen', arguments: {
+        "userLiked": actualUser,
+        'photo': photoUs[0]['url'],
+        'name': name,
+        'photoUser': photoUser
+      });
+    } else {
+      Navigator.pushNamed(context, '/home');
+    }
+  }
+
+  MaterialStateProperty<Color> getColor(
+      Color color, Color colorPressed, bool force) {
+    final getColor = (Set<MaterialState> states) {
+      if (force || states.contains(MaterialState.pressed)) {
+        return colorPressed;
+      } else {
+        return color;
+      }
+    };
+
+    return MaterialStateProperty.resolveWith(getColor);
+  }
+
+  MaterialStateProperty<BorderSide> getBorder(
+      Color color, Color colorPressed, bool force) {
+    final getBorder = (Set<MaterialState> states) {
+      if (force || states.contains(MaterialState.pressed)) {
+        return BorderSide(color: Colors.transparent);
+      } else {
+        return BorderSide(color: color, width: 2);
+      }
+    };
+
+    return MaterialStateProperty.resolveWith(getBorder);
   }
 }
 

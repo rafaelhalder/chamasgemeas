@@ -4,7 +4,7 @@ import 'package:chamasgemeas/provider/card_provider.dart';
 import 'package:chamasgemeas/screens/chats.dart';
 import 'package:chamasgemeas/screens/preferencePage.dart';
 import 'package:chamasgemeas/screens/profilePage.dart';
-import 'package:chamasgemeas/screens/registerStep7.dart';
+import 'package:chamasgemeas/screens/registerStep6.dart';
 import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -296,7 +296,7 @@ class _HomePageState extends State<HomePage> {
                       context,
                       PageRouteBuilder(
                         pageBuilder: (context, animation1, animation2) =>
-                            RegisterStep7(),
+                            RegisterStep6Page(),
                         transitionDuration: Duration.zero,
                         reverseTransitionDuration: Duration.zero,
                       ),
@@ -838,8 +838,8 @@ class _HomePageState extends State<HomePage> {
                                                       )
                                                       .catchError((error) {});
                                               sendPushMessage(
-                                                  'um debiloide te deu super like',
-                                                  'Maria',
+                                                  'Você recebeu um super like',
+                                                  'Super Like',
                                                   tokenUsuaria);
 
                                               Navigator.of(context).pop();
