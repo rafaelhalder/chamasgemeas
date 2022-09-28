@@ -1,5 +1,5 @@
-import 'package:chamasgemeas/provider/card_provider.dart';
 import 'package:chamasgemeas/screens/HelpPage.dart';
+import 'package:chamasgemeas/provider/card_provider.dart';
 import 'package:chamasgemeas/screens/HomePage.dart';
 import 'package:chamasgemeas/screens/LoginPage.dart';
 import 'package:chamasgemeas/screens/PrivacidadePage.dart';
@@ -28,7 +28,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-
 import 'api/purchase_api.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
