@@ -988,7 +988,7 @@ packages:
     source: hosted
     version: "0.27.5"
   sign_in_with_apple:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: sign_in_with_apple
       url: "https://pub.dartlang.org"

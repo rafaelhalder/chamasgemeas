@@ -89,6 +89,67 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Padding(
               padding:
+                  const EdgeInsets.symmetric(horizontal: 30, vertical: 260),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Container(
+                      height: size.height * 0.06,
+                      width: size.width * 1,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50)),
+                      child: TextButton(
+                        onPressed: () {
+                          try {
+                            AuthService().signInWithApple();
+                          } catch (e) {
+                            if (e is FirebaseAuthException) {
+                              print(e);
+                            }
+                          }
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Color.fromARGB(18, 0, 0, 0)),
+                          textStyle: MaterialStateProperty.all<TextStyle?>(
+                              GoogleFonts.montserrat(
+                                  color: Colors.pink,
+                                  fontWeight: FontWeight.w500)),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(24.0),
+                              side: const BorderSide(color: Colors.white54),
+                            ),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset('assets/images/google.png'),
+                            Text(
+                              'Entrar com o Apple',
+                              style: GoogleFonts.quicksand(
+                                  fontSize: 18,
+                                  color: Color.fromARGB(218, 255, 255, 255),
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            const SizedBox(
+                              width: 32,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding:
                   const EdgeInsets.symmetric(horizontal: 30, vertical: 200),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,

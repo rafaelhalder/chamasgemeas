@@ -31,6 +31,7 @@ dependencies:
   firebase_analytics: ^9.3.6
   flutter:
     sdk: flutter
+  sign_in_with_apple: ^3.3.0
 
 dependency_overrides:
   firebase_messaging_platform_interface: 4.1.0
