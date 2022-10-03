@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:chamasgemeas/services/AuthenticationProvider.dart';
 import 'package:chamasgemeas/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -62,116 +64,74 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30, right: 30, top: 0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Center(
+            if (Platform.isIOS)
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 270),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Container(
-                        height: size.height * 0.4,
-                        width: size.width * 0.7,
-                        decoration: BoxDecoration(boxShadow: [
-                          BoxShadow(
-                            color: const Color.fromARGB(255, 0, 0, 0)
-                                .withOpacity(0.0),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: const Offset(
-                                0, 3), // changes position of shadow
-                          ),
-                        ], borderRadius: BorderRadius.circular(50)),
-                        child: Image.asset('assets/images/ads-removebg.png',
-                            height: size.height * 0.80),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 30, vertical: 300),
-              child: SignInWithAppleButton(
-                style: SignInWithAppleButtonStyle.black,
-                iconAlignment: IconAlignment.center,
-                onPressed: () {
-                  try {
-                    context.read<AuthenticationProvider>().signInWithApple();
-                    if (FirebaseAuth.instance.currentUser?.uid != null) {
-                      Navigator.popAndPushNamed(context, '/home');
-                    }
-                  } catch (e) {
-                    if (e is FirebaseAuthException) {
-                      print(e);
-                    }
-                  }
-                },
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 30, vertical: 260),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Container(
-                      height: size.height * 0.06,
-                      width: size.width * 1,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50)),
-                      child: TextButton(
-                        onPressed: () {
-                          try {
-                            doSignInApple();
-                          } catch (e) {
-                            if (e is FirebaseAuthException) {
-                              print(e);
+                        height: size.height * 0.06,
+                        width: size.width * 1,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50)),
+                        child: TextButton(
+                          onPressed: () {
+                            try {
+                              context
+                                  .read<AuthenticationProvider>()
+                                  .signInWithApple();
+                              if (FirebaseAuth.instance.currentUser?.uid !=
+                                  null) {
+                                Navigator.popAndPushNamed(context, '/home');
+                              }
+                            } catch (e) {
+                              if (e is FirebaseAuthException) {
+                                print(e);
+                              }
                             }
-                          }
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                              Color.fromARGB(18, 0, 0, 0)),
-                          textStyle: MaterialStateProperty.all<TextStyle?>(
-                              GoogleFonts.montserrat(
-                                  color: Colors.pink,
-                                  fontWeight: FontWeight.w500)),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24.0),
-                              side: const BorderSide(color: Colors.white54),
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                Color.fromARGB(18, 0, 0, 0)),
+                            textStyle: MaterialStateProperty.all<TextStyle?>(
+                                GoogleFonts.montserrat(
+                                    color: Colors.pink,
+                                    fontWeight: FontWeight.w500)),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(24.0),
+                                side: const BorderSide(color: Colors.white54),
+                              ),
                             ),
                           ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.asset('assets/images/google.png'),
-                            Text(
-                              'Entrar com o Apple',
-                              style: GoogleFonts.quicksand(
-                                  fontSize: 18,
-                                  color: Color.fromARGB(218, 255, 255, 255),
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            const SizedBox(
-                              width: 32,
-                            )
-                          ],
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset('assets/images/apple-logo.png'),
+                              Text(
+                                'Entrar com o Apple',
+                                style: GoogleFonts.quicksand(
+                                    fontSize: 18,
+                                    color: Color.fromARGB(218, 255, 255, 255),
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              const SizedBox(
+                                width: 32,
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
-            ),
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 30, vertical: 200),
