@@ -1,8 +1,12 @@
+import 'package:chamasgemeas/services/AuthenticationProvider.dart';
 import 'package:chamasgemeas/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:video_player/video_player.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -89,6 +93,26 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Padding(
               padding:
+                  const EdgeInsets.symmetric(horizontal: 30, vertical: 300),
+              child: SignInWithAppleButton(
+                style: SignInWithAppleButtonStyle.black,
+                iconAlignment: IconAlignment.center,
+                onPressed: () {
+                  try {
+                    context.read<AuthenticationProvider>().signInWithApple();
+                    if (FirebaseAuth.instance.currentUser?.uid != null) {
+                      Navigator.popAndPushNamed(context, '/home');
+                    }
+                  } catch (e) {
+                    if (e is FirebaseAuthException) {
+                      print(e);
+                    }
+                  }
+                },
+              ),
+            ),
+            Padding(
+              padding:
                   const EdgeInsets.symmetric(horizontal: 30, vertical: 260),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -103,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: TextButton(
                         onPressed: () {
                           try {
-                            AuthService().signInWithApple();
+                            doSignInApple();
                           } catch (e) {
                             if (e is FirebaseAuthException) {
                               print(e);
@@ -275,5 +299,42 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  void doSignInApple() async {
+    late ParseResponse parseResponse;
+    try {
+      //Set Scope
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+
+      //https://docs.parseplatform.org/parse-server/guide/#apple-authdata
+      //According to the documentation, we must send a Map with user authentication data.
+      //Make sign in with Apple
+      parseResponse = await ParseUser.loginWith('apple',
+          apple(credential.identityToken!, credential.userIdentifier!));
+
+      if (parseResponse.success) {
+        final ParseUser parseUser = await ParseUser.currentUser() as ParseUser;
+
+        //Additional Information in User
+        if (credential.email != null) {
+          parseUser.emailAddress = credential.email;
+        }
+        if (credential.givenName != null && credential.familyName != null) {
+          parseUser.set<String>(
+              'name', '${credential.givenName} ${credential.familyName}');
+        }
+        parseResponse = await parseUser.save();
+        if (parseResponse.success) {
+        } else {}
+      } else {}
+    } on Exception catch (e) {
+      print(e.toString());
+    }
   }
 }

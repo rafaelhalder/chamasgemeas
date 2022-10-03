@@ -289,8 +289,8 @@ class _ChatDetailState extends State<ChatDetail> {
               bottomNavigationBar: ConvexAppBar(
                 color: Colors.black,
                 gradient: const LinearGradient(colors: [
-                  Color.fromARGB(255, 223, 223, 223),
-                  Color.fromARGB(255, 223, 223, 223),
+                  Color.fromARGB(255, 211, 202, 189),
+                  Color.fromARGB(255, 211, 202, 189),
                 ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
                 // ignore: prefer_const_literals_to_create_immutables
                 items: [
@@ -599,7 +599,7 @@ class _ChatDetailState extends State<ChatDetail> {
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(30),
                                       color:
-                                          Color.fromARGB(255, 223, 223, 223)),
+                                          Color.fromARGB(255, 211, 202, 189)),
                                   controller: _textController,
                                 ),
                               ),
@@ -608,7 +608,7 @@ class _ChatDetailState extends State<ChatDetail> {
                           CupertinoButton(
                               child: const Icon(
                                 Icons.send_sharp,
-                                color: Color.fromARGB(255, 223, 223, 223),
+                                color: Color.fromARGB(255, 211, 202, 189),
                               ),
                               onPressed: () {
                                 if (_textController.text != "") {

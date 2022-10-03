@@ -65,6 +65,9 @@ class AuthService {
       rawNonce: rawNonce,
     );
 
+    print('-------------------------');
+    print(appleCredential.identityToken);
+
     // Sign in the user with Firebase. If the nonce we generated earlier does
     // not match the nonce in `appleCredential.identityToken`, sign in will fail.
 

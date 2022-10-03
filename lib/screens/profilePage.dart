@@ -16,6 +16,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:reorderable_grid_view/reorderable_grid_view.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:latlong2/latlong.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -216,15 +218,18 @@ class _ProfilePageState extends State<ProfilePage> {
           bottomNavigationBar: ConvexAppBar(
             color: Colors.black,
             gradient: const LinearGradient(colors: [
-              Color.fromARGB(255, 223, 223, 223),
-              Color.fromARGB(255, 223, 223, 223),
+              Color.fromARGB(255, 211, 202, 189),
+              Color.fromARGB(255, 211, 202, 189),
             ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
             // ignore: prefer_const_literals_to_create_immutables
             items: [
               // ignore: prefer_const_constructors
               TabItem(
-                  activeIcon: Icon(Icons.home, color: Colors.black),
-                  icon: Icon(Icons.home, color: Colors.black),
+                  activeIcon: Container(
+                      alignment: Alignment.center,
+                      child: FaIcon(FontAwesomeIcons.yinYang,
+                          color: Colors.black)),
+                  icon: FaIcon(FontAwesomeIcons.yinYang, color: Colors.black),
                   title: 'Home'),
               const TabItem(
                   activeIcon: Icon(Icons.star, color: Colors.black),
@@ -307,7 +312,10 @@ class _ProfilePageState extends State<ProfilePage> {
             elevation: 0,
             backgroundColor: const Color.fromARGB(0, 0, 0, 0),
             centerTitle: true,
-            title: const Text('Editar Perfil'),
+            title: Text('Editar Perfil',
+                style: GoogleFonts.cinzelDecorative(
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 147, 132, 100))),
             leading: const Text(''),
             actions: const [],
           ),
@@ -355,7 +363,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         : Container(
                                             decoration: BoxDecoration(
                                                 color: Color.fromARGB(
-                                                    255, 223, 223, 223)),
+                                                    255, 211, 202, 189)),
                                             child: Center(
                                                 child: Icon(
                                               size: 40,
@@ -422,12 +430,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   alignment: Alignment.center,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-                  child: const Text(
+                  child: Text(
                     'Sobre mim',
-                    style: TextStyle(
-                        color: Color.fromARGB(120, 255, 255, 255),
+                    style: GoogleFonts.cinzelDecorative(
                         fontSize: 20,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 147, 132, 100)),
                   ),
                 ),
                 FutureBuilder<dynamic>(
@@ -456,7 +464,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             decoration: const InputDecoration(
                               hintText: 'Escreva algo sobre você',
                               hintStyle: TextStyle(color: Colors.white70),
-                              fillColor: Color.fromARGB(255, 223, 223, 223),
+                              fillColor: Color.fromARGB(255, 211, 202, 189),
                               filled: true,
                               helperText: 'Limite',
                               helperStyle: TextStyle(color: Colors.white),
@@ -475,12 +483,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   alignment: Alignment.centerLeft,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  child: const Text(
+                  child: Text(
                     'Profissional',
-                    style: TextStyle(
-                        color: Color.fromARGB(120, 255, 255, 255),
+                    style: GoogleFonts.cinzelDecorative(
                         fontSize: 20,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 147, 132, 100)),
                   ),
                 ),
                 FutureBuilder<dynamic>(
@@ -497,7 +505,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: Color.fromARGB(255, 223, 223, 223),
+                                color: Color.fromARGB(255, 211, 202, 189),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(12.0),
@@ -550,12 +558,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   alignment: Alignment.centerLeft,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  child: const Text(
+                  child: Text(
                     'Informações pessoais',
-                    style: TextStyle(
-                        color: Color.fromARGB(120, 255, 255, 255),
+                    style: GoogleFonts.cinzelDecorative(
                         fontSize: 20,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 147, 132, 100)),
                   ),
                 ),
                 Padding(
@@ -568,7 +576,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Color.fromARGB(255, 223, 223, 223),
+                        color: Color.fromARGB(255, 211, 202, 189),
                       ),
                       child: FutureBuilder<dynamic>(
                           future: loadHeight(),
@@ -621,7 +629,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Color.fromARGB(255, 223, 223, 223),
+                        color: Color.fromARGB(255, 211, 202, 189),
                       ),
                       child: FutureBuilder<dynamic>(
                           future: loadAge(),
@@ -675,7 +683,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Color.fromARGB(255, 223, 223, 223),
+                        color: Color.fromARGB(255, 211, 202, 189),
                       ),
                       child: FutureBuilder<dynamic>(
                           future: loadCity(),
@@ -732,7 +740,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Color.fromARGB(255, 223, 223, 223),
+                        color: Color.fromARGB(255, 211, 202, 189),
                       ),
                       child: FutureBuilder<dynamic>(
                           future: loadCountry(),
@@ -789,7 +797,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Color.fromARGB(255, 223, 223, 223),
+                        color: Color.fromARGB(255, 211, 202, 189),
                       ),
                       child: FutureBuilder<dynamic>(
                           future: loadWeight(),
@@ -846,7 +854,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Color.fromARGB(255, 223, 223, 223),
+                        color: Color.fromARGB(255, 211, 202, 189),
                       ),
                       child: FutureBuilder<dynamic>(
                           future: loadGenero(),

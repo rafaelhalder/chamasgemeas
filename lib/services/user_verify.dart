@@ -54,7 +54,10 @@ class _VerifyUserState extends State<VerifyUser> {
     final snapShot =
         await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
+    print('adsadasdasdsaaasd');
     if (!snapShot.exists) {
+      print('30438340433489y430438');
+
       try {
         await FirebaseFirestore.instance.collection('users').doc(uid).set({
           'aboutMe': '',
@@ -116,13 +119,17 @@ class _VerifyUserState extends State<VerifyUser> {
 
       bool finishedRegister = variable['finished'];
       if (finishedRegister == true) {
-        setState(() {
-          newUser = 2;
-        });
+        if (mounted) {
+          setState(() {
+            newUser = 2;
+          });
+        }
       } else {
-        setState(() {
-          newUser = 1;
-        });
+        if (mounted) {
+          setState(() {
+            newUser = 1;
+          });
+        }
       }
     }
   }

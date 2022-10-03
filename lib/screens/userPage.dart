@@ -13,6 +13,7 @@ import 'package:chamasgemeas/screens/profilePage.dart';
 import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'HomePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -110,15 +111,18 @@ class _UserPageState extends State<UserPage> {
             bottomNavigationBar: ConvexAppBar(
               color: Colors.black,
               gradient: const LinearGradient(colors: [
-                Color.fromARGB(255, 223, 223, 223),
-                Color.fromARGB(255, 223, 223, 223),
+                Color.fromARGB(255, 211, 202, 189),
+                Color.fromARGB(255, 211, 202, 189),
               ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
               // ignore: prefer_const_literals_to_create_immutables
               items: [
                 // ignore: prefer_const_constructors
                 TabItem(
-                    activeIcon: Icon(Icons.home, color: Colors.black),
-                    icon: Icon(Icons.home, color: Colors.black),
+                    activeIcon: Container(
+                        alignment: Alignment.center,
+                        child: FaIcon(FontAwesomeIcons.yinYang,
+                            color: Colors.black)),
+                    icon: FaIcon(FontAwesomeIcons.yinYang, color: Colors.black),
                     title: 'Home'),
                 const TabItem(
                     activeIcon: Icon(Icons.star, color: Colors.black),

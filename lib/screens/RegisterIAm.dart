@@ -25,22 +25,36 @@ class _RegisterIAmState extends State<RegisterIAm> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: Container(
-            height: double.infinity,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-              image: AssetImage("assets/images/interfacesigno.png"),
-              fit: BoxFit.cover,
-            )),
-            child: SafeArea(
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+        image: AssetImage("assets/images/interfacesigno.png"),
+        fit: BoxFit.cover,
+      )),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+            backgroundColor: Color.fromARGB(0, 27, 27, 27),
+            leading: finished == false
+                ? Text('')
+                : IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/profilePage');
+                    },
+                    tooltip:
+                        MaterialLocalizations.of(context).openAppDrawerTooltip,
+                  )),
+        body: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.light,
+          child: SingleChildScrollView(
+            child: Container(
+                child: SafeArea(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    padding: const EdgeInsets.only(top: 60, left: 50),
+                    padding: const EdgeInsets.only(top: 10, left: 50),
                     alignment: Alignment.bottomLeft,
                     child: Text(
                       'SOBRE MIM',
@@ -48,6 +62,68 @@ class _RegisterIAmState extends State<RegisterIAm> {
                           fontSize: 40,
                           color: Color.fromARGB(255, 147, 132, 100),
                           fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 50),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Nome',
+                      style: GoogleFonts.quicksand(
+                          fontSize: 20,
+                          color: Color.fromARGB(255, 147, 132, 100),
+                          fontWeight: FontWeight.w700),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                  Container(
+                    padding:
+                        const EdgeInsets.only(left: 40, right: 40, top: 20),
+                    alignment: Alignment.bottomLeft,
+                    child: TextFormField(
+                      // key: Key(occupation.toString()), // <- Magic!
+                      // initialValue: occupation.toString(),
+                      style: TextStyle(color: Colors.white),
+                      keyboardType: TextInputType.text,
+                      textCapitalization: TextCapitalization.sentences,
+                      maxLength: 25,
+                      decoration: InputDecoration(
+                        focusColor: Colors.white,
+                        errorStyle: const TextStyle(color: Colors.white),
+                        helperStyle: const TextStyle(
+                            color: Color.fromARGB(202, 255, 255, 255)),
+                        hintStyle: const TextStyle(color: Colors.white60),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40),
+                            borderSide: BorderSide(color: Colors.red.shade500)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40),
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 147, 132, 100))),
+                        focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 147, 132, 100))),
+                        border: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 147, 132, 100),
+                                width: 0.0)),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Campo Obrigatório';
+                        } else {
+                          return null;
+                        }
+                      },
+                      onChanged: (value) async {
+                        await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(user?.uid)
+                            .update({'name': value});
+                      },
                     ),
                   ),
                   SizedBox(
@@ -81,7 +157,7 @@ class _RegisterIAmState extends State<RegisterIAm> {
                                       return ListTile(
                                           tileColor:
                                               selectedIndex == index.toString()
-                                                  ? Colors.red
+                                                  ? Colors.transparent
                                                   : null,
                                           title: Center(
                                             child: Container(
@@ -128,7 +204,7 @@ class _RegisterIAmState extends State<RegisterIAm> {
                                   return ListTile(
                                       tileColor:
                                           selectedIndex == index.toString()
-                                              ? Colors.red
+                                              ? Colors.transparent
                                               : null,
                                       title: Center(
                                         child: Container(
@@ -238,6 +314,8 @@ class _RegisterIAmState extends State<RegisterIAm> {
                 ],
               ),
             )),
+          ),
+        ),
       ),
     );
   }

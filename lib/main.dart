@@ -22,6 +22,7 @@ import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:chamasgemeas/screens/termsAccept.dart';
 import 'package:chamasgemeas/screens/userPage.dart';
 import 'package:chamasgemeas/screens/userPageHome.dart';
+import 'package:chamasgemeas/services/AuthenticationProvider.dart';
 import 'package:chamasgemeas/services/auth_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -29,6 +30,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'api/purchase_api.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
@@ -60,8 +64,21 @@ class MyApp extends StatelessWidget {
       statusBarColor: Colors.transparent, // transparent status bar
     ));
 
-    return ChangeNotifierProvider(
-      create: (context) => CardProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => CardProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => AuthenticationProvider(FirebaseAuth.instance),
+        ),
+        StreamProvider(
+          create: (BuildContext context) {
+            return context.read<AuthenticationProvider>().authStateChanges;
+          },
+          initialData: null,
+        )
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Chamas Gêmeas',

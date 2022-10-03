@@ -82,7 +82,7 @@ class _RegisterStep5State extends State<RegisterStep5> {
                           children: <TextSpan>[
                             TextSpan(
                                 text: '${user?.displayName}, \n',
-                                style: GoogleFonts.quicksand(
+                                style: GoogleFonts.cinzelDecorative(
                                     fontSize: 30,
                                     color: Color.fromARGB(255, 147, 132, 100),
                                     fontWeight: FontWeight.w700)),
@@ -158,42 +158,6 @@ class _RegisterStep5State extends State<RegisterStep5> {
                     ),
                     const SizedBox(
                       height: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        if (selectedIndex != "") {
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(user?.uid)
-                              .update({'zodiac': selectedIndex});
-                          Navigator.pushNamed(context, '/registerStep6');
-                        }
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 20),
-                        child: Container(
-                          width: size.width * 0.35,
-                          height: size.height * 0.035,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
-                            color: selectedIndex != ''
-                                ? Color.fromARGB(255, 200, 181, 152)
-                                : Color.fromARGB(0, 108, 90, 64),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'CONFIRMAR',
-                              style: TextStyle(
-                                  color: selectedIndex != ''
-                                      ? Color.fromARGB(255, 0, 0, 0)
-                                      : Color.fromARGB(255, 207, 202, 187),
-                                  fontFamily: 'CM Sans Serif',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            ),
-                          ),
-                        ),
-                      ),
                     ),
                   ],
                 ),

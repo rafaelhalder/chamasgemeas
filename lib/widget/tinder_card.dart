@@ -11,6 +11,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:latlong2/latlong.dart' as lati;
 import '../paywall_widget.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TinderCard extends StatefulWidget {
   final Users user;
@@ -122,14 +123,24 @@ class _TinderCardState extends State<TinderCard> {
               alignment: Alignment.bottomCenter,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.transparent, Colors.black],
+                  colors: [
+                    Colors.transparent,
+                    Color.fromARGB(196, 218, 193, 136),
+                    Color.fromARGB(221, 218, 193, 136)
+                  ],
                   begin: Alignment.center,
                   end: Alignment.bottomCenter,
-                  stops: [0.2, 1],
+                  stops: [0.2, 0.65, 1],
                 ),
               ),
               padding: EdgeInsets.symmetric(vertical: 80),
-              child: buildName(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  buildName(),
+                  buildOccupation(),
+                ],
+              ),
             ),
           ),
         ),
@@ -224,7 +235,7 @@ class _TinderCardState extends State<TinderCard> {
                 child: Center(
                     child: Text('$km km', style: TextStyle(fontSize: 11))),
                 decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Color.fromARGB(255, 248, 222, 162),
                     borderRadius: BorderRadius.circular(30)),
                 height: 30,
                 width: 50,
@@ -412,17 +423,30 @@ class _TinderCardState extends State<TinderCard> {
         children: [
           Text(
             widget.user.name,
-            style: TextStyle(
+            style: GoogleFonts.cinzelDecorative(
               fontSize: 23,
-              color: Colors.white,
+              color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
             ', ${widget.user.age}',
-            style: TextStyle(
-              fontSize: 24,
-              color: Colors.white,
+            style: GoogleFonts.cinzelDecorative(
+                fontSize: 24, color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+        ],
+      );
+
+  Widget buildOccupation() => Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            widget.user.occupation,
+            style: GoogleFonts.cinzelDecorative(
+              fontSize: 13,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ],

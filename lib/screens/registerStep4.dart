@@ -48,7 +48,7 @@ class _RegisterStep4State extends State<RegisterStep4> {
       )),
       child: Scaffold(
         appBar: AppBar(
-            backgroundColor: Color.fromARGB(0, 27, 27, 27),
+            backgroundColor: Colors.transparent,
             leading: finished == false
                 ? Text('')
                 : IconButton(
@@ -103,8 +103,8 @@ class _RegisterStep4State extends State<RegisterStep4> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: TextFormField(
-                        key: Key(age.toString()), // <- Magic!
-                        initialValue: age.toString(),
+                        // key: Key(age.toString()), // <- Magic!
+                        // initialValue: age.toString(),
                         keyboardType: TextInputType.number,
                         maxLength: 2,
                         style: const TextStyle(color: Colors.white),
@@ -170,8 +170,8 @@ class _RegisterStep4State extends State<RegisterStep4> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: TextFormField(
-                        key: Key(height.toString()), // <- Magic!
-                        initialValue: height.toString(),
+                        // key: Key(height.toString()), // <- Magic!
+                        // initialValue: height.toString(),
                         keyboardType: TextInputType.number,
                         maxLength: 4,
                         style: const TextStyle(color: Colors.white),
@@ -233,8 +233,8 @@ class _RegisterStep4State extends State<RegisterStep4> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: TextFormField(
-                        key: Key(city.toString()), // <- Magic!
-                        initialValue: city.toString(),
+                        // key: Key(city.toString()), // <- Magic!
+                        // initialValue: city.toString(),
                         style: TextStyle(color: Colors.white),
                         keyboardType: TextInputType.text,
                         textCapitalization: TextCapitalization.sentences,
@@ -291,8 +291,8 @@ class _RegisterStep4State extends State<RegisterStep4> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: TextFormField(
-                        key: Key(occupation.toString()), // <- Magic!
-                        initialValue: occupation.toString(),
+                        // key: Key(occupation.toString()), // <- Magic!
+                        // initialValue: occupation.toString(),
                         style: TextStyle(color: Colors.white),
                         keyboardType: TextInputType.text,
                         textCapitalization: TextCapitalization.sentences,
