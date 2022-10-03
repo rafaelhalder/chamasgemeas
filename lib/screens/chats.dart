@@ -151,7 +151,7 @@ class _ChatsState extends State<Chats> {
                       backgroundColor: Colors.transparent,
                       largeTitle: Text(
                         'Chamas Gêmeas',
-                        style: GoogleFonts.quicksand(
+                        style: GoogleFonts.cinzelDecorative(
                             fontSize: 25,
                             color: Color.fromARGB(255, 147, 132, 100),
                             fontWeight: FontWeight.w600),

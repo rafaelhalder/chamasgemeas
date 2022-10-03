@@ -863,7 +863,7 @@ class _UserPageHomeState extends State<UserPageHome> {
                                       padding: const EdgeInsets.only(top: 15),
                                       child: Text(
                                         '$name,',
-                                        style: GoogleFonts.quicksand(
+                                        style: GoogleFonts.cinzelDecorative(
                                           color: Color.fromARGB(
                                               255, 207, 202, 187),
                                           fontSize: 22,
@@ -878,7 +878,7 @@ class _UserPageHomeState extends State<UserPageHome> {
                                       padding: const EdgeInsets.only(top: 15),
                                       child: Text(
                                         '$age',
-                                        style: GoogleFonts.quicksand(
+                                        style: GoogleFonts.cinzelDecorative(
                                           color: Color.fromARGB(
                                               255, 207, 202, 187),
                                           fontSize: 22,
@@ -894,9 +894,9 @@ class _UserPageHomeState extends State<UserPageHome> {
                                     horizontal: 25, vertical: 5),
                                 child: Text(
                                   occupation,
-                                  style: GoogleFonts.quicksand(
+                                  style: GoogleFonts.cinzelDecorative(
                                     color: Color.fromARGB(255, 194, 180, 129),
-                                    fontSize: 22,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -980,9 +980,9 @@ class _UserPageHomeState extends State<UserPageHome> {
                               Container(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 35, vertical: 15),
-                                child: const Text(
+                                child: Text(
                                   'Sobre mim',
-                                  style: TextStyle(
+                                  style: GoogleFonts.cinzelDecorative(
                                       color: Colors.white,
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold),
@@ -1019,9 +1019,9 @@ class _UserPageHomeState extends State<UserPageHome> {
                                   Container(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 35),
-                                    child: const Text(
+                                    child: Text(
                                       'INTERESSES:',
-                                      style: TextStyle(
+                                      style: GoogleFonts.cinzelDecorative(
                                           color: Colors.white,
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold),
@@ -1200,7 +1200,7 @@ class _UserPageHomeState extends State<UserPageHome> {
                           child: Flexible(
                             child: Text(
                               'Proximidades de ${name}',
-                              style: const TextStyle(
+                              style: GoogleFonts.cinzelDecorative(
                                   color: Colors.white,
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold),

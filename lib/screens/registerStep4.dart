@@ -17,6 +17,7 @@ class _RegisterStep4State extends State<RegisterStep4> {
   String height = '';
   String occupation = '';
   String city = '';
+  String name = '';
   bool finished = false;
   String selectedIndex = '';
   String? uid = FirebaseAuth.instance.currentUser?.uid;
@@ -73,14 +74,18 @@ class _RegisterStep4State extends State<RegisterStep4> {
                     Center(
                       child: RichText(
                         text: TextSpan(
-                          style: const TextStyle(
-                            fontSize: 22.0,
-                            color: Color.fromARGB(255, 238, 238, 238),
-                          ),
+                          style: GoogleFonts.quicksand(
+                              fontSize: 20,
+                              color: Color.fromARGB(255, 207, 202, 187),
+                              fontWeight: FontWeight.w700),
                           children: <TextSpan>[
                             TextSpan(
-                                text:
-                                    '${user!.displayName},\nme fale 4 coisas sobre VOCÊ!'),
+                                text: '${name},\n',
+                                style: GoogleFonts.cinzelDecorative(
+                                    fontSize: 40,
+                                    color: Color.fromARGB(255, 147, 132, 100),
+                                    fontWeight: FontWeight.w700)),
+                            TextSpan(text: 'me fale 4 coisas sobre VOCÊ!'),
                           ],
                         ),
                       ),
@@ -474,6 +479,7 @@ class _RegisterStep4State extends State<RegisterStep4> {
 
     setState(() {
       age = userInfo['age'];
+      name = userInfo['name'];
       height = userInfo['height'];
       occupation = userInfo['occupation'];
       city = userInfo['city'];

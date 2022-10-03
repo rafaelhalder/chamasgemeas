@@ -17,6 +17,7 @@ class RegisterStep7 extends StatefulWidget {
 
 class _RegisterStep7State extends State<RegisterStep7> {
   String selectedIndex = '';
+  String name = '';
   int? typeInterested = 0;
   User? user = FirebaseAuth.instance.currentUser;
   String? uid = FirebaseAuth.instance.currentUser?.uid;
@@ -34,6 +35,7 @@ class _RegisterStep7State extends State<RegisterStep7> {
   void initState() {
     super.initState();
     loadImage();
+    catchDatasUser();
   }
 
   Future imgFromGallery() async {
@@ -166,9 +168,9 @@ class _RegisterStep7State extends State<RegisterStep7> {
                         ),
                         children: <TextSpan>[
                           TextSpan(
-                              text: '${user?.displayName}, \n',
-                              style: GoogleFonts.quicksand(
-                                  fontSize: 27,
+                              text: '${name}, \n',
+                              style: GoogleFonts.cinzelDecorative(
+                                  fontSize: 40,
                                   color: Color.fromARGB(255, 147, 132, 100),
                                   fontWeight: FontWeight.w700)),
                           TextSpan(
@@ -238,7 +240,12 @@ class _RegisterStep7State extends State<RegisterStep7> {
                           color: Color.fromARGB(255, 238, 238, 238),
                         ),
                         children: <TextSpan>[
-                          TextSpan(text: 'Sobre você:'),
+                          TextSpan(
+                              text: 'Sobre você:',
+                              style: GoogleFonts.quicksand(
+                                  fontSize: 20,
+                                  color: Color.fromARGB(255, 207, 202, 187),
+                                  fontWeight: FontWeight.w700)),
                         ],
                       ),
                     ),
@@ -405,6 +412,15 @@ class _RegisterStep7State extends State<RegisterStep7> {
 
       return url;
     }
+  }
+
+  void catchDatasUser() async {
+    final userInfo =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    setState(() {
+      name = userInfo['name'];
+    });
   }
 
   void _showPicker(context) {

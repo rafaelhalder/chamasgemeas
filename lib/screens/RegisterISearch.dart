@@ -12,10 +12,13 @@ class RegisterISearchPage extends StatefulWidget {
 }
 
 class _RegisterISearchPageState extends State<RegisterISearchPage> {
+  String name = '';
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    catchDatasUser();
   }
 
   String selectedIndex = '';
@@ -49,8 +52,8 @@ class _RegisterISearchPageState extends State<RegisterISearchPage> {
                         ),
                         children: <TextSpan>[
                           TextSpan(
-                              text: '${user?.displayName}, \n',
-                              style: GoogleFonts.quicksand(
+                              text: '${name}, \n',
+                              style: GoogleFonts.cinzelDecorative(
                                   fontSize: 40,
                                   color: Color.fromARGB(255, 147, 132, 100),
                                   fontWeight: FontWeight.w700)),
@@ -275,5 +278,16 @@ class _RegisterISearchPageState extends State<RegisterISearchPage> {
             )),
       ),
     );
+  }
+
+  void catchDatasUser() async {
+    final userInfo = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user?.uid)
+        .get();
+
+    setState(() {
+      name = userInfo['name'];
+    });
   }
 }

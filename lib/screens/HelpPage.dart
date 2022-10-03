@@ -193,8 +193,8 @@ class _HelpPageState extends State<HelpPage> {
                     child: Center(
                         child: Text(
                       'Ajuda',
-                      style: GoogleFonts.quicksand(
-                          fontSize: 25,
+                      style: GoogleFonts.cinzelDecorative(
+                          fontSize: 22,
                           color: Color.fromARGB(255, 147, 132, 100),
                           fontWeight: FontWeight.w600),
                     )),
@@ -232,11 +232,15 @@ class _HelpPageState extends State<HelpPage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Icon(Icons.sticky_note_2,
-                                        size: 60, color: Colors.white),
+                                        size: 60,
+                                        color:
+                                            Color.fromARGB(255, 207, 202, 187)),
                                     Text(
                                       'Manual',
                                       style: TextStyle(
-                                          fontSize: 18, color: Colors.white),
+                                          fontSize: 18,
+                                          color: Color.fromARGB(
+                                              255, 207, 202, 187)),
                                     )
                                   ],
                                 ),

@@ -55,7 +55,7 @@ class _RegisterStep6PageState extends State<RegisterStep6Page> {
                                     fontWeight: FontWeight.w700)),
                             TextSpan(
                                 text: '7 (sete) ATIVIDADES \n',
-                                style: GoogleFonts.quicksand(
+                                style: GoogleFonts.cinzelDecorative(
                                     fontSize: 20,
                                     color: Color.fromARGB(255, 185, 166, 126),
                                     fontWeight: FontWeight.w700)),

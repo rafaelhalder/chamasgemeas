@@ -157,8 +157,8 @@ class _PreferencePageState extends State<PreferencePage> {
                       child: Center(
                           child: Text(
                         'Configurações',
-                        style: GoogleFonts.quicksand(
-                            fontSize: 25,
+                        style: GoogleFonts.cinzelDecorative(
+                            fontSize: 22,
                             color: Color.fromARGB(255, 147, 132, 100),
                             fontWeight: FontWeight.w600),
                       )),

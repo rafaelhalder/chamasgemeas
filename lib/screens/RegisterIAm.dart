@@ -58,8 +58,8 @@ class _RegisterIAmState extends State<RegisterIAm> {
                     alignment: Alignment.bottomLeft,
                     child: Text(
                       'SOBRE MIM',
-                      style: GoogleFonts.quicksand(
-                          fontSize: 40,
+                      style: GoogleFonts.cinzelDecorative(
+                          fontSize: 36,
                           color: Color.fromARGB(255, 147, 132, 100),
                           fontWeight: FontWeight.w700),
                     ),

@@ -11,6 +11,15 @@ class RegisterStep5 extends StatefulWidget {
 }
 
 class _RegisterStep5State extends State<RegisterStep5> {
+  String name = '';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    catchDatasUser();
+  }
+
   String selectedIndex = '';
   User? user = FirebaseAuth.instance.currentUser;
   int age = 0;
@@ -81,14 +90,17 @@ class _RegisterStep5State extends State<RegisterStep5> {
                           ),
                           children: <TextSpan>[
                             TextSpan(
-                                text: '${user?.displayName}, \n',
+                                text: '${name}, \n',
                                 style: GoogleFonts.cinzelDecorative(
-                                    fontSize: 30,
+                                    fontSize: 40,
                                     color: Color.fromARGB(255, 147, 132, 100),
                                     fontWeight: FontWeight.w700)),
                             TextSpan(
-                              text: 'Qual é o seu SIGNO?  ',
-                            ),
+                                text: 'Qual é o seu SIGNO?  ',
+                                style: GoogleFonts.quicksand(
+                                    fontSize: 20,
+                                    color: Color.fromARGB(255, 207, 202, 187),
+                                    fontWeight: FontWeight.w700)),
                           ],
                         ),
                       ),
@@ -296,6 +308,17 @@ class _RegisterStep5State extends State<RegisterStep5> {
         ),
       ),
     );
+  }
+
+  void catchDatasUser() async {
+    final userInfo = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user?.uid)
+        .get();
+
+    setState(() {
+      name = userInfo['name'];
+    });
   }
 
   var maskFormatter = MaskTextInputFormatter(

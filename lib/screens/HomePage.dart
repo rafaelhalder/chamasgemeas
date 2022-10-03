@@ -2,6 +2,7 @@ import 'package:chamasgemeas/api/purchase_api.dart';
 import 'package:chamasgemeas/paywall_widget.dart';
 import 'package:chamasgemeas/provider/card_provider.dart';
 import 'package:chamasgemeas/screens/RegisterIAm.dart';
+import 'package:chamasgemeas/screens/RegisterISearch.dart';
 import 'package:chamasgemeas/screens/chats.dart';
 import 'package:chamasgemeas/screens/preferencePage.dart';
 import 'package:chamasgemeas/screens/profilePage.dart';
@@ -302,7 +303,7 @@ class _HomePageState extends State<HomePage> {
                       context,
                       PageRouteBuilder(
                         pageBuilder: (context, animation1, animation2) =>
-                            RegisterIAm(),
+                            RegisterStep5(),
                         transitionDuration: Duration.zero,
                         reverseTransitionDuration: Duration.zero,
                       ),

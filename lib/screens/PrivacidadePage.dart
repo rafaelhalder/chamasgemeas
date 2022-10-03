@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class PrivacidadePage extends StatefulWidget {
   const PrivacidadePage({Key? key}) : super(key: key);
@@ -194,10 +195,10 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
                       child: Center(
                           child: Text(
                         'Privacidade',
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                        style: GoogleFonts.cinzelDecorative(
+                            fontSize: 22,
+                            color: Color.fromARGB(255, 147, 132, 100),
+                            fontWeight: FontWeight.w600),
                       )),
                     ),
                   ),
@@ -234,11 +235,15 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       Icon(Icons.newspaper,
-                                          size: 60, color: Colors.white),
+                                          size: 60,
+                                          color: Color.fromARGB(
+                                              255, 207, 202, 187)),
                                       Text(
                                         'Termos de Uso',
                                         style: TextStyle(
-                                            fontSize: 16, color: Colors.white),
+                                            fontSize: 16,
+                                            color: Color.fromARGB(
+                                                255, 207, 202, 187)),
                                       )
                                     ],
                                   ),
@@ -277,11 +282,15 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       Icon(Icons.person_off,
-                                          size: 60, color: Colors.white),
+                                          size: 60,
+                                          color: Color.fromARGB(
+                                              255, 207, 202, 187)),
                                       Text(
                                         'Deletar Conta',
                                         style: TextStyle(
-                                            fontSize: 16, color: Colors.white),
+                                            fontSize: 16,
+                                            color: Color.fromARGB(
+                                                255, 207, 202, 187)),
                                       )
                                     ],
                                   ),

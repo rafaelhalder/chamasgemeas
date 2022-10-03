@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LikedMePage extends StatefulWidget {
   const LikedMePage({Key? key}) : super(key: key);
@@ -38,7 +39,13 @@ class _LikedMePageState extends State<LikedMePage> {
         appBar: AppBar(
           backgroundColor: Color.fromARGB(0, 27, 27, 27),
           centerTitle: true,
-          title: const Text('Likes'),
+          title: Text(
+            'Likes',
+            style: GoogleFonts.cinzelDecorative(
+                fontSize: 22,
+                color: Color.fromARGB(255, 147, 132, 100),
+                fontWeight: FontWeight.w600),
+          ),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -136,7 +143,9 @@ class _LikedMePageState extends State<LikedMePage> {
                                 child: Center(
                                     child: Text(
                                   'Revele quem gostou de você',
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(
+                                      color:
+                                          Color.fromARGB(255, 147, 132, 100)),
                                 )),
                               ),
                               GestureDetector(
@@ -146,7 +155,7 @@ class _LikedMePageState extends State<LikedMePage> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
-                                    color: Colors.amber,
+                                    color: Color.fromARGB(255, 147, 132, 100),
                                   ),
                                   height: 40,
                                   width:

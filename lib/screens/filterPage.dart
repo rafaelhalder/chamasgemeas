@@ -9,6 +9,7 @@ import 'package:chamasgemeas/screens/chats.dart';
 import 'package:chamasgemeas/screens/HomePage.dart';
 import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FilterPage extends StatefulWidget {
   const FilterPage({Key? key}) : super(key: key);
@@ -151,9 +152,10 @@ class _FilterPageState extends State<FilterPage> {
                 Center(
                   child: Text(
                     'FILTRO',
-                    style: TextStyle(
-                        fontSize: 23,
-                        color: Color.fromARGB(255, 207, 202, 187)),
+                    style: GoogleFonts.cinzelDecorative(
+                        fontSize: 22,
+                        color: Color.fromARGB(255, 147, 132, 100),
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
                 SizedBox(
@@ -184,9 +186,9 @@ class _FilterPageState extends State<FilterPage> {
                       inactiveColor: Colors.transparent,
                       activeColor: Color.fromARGB(255, 165, 150, 118),
                       min: 0.0,
-                      max: 200.0,
+                      max: 2000.0,
                       value: _value,
-                      divisions: 20,
+                      divisions: 200,
                       label: '${_value.round()}',
                       onChanged: (value) {
                         setState(() {
