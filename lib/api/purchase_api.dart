@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
@@ -6,16 +8,20 @@ class Coins {
   static const idCoins2 = 'coin_chamas_1';
   static const idCoins3 = 'chamas_10';
   static const idCoins4 = 'chamas_100';
+  static const idCoins5 = 'coin_1_chamas';
+  static const idCoins6 = 'coin_10_chamas';
+  static const idCoins7 = 'coin_50_chamas';
+  static const idCoins8 = 'coin_100_chamas';
 
   static const allIds = [idCoins1];
 }
 
 class PurchaseApi {
-  static const _apiKey = 'goog_FccwpagdaFLZlMkVbnsNqeqTdEa';
-
   static Future init() async {
     await Purchases.setDebugLogsEnabled(true);
-    await Purchases.setup(_apiKey);
+    Platform.isIOS
+        ? await Purchases.setup('appl_wrsVIhZDJSwSbXVTjrBwQBzrYbW')
+        : await Purchases.setup('goog_FccwpagdaFLZlMkVbnsNqeqTdEa');
   }
 
   static Future<List<Offering>> fetchOffersByIds(List<String> ids) async {

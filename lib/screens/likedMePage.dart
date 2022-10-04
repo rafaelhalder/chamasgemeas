@@ -258,13 +258,15 @@ class _LikedMePageState extends State<LikedMePage> {
       showMaterialModalBottomSheet(
         expand: false,
         context: context,
-        backgroundColor: Color.fromARGB(231, 0, 0, 0),
+        backgroundColor: Color.fromARGB(231, 255, 255, 255),
         builder: (context) => PaywallWidget(
             packages: packages,
             title: 'Chamas Premium',
             description: 'Veja quem te curtiu.',
             onClickedPackage: (package) async {
               final isSuccess = await PurchaseApi.purchasePackage(package);
+              print('Offer: $isSuccess');
+
               if (isSuccess) {
                 await addCoinsPackag2e(package);
               }

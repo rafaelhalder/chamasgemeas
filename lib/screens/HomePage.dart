@@ -406,6 +406,15 @@ class _HomePageState extends State<HomePage> {
       case Coins.idCoins4:
         coins += 100;
         break;
+      case Coins.idCoins5:
+        coins += 1;
+        break;
+      case Coins.idCoins6:
+        coins += 10;
+        break;
+      case Coins.idCoins8:
+        coins += 100;
+        break;
       default:
         break;
     }
