@@ -480,7 +480,7 @@ class _RegisterStep4State extends State<RegisterStep4> {
     setState(() {
       age = userInfo['age'];
       name = userInfo['name'];
-      height = userInfo['height'];
+      height = userInfo['height'].toString();
       occupation = userInfo['occupation'];
       city = userInfo['city'];
       finished = userInfo['finished'];

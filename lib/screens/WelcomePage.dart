@@ -28,8 +28,9 @@ class _WelcomePageState extends State<WelcomePage> {
                 TextSpan(
                     text:
                         'Não aceite relacionamentos rasos se você tem sentimentos profundos.\n\n',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 207, 202, 187))),
+                    style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        color: Color.fromARGB(255, 207, 202, 187))),
                 TextSpan(
                     text:
                         'O Chamas Gêmeas é um caminho para você que já tem a consciência da tua',
@@ -102,8 +103,9 @@ class _WelcomePageState extends State<WelcomePage> {
               children: <TextSpan>[
                 TextSpan(
                     text: 'O Universo não entende palavras, entende ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 207, 202, 187))),
+                    style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        color: Color.fromARGB(255, 207, 202, 187))),
                 TextSpan(
                     text: 'frequências.',
                     style:
@@ -128,7 +130,7 @@ class _WelcomePageState extends State<WelcomePage> {
                         TextStyle(color: Color.fromARGB(255, 147, 132, 100))),
                 TextSpan(
                     text:
-                        'e atraem. A atração é por semelhança de interesses, gostos, pensamentos, atitudes e sentimentos. Se o destino te trouxe até aqui, certamente trouxe também quem está na mesma ',
+                        'se atraem. A atração é por semelhança de interesses, gostos, pensamentos, atitudes e sentimentos. Se o destino te trouxe até aqui, certamente trouxe também quem está na mesma ',
                     style:
                         TextStyle(color: Color.fromARGB(255, 207, 202, 187))),
                 TextSpan(
@@ -152,8 +154,9 @@ class _WelcomePageState extends State<WelcomePage> {
               children: <TextSpan>[
                 TextSpan(
                     text: 'O HOJE é o tempo certo para ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 207, 202, 187))),
+                    style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        color: Color.fromARGB(255, 207, 202, 187))),
                 TextSpan(
                     text: 'começar',
                     style:
@@ -233,8 +236,15 @@ class _WelcomePageState extends State<WelcomePage> {
             showBackButton: true,
             back: Text("Voltar",
                 style: TextStyle(color: Color.fromARGB(255, 147, 132, 100))),
-            done: Text("Concluir",
-                style: TextStyle(color: Color.fromARGB(255, 147, 132, 100))),
+            done: Container(
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 147, 132, 100),
+                  borderRadius: BorderRadius.circular(40)),
+              child: Text("Concluir",
+                  style: TextStyle(
+                      fontSize: 16, color: Color.fromARGB(255, 207, 202, 187))),
+            ),
             onDone: () async {
               Future<bool> result = _determinePosition();
               await result == true
@@ -257,6 +267,7 @@ class _WelcomePageState extends State<WelcomePage> {
       // Location services are not enabled don't continue
       // accessing the position and request users of the
       // App to enable the location services.
+      print('serviceEnabled11111');
       return false;
     }
 
@@ -269,12 +280,16 @@ class _WelcomePageState extends State<WelcomePage> {
         // Android's shouldShowRequestPermissionRationale
         // returned true. According to Android guidelines
         // your App should show an explanatory UI now.
+        print('serviceEnable2222222');
+
         return false;
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
+      print('serviceEnable3333333');
+
       return false;
     }
 

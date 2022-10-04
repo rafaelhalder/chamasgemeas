@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:chamasgemeas/screens/LoginPage.dart';
 import 'package:chamasgemeas/services/user_verify.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,7 +6,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-import 'package:http/http.dart' as http;
 
 class AuthService {
   handleAuthState() {
@@ -77,14 +74,21 @@ class AuthService {
   signInWithFacebook() async {
     try {
       final LoginResult loginResult = await FacebookAuth.instance.login();
+      print('33333333333333333');
+      print(loginResult.accessToken);
+      print(loginResult.status);
+      print(loginResult.message);
 
       final OAuthCredential facebookAuthCredential =
           FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
       return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
     } on PlatformException catch (e) {
       print('error caught: $e');
+      print('1111111111111111111111111');
     } catch (e) {
       print('error caught: $e');
+      print('222222222222222222222');
     }
   }
 
