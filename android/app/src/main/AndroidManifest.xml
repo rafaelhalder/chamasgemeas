@@ -8,7 +8,7 @@
         <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
     </queries>
    <application
-        android:label="chamasgemeas"
+        android:label="Chamas Gêmeas"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 

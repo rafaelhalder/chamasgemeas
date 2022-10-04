@@ -170,7 +170,7 @@ class _RegisterStep7State extends State<RegisterStep7> {
                           TextSpan(
                               text: '${name}, \n',
                               style: GoogleFonts.cinzelDecorative(
-                                  fontSize: 40,
+                                  fontSize: 32,
                                   color: Color.fromARGB(255, 147, 132, 100),
                                   fontWeight: FontWeight.w700)),
                           TextSpan(
@@ -294,24 +294,31 @@ class _RegisterStep7State extends State<RegisterStep7> {
                       maxLines: 1,
                       cursorColor: Colors.white,
                       maxLength: 144,
-                      style: TextStyle(color: Colors.white),
+                      style:
+                          TextStyle(color: Color.fromARGB(255, 207, 202, 187)),
                       decoration: InputDecoration(
                         focusColor: Colors.white,
                         hoverColor: Colors.white,
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40.0),
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 147, 132, 100))),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(40.0),
-                        ),
+                            borderRadius: BorderRadius.circular(40.0),
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 147, 132, 100))),
                         hintStyle: TextStyle(color: Colors.white70),
                         fillColor: Color.fromARGB(0, 255, 255, 255),
                         filled: true,
                         labelStyle: TextStyle(
                           color: Color.fromARGB(255, 244, 238, 252),
                         ),
-                        helperStyle: TextStyle(color: Colors.white),
+                        helperStyle: TextStyle(
+                            color: Color.fromARGB(255, 207, 202, 187)),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(40.0)),
                           borderSide: BorderSide(
-                              color: Color.fromARGB(255, 207, 202, 187)),
+                              color: Color.fromARGB(255, 147, 132, 100)),
                         ),
                       ),
                     ),

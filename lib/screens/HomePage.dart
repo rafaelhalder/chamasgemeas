@@ -1,14 +1,10 @@
 import 'package:chamasgemeas/api/purchase_api.dart';
 import 'package:chamasgemeas/paywall_widget.dart';
 import 'package:chamasgemeas/provider/card_provider.dart';
-import 'package:chamasgemeas/screens/RegisterIAm.dart';
-import 'package:chamasgemeas/screens/RegisterISearch.dart';
+import 'package:chamasgemeas/screens/WelcomePage.dart';
 import 'package:chamasgemeas/screens/chats.dart';
 import 'package:chamasgemeas/screens/preferencePage.dart';
 import 'package:chamasgemeas/screens/profilePage.dart';
-import 'package:chamasgemeas/screens/registerStep4.dart';
-import 'package:chamasgemeas/screens/registerStep5.dart';
-import 'package:chamasgemeas/screens/registerStep6.dart';
 import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -234,6 +230,10 @@ class _HomePageState extends State<HomePage> {
                   activeIcon: Icon(Icons.settings, color: Colors.black),
                   icon: Icon(Icons.settings, color: Colors.black),
                   title: 'Opções'),
+              const TabItem(
+                  activeIcon: Icon(Icons.settings, color: Colors.black),
+                  icon: Icon(Icons.settings, color: Colors.black),
+                  title: '222222'),
             ],
             initialActiveIndex: 0, //optional, default as 0
             onTap: (int i) {
@@ -299,7 +299,7 @@ class _HomePageState extends State<HomePage> {
                       context,
                       PageRouteBuilder(
                         pageBuilder: (context, animation1, animation2) =>
-                            RegisterStep5(),
+                            WelcomePage(),
                         transitionDuration: Duration.zero,
                         reverseTransitionDuration: Duration.zero,
                       ),
