@@ -753,6 +753,12 @@ class _ChatDetailState extends State<ChatDetail> {
     print(response.body);
 
     if (response.statusCode == 200) {
+      chats.doc(chatDocId).update({
+        'users': {friendUid: 1, currentUserId: 3},
+      });
+
+      Navigator.pop(context);
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Colors.green,
