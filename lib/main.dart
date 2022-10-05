@@ -20,6 +20,8 @@ import 'package:chamasgemeas/screens/registerStep6.dart';
 import 'package:chamasgemeas/screens/registerStep7.dart';
 import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:chamasgemeas/screens/termsAccept.dart';
+import 'package:chamasgemeas/screens/termsAcceptCommunity.dart';
+import 'package:chamasgemeas/screens/termsAcceptPolicy.dart';
 import 'package:chamasgemeas/screens/userPage.dart';
 import 'package:chamasgemeas/screens/userPageHome.dart';
 import 'package:chamasgemeas/services/AuthenticationProvider.dart';
@@ -31,8 +33,6 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'api/purchase_api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
@@ -123,6 +123,8 @@ class MyApp extends StatelessWidget {
           '/privacidade': (context) => const PrivacidadePage(),
           '/help': (context) => const HelpPage(),
           '/accept': (context) => TermsAccept(),
+          '/policy': (context) => Policy(),
+          '/community': (context) => Community(),
         },
       ),
     );

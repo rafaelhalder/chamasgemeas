@@ -816,7 +816,7 @@ class _UserPageHomeState extends State<UserPageHome> {
                               child: Align(
                                 alignment: Alignment.centerRight,
                                 child: Container(
-                                  width: 68.0,
+                                  width: 100.0,
                                   height: 30,
                                   child: Container(
                                     padding: const EdgeInsets.symmetric(
@@ -983,7 +983,7 @@ class _UserPageHomeState extends State<UserPageHome> {
                                 child: Text(
                                   'Sobre mim',
                                   style: GoogleFonts.cinzelDecorative(
-                                      color: Colors.white,
+                                      color: Color.fromARGB(255, 207, 202, 187),
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -1022,7 +1022,8 @@ class _UserPageHomeState extends State<UserPageHome> {
                                     child: Text(
                                       'INTERESSES:',
                                       style: GoogleFonts.cinzelDecorative(
-                                          color: Colors.white,
+                                          color: Color.fromARGB(
+                                              255, 207, 202, 187),
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -1201,7 +1202,7 @@ class _UserPageHomeState extends State<UserPageHome> {
                             child: Text(
                               'Proximidades de ${name}',
                               style: GoogleFonts.cinzelDecorative(
-                                  color: Colors.white,
+                                  color: Color.fromARGB(255, 207, 202, 187),
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold),
                             ),

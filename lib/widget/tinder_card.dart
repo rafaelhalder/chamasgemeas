@@ -125,12 +125,13 @@ class _TinderCardState extends State<TinderCard> {
                 gradient: LinearGradient(
                   colors: [
                     Colors.transparent,
-                    Color.fromARGB(196, 218, 193, 136),
-                    Color.fromARGB(221, 218, 193, 136)
+                    Color.fromARGB(218, 218, 193, 136),
+                    Color.fromARGB(218, 218, 193, 136),
+                    Color.fromARGB(236, 218, 193, 136)
                   ],
                   begin: Alignment.center,
                   end: Alignment.bottomCenter,
-                  stops: [0.2, 0.65, 1],
+                  stops: [0.2, 0.41, 0.55, 1],
                 ),
               ),
               padding: EdgeInsets.symmetric(vertical: 80),

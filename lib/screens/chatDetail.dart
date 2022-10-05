@@ -22,6 +22,7 @@ import 'package:chamasgemeas/screens/profilePage.dart';
 import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class ChatDetail extends StatefulWidget {
   final friendUid;
@@ -38,6 +39,11 @@ class _ChatDetailState extends State<ChatDetail> {
   CollectionReference chats = FirebaseFirestore.instance.collection('chats');
   CollectionReference userFriend =
       FirebaseFirestore.instance.collection('users');
+  final controllerName = TextEditingController(text: 'Johannes Milke');
+  final controllerEmail =
+      TextEditingController(text: 'chamasgemeasemail@gmail.com');
+  final controllerSubject = TextEditingController(text: 'My Subject');
+  final controllerMessage = TextEditingController(text: 'My Message');
 
   late not.AndroidNotificationChannel channel;
   late not.FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -436,6 +442,29 @@ class _ChatDetailState extends State<ChatDetail> {
                 child: SizedBox(
                   height: 110,
                   child: CupertinoNavigationBar(
+                    trailing: GestureDetector(
+                        child: Icon(Icons.arrow_upward),
+                        onTap: () => showMaterialModalBottomSheet(
+                              context: context,
+                              builder: (context) => Container(
+                                color: Color.fromARGB(108, 0, 0, 0),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.3,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    minimumSize: Size.fromHeight(50),
+                                    textStyle: TextStyle(fontSize: 20),
+                                  ),
+                                  child: Text('SEND'),
+                                  onPressed: () => sendEmail(
+                                    name: controllerName.text,
+                                    email: controllerEmail.text,
+                                    subject: controllerSubject.text,
+                                    message: controllerMessage.text,
+                                  ),
+                                ),
+                              ),
+                            )),
                     leading: CupertinoNavigationBarBackButton(
                       onPressed: () {
                         Navigator.pushNamed(context, '/chats');
@@ -688,5 +717,61 @@ class _ChatDetailState extends State<ChatDetail> {
         },
       ),
     );
+  }
+
+  Future sendEmail({
+    required String name,
+    required String email,
+    required String subject,
+    required String message,
+  }) async {
+    final serviceId = 'service_3a6pfte';
+    final templateId = 'template_d1fvxeb';
+    final userId = 'oSTlYc_rp9hC1ZhZ5';
+
+    final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
+    final response = await http.post(
+      url,
+      headers: {
+        'origin': 'http://localhost',
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'service_id': serviceId,
+        'template_id': templateId,
+        'user_id': userId,
+        'template_params': {
+          'user_name': name,
+          'user_email': email,
+          'to_email': 'rafael.silva@tecnorisk.com.br',
+          'user_subject': subject,
+          'user_message': message,
+        },
+      }),
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.green,
+          content: Text(
+            'Email sent successfully!',
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.red,
+          content: Text(
+            'Failed to send email!',
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
+      );
+    }
   }
 }

@@ -13,7 +13,6 @@ import 'package:chamasgemeas/screens/profilePage.dart';
 import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'HomePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -536,7 +535,7 @@ class _UserPageState extends State<UserPage> {
                           child: const Text(
                             'Sobre mim',
                             style: TextStyle(
-                                color: Colors.white,
+                                color: Color.fromARGB(255, 207, 202, 187),
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -572,7 +571,7 @@ class _UserPageState extends State<UserPage> {
                               child: const Text(
                                 'INTERESSES:',
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: Color.fromARGB(255, 207, 202, 187),
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -725,7 +724,7 @@ class _UserPageState extends State<UserPage> {
                       child: Text(
                         'Proximidades de ${arguments['name']}',
                         style: const TextStyle(
-                            color: Colors.white,
+                            color: Color.fromARGB(255, 207, 202, 187),
                             fontSize: 18,
                             fontWeight: FontWeight.bold),
                       ),
@@ -764,8 +763,7 @@ class _UserPageState extends State<UserPage> {
                             height: size.height * 0.46,
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                    color:
-                                        const Color.fromARGB(255, 62, 62, 62)),
+                                    color: Color.fromARGB(255, 0, 0, 0)),
                                 borderRadius: BorderRadius.circular(8)),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(8),

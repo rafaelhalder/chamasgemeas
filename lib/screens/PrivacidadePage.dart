@@ -299,6 +299,90 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
                             ),
                           ),
                         ),
+                        AnimationConfiguration.staggeredGrid(
+                          position: 0,
+                          duration: const Duration(milliseconds: 375),
+                          columnCount: columnCount,
+                          child: ScaleAnimation(
+                            child: FadeInAnimation(
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context, '/policy');
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: Colors.transparent,
+                                      border: Border.all(
+                                          color: Color.fromARGB(
+                                              255, 207, 202, 187))),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.book_rounded,
+                                          size: 60,
+                                          color: Color.fromARGB(
+                                              255, 207, 202, 187)),
+                                      Text(
+                                        'Politica de Privacidade',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: Color.fromARGB(
+                                                255, 207, 202, 187)),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        AnimationConfiguration.staggeredGrid(
+                          position: 0,
+                          duration: const Duration(milliseconds: 375),
+                          columnCount: columnCount,
+                          child: ScaleAnimation(
+                            child: FadeInAnimation(
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context, '/community');
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: Colors.transparent,
+                                      border: Border.all(
+                                          color: Color.fromARGB(
+                                              255, 207, 202, 187))),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.people_alt_sharp,
+                                          size: 60,
+                                          color: Color.fromARGB(
+                                              255, 207, 202, 187)),
+                                      Text(
+                                        'Regra da comunidade',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: Color.fromARGB(
+                                                255, 207, 202, 187)),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),

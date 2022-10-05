@@ -38,7 +38,7 @@ class _RegisterStep6PageState extends State<RegisterStep6Page> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
-                      padding: const EdgeInsets.only(top: 20),
+                      padding: const EdgeInsets.only(top: 1),
                       alignment: Alignment.center,
                       child: RichText(
                         text: TextSpan(
@@ -50,28 +50,28 @@ class _RegisterStep6PageState extends State<RegisterStep6Page> {
                             TextSpan(
                                 text: 'Escolha até ',
                                 style: GoogleFonts.quicksand(
-                                    fontSize: 20,
+                                    fontSize: 19,
                                     color: Color.fromARGB(255, 207, 202, 187),
                                     fontWeight: FontWeight.w700)),
                             TextSpan(
                                 text: '7 (sete) ATIVIDADES \n',
                                 style: GoogleFonts.cinzelDecorative(
-                                    fontSize: 20,
+                                    fontSize: 19,
                                     color: Color.fromARGB(255, 185, 166, 126),
                                     fontWeight: FontWeight.w700)),
                             TextSpan(
                                 text:
                                     'que gostaria de fazer com a pessoa\nque o Universo trará a você!',
                                 style: GoogleFonts.quicksand(
-                                    fontSize: 20,
+                                    fontSize: 19,
                                     color: Color.fromARGB(255, 207, 202, 187),
                                     fontWeight: FontWeight.w700))
                           ],
                         ),
                       )),
                   Container(
-                    height: size.height * 0.65,
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    height: size.height * 0.64,
+                    padding: const EdgeInsets.symmetric(vertical: 6),
                     child: FutureBuilder<dynamic>(
                       future:
                           getData(), // a previously-obtained Future<String> or null

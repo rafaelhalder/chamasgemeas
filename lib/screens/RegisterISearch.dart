@@ -13,6 +13,7 @@ class RegisterISearchPage extends StatefulWidget {
 
 class _RegisterISearchPageState extends State<RegisterISearchPage> {
   String name = '';
+  bool finished = false;
 
   @override
   void initState() {
@@ -54,7 +55,7 @@ class _RegisterISearchPageState extends State<RegisterISearchPage> {
                           TextSpan(
                               text: '${name}, \n',
                               style: GoogleFonts.cinzelDecorative(
-                                  fontSize: 40,
+                                  fontSize: 35,
                                   color: Color.fromARGB(255, 147, 132, 100),
                                   fontWeight: FontWeight.w700)),
                           TextSpan(
@@ -244,9 +245,15 @@ class _RegisterISearchPageState extends State<RegisterISearchPage> {
                             'typeInterested': typeInterested
                           });
 
-                          selectedIndex != ""
-                              ? Navigator.pushNamed(context, '/registerStep3')
-                              : null;
+                          if (finished == true) {
+                            selectedIndex != ""
+                                ? Navigator.pushNamed(context, '/profilePage')
+                                : null;
+                          } else {
+                            selectedIndex != ""
+                                ? Navigator.pushNamed(context, '/registerStep3')
+                                : null;
+                          }
                         },
                         child: Container(
                           width: size.width * 0.35,
@@ -288,6 +295,7 @@ class _RegisterISearchPageState extends State<RegisterISearchPage> {
 
     setState(() {
       name = userInfo['name'];
+      finished = userInfo['finished'];
     });
   }
 }

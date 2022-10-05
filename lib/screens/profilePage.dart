@@ -84,6 +84,42 @@ class _ProfilePageState extends State<ProfilePage> {
     return variable['weight'];
   }
 
+  dynamic loadInterested() async {
+    DocumentSnapshot variable =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    if (variable['interested'] == '1') {
+      return 'Mulher';
+    }
+
+    if (variable['interested'] == '2') {
+      return 'Homem';
+    }
+
+    if (variable['interested'] == '3') {
+      return 'LGBT';
+    }
+
+    if (variable['interested'] == '4') {
+      return 'LGBT Homem';
+    }
+
+    if (variable['interested'] == '5') {
+      return 'LGBT Mulher';
+    }
+
+    if (variable['interested'] == '6') {
+      return 'LGBT Ambos';
+    }
+  }
+
+  dynamic loadType() async {
+    DocumentSnapshot variable =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    return variable['soul'];
+  }
+
   dynamic loadGenero() async {
     DocumentSnapshot variable =
         await FirebaseFirestore.instance.collection('users').doc(uid).get();
@@ -98,6 +134,18 @@ class _ProfilePageState extends State<ProfilePage> {
 
     if (variable['gender'] == '3') {
       return 'LGBT';
+    }
+
+    if (variable['gender'] == '4') {
+      return 'LGBT Homem';
+    }
+
+    if (variable['gender'] == '5') {
+      return 'LGBT Mulher';
+    }
+
+    if (variable['gender'] == '6') {
+      return 'LGBT Ambos';
     }
   }
 
@@ -819,6 +867,120 @@ class _ProfilePageState extends State<ProfilePage> {
                                         ),
                                         const Text(
                                           'Genero: ',
+                                          style: TextStyle(
+                                              letterSpacing: 0.2,
+                                              color: Color.fromARGB(
+                                                  255, 84, 75, 57),
+                                              fontSize: 16),
+                                        ),
+                                        Text(
+                                          snapshot.data,
+                                          style: const TextStyle(
+                                              letterSpacing: 0.2,
+                                              color: Color.fromARGB(
+                                                  255, 84, 75, 57),
+                                              fontSize: 16),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                            return Container();
+                          }),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/registerStep2');
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Color.fromARGB(255, 211, 202, 189),
+                      ),
+                      child: FutureBuilder<dynamic>(
+                          future: loadInterested(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        const Icon(Icons.edit_note,
+                                            color: Color.fromARGB(
+                                                255, 84, 75, 57)),
+                                        const SizedBox(
+                                          width: 1,
+                                        ),
+                                        const Text(
+                                          'Interessado: ',
+                                          style: TextStyle(
+                                              letterSpacing: 0.2,
+                                              color: Color.fromARGB(
+                                                  255, 84, 75, 57),
+                                              fontSize: 16),
+                                        ),
+                                        Text(
+                                          snapshot.data,
+                                          style: const TextStyle(
+                                              letterSpacing: 0.2,
+                                              color: Color.fromARGB(
+                                                  255, 84, 75, 57),
+                                              fontSize: 16),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                            return Container();
+                          }),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/registerStep3');
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Color.fromARGB(255, 211, 202, 189),
+                      ),
+                      child: FutureBuilder<dynamic>(
+                          future: loadType(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        const Icon(Icons.edit_note,
+                                            color: Color.fromARGB(
+                                                255, 84, 75, 57)),
+                                        const SizedBox(
+                                          width: 1,
+                                        ),
+                                        const Text(
+                                          'Alma: ',
                                           style: TextStyle(
                                               letterSpacing: 0.2,
                                               color: Color.fromARGB(

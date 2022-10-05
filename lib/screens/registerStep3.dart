@@ -12,6 +12,7 @@ class RegisterStep3 extends StatefulWidget {
 
 class _RegisterStep3State extends State<RegisterStep3> {
   String name = '';
+  bool finished = false;
 
   @override
   void initState() {
@@ -53,13 +54,13 @@ class _RegisterStep3State extends State<RegisterStep3> {
                           TextSpan(
                               text: '${name},\n',
                               style: GoogleFonts.cinzelDecorative(
-                                  fontSize: 40,
+                                  fontSize: 30,
                                   color: Color.fromARGB(255, 147, 132, 100),
                                   fontWeight: FontWeight.w700)),
                           TextSpan(
                               text: 'como a sua alma se manifesta?',
                               style: GoogleFonts.quicksand(
-                                  fontSize: 20,
+                                  fontSize: 18,
                                   color: Color.fromARGB(255, 207, 202, 187),
                                   fontWeight: FontWeight.w700)),
                         ],
@@ -146,9 +147,15 @@ class _RegisterStep3State extends State<RegisterStep3> {
                               .doc(user?.uid)
                               .update({'soul': typeInterested});
 
-                          selectedIndex != ""
-                              ? Navigator.pushNamed(context, '/registerStep4')
-                              : null;
+                          if (finished == true) {
+                            selectedIndex != ""
+                                ? Navigator.pushNamed(context, '/profilePage')
+                                : null;
+                          } else {
+                            selectedIndex != ""
+                                ? Navigator.pushNamed(context, '/registerStep4')
+                                : null;
+                          }
                         },
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -223,6 +230,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
 
     setState(() {
       name = userInfo['name'];
+      finished = userInfo['finished'];
     });
   }
 

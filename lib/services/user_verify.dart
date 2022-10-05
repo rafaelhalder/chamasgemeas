@@ -16,11 +16,40 @@ class _VerifyUserState extends State<VerifyUser> {
   User? user = FirebaseAuth.instance.currentUser;
   String? uid = FirebaseAuth.instance.currentUser?.uid;
   int newUser = 0;
+  late Image background;
+  late Image iconMenu1;
+  late Image iconMenu2;
+  late Image iconMenu3;
+  late Image iconMenu4;
+  late Image iconMenu5;
+  late Image iconMenu6;
+  late Image iconMenu7;
 
   @override
   void initState() {
     verify();
     super.initState();
+    background = Image.asset('assets/images/Magia.png');
+    iconMenu1 = Image.asset('assets/images/Magia Natural.png');
+    iconMenu2 = Image.asset('assets/images/mago.png');
+    iconMenu3 = Image.asset('assets/images/Mediunidade.png');
+    iconMenu4 = Image.asset('assets/images/Quânticos.png');
+    iconMenu5 = Image.asset('assets/images/Yoga e Meditação.png');
+    iconMenu6 = Image.asset('assets/images/Buscador.png');
+    iconMenu7 = Image.asset('assets/images/Cura Holística.png');
+  }
+
+  @override
+  void didChangeDependencies() {
+    precacheImage(background.image, context);
+    precacheImage(iconMenu1.image, context);
+    precacheImage(iconMenu2.image, context);
+    precacheImage(iconMenu3.image, context);
+    precacheImage(iconMenu4.image, context);
+    precacheImage(iconMenu5.image, context);
+    precacheImage(iconMenu6.image, context);
+    precacheImage(iconMenu7.image, context);
+    super.didChangeDependencies();
   }
 
   @override

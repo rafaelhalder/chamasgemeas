@@ -1,12 +1,10 @@
 import 'package:chamasgemeas/api/purchase_api.dart';
 import 'package:chamasgemeas/paywall_widget.dart';
 import 'package:chamasgemeas/provider/card_provider.dart';
-import 'package:chamasgemeas/screens/WelcomePage.dart';
 import 'package:chamasgemeas/screens/chats.dart';
-import 'package:chamasgemeas/screens/matchUsers.dart';
 import 'package:chamasgemeas/screens/preferencePage.dart';
 import 'package:chamasgemeas/screens/profilePage.dart';
-import 'package:chamasgemeas/screens/registerStep7.dart';
+import 'package:chamasgemeas/screens/registerStep6.dart';
 import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -301,7 +299,7 @@ class _HomePageState extends State<HomePage> {
                       context,
                       PageRouteBuilder(
                         pageBuilder: (context, animation1, animation2) =>
-                            RegisterStep7(),
+                            RegisterStep6Page(),
                         transitionDuration: Duration.zero,
                         reverseTransitionDuration: Duration.zero,
                       ),
