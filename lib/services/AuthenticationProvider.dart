@@ -83,9 +83,6 @@ class AuthenticationProvider with ChangeNotifier {
       await firebaseUser?.updateEmail(userEmail);
 
       User? user = FirebaseAuth.instance.currentUser;
-      print('--------------------');
-      print(user);
-      print('--------------------');
 
       return authResult;
     } on PlatformException catch (e) {

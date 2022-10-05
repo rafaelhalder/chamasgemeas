@@ -35,10 +35,10 @@ class _MatchUsersState extends State<MatchUsers> {
         decoration: BoxDecoration(
             color: Color.fromARGB(0, 241, 95, 95),
             image: DecorationImage(
-              image: AssetImage("assets/images/interfacesigno.png"),
+              image: AssetImage("assets/images/DEUMATCH.png"),
               fit: BoxFit.cover,
             )),
-        height: size.height * 0.8,
+        height: size.height * 0.83,
         child: Stack(
           children: [
             Positioned.fill(

@@ -238,7 +238,7 @@ class _TinderCardState extends State<TinderCard> {
                     color: Color.fromARGB(255, 248, 222, 162),
                     borderRadius: BorderRadius.circular(30)),
                 height: 30,
-                width: 50,
+                width: 70,
               )
             ],
           ),

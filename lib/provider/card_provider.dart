@@ -334,9 +334,6 @@ class CardProvider extends ChangeNotifier {
       _disliked.add(dislike['id']);
       dislikeTe = dislike['id'];
     }
-    print('----------------------------------------------------');
-    print(dislikeTe);
-    print('----------------------------------------------------');
 
     final QuerySnapshot result = await FirebaseFirestore.instance
         .collection('users')
@@ -358,32 +355,32 @@ class CardProvider extends ChangeNotifier {
           lati.LatLng(latUser, lngUser));
 
       if (teste['photos'][0]['url'] != 'nulo') {
-        if (distanceUser >= km) {
-          if (!dislikeTe.contains(teste['uid'])) {
-            if (!likeTe.contains(teste['uid'])) {
-              teste['listFocus'] == null ? teste['listFocus'] = [1] : '';
-              if (teste['uid'] != uid)
-                _users.add(Users(
-                    age: teste['age'],
-                    city: teste['city'],
-                    country: teste['country'],
-                    height: teste['height'],
-                    occupation: teste['occupation'],
-                    interested: teste['interested'],
-                    latitude: teste['latitude'],
-                    longitude: teste['longitude'],
-                    listFocus: teste['listFocus'],
-                    soul: teste['soul'],
-                    token: teste['token'],
-                    uid: teste['uid'],
-                    zodiac: teste['zodiac'],
-                    photos: teste['photos'],
-                    weight: teste['weight'],
-                    aboutMe: teste['aboutMe'],
-                    name: teste['name'],
-                    urlImage: teste['photos'][0]['url']));
-            }
+        // if (distanceUser >= km) {
+        if (!dislikeTe.contains(teste['uid'])) {
+          if (!likeTe.contains(teste['uid'])) {
+            teste['listFocus'] == null ? teste['listFocus'] = [1] : '';
+            if (teste['uid'] != uid)
+              _users.add(Users(
+                  age: teste['age'],
+                  city: teste['city'],
+                  country: teste['country'],
+                  height: teste['height'],
+                  occupation: teste['occupation'],
+                  interested: teste['interested'],
+                  latitude: teste['latitude'],
+                  longitude: teste['longitude'],
+                  listFocus: teste['listFocus'],
+                  soul: teste['soul'],
+                  token: teste['token'],
+                  uid: teste['uid'],
+                  zodiac: teste['zodiac'],
+                  photos: teste['photos'],
+                  weight: teste['weight'],
+                  aboutMe: teste['aboutMe'],
+                  name: teste['name'],
+                  urlImage: teste['photos'][0]['url']));
           }
+          // }
         }
       }
     });

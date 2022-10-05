@@ -103,10 +103,11 @@ class _UserPageState extends State<UserPage> {
       child: SafeArea(
         child: Container(
           decoration: BoxDecoration(
+              color: Colors.transparent,
               image: DecorationImage(
-            image: AssetImage("assets/images/interfacesigno.png"),
-            fit: BoxFit.cover,
-          )),
+                image: AssetImage("assets/images/foto22.png"),
+                fit: BoxFit.cover,
+              )),
           child: Scaffold(
             bottomNavigationBar: ConvexAppBar(
               color: Colors.black,
@@ -235,14 +236,15 @@ class _UserPageState extends State<UserPage> {
               elevation: 0,
               backgroundColor: const Color.fromARGB(0, 0, 0, 0),
             ),
-            body: SingleChildScrollView(
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                  image: AssetImage("assets/images/interfacesigno.png"),
-                  fit: BoxFit.cover,
-                )),
+            body: Container(
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/foto22.png"),
+                    fit: BoxFit.cover,
+                  )),
+              child: SingleChildScrollView(
                 child: Column(children: [
                   Stack(
                     children: [
@@ -378,7 +380,7 @@ class _UserPageState extends State<UserPage> {
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: Container(
-                            width: 70.0,
+                            width: 100.0,
                             height: 30,
                             child: Container(
                               padding: const EdgeInsets.symmetric(
@@ -779,7 +781,9 @@ class _UserPageState extends State<UserPage> {
                             ),
                           ),
                         )
-                      : Container(),
+                      : Container(
+                          color: Colors.transparent,
+                        ),
                   photos[2]['url'] != 'nulo'
                       ? Padding(
                           padding: const EdgeInsets.all(15),
@@ -804,7 +808,9 @@ class _UserPageState extends State<UserPage> {
                             ),
                           ),
                         )
-                      : Container(),
+                      : Container(
+                          color: Colors.transparent,
+                        ),
                 ]),
               ),
             ),

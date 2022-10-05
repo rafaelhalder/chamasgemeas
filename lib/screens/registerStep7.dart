@@ -144,7 +144,7 @@ class _RegisterStep7State extends State<RegisterStep7> {
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-        image: AssetImage("assets/images/interfacesigno.png"),
+        image: AssetImage("assets/images/FOTO11.png"),
         fit: BoxFit.cover,
       )),
       child: Scaffold(
@@ -184,7 +184,7 @@ class _RegisterStep7State extends State<RegisterStep7> {
                     ),
                   ),
                   SizedBox(
-                    height: 25,
+                    height: 100,
                   ),
                   Padding(
                     padding: EdgeInsets.zero,

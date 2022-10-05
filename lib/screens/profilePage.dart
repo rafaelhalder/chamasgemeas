@@ -792,63 +792,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/registerStep4');
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Color.fromARGB(255, 211, 202, 189),
-                      ),
-                      child: FutureBuilder<dynamic>(
-                          future: loadWeight(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.edit_note,
-                                            color: Color.fromARGB(
-                                                255, 84, 75, 57)),
-                                        const SizedBox(
-                                          width: 1,
-                                        ),
-                                        const Text(
-                                          'Peso: ',
-                                          style: TextStyle(
-                                              letterSpacing: 0.2,
-                                              color: Color.fromARGB(
-                                                  255, 84, 75, 57),
-                                              fontSize: 16),
-                                        ),
-                                        Text(
-                                          snapshot.data,
-                                          style: const TextStyle(
-                                              letterSpacing: 0.2,
-                                              color: Color.fromARGB(
-                                                  255, 84, 75, 57),
-                                              fontSize: 16),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }
-                            return Container();
-                          }),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  child: GestureDetector(
-                    onTap: () {
                       Navigator.pushNamed(context, '/register');
                     },
                     child: Container(

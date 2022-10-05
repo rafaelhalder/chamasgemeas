@@ -123,7 +123,7 @@ class _UserPageHomeState extends State<UserPageHome> {
         child: Container(
           decoration: BoxDecoration(
               image: DecorationImage(
-            image: AssetImage("assets/images/interfacesigno.png"),
+            image: AssetImage("assets/images/foto22.png"),
             fit: BoxFit.cover,
           )),
           child: Scaffold(
@@ -255,14 +255,14 @@ class _UserPageHomeState extends State<UserPageHome> {
               backgroundColor: const Color.fromARGB(0, 0, 0, 0),
             ),
             body: photos.length > 0
-                ? SingleChildScrollView(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                        image: AssetImage("assets/images/interfacesigno.png"),
-                        fit: BoxFit.cover,
-                      )),
+                ? Container(
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                      image: AssetImage("assets/images/foto22.png"),
+                      fit: BoxFit.cover,
+                    )),
+                    child: SingleChildScrollView(
                       child: Column(children: [
                         Stack(
                           children: [
