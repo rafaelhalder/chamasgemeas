@@ -247,6 +247,21 @@ class _ChatDetailState extends State<ChatDetail> {
     });
   }
 
+  Future<bool> canSend() async {
+    var tes2 = await FirebaseFirestore.instance
+        .collection('chats')
+        .doc(chatDocId)
+        .get();
+
+    Map<String, dynamic> data = tes2.data()!;
+
+    if (data['users']['$friendUid'] == 1 || data['users']['$friendUid'] == 2) {
+      return true;
+    }
+
+    return false;
+  }
+
   bool isSender(String friend) {
     return friend == currentUserId;
   }
@@ -294,7 +309,7 @@ class _ChatDetailState extends State<ChatDetail> {
           'high_importance_channel', // id
           'High Importance Notifications', // title
           importance: not.Importance.defaultImportance,
-          ledColor: Colors.red,
+          ledColor: Colors.amber,
           enableVibration: true);
 
       flutterLocalNotificationsPlugin = not.FlutterLocalNotificationsPlugin();
@@ -443,24 +458,54 @@ class _ChatDetailState extends State<ChatDetail> {
                   height: 110,
                   child: CupertinoNavigationBar(
                     trailing: GestureDetector(
-                        child: Icon(Icons.arrow_upward),
+                        child: Icon(
+                          Icons.list_outlined,
+                          color: Color.fromARGB(255, 211, 202, 189),
+                        ),
                         onTap: () => showMaterialModalBottomSheet(
                               context: context,
                               builder: (context) => Container(
                                 color: Color.fromARGB(108, 0, 0, 0),
                                 height:
                                     MediaQuery.of(context).size.height * 0.3,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    minimumSize: Size.fromHeight(50),
-                                    textStyle: TextStyle(fontSize: 20),
-                                  ),
-                                  child: Text('SEND'),
-                                  onPressed: () => sendEmail(
-                                    name: controllerName.text,
-                                    email: controllerEmail.text,
-                                    subject: controllerSubject.text,
-                                    message: controllerMessage.text,
+                                child: Container(
+                                  padding: EdgeInsets.all(5),
+                                  color: Colors.black87,
+                                  child: Wrap(
+                                    children: [
+                                      ListTile(
+                                        onTap: () {
+                                          blockUser();
+                                        },
+                                        leading: Icon(Icons.person_off_rounded,
+                                            color: Color.fromARGB(
+                                                255, 218, 193, 136)),
+                                        title: Text('Bloquear usuário',
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 218, 193, 136))),
+                                      ),
+                                      Divider(
+                                        color:
+                                            Color.fromARGB(118, 218, 193, 136),
+                                      ),
+                                      TextButton(
+                                        style: ElevatedButton.styleFrom(
+                                          minimumSize: Size.fromHeight(50),
+                                          textStyle: TextStyle(fontSize: 20),
+                                        ),
+                                        child: Text(
+                                          'Reportar',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                        onPressed: () => sendEmail(
+                                          name: controllerName.text,
+                                          email: controllerEmail.text,
+                                          subject: controllerSubject.text,
+                                          message: controllerMessage.text,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
@@ -694,11 +739,14 @@ class _ChatDetailState extends State<ChatDetail> {
                                 Icons.send_sharp,
                                 color: Color.fromARGB(255, 211, 202, 189),
                               ),
-                              onPressed: () {
+                              onPressed: () async {
                                 if (_textController.text != "") {
-                                  sendMessage(_textController.text);
-                                  sendPushMessage(_textController.text,
-                                      currentUserName, tokenAuth);
+                                  var tese = await canSend();
+                                  if (tese == true) {
+                                    sendMessage(_textController.text);
+                                    sendPushMessage(_textController.text,
+                                        currentUserName, tokenAuth);
+                                  }
                                 }
                               })
                         ],
@@ -717,6 +765,14 @@ class _ChatDetailState extends State<ChatDetail> {
         },
       ),
     );
+  }
+
+  void blockUser() async {
+    await chats.doc(chatDocId).update({
+      'users': {friendUid: 1, currentUserId: 3},
+    });
+
+    Navigator.pushNamed(context, '/chats');
   }
 
   Future sendEmail({
@@ -743,18 +799,15 @@ class _ChatDetailState extends State<ChatDetail> {
         'template_params': {
           'user_name': name,
           'user_email': email,
-          'to_email': 'rafael.silva@tecnorisk.com.br',
           'user_subject': subject,
           'user_message': message,
         },
       }),
     );
 
-    print(response.body);
-
     if (response.statusCode == 200) {
       chats.doc(chatDocId).update({
-        'users': {friendUid: 3, currentUserId: 3},
+        'users': {friendUid: 1, currentUserId: 3},
       });
 
       Navigator.pop(context);
@@ -767,7 +820,11 @@ class _ChatDetailState extends State<ChatDetail> {
           ),
         ),
       );
+      Navigator.pushNamed(context, '/chats');
     } else {
+      chats.doc(chatDocId).update({
+        'users': {friendUid: 1, currentUserId: 3},
+      });
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Colors.red,
@@ -777,6 +834,7 @@ class _ChatDetailState extends State<ChatDetail> {
           ),
         ),
       );
+      Navigator.pushNamed(context, '/chats');
     }
   }
 }
