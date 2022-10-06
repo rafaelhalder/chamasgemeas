@@ -12,6 +12,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:path/path.dart';
 
 class Chats extends StatefulWidget {
   const Chats({Key? key}) : super(key: key);
@@ -21,10 +24,15 @@ class Chats extends StatefulWidget {
 }
 
 class _ChatsState extends State<Chats> {
+  CollectionReference chats = FirebaseFirestore.instance.collection('chats');
+  var currentUser = FirebaseAuth.instance.currentUser?.uid;
+  List available = [];
+
   @override
   void initState() {
-    super.initState();
     chatState.refreshChatsForCurrentUser();
+    teste();
+    super.initState();
   }
 
   void callChatDetailScreen(
@@ -40,6 +48,7 @@ class _ChatsState extends State<Chats> {
   Widget build(BuildContext context) {
     String defaultPhoto =
         'https://firebasestorage.googleapis.com/v0/b/chamas-gemeas.appspot.com/o/images%2Fdefault%2Fperson_blank.png?alt=media&token=a48cac17-1f89-4aed-a0b2-ba38699d516f';
+    print(chatState);
 
     return Container(
       decoration: BoxDecoration(
@@ -160,9 +169,16 @@ class _ChatsState extends State<Chats> {
                     SliverList(
                         delegate: SliverChildListDelegate(
                             chatState.messages.values.toList().map((data) {
+                      String idChat = data['docid'];
                       String timer = data['time'] != ''
                           ? DateFormat('hh:mm a').format(data['time'].toDate())
                           : '';
+
+                      if (mounted) {
+                        // teste();
+                      }
+                      // print(chatState.messages);
+                      if (!available.contains(idChat)) return Container();
 
                       if (data['photo'] == '') {
                         data['photo'] = defaultPhoto;
@@ -215,5 +231,22 @@ class _ChatsState extends State<Chats> {
                 )),
       ),
     );
+  }
+
+  void teste() async {
+    List likedMe = [];
+
+    final foundLikeMe = await FirebaseFirestore.instance
+        .collection('chats')
+        .where('users.$currentUser', isEqualTo: 1)
+        .get();
+
+    var eeee = foundLikeMe.docs.forEach((element) {
+      likedMe.add(element.id);
+    });
+
+    setState(() {
+      available = likedMe;
+    });
   }
 }

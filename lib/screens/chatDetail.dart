@@ -754,16 +754,15 @@ class _ChatDetailState extends State<ChatDetail> {
 
     if (response.statusCode == 200) {
       chats.doc(chatDocId).update({
-        'users': {friendUid: 1, currentUserId: 3},
+        'users': {friendUid: 3, currentUserId: 3},
       });
 
       Navigator.pop(context);
-
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Colors.green,
           content: Text(
-            'Email sent successfully!',
+            'Denuncia eviada com sucesso!',
             style: TextStyle(fontSize: 20),
           ),
         ),
@@ -773,7 +772,7 @@ class _ChatDetailState extends State<ChatDetail> {
         SnackBar(
           backgroundColor: Colors.red,
           content: Text(
-            'Failed to send email!',
+            'Falha no envio da denuncia!',
             style: TextStyle(fontSize: 20),
           ),
         ),

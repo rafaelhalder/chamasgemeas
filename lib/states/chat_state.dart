@@ -27,6 +27,11 @@ abstract class _ChatState with Store {
       chatDocuments = snapshot.docs.map((DocumentSnapshot doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
         Map<String, dynamic> names = data['names'];
+        Map<String, dynamic> users = data['users'];
+        print('============');
+        print(doc.id);
+        print('------------');
+
         names.remove(currentUser);
         return {
           'docid': doc.id,
@@ -69,6 +74,7 @@ abstract class _ChatState with Store {
                 'photo': doc['photo'],
                 'status': doc['status'],
                 'token': doc['token'],
+                'docid': doc['docid'],
               };
             } else {
               messages[doc['name']] = {
@@ -79,7 +85,10 @@ abstract class _ChatState with Store {
                 'photo': doc['photo'],
                 'status': doc['status'],
                 'token': doc['token'],
+                'docid': doc['docid'],
               };
+              print('333333333333');
+              print(messages[doc['name']]);
             }
           });
         });
