@@ -1195,46 +1195,46 @@ class _UserPageHomeState extends State<UserPageHome> {
                                 ),
                               )
                             : Text(''),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 10),
-                          child: Flexible(
-                            child: Text(
-                              'Proximidades de ${name}',
-                              style: GoogleFonts.cinzelDecorative(
-                                  color: Color.fromARGB(255, 207, 202, 187),
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: Container(
-                            height: size.height * 0.25,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color:
-                                        const Color.fromARGB(255, 62, 62, 62)),
-                                borderRadius: BorderRadius.circular(8)),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: FlutterMap(
-                                options: MapOptions(
-                                  center: lat.LatLng(latitude, longitude),
-                                  zoom: 12.0,
-                                ),
-                                layers: [
-                                  TileLayerOptions(
-                                      urlTemplate:
-                                          'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                                      subdomains: ['a', 'b', 'c']),
-                                  CircleLayerOptions(circles: circleMarkers)
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+                        // Container(
+                        //   padding: const EdgeInsets.symmetric(
+                        //       horizontal: 25, vertical: 10),
+                        //   child: Flexible(
+                        //     child: Text(
+                        //       'Proximidades de ${name}',
+                        //       style: GoogleFonts.cinzelDecorative(
+                        //           color: Color.fromARGB(255, 207, 202, 187),
+                        //           fontSize: 18,
+                        //           fontWeight: FontWeight.bold),
+                        //     ),
+                        //   ),
+                        // ),
+                        // Padding(
+                        //   padding: const EdgeInsets.all(15),
+                        //   child: Container(
+                        //     height: size.height * 0.25,
+                        //     decoration: BoxDecoration(
+                        //         border: Border.all(
+                        //             color:
+                        //                 const Color.fromARGB(255, 62, 62, 62)),
+                        //         borderRadius: BorderRadius.circular(8)),
+                        //     child: ClipRRect(
+                        //       borderRadius: BorderRadius.circular(8),
+                        //       child: FlutterMap(
+                        //         options: MapOptions(
+                        //           center: lat.LatLng(latitude, longitude),
+                        //           zoom: 12.0,
+                        //         ),
+                        //         layers: [
+                        //           TileLayerOptions(
+                        //               urlTemplate:
+                        //                   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                        //               subdomains: ['a', 'b', 'c']),
+                        //           CircleLayerOptions(circles: circleMarkers)
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                         if (photos.length > 1 && photos[1]['url'] != 'nulo')
                           photos[1]['url'] != 'nulo'
                               ? Padding(

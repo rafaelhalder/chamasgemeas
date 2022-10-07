@@ -222,6 +222,7 @@ class _ChatDetailState extends State<ChatDetail> {
             if (querySnapshot.docs.isNotEmpty) {
               setState(() {
                 chatDocId = querySnapshot.docs.single.id;
+                print(chatDocId);
               });
             }
           },
@@ -473,17 +474,18 @@ class _ChatDetailState extends State<ChatDetail> {
                                   color: Colors.black87,
                                   child: Wrap(
                                     children: [
-                                      ListTile(
-                                        onTap: () {
-                                          blockUser();
-                                        },
-                                        leading: Icon(Icons.person_off_rounded,
-                                            color: Color.fromARGB(
-                                                255, 218, 193, 136)),
-                                        title: Text('Bloquear usuário',
-                                            style: TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 218, 193, 136))),
+                                      TextButton(
+                                        style: ElevatedButton.styleFrom(
+                                          minimumSize: Size.fromHeight(50),
+                                          textStyle: TextStyle(fontSize: 20),
+                                        ),
+                                        child: Text(
+                                          'Bloquear usuário',
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 218, 193, 136)),
+                                        ),
+                                        onPressed: () => blockUser(),
                                       ),
                                       Divider(
                                         color:
@@ -815,7 +817,7 @@ class _ChatDetailState extends State<ChatDetail> {
         SnackBar(
           backgroundColor: Colors.green,
           content: Text(
-            'Denuncia eviada com sucesso!',
+            'Denuncia enviada com sucesso!',
             style: TextStyle(fontSize: 20),
           ),
         ),

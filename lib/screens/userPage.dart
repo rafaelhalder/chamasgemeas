@@ -717,45 +717,45 @@ class _UserPageState extends State<UserPage> {
                       ),
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 25, vertical: 10),
-                    child: Flexible(
-                      child: Text(
-                        'Proximidades de ${arguments['name']}',
-                        style: const TextStyle(
-                            color: Color.fromARGB(255, 207, 202, 187),
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Container(
-                      height: size.height * 0.25,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: const Color.fromARGB(255, 62, 62, 62)),
-                          borderRadius: BorderRadius.circular(8)),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: FlutterMap(
-                          options: MapOptions(
-                            center: lat.LatLng(latitude, longitude),
-                            zoom: 12.0,
-                          ),
-                          layers: [
-                            TileLayerOptions(
-                                urlTemplate:
-                                    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                                subdomains: ['a', 'b', 'c']),
-                            CircleLayerOptions(circles: circleMarkers)
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   padding: const EdgeInsets.symmetric(
+                  //       horizontal: 25, vertical: 10),
+                  //   child: Flexible(
+                  //     child: Text(
+                  //       'Proximidades de ${arguments['name']}',
+                  //       style: const TextStyle(
+                  //           color: Color.fromARGB(255, 207, 202, 187),
+                  //           fontSize: 18,
+                  //           fontWeight: FontWeight.bold),
+                  //     ),
+                  //   ),
+                  // ),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(15),
+                  //   child: Container(
+                  //     height: size.height * 0.25,
+                  //     decoration: BoxDecoration(
+                  //         border: Border.all(
+                  //             color: const Color.fromARGB(255, 62, 62, 62)),
+                  //         borderRadius: BorderRadius.circular(8)),
+                  //     child: ClipRRect(
+                  //       borderRadius: BorderRadius.circular(8),
+                  //       child: FlutterMap(
+                  //         options: MapOptions(
+                  //           center: lat.LatLng(latitude, longitude),
+                  //           zoom: 12.0,
+                  //         ),
+                  //         layers: [
+                  //           TileLayerOptions(
+                  //               urlTemplate:
+                  //                   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                  //               subdomains: ['a', 'b', 'c']),
+                  //           CircleLayerOptions(circles: circleMarkers)
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   photos[1]['url'] != 'nulo'
                       ? Padding(
                           padding: const EdgeInsets.all(15),

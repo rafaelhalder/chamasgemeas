@@ -50,304 +50,312 @@ class _PreferencePageState extends State<PreferencePage> {
           image: AssetImage("assets/images/interfacesigno.png"),
           fit: BoxFit.cover,
         )),
-        child: Scaffold(
-          bottomNavigationBar: ConvexAppBar(
-            color: Colors.black,
-            gradient: const LinearGradient(colors: [
-              Color.fromARGB(255, 211, 202, 189),
-              Color.fromARGB(255, 211, 202, 189),
-            ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-            // ignore: prefer_const_literals_to_create_immutables
-            items: [
-              // ignore: prefer_const_constructors
-              TabItem(
-                  activeIcon: Container(
-                      alignment: Alignment.center,
-                      child: FaIcon(FontAwesomeIcons.yinYang,
-                          color: Colors.black)),
-                  icon: FaIcon(FontAwesomeIcons.yinYang, color: Colors.black),
-                  title: 'Home'),
-              const TabItem(
-                  activeIcon: Icon(Icons.star, color: Colors.black),
-                  icon: Icon(Icons.star, color: Colors.black),
-                  title: 'Super'),
-              const TabItem(
-                  activeIcon: Icon(Icons.person, color: Colors.black),
-                  icon: Icon(Icons.person, color: Colors.black),
-                  title: 'Perfil'),
-              const TabItem(
-                  activeIcon: Icon(Icons.message, color: Colors.black),
-                  icon: Icon(Icons.message, color: Colors.black),
-                  title: 'Chats'),
-              const TabItem(
-                  activeIcon: Icon(Icons.settings, color: Colors.black),
-                  icon: Icon(Icons.settings, color: Colors.black),
-                  title: 'Opções'),
-            ],
-            initialActiveIndex: 4, //optional, default as 0
-            onTap: (int i) {
-              i == 0
-                  ? Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            HomePage(),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
+        child: WillPopScope(
+          onWillPop: () async => false,
+          child: Scaffold(
+            bottomNavigationBar: ConvexAppBar(
+              color: Colors.black,
+              gradient: const LinearGradient(colors: [
+                Color.fromARGB(255, 211, 202, 189),
+                Color.fromARGB(255, 211, 202, 189),
+              ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+              // ignore: prefer_const_literals_to_create_immutables
+              items: [
+                // ignore: prefer_const_constructors
+                TabItem(
+                    activeIcon: Container(
+                        alignment: Alignment.center,
+                        child: FaIcon(FontAwesomeIcons.yinYang,
+                            color: Colors.black)),
+                    icon: FaIcon(FontAwesomeIcons.yinYang, color: Colors.black),
+                    title: 'Home'),
+                const TabItem(
+                    activeIcon: Icon(Icons.star, color: Colors.black),
+                    icon: Icon(Icons.star, color: Colors.black),
+                    title: 'Super'),
+                const TabItem(
+                    activeIcon: Icon(Icons.person, color: Colors.black),
+                    icon: Icon(Icons.person, color: Colors.black),
+                    title: 'Perfil'),
+                const TabItem(
+                    activeIcon: Icon(Icons.message, color: Colors.black),
+                    icon: Icon(Icons.message, color: Colors.black),
+                    title: 'Chats'),
+                const TabItem(
+                    activeIcon: Icon(Icons.settings, color: Colors.black),
+                    icon: Icon(Icons.settings, color: Colors.black),
+                    title: 'Opções'),
+              ],
+              initialActiveIndex: 4, //optional, default as 0
+              onTap: (int i) {
+                i == 0
+                    ? Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              HomePage(),
+                          transitionDuration: Duration.zero,
+                          reverseTransitionDuration: Duration.zero,
+                        ),
+                      )
+                    : const Text('');
+                i == 1
+                    ? Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              const SuperLike(),
+                          transitionDuration: Duration.zero,
+                          reverseTransitionDuration: Duration.zero,
+                        ),
+                      )
+                    : const Text('');
+                i == 2
+                    ? Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              const ProfilePage(),
+                          transitionDuration: Duration.zero,
+                          reverseTransitionDuration: Duration.zero,
+                        ),
+                      )
+                    : const Text('');
+                i == 3
+                    ? Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              const Chats(),
+                          transitionDuration: Duration.zero,
+                          reverseTransitionDuration: Duration.zero,
+                        ),
+                      )
+                    : const Text('');
+                i == 4
+                    ? Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              const PreferencePage(),
+                          transitionDuration: Duration.zero,
+                          reverseTransitionDuration: Duration.zero,
+                        ),
+                      )
+                    : const Text('');
+                print('click index=$i');
+              },
+            ),
+            backgroundColor: Colors.transparent,
+            body: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(28.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: Container(
+                        child: Center(
+                            child: Text(
+                          'Configurações',
+                          style: GoogleFonts.cinzelDecorative(
+                              fontSize: 22,
+                              color: Color.fromARGB(255, 147, 132, 100),
+                              fontWeight: FontWeight.w600),
+                        )),
                       ),
-                    )
-                  : const Text('');
-              i == 1
-                  ? Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            const SuperLike(),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
-                    )
-                  : const Text('');
-              i == 2
-                  ? Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            const ProfilePage(),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
-                    )
-                  : const Text('');
-              i == 3
-                  ? Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            const Chats(),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
-                    )
-                  : const Text('');
-              i == 4
-                  ? Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            const PreferencePage(),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
-                    )
-                  : const Text('');
-              print('click index=$i');
-            },
-          ),
-          backgroundColor: Colors.transparent,
-          body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(28.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: Container(
-                      child: Center(
-                          child: Text(
-                        'Configurações',
-                        style: GoogleFonts.cinzelDecorative(
-                            fontSize: 22,
-                            color: Color.fromARGB(255, 147, 132, 100),
-                            fontWeight: FontWeight.w600),
-                      )),
                     ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  AnimationLimiter(
-                    child: GridView.count(
-                      shrinkWrap: true,
-                      childAspectRatio: (200 / 180),
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 14,
-                      crossAxisSpacing: 14,
-                      children: [
-                        AnimationConfiguration.staggeredGrid(
-                          position: 0,
-                          duration: const Duration(milliseconds: 375),
-                          columnCount: columnCount,
-                          child: ScaleAnimation(
-                            child: FadeInAnimation(
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(context, '/filter');
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(25),
-                                      color: Colors.transparent,
-                                      border: Border.all(
-                                          color: Color.fromARGB(
-                                              255, 207, 202, 187))),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Icon(Icons.app_registration,
-                                          size: 60,
-                                          color: Color.fromARGB(
-                                              255, 207, 202, 187)),
-                                      Text(
-                                        'Preferências',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Color.fromARGB(
-                                                255, 207, 202, 187)),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        AnimationConfiguration.staggeredGrid(
-                          position: 0,
-                          duration: const Duration(milliseconds: 375),
-                          columnCount: columnCount,
-                          child: ScaleAnimation(
-                            child: FadeInAnimation(
-                              child: GestureDetector(
-                                onTap: () async {
-                                  await AuthService().signOut();
-                                  await SystemNavigator.pop();
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(25),
-                                      color: Colors.transparent,
-                                      border: Border.all(
-                                          color: Color.fromARGB(
-                                              255, 207, 202, 187))),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Icon(Icons.logout,
-                                          size: 60,
-                                          color: Color.fromARGB(
-                                              255, 207, 202, 187)),
-                                      Text(
-                                        'Logout',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Color.fromARGB(
-                                                255, 207, 202, 187)),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        AnimationConfiguration.staggeredGrid(
-                          position: 0,
-                          duration: const Duration(milliseconds: 375),
-                          columnCount: columnCount,
-                          child: ScaleAnimation(
-                            child: FadeInAnimation(
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(context, '/privacidade');
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(25),
-                                      color: Colors.transparent,
-                                      border: Border.all(
-                                          color: Color.fromARGB(
-                                              255, 207, 202, 187))),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Icon(Icons.lock,
-                                          size: 60,
-                                          color: Color.fromARGB(
-                                              255, 207, 202, 187)),
-                                      Text(
-                                        'Privacidade',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Color.fromARGB(
-                                                255, 207, 202, 187)),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        AnimationConfiguration.staggeredGrid(
-                          position: 0,
-                          duration: const Duration(milliseconds: 375),
-                          columnCount: columnCount,
-                          child: ScaleAnimation(
-                            child: FadeInAnimation(
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(context, '/help');
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(25),
-                                      color: Colors.transparent,
-                                      border: Border.all(
-                                          color: Color.fromARGB(
-                                              255, 207, 202, 187))),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Icon(Icons.email,
-                                          size: 60,
-                                          color: Color.fromARGB(
-                                              255, 207, 202, 187)),
-                                      Text(
-                                        'Ajuda',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Color.fromARGB(
-                                                255, 207, 202, 187)),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
+                    SizedBox(
+                      height: 30,
                     ),
-                  ),
-                ],
+                    AnimationLimiter(
+                      child: GridView.count(
+                        shrinkWrap: true,
+                        childAspectRatio: (200 / 180),
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 14,
+                        crossAxisSpacing: 14,
+                        children: [
+                          AnimationConfiguration.staggeredGrid(
+                            position: 0,
+                            duration: const Duration(milliseconds: 375),
+                            columnCount: columnCount,
+                            child: ScaleAnimation(
+                              child: FadeInAnimation(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(context, '/filter');
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25),
+                                        color: Colors.transparent,
+                                        border: Border.all(
+                                            color: Color.fromARGB(
+                                                255, 207, 202, 187))),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 25),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.app_registration,
+                                            size: 60,
+                                            color: Color.fromARGB(
+                                                255, 207, 202, 187)),
+                                        Text(
+                                          'Preferências',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Color.fromARGB(
+                                                  255, 207, 202, 187)),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          AnimationConfiguration.staggeredGrid(
+                            position: 0,
+                            duration: const Duration(milliseconds: 375),
+                            columnCount: columnCount,
+                            child: ScaleAnimation(
+                              child: FadeInAnimation(
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    await AuthService().signOut();
+                                    await SystemNavigator.pop();
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25),
+                                        color: Colors.transparent,
+                                        border: Border.all(
+                                            color: Color.fromARGB(
+                                                255, 207, 202, 187))),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 25),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.logout,
+                                            size: 60,
+                                            color: Color.fromARGB(
+                                                255, 207, 202, 187)),
+                                        Text(
+                                          'Logout',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Color.fromARGB(
+                                                  255, 207, 202, 187)),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          AnimationConfiguration.staggeredGrid(
+                            position: 0,
+                            duration: const Duration(milliseconds: 375),
+                            columnCount: columnCount,
+                            child: ScaleAnimation(
+                              child: FadeInAnimation(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, '/privacidade');
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25),
+                                        color: Colors.transparent,
+                                        border: Border.all(
+                                            color: Color.fromARGB(
+                                                255, 207, 202, 187))),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 25),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.lock,
+                                            size: 60,
+                                            color: Color.fromARGB(
+                                                255, 207, 202, 187)),
+                                        Text(
+                                          'Privacidade',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Color.fromARGB(
+                                                  255, 207, 202, 187)),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          AnimationConfiguration.staggeredGrid(
+                            position: 0,
+                            duration: const Duration(milliseconds: 375),
+                            columnCount: columnCount,
+                            child: ScaleAnimation(
+                              child: FadeInAnimation(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(context, '/help');
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25),
+                                        color: Colors.transparent,
+                                        border: Border.all(
+                                            color: Color.fromARGB(
+                                                255, 207, 202, 187))),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 25),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.email,
+                                            size: 60,
+                                            color: Color.fromARGB(
+                                                255, 207, 202, 187)),
+                                        Text(
+                                          'Ajuda',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Color.fromARGB(
+                                                  255, 207, 202, 187)),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

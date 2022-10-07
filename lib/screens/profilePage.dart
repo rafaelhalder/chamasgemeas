@@ -261,482 +261,431 @@ class _ProfilePageState extends State<ProfilePage> {
           image: AssetImage("assets/images/interfacesigno.png"),
           fit: BoxFit.cover,
         )),
-        child: Scaffold(
-          backgroundColor: Color.fromARGB(0, 27, 27, 27),
-          bottomNavigationBar: ConvexAppBar(
-            color: Colors.black,
-            gradient: const LinearGradient(colors: [
-              Color.fromARGB(255, 211, 202, 189),
-              Color.fromARGB(255, 211, 202, 189),
-            ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-            // ignore: prefer_const_literals_to_create_immutables
-            items: [
-              // ignore: prefer_const_constructors
-              TabItem(
-                  activeIcon: Container(
-                      alignment: Alignment.center,
-                      child: FaIcon(FontAwesomeIcons.yinYang,
-                          color: Colors.black)),
-                  icon: FaIcon(FontAwesomeIcons.yinYang, color: Colors.black),
-                  title: 'Home'),
-              const TabItem(
-                  activeIcon: Icon(Icons.star, color: Colors.black),
-                  icon: Icon(Icons.star, color: Colors.black),
-                  title: 'Super'),
-              const TabItem(
-                  activeIcon: Icon(Icons.person, color: Colors.black),
-                  icon: Icon(Icons.person, color: Colors.black),
-                  title: 'Perfil'),
-              const TabItem(
-                  activeIcon: Icon(Icons.message, color: Colors.black),
-                  icon: Icon(Icons.message, color: Colors.black),
-                  title: 'Chats'),
-              const TabItem(
-                  activeIcon: Icon(Icons.settings, color: Colors.black),
-                  icon: Icon(Icons.settings, color: Colors.black),
-                  title: 'Opções'),
-            ],
-            initialActiveIndex: 2, //optional, default as 0
-            onTap: (int i) {
-              i == 0
-                  ? Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            HomePage(),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
-                    )
-                  : const Text('');
-              i == 1
-                  ? Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            const SuperLike(),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
-                    )
-                  : const Text('');
-              i == 2
-                  ? Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            const ProfilePage(),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
-                    )
-                  : const Text('');
-              i == 3
-                  ? Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            const Chats(),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
-                    )
-                  : const Text('');
-              i == 4
-                  ? Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            const PreferencePage(),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
-                    )
-                  : const Text('');
-              print('click index=$i');
-            },
-          ),
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: const Color.fromARGB(0, 0, 0, 0),
-            centerTitle: true,
-            title: Text('Editar Perfil',
-                style: GoogleFonts.cinzelDecorative(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 147, 132, 100))),
-            leading: const Text(''),
-            actions: const [],
-          ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.only(top: 12.0, left: 12.0, right: 12.0),
-                  child: Center(
-                    child: FutureBuilder<dynamic>(
-                        future: loadImage(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            List images = snapshot.data;
-                            return ReorderableGridView.count(
+        child: WillPopScope(
+          onWillPop: () async => false,
+          child: Scaffold(
+            backgroundColor: Color.fromARGB(0, 27, 27, 27),
+            bottomNavigationBar: ConvexAppBar(
+              color: Colors.black,
+              gradient: const LinearGradient(colors: [
+                Color.fromARGB(255, 211, 202, 189),
+                Color.fromARGB(255, 211, 202, 189),
+              ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+              // ignore: prefer_const_literals_to_create_immutables
+              items: [
+                // ignore: prefer_const_constructors
+                TabItem(
+                    activeIcon: Container(
+                        alignment: Alignment.center,
+                        child: FaIcon(FontAwesomeIcons.yinYang,
+                            color: Colors.black)),
+                    icon: FaIcon(FontAwesomeIcons.yinYang, color: Colors.black),
+                    title: 'Home'),
+                const TabItem(
+                    activeIcon: Icon(Icons.star, color: Colors.black),
+                    icon: Icon(Icons.star, color: Colors.black),
+                    title: 'Super'),
+                const TabItem(
+                    activeIcon: Icon(Icons.person, color: Colors.black),
+                    icon: Icon(Icons.person, color: Colors.black),
+                    title: 'Perfil'),
+                const TabItem(
+                    activeIcon: Icon(Icons.message, color: Colors.black),
+                    icon: Icon(Icons.message, color: Colors.black),
+                    title: 'Chats'),
+                const TabItem(
+                    activeIcon: Icon(Icons.settings, color: Colors.black),
+                    icon: Icon(Icons.settings, color: Colors.black),
+                    title: 'Opções'),
+              ],
+              initialActiveIndex: 2, //optional, default as 0
+              onTap: (int i) {
+                i == 0
+                    ? Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              HomePage(),
+                          transitionDuration: Duration.zero,
+                          reverseTransitionDuration: Duration.zero,
+                        ),
+                      )
+                    : const Text('');
+                i == 1
+                    ? Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              const SuperLike(),
+                          transitionDuration: Duration.zero,
+                          reverseTransitionDuration: Duration.zero,
+                        ),
+                      )
+                    : const Text('');
+                i == 2
+                    ? Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              const ProfilePage(),
+                          transitionDuration: Duration.zero,
+                          reverseTransitionDuration: Duration.zero,
+                        ),
+                      )
+                    : const Text('');
+                i == 3
+                    ? Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              const Chats(),
+                          transitionDuration: Duration.zero,
+                          reverseTransitionDuration: Duration.zero,
+                        ),
+                      )
+                    : const Text('');
+                i == 4
+                    ? Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              const PreferencePage(),
+                          transitionDuration: Duration.zero,
+                          reverseTransitionDuration: Duration.zero,
+                        ),
+                      )
+                    : const Text('');
+                print('click index=$i');
+              },
+            ),
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+              centerTitle: true,
+              title: Text('Editar Perfil',
+                  style: GoogleFonts.cinzelDecorative(
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 147, 132, 100))),
+              leading: const Text(''),
+              actions: const [],
+            ),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 12.0, left: 12.0, right: 12.0),
+                    child: Center(
+                      child: FutureBuilder<dynamic>(
+                          future: loadImage(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              List images = snapshot.data;
+                              return ReorderableGridView.count(
+                                shrinkWrap: true,
+                                crossAxisSpacing: 15,
+                                mainAxisSpacing: 15,
+                                crossAxisCount: 3,
+                                childAspectRatio: 0.75,
+                                children: images.map((dynamic path) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      print(path);
+                                      _showPicker(context, path['id']);
+                                    },
+                                    key: ValueKey(path),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.black,
+                                          borderRadius:
+                                              BorderRadius.circular(4)),
+                                      child: path['url'] != 'nulo'
+                                          ? ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                              child: CachedNetworkImage(
+                                                fadeInDuration: const Duration(
+                                                    milliseconds: 0),
+                                                fadeOutDuration: const Duration(
+                                                    milliseconds: 0),
+                                                fit: BoxFit.cover,
+                                                imageUrl: path['url'],
+                                              ))
+                                          : Container(
+                                              decoration: BoxDecoration(
+                                                  color: Color.fromARGB(
+                                                      255, 211, 202, 189)),
+                                              child: Center(
+                                                  child: Icon(
+                                                size: 40,
+                                                Icons.image,
+                                                color: Color.fromARGB(
+                                                    255, 147, 132, 100),
+                                              )),
+                                            ),
+                                    ),
+                                  );
+                                }).toList(),
+                                onReorder: (oldIndex, newIndex) async {
+                                  dynamic oldId = images[oldIndex];
+                                  dynamic newId = images[newIndex];
+                                  if (oldId['name'] != 'nulo' &&
+                                      newId['name'] != 'nulo') {
+                                    dynamic paths = images.removeAt(oldIndex);
+                                    images.insert(newIndex, paths);
+                                    setState(() {});
+                                    print(images);
+                                    await FirebaseFirestore.instance
+                                        .collection('users')
+                                        .doc(uid)
+                                        .update({"photos": images});
+                                  }
+                                },
+                              );
+                            }
+                            return GridView.count(
                               shrinkWrap: true,
                               crossAxisSpacing: 15,
                               mainAxisSpacing: 15,
                               crossAxisCount: 3,
                               childAspectRatio: 0.75,
-                              children: images.map((dynamic path) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    print(path);
-                                    _showPicker(context, path['id']);
-                                  },
-                                  key: ValueKey(path),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.black,
-                                        borderRadius: BorderRadius.circular(4)),
-                                    child: path['url'] != 'nulo'
-                                        ? ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(4),
-                                            child: CachedNetworkImage(
-                                              fadeInDuration: const Duration(
-                                                  milliseconds: 0),
-                                              fadeOutDuration: const Duration(
-                                                  milliseconds: 0),
-                                              fit: BoxFit.cover,
-                                              imageUrl: path['url'],
-                                            ))
-                                        : Container(
-                                            decoration: BoxDecoration(
-                                                color: Color.fromARGB(
-                                                    255, 211, 202, 189)),
-                                            child: Center(
-                                                child: Icon(
-                                              size: 40,
-                                              Icons.image,
-                                              color: Color.fromARGB(
-                                                  255, 147, 132, 100),
-                                            )),
-                                          ),
-                                  ),
-                                );
-                              }).toList(),
-                              onReorder: (oldIndex, newIndex) async {
-                                dynamic oldId = images[oldIndex];
-                                dynamic newId = images[newIndex];
-                                if (oldId['name'] != 'nulo' &&
-                                    newId['name'] != 'nulo') {
-                                  dynamic paths = images.removeAt(oldIndex);
-                                  images.insert(newIndex, paths);
-                                  setState(() {});
-                                  print(images);
-                                  await FirebaseFirestore.instance
-                                      .collection('users')
-                                      .doc(uid)
-                                      .update({"photos": images});
-                                }
-                              },
+                              children: const <Widget>[
+                                beforeLoad(),
+                                beforeLoad(),
+                                beforeLoad(),
+                                beforeLoad(),
+                                beforeLoad(),
+                                beforeLoad(),
+                                beforeLoad(),
+                                beforeLoad(),
+                                beforeLoad(),
+                              ],
                             );
-                          }
-                          return GridView.count(
-                            shrinkWrap: true,
-                            crossAxisSpacing: 15,
-                            mainAxisSpacing: 15,
-                            crossAxisCount: 3,
-                            childAspectRatio: 0.75,
-                            children: const <Widget>[
-                              beforeLoad(),
-                              beforeLoad(),
-                              beforeLoad(),
-                              beforeLoad(),
-                              beforeLoad(),
-                              beforeLoad(),
-                              beforeLoad(),
-                              beforeLoad(),
-                              beforeLoad(),
-                            ],
-                          );
-                        }),
-                  ),
-                ),
-                Container(
-                  child: const Center(
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 14.0),
-                      child: Text(
-                        'Clique para editar ou arraste para reordenar',
-                        style: TextStyle(
-                            color: Color.fromARGB(139, 255, 255, 255)),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  alignment: Alignment.center,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-                  child: Text(
-                    'Sobre mim',
-                    style: GoogleFonts.cinzelDecorative(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 147, 132, 100)),
-                  ),
-                ),
-                FutureBuilder<dynamic>(
-                    future: loadData(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40)),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 8),
-                          child: TextFormField(
-                            onChanged: (value) {
-                              FirebaseFirestore.instance
-                                  .collection('users')
-                                  .doc(user?.uid)
-                                  .update({"aboutMe": value});
-                            },
-                            initialValue: snapshot.data,
-                            keyboardType: TextInputType.multiline,
-                            maxLines: 4,
-                            cursorColor: Colors.white,
-                            maxLength: 144,
-                            style: const TextStyle(
-                                color: Color.fromARGB(255, 84, 75, 57)),
-                            decoration: const InputDecoration(
-                              hintText: 'Escreva algo sobre você',
-                              hintStyle: TextStyle(color: Colors.white70),
-                              fillColor: Color.fromARGB(255, 211, 202, 189),
-                              filled: true,
-                              helperText: 'Limite',
-                              helperStyle: TextStyle(color: Colors.white),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 184, 184, 184)),
-                              ),
-                            ),
-                          ),
-                        );
-                      }
-                      return Container();
-                    }),
-                const SizedBox(height: 20),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  child: Text(
-                    'Profissional',
-                    style: GoogleFonts.cinzelDecorative(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 147, 132, 100)),
-                  ),
-                ),
-                FutureBuilder<dynamic>(
-                    future: loadProf(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 10),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/registerStep4');
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Color.fromARGB(255, 211, 202, 189),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        const Icon(Icons.edit_note,
-                                            color: Color.fromARGB(
-                                                255, 84, 75, 57)),
-                                        const SizedBox(
-                                          width: 1,
-                                        ),
-                                        const Text(
-                                          'Ocupação:',
-                                          style: TextStyle(
-                                              letterSpacing: 0.2,
-                                              color: Color.fromARGB(
-                                                  255, 84, 75, 57),
-                                              fontSize: 16),
-                                        ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text(
-                                          snapshot.data,
-                                          style: const TextStyle(
-                                              letterSpacing: 0.2,
-                                              color: Color.fromARGB(
-                                                  255, 84, 75, 57),
-                                              fontSize: 16),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      }
-                      return Container();
-                    }),
-                const SizedBox(height: 20),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  child: Text(
-                    'Informações pessoais',
-                    style: GoogleFonts.cinzelDecorative(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 147, 132, 100)),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/registerStep4');
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Color.fromARGB(255, 211, 202, 189),
-                      ),
-                      child: FutureBuilder<dynamic>(
-                          future: loadHeight(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.edit_note,
-                                            color: Color.fromARGB(
-                                                255, 84, 75, 57)),
-                                        Text(
-                                          'Altura: ',
-                                          style: TextStyle(
-                                              letterSpacing: 0.2,
-                                              color: Color.fromARGB(
-                                                  255, 84, 75, 57),
-                                              fontSize: 16),
-                                        ),
-                                        Text(
-                                          snapshot.data,
-                                          style: const TextStyle(
-                                              letterSpacing: 0.2,
-                                              color: Color.fromARGB(
-                                                  255, 84, 75, 57),
-                                              fontSize: 16),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }
-                            return Container();
                           }),
                     ),
                   ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/registerStep4');
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Color.fromARGB(255, 211, 202, 189),
+                  Container(
+                    child: const Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 14.0),
+                        child: Text(
+                          'Clique para editar ou arraste para reordenar',
+                          style: TextStyle(
+                              color: Color.fromARGB(139, 255, 255, 255)),
+                        ),
                       ),
-                      child: FutureBuilder<dynamic>(
-                          future: loadAge(),
-                          builder: (context, snapshot) {
-                            return Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 15),
+                    child: Text(
+                      'Sobre mim',
+                      style: GoogleFonts.cinzelDecorative(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 147, 132, 100)),
+                    ),
+                  ),
+                  FutureBuilder<dynamic>(
+                      future: loadData(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(40)),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 8),
+                            child: TextFormField(
+                              onChanged: (value) {
+                                FirebaseFirestore.instance
+                                    .collection('users')
+                                    .doc(user?.uid)
+                                    .update({"aboutMe": value});
+                              },
+                              initialValue: snapshot.data,
+                              keyboardType: TextInputType.multiline,
+                              maxLines: 4,
+                              cursorColor: Colors.white,
+                              maxLength: 144,
+                              style: const TextStyle(
+                                  color: Color.fromARGB(255, 84, 75, 57)),
+                              decoration: const InputDecoration(
+                                hintText: 'Escreva algo sobre você',
+                                hintStyle: TextStyle(color: Colors.white70),
+                                fillColor: Color.fromARGB(255, 211, 202, 189),
+                                filled: true,
+                                helperText: 'Limite',
+                                helperStyle: TextStyle(color: Colors.white),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color:
+                                          Color.fromARGB(255, 184, 184, 184)),
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                        return Container();
+                      }),
+                  const SizedBox(height: 20),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 10),
+                    child: Text(
+                      'Profissional',
+                      style: GoogleFonts.cinzelDecorative(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 147, 132, 100)),
+                    ),
+                  ),
+                  FutureBuilder<dynamic>(
+                      future: loadProf(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 10),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, '/registerStep4');
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Color.fromARGB(255, 211, 202, 189),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Icon(Icons.edit_note,
-                                          color:
-                                              Color.fromARGB(255, 84, 75, 57)),
-                                      const SizedBox(
-                                        width: 1,
-                                      ),
-                                      const Text(
-                                        'Idade: ',
-                                        style: TextStyle(
-                                            letterSpacing: 0.2,
-                                            color:
-                                                Color.fromARGB(255, 84, 75, 57),
-                                            fontSize: 16),
-                                      ),
-                                      Text(
-                                        snapshot.data.toString(),
-                                        style: const TextStyle(
-                                            letterSpacing: 0.2,
-                                            color:
-                                                Color.fromARGB(255, 84, 75, 57),
-                                            fontSize: 16),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          const Icon(Icons.edit_note,
+                                              color: Color.fromARGB(
+                                                  255, 84, 75, 57)),
+                                          const SizedBox(
+                                            width: 1,
+                                          ),
+                                          const Text(
+                                            'Ocupação:',
+                                            style: TextStyle(
+                                                letterSpacing: 0.2,
+                                                color: Color.fromARGB(
+                                                    255, 84, 75, 57),
+                                                fontSize: 16),
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text(
+                                            snapshot.data,
+                                            style: const TextStyle(
+                                                letterSpacing: 0.2,
+                                                color: Color.fromARGB(
+                                                    255, 84, 75, 57),
+                                                fontSize: 16),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
-                                ],
+                                ),
                               ),
-                            );
-                          }),
+                            ),
+                          );
+                        }
+                        return Container();
+                      }),
+                  const SizedBox(height: 20),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 10),
+                    child: Text(
+                      'Informações pessoais',
+                      style: GoogleFonts.cinzelDecorative(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 147, 132, 100)),
                     ),
                   ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/registerStep4');
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Color.fromARGB(255, 211, 202, 189),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 10),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/registerStep4');
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Color.fromARGB(255, 211, 202, 189),
+                        ),
+                        child: FutureBuilder<dynamic>(
+                            future: loadHeight(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          const Icon(Icons.edit_note,
+                                              color: Color.fromARGB(
+                                                  255, 84, 75, 57)),
+                                          Text(
+                                            'Altura: ',
+                                            style: TextStyle(
+                                                letterSpacing: 0.2,
+                                                color: Color.fromARGB(
+                                                    255, 84, 75, 57),
+                                                fontSize: 16),
+                                          ),
+                                          Text(
+                                            snapshot.data,
+                                            style: const TextStyle(
+                                                letterSpacing: 0.2,
+                                                color: Color.fromARGB(
+                                                    255, 84, 75, 57),
+                                                fontSize: 16),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                              return Container();
+                            }),
                       ),
-                      child: FutureBuilder<dynamic>(
-                          future: loadCity(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 10),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/registerStep4');
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Color.fromARGB(255, 211, 202, 189),
+                        ),
+                        child: FutureBuilder<dynamic>(
+                            future: loadAge(),
+                            builder: (context, snapshot) {
                               return Padding(
                                 padding: const EdgeInsets.all(12.0),
                                 child: Row(
@@ -752,7 +701,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           width: 1,
                                         ),
                                         const Text(
-                                          'Cidade: ',
+                                          'Idade: ',
                                           style: TextStyle(
                                               letterSpacing: 0.2,
                                               color: Color.fromARGB(
@@ -760,7 +709,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                               fontSize: 16),
                                         ),
                                         Text(
-                                          snapshot.data,
+                                          snapshot.data.toString(),
                                           style: const TextStyle(
                                               letterSpacing: 0.2,
                                               color: Color.fromARGB(
@@ -772,247 +721,303 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ],
                                 ),
                               );
-                            }
-                            return Container();
-                          }),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/registerStep4');
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Color.fromARGB(255, 211, 202, 189),
+                            }),
                       ),
-                      child: FutureBuilder<dynamic>(
-                          future: loadCountry(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.edit_note,
-                                            color: Color.fromARGB(
-                                                255, 84, 75, 57)),
-                                        const SizedBox(
-                                          width: 1,
-                                        ),
-                                        const Text(
-                                          'Pais: ',
-                                          style: TextStyle(
-                                              letterSpacing: 0.2,
-                                              color: Color.fromARGB(
-                                                  255, 84, 75, 57),
-                                              fontSize: 16),
-                                        ),
-                                        Text(
-                                          snapshot.data,
-                                          style: const TextStyle(
-                                              letterSpacing: 0.2,
-                                              color: Color.fromARGB(
-                                                  255, 84, 75, 57),
-                                              fontSize: 16),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }
-                            return Container();
-                          }),
                     ),
                   ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/register');
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Color.fromARGB(255, 211, 202, 189),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 10),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/registerStep4');
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Color.fromARGB(255, 211, 202, 189),
+                        ),
+                        child: FutureBuilder<dynamic>(
+                            future: loadCity(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          const Icon(Icons.edit_note,
+                                              color: Color.fromARGB(
+                                                  255, 84, 75, 57)),
+                                          const SizedBox(
+                                            width: 1,
+                                          ),
+                                          const Text(
+                                            'Cidade: ',
+                                            style: TextStyle(
+                                                letterSpacing: 0.2,
+                                                color: Color.fromARGB(
+                                                    255, 84, 75, 57),
+                                                fontSize: 16),
+                                          ),
+                                          Text(
+                                            snapshot.data,
+                                            style: const TextStyle(
+                                                letterSpacing: 0.2,
+                                                color: Color.fromARGB(
+                                                    255, 84, 75, 57),
+                                                fontSize: 16),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                              return Container();
+                            }),
                       ),
-                      child: FutureBuilder<dynamic>(
-                          future: loadGenero(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.edit_note,
-                                            color: Color.fromARGB(
-                                                255, 84, 75, 57)),
-                                        const SizedBox(
-                                          width: 1,
-                                        ),
-                                        const Text(
-                                          'Genero: ',
-                                          style: TextStyle(
-                                              letterSpacing: 0.2,
-                                              color: Color.fromARGB(
-                                                  255, 84, 75, 57),
-                                              fontSize: 16),
-                                        ),
-                                        Text(
-                                          snapshot.data,
-                                          style: const TextStyle(
-                                              letterSpacing: 0.2,
-                                              color: Color.fromARGB(
-                                                  255, 84, 75, 57),
-                                              fontSize: 16),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }
-                            return Container();
-                          }),
                     ),
                   ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/registerStep2');
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Color.fromARGB(255, 211, 202, 189),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 10),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/registerStep4');
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Color.fromARGB(255, 211, 202, 189),
+                        ),
+                        child: FutureBuilder<dynamic>(
+                            future: loadCountry(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          const Icon(Icons.edit_note,
+                                              color: Color.fromARGB(
+                                                  255, 84, 75, 57)),
+                                          const SizedBox(
+                                            width: 1,
+                                          ),
+                                          const Text(
+                                            'Pais: ',
+                                            style: TextStyle(
+                                                letterSpacing: 0.2,
+                                                color: Color.fromARGB(
+                                                    255, 84, 75, 57),
+                                                fontSize: 16),
+                                          ),
+                                          Text(
+                                            snapshot.data,
+                                            style: const TextStyle(
+                                                letterSpacing: 0.2,
+                                                color: Color.fromARGB(
+                                                    255, 84, 75, 57),
+                                                fontSize: 16),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                              return Container();
+                            }),
                       ),
-                      child: FutureBuilder<dynamic>(
-                          future: loadInterested(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.edit_note,
-                                            color: Color.fromARGB(
-                                                255, 84, 75, 57)),
-                                        const SizedBox(
-                                          width: 1,
-                                        ),
-                                        const Text(
-                                          'Interessado: ',
-                                          style: TextStyle(
-                                              letterSpacing: 0.2,
-                                              color: Color.fromARGB(
-                                                  255, 84, 75, 57),
-                                              fontSize: 16),
-                                        ),
-                                        Text(
-                                          snapshot.data,
-                                          style: const TextStyle(
-                                              letterSpacing: 0.2,
-                                              color: Color.fromARGB(
-                                                  255, 84, 75, 57),
-                                              fontSize: 16),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }
-                            return Container();
-                          }),
                     ),
                   ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/registerStep3');
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Color.fromARGB(255, 211, 202, 189),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 10),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/register');
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Color.fromARGB(255, 211, 202, 189),
+                        ),
+                        child: FutureBuilder<dynamic>(
+                            future: loadGenero(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          const Icon(Icons.edit_note,
+                                              color: Color.fromARGB(
+                                                  255, 84, 75, 57)),
+                                          const SizedBox(
+                                            width: 1,
+                                          ),
+                                          const Text(
+                                            'Genero: ',
+                                            style: TextStyle(
+                                                letterSpacing: 0.2,
+                                                color: Color.fromARGB(
+                                                    255, 84, 75, 57),
+                                                fontSize: 16),
+                                          ),
+                                          Text(
+                                            snapshot.data,
+                                            style: const TextStyle(
+                                                letterSpacing: 0.2,
+                                                color: Color.fromARGB(
+                                                    255, 84, 75, 57),
+                                                fontSize: 16),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                              return Container();
+                            }),
                       ),
-                      child: FutureBuilder<dynamic>(
-                          future: loadType(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.edit_note,
-                                            color: Color.fromARGB(
-                                                255, 84, 75, 57)),
-                                        const SizedBox(
-                                          width: 1,
-                                        ),
-                                        const Text(
-                                          'Alma: ',
-                                          style: TextStyle(
-                                              letterSpacing: 0.2,
-                                              color: Color.fromARGB(
-                                                  255, 84, 75, 57),
-                                              fontSize: 16),
-                                        ),
-                                        Text(
-                                          snapshot.data,
-                                          style: const TextStyle(
-                                              letterSpacing: 0.2,
-                                              color: Color.fromARGB(
-                                                  255, 84, 75, 57),
-                                              fontSize: 16),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }
-                            return Container();
-                          }),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 100,
-                  child: Center(
-                      child: Text('Chamas Gêmeas',
-                          style: TextStyle(color: Colors.white54))),
-                )
-              ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 10),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/registerStep2');
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Color.fromARGB(255, 211, 202, 189),
+                        ),
+                        child: FutureBuilder<dynamic>(
+                            future: loadInterested(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          const Icon(Icons.edit_note,
+                                              color: Color.fromARGB(
+                                                  255, 84, 75, 57)),
+                                          const SizedBox(
+                                            width: 1,
+                                          ),
+                                          const Text(
+                                            'Interessado: ',
+                                            style: TextStyle(
+                                                letterSpacing: 0.2,
+                                                color: Color.fromARGB(
+                                                    255, 84, 75, 57),
+                                                fontSize: 16),
+                                          ),
+                                          Text(
+                                            snapshot.data,
+                                            style: const TextStyle(
+                                                letterSpacing: 0.2,
+                                                color: Color.fromARGB(
+                                                    255, 84, 75, 57),
+                                                fontSize: 16),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                              return Container();
+                            }),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 10),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/registerStep3');
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Color.fromARGB(255, 211, 202, 189),
+                        ),
+                        child: FutureBuilder<dynamic>(
+                            future: loadType(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          const Icon(Icons.edit_note,
+                                              color: Color.fromARGB(
+                                                  255, 84, 75, 57)),
+                                          const SizedBox(
+                                            width: 1,
+                                          ),
+                                          const Text(
+                                            'Alma: ',
+                                            style: TextStyle(
+                                                letterSpacing: 0.2,
+                                                color: Color.fromARGB(
+                                                    255, 84, 75, 57),
+                                                fontSize: 16),
+                                          ),
+                                          Text(
+                                            snapshot.data,
+                                            style: const TextStyle(
+                                                letterSpacing: 0.2,
+                                                color: Color.fromARGB(
+                                                    255, 84, 75, 57),
+                                                fontSize: 16),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                              return Container();
+                            }),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 100,
+                    child: Center(
+                        child: Text('Chamas Gêmeas',
+                            style: TextStyle(color: Colors.white54))),
+                  )
+                ],
+              ),
             ),
           ),
         ),

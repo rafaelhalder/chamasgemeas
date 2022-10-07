@@ -172,156 +172,159 @@ class _HomePageState extends State<HomePage> {
           image: AssetImage("assets/images/interfacesigno.png"),
           fit: BoxFit.cover,
         )),
-        child: Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Color.fromARGB(128, 0, 0, 0),
-            leading: Image.asset(
-              'assets/images/logo.png',
-              height: 45,
+        child: WillPopScope(
+          onWillPop: () async => false,
+          child: Scaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              backgroundColor: Color.fromARGB(128, 0, 0, 0),
+              leading: Image.asset(
+                'assets/images/logo.png',
+                height: 45,
+              ),
+              title: IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/likeMe');
+                },
+                icon: const FaIcon(FontAwesomeIcons.solidHeart,
+                    color: Colors.red),
+              ),
+              centerTitle: true,
+              leadingWidth: MediaQuery.of(context).size.width,
+              actions: [
+                Builder(
+                  builder: (context) => IconButton(
+                    icon: const Icon(Icons.list_outlined),
+                    onPressed: () => Navigator.pushNamed(context, '/filter'),
+                  ),
+                )
+              ],
             ),
-            title: IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/likeMe');
-              },
-              icon:
-                  const FaIcon(FontAwesomeIcons.solidHeart, color: Colors.red),
-            ),
-            centerTitle: true,
-            leadingWidth: MediaQuery.of(context).size.width,
-            actions: [
-              Builder(
-                builder: (context) => IconButton(
-                  icon: const Icon(Icons.list_outlined),
-                  onPressed: () => Navigator.pushNamed(context, '/filter'),
-                ),
-              )
-            ],
-          ),
-          bottomNavigationBar: ConvexAppBar(
-            color: Colors.black,
-            gradient: const LinearGradient(colors: [
-              Color.fromARGB(255, 211, 202, 189),
-              Color.fromARGB(255, 211, 202, 189),
-            ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-            // ignore: prefer_const_literals_to_create_immutables
-            items: [
-              // ignore: prefer_const_constructors
-              TabItem(
-                  activeIcon: Container(
-                      alignment: Alignment.center,
-                      child: FaIcon(FontAwesomeIcons.yinYang,
-                          color: Colors.black)),
-                  icon: FaIcon(FontAwesomeIcons.yinYang, color: Colors.black),
-                  title: 'Home'),
-              const TabItem(
-                  activeIcon: Icon(Icons.star, color: Colors.black),
-                  icon: Icon(Icons.star, color: Colors.black),
-                  title: 'Super'),
-              const TabItem(
-                  activeIcon: Icon(Icons.person, color: Colors.black),
-                  icon: Icon(Icons.person, color: Colors.black),
-                  title: 'Perfil'),
-              const TabItem(
-                  activeIcon: Icon(Icons.message, color: Colors.black),
-                  icon: Icon(Icons.message, color: Colors.black),
-                  title: 'Chats'),
-              const TabItem(
-                  activeIcon: Icon(Icons.settings, color: Colors.black),
-                  icon: Icon(Icons.settings, color: Colors.black),
-                  title: 'Opções'),
-              const TabItem(
-                  activeIcon: Icon(Icons.settings, color: Colors.black),
-                  icon: Icon(Icons.settings, color: Colors.black),
-                  title: '222222'),
-            ],
-            initialActiveIndex: 0, //optional, default as 0
-            onTap: (int i) {
-              i == 0
-                  ? Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            HomePage(),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
-                    )
-                  : const Text('');
-              i == 1
-                  ? Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            SuperLike(),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
-                    )
-                  : const Text('');
-              i == 2
-                  ? Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            // Container(),
-                            const ProfilePage(),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
-                    )
-                  : const Text('');
-              i == 3
-                  ? Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            // Container(),
-                            const Chats(),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
-                    )
-                  : const Text('');
-              i == 4
-                  ? Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            const PreferencePage(),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
-                    )
-                  : const Text('');
-              i == 5
-                  ? Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            RegisterStep6Page(),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
-                    )
-                  : const Text('');
+            bottomNavigationBar: ConvexAppBar(
+              color: Colors.black,
+              gradient: const LinearGradient(colors: [
+                Color.fromARGB(255, 211, 202, 189),
+                Color.fromARGB(255, 211, 202, 189),
+              ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+              // ignore: prefer_const_literals_to_create_immutables
+              items: [
+                // ignore: prefer_const_constructors
+                TabItem(
+                    activeIcon: Container(
+                        alignment: Alignment.center,
+                        child: FaIcon(FontAwesomeIcons.yinYang,
+                            color: Colors.black)),
+                    icon: FaIcon(FontAwesomeIcons.yinYang, color: Colors.black),
+                    title: 'Home'),
+                const TabItem(
+                    activeIcon: Icon(Icons.star, color: Colors.black),
+                    icon: Icon(Icons.star, color: Colors.black),
+                    title: 'Super'),
+                const TabItem(
+                    activeIcon: Icon(Icons.person, color: Colors.black),
+                    icon: Icon(Icons.person, color: Colors.black),
+                    title: 'Perfil'),
+                const TabItem(
+                    activeIcon: Icon(Icons.message, color: Colors.black),
+                    icon: Icon(Icons.message, color: Colors.black),
+                    title: 'Chats'),
+                const TabItem(
+                    activeIcon: Icon(Icons.settings, color: Colors.black),
+                    icon: Icon(Icons.settings, color: Colors.black),
+                    title: 'Opções'),
+                // const TabItem(
+                //     activeIcon: Icon(Icons.settings, color: Colors.black),
+                //     icon: Icon(Icons.settings, color: Colors.black),
+                //     title: '222222'),
+              ],
+              initialActiveIndex: 0, //optional, default as 0
+              onTap: (int i) {
+                i == 0
+                    ? Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              HomePage(),
+                          transitionDuration: Duration.zero,
+                          reverseTransitionDuration: Duration.zero,
+                        ),
+                      )
+                    : const Text('');
+                i == 1
+                    ? Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              SuperLike(),
+                          transitionDuration: Duration.zero,
+                          reverseTransitionDuration: Duration.zero,
+                        ),
+                      )
+                    : const Text('');
+                i == 2
+                    ? Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              // Container(),
+                              const ProfilePage(),
+                          transitionDuration: Duration.zero,
+                          reverseTransitionDuration: Duration.zero,
+                        ),
+                      )
+                    : const Text('');
+                i == 3
+                    ? Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              // Container(),
+                              const Chats(),
+                          transitionDuration: Duration.zero,
+                          reverseTransitionDuration: Duration.zero,
+                        ),
+                      )
+                    : const Text('');
+                i == 4
+                    ? Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              const PreferencePage(),
+                          transitionDuration: Duration.zero,
+                          reverseTransitionDuration: Duration.zero,
+                        ),
+                      )
+                    : const Text('');
+                i == 5
+                    ? Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              RegisterStep6Page(),
+                          transitionDuration: Duration.zero,
+                          reverseTransitionDuration: Duration.zero,
+                        ),
+                      )
+                    : const Text('');
 
-              print('click index=$i');
-            },
-          ),
-          backgroundColor: Colors.transparent,
-          body: SafeArea(
-            child: Container(
-              alignment: Alignment.center,
-              padding: EdgeInsets.all(16),
-              child: Stack(
-                alignment: Alignment.topCenter,
-                children: [
-                  Container(
-                      height: MediaQuery.of(context).size.height * 0.70,
-                      child: buildCards()),
-                  buildButtons(),
-                ],
+                print('click index=$i');
+              },
+            ),
+            backgroundColor: Colors.transparent,
+            body: SafeArea(
+              child: Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.all(16),
+                child: Stack(
+                  alignment: Alignment.topCenter,
+                  children: [
+                    Container(
+                        height: MediaQuery.of(context).size.height * 0.70,
+                        child: buildCards()),
+                    buildButtons(),
+                  ],
+                ),
               ),
             ),
           ),
