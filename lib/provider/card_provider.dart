@@ -81,6 +81,21 @@ class CardProvider extends ChangeNotifier {
     }
   }
 
+  void denunciar() async {
+    List rollbackList = [];
+
+    final disliked =
+        await FirebaseFirestore.instance.collection('dislike').doc(uid).get();
+
+    if (disliked.exists) {
+      rollbackList = disliked['id'];
+    }
+
+    dislike();
+    resetUsers();
+    notifyListeners();
+  }
+
   void textSuperLike(value) {}
 
   void updatePosition(DragUpdateDetails details) {
@@ -355,32 +370,32 @@ class CardProvider extends ChangeNotifier {
           lati.LatLng(latUser, lngUser));
 
       if (teste['photos'][0]['url'] != 'nulo') {
-        // if (distanceUser >= km) {
-        if (!dislikeTe.contains(teste['uid'])) {
-          if (!likeTe.contains(teste['uid'])) {
-            teste['listFocus'] == null ? teste['listFocus'] = [1] : '';
-            if (teste['uid'] != uid)
-              _users.add(Users(
-                  age: teste['age'],
-                  city: teste['city'],
-                  country: teste['country'],
-                  height: teste['height'],
-                  occupation: teste['occupation'],
-                  interested: teste['interested'],
-                  latitude: teste['latitude'],
-                  longitude: teste['longitude'],
-                  listFocus: teste['listFocus'],
-                  soul: teste['soul'],
-                  token: teste['token'],
-                  uid: teste['uid'],
-                  zodiac: teste['zodiac'],
-                  photos: teste['photos'],
-                  weight: teste['weight'],
-                  aboutMe: teste['aboutMe'],
-                  name: teste['name'],
-                  urlImage: teste['photos'][0]['url']));
+        if (distanceUser >= km) {
+          if (!dislikeTe.contains(teste['uid'])) {
+            if (!likeTe.contains(teste['uid'])) {
+              teste['listFocus'] == null ? teste['listFocus'] = [1] : '';
+              if (teste['uid'] != uid)
+                _users.add(Users(
+                    age: teste['age'],
+                    city: teste['city'],
+                    country: teste['country'],
+                    height: teste['height'],
+                    occupation: teste['occupation'],
+                    interested: teste['interested'],
+                    latitude: teste['latitude'],
+                    longitude: teste['longitude'],
+                    listFocus: teste['listFocus'],
+                    soul: teste['soul'],
+                    token: teste['token'],
+                    uid: teste['uid'],
+                    zodiac: teste['zodiac'],
+                    photos: teste['photos'],
+                    weight: teste['weight'],
+                    aboutMe: teste['aboutMe'],
+                    name: teste['name'],
+                    urlImage: teste['photos'][0]['url']));
+            }
           }
-          // }
         }
       }
     });

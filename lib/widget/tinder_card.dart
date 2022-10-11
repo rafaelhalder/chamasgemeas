@@ -12,6 +12,8 @@ import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:latlong2/latlong.dart' as lati;
 import '../paywall_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class TinderCard extends StatefulWidget {
   final Users user;
@@ -231,7 +233,45 @@ class _TinderCardState extends State<TinderCard> {
                         provider.rollback();
                         print('clicked');
                       })),
-              SizedBox(),
+              Container(
+                padding: EdgeInsets.only(left: 20),
+                child: GestureDetector(
+                    child: Icon(
+                      Icons.info,
+                      color: Color.fromARGB(255, 248, 222, 162),
+                    ),
+                    onTap: () => showMaterialModalBottomSheet(
+                          context: context,
+                          builder: (context) => Container(
+                            color: Color.fromARGB(108, 0, 0, 0),
+                            height: MediaQuery.of(context).size.height * 0.15,
+                            child: Container(
+                              padding: EdgeInsets.all(5),
+                              color: Colors.black87,
+                              child: Wrap(
+                                children: [
+                                  TextButton(
+                                    style: ElevatedButton.styleFrom(
+                                      minimumSize: Size.fromHeight(50),
+                                      textStyle: TextStyle(fontSize: 20),
+                                    ),
+                                    child: Text(
+                                      'Reportar',
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                    onPressed: () => sendEmail(
+                                      name: 'controllerName.text',
+                                      email: 'rafaelhalder@gmail.com',
+                                      subject: 'controllerSubject.text',
+                                      message: 'controllerMessage.text',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )),
+              ),
               Container(
                 child: Center(
                     child: Text('$km km', style: TextStyle(fontSize: 11))),
@@ -244,6 +284,63 @@ class _TinderCardState extends State<TinderCard> {
             ],
           ),
         );
+    }
+  }
+
+  Future sendEmail({
+    required String name,
+    required String email,
+    required String subject,
+    required String message,
+  }) async {
+    final serviceId = 'service_3a6pfte';
+    final templateId = 'template_d1fvxeb';
+    final userId = 'oSTlYc_rp9hC1ZhZ5';
+
+    final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
+    final response = await http.post(
+      url,
+      headers: {
+        'origin': 'http://localhost',
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'service_id': serviceId,
+        'template_id': templateId,
+        'user_id': userId,
+        'template_params': {
+          'user_name': name,
+          'user_email': email,
+          'user_subject': subject,
+          'user_message': message,
+        },
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      Navigator.pop(context);
+      final provider = Provider.of<CardProvider>(context, listen: false);
+
+      provider.dislike();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.green,
+          content: Text(
+            'Denuncia enviada com sucesso!',
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.red,
+          content: Text(
+            'Falha no envio da denuncia!',
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
+      );
     }
   }
 
