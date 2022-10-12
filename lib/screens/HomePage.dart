@@ -34,7 +34,6 @@ class _HomePageState extends State<HomePage> {
   String? uid = FirebaseAuth.instance.currentUser?.uid;
   String textoChat = '';
   String? tokenAuth = "";
-
   late not.AndroidNotificationChannel channel;
   late not.FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       not.FlutterLocalNotificationsPlugin();
@@ -237,6 +236,7 @@ class _HomePageState extends State<HomePage> {
                 //     icon: Icon(Icons.settings, color: Colors.black),
                 //     title: '222222'),
               ],
+
               initialActiveIndex: 0, //optional, default as 0
               onTap: (int i) {
                 i == 0
@@ -332,6 +332,8 @@ class _HomePageState extends State<HomePage> {
       );
 
   Widget buildCards() {
+    print(uid);
+
     final provider = Provider.of<CardProvider>(context);
     final users = provider.users;
 
