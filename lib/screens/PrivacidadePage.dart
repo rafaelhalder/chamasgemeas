@@ -218,7 +218,7 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
                             child: FadeInAnimation(
                               child: GestureDetector(
                                 onTap: () {
-                                  _launchUrl();
+                                  Navigator.popAndPushNamed(context, '/acc');
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(

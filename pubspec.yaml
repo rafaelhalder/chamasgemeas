@@ -91,12 +91,12 @@ dev_dependencies:
     sdk: flutter
 
 flutter_icons:
-  image_path: "assets/images/transp_logo_icon.png"
-  adaptive_icon_foreground: "assets/images/transp_logo_icon.png"
+  image_path: "assets/images/transp_logo_icon2.png"
+  adaptive_icon_foreground: "assets/images/transp_logo_icon2.png"
   android: true
   ios: true
   remove_alpha_ios: true
-  image_path_ios: "assets/images/transp_logo_icon.png"
+  image_path_ios: "assets/images/transp_logo_icon2.png"
   adaptive_icon_background: "assets/images/background_icon.png"
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

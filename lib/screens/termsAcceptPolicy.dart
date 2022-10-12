@@ -39,6 +39,9 @@ class _PolicyState extends State<Policy> {
         fit: BoxFit.cover,
       )),
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+        ),
         backgroundColor: Colors.transparent,
         body: SafeArea(
             child: SingleChildScrollView(
@@ -56,7 +59,7 @@ class _PolicyState extends State<Policy> {
                       ),
                       children: <TextSpan>[
                         TextSpan(
-                            text: 'Termos \n',
+                            text: 'POLITICA DE PRIVACIDADE \n',
                             style: GoogleFonts.quicksand(
                                 fontSize: 27,
                                 color: Color.fromARGB(255, 147, 132, 100),
@@ -81,23 +84,11 @@ class _PolicyState extends State<Policy> {
                             fontWeight: FontWeight.w400),
                         children: <TextSpan>[
                           TextSpan(
-                              text: 'TERMOS DE USO \n',
+                              text: 'POLITICA DE PRIVACIDADE \n',
                               style: GoogleFonts.quicksand(
                                   fontSize: 16,
                                   color: Color.fromARGB(255, 207, 202, 187),
                                   fontWeight: FontWeight.w700)),
-                          TextSpan(
-                              text:
-                                  '1. Aceitação dos Termos de uso Ao criar uma conta no Chamas Gêmeas, seja através de dispositivo móvel, aplicativo móvel ou computador você concorda em vincular-se (i) aos presentes Termos de Uso, (ii) à nossa Regras da Comunidade, nossa  Política de Privacidade e  nossas Dicas de Segurança, cada qual será incorporado a este Contrato por referência, bem como (iii) quaisquer termos divulgados e assinados por você ao adquirir recursos adicionais, produtos ou serviços que oferecemos no Serviço (coletivamente, este “Contrato”). Se você não aceita e não concorda em vincular-se aos termos deste Contrato, não utilize o nosso Serviço. Periodicamente, o Contrato e o Serviço podem ser alterados. Podemos fazê-lo por diversas razões, inclusive para refletir as alterações ou exigências legais, novos recursos ou mudanças nas práticas comerciais. A versão mais recente deste Contrato será publicada no aplicativo Chamas Gêmeas. A versão mais recente é a que se aplica. Se as alterações incluírem emendas significativas a seus direitos ou obrigações, você será notificado das alterações com pelo menos 30 dias de antecedência (salvo se não for possível fazer isso nos termos da lei aplicável), por meios razoáveis, o que pode incluir notificação por meio do Serviço ou por e-mail. Se você continuar a utilizar o Serviço após as alterações entrarem em vigor, isso significa que você concorda com o Contrato revisado. 2. Requisistos Você não tem autorização para criar uma conta, acessar ou usar o Serviço ou sistemas em que eles residem, a não ser que uma das opções abaixo seja verdadeira: • você tem pelo menos 18 anos de idade, • você pode firmar um contrato vinculativo com o Chamas Gêmeas, • cumprirá este Contrato e todas as leis, normas e regulamentos municipais, estaduais, nacionais e internacionais aplicáveis e • você nunca foi condenado por crime ou ofensa grave (ou qualquer crime de mesma gravidade), crime de assédio sexual, ou qualquer crime que envolva violência, e que você não é obrigado a se registrar no cadastro de criminosos sexuais de qualquer estado, federação ou local.'),
-                          TextSpan(
-                              text:
-                                  '3. Sua conta Você pode acessar o Tinder de várias maneiras, incluindo as suas credenciais do Facebook. Se escolher usar suas credenciais do Facebook, você nos autoriza a acessar e utilizar determinadas informações da sua conta do Facebook, inclusive, entre outras, o seu perfil público no Facebook. Para saber mais sobre as informações que coletamos de você e como as utilizamos, consulte a nossa Política de Privacidade. Você é responsável por manter a confidencialidade de suas credenciais de login que utiliza para se conectar ao Chamas Gêmeas, além de ser o único responsável por todas as atividades associadas ao uso dessas credenciais. Se você acredita que alguém obteve acesso à sua conta, entre em contato conosco imediatamente. 4. Alteração do Serviço e Rescisão O Chamas Gêmeas pode oferecer funcionalidades adicionais que possam ser úteis e interessantes para você. Isso significa que podemos incluir novos recursos ou aprimorar produtos ao longo do tempo, bem como remover alguns recursos e, se essas ações não afetarem os seus direitos e obrigações significativamente, talvez não forneceremos aviso prévio antes de removê-los. Podemos até mesmo suspender totalmente o Serviço, caso em que você será notificado com antecedência, a menos que circunstâncias atenuantes, como questões de segurança, impeçam-nos de fazê-lo. Você pode encerrar a sua conta a qualquer momento, por qualquer motivo, na opção de cancelamento de conta dentro do aplicativo. No entanto, se você usar uma conta de pagamento de terceiros, como a App Store ou a iTunes Store da Apple, conforme o caso (“App Store”) ou a Google Play Store, você precisará gerenciar suas compras no aplicativo por meio dessa conta para evitar cobranças adicionais. O Chamas Gêmeas poderá cancelar a sua conta a qualquer momento, sem aviso prévio, se acreditar que você violou este Contrato. Após o referido cancelamento, você não terá direito a nenhum reembolso pelas compras. Após o cancelamento de sua conta, este Contrato será rescindido, considerando que as seguintes disposições continuarão em vigor entre você e o Chamas Gêmeas: seção 4, seção 5 e seções 11 a 18.'),
-                          TextSpan(
-                              text:
-                                  '5. Segurança; suas interações com outros membros. O Chamas Gêmeas se esforça para incentivar uma experiência de membro com respeito. Para isso, usamos recursos como a dupla aceitação, que permite aos membros se comunicarem apenas se ambos tiverem interesse um pelo outro. Porém, o Chamas Gêmeas não é responsável pela conduta do membro dentro ou fora do Serviço. Você concorda em agir com cautela em todas as interações com outros membros, especialmente ao decidir se comunicar fora do Serviço ou pessoalmente. Além disso, você concorda em revisar e seguir as Dicas de Segurança do Chamas Gêmeas antes de utilizar o Serviço. Você concorda que não fornecerá suas informações financeiras (p. ex., cartão de crédito ou informações de conta bancária) e que não transferirá ou enviará dinheiro por outros meios a outros membros. VOCÊ TEM RESPONSABILIDADE EXCLUSIVA POR SUAS INTERAÇÕES COM OUTROS MEMBROS. VOCÊ COMPREENDE QUE O CHAMAS GÊMEAS NÃO INVESTIGA OS ANTECEDENTES CRIMINAIS DOS MEMBROS, NEM VERIFICA O HISTÓRICO DOS MEMBROS. O CHAMAS GÊMEAS NÃO MANIFESTA DECLARAÇÕES OU GARANTIAS EM RELAÇÃO À CONDUTA OU À COMPATIBILIDADE DOS MEMBROS. 6. Direitos concedidos a você pelo Chamas Gêmeas O Chamas Gêmeas concede a você uma licença pessoal, universal, isenta de royalties, intransferível, não exclusiva, revogável e não sublicenciável para acessar e utilizar o Serviço. Essa licença é para o propósito exclusivo de permitir que você use e desfrute dos benefícios do Serviço, conforme a intenção do Chamas Gêmeas e autorização prevista neste Contrato. Essa licença e qualquer autorização para acessar o Serviço será automaticamente revogada caso você faça alguma das ações abaixo: • usar o Serviço, ou qualquer conteúdo contido no Serviço, para fins comerciais sem a nossa autorização por escrito; • copiar, modificar, transmitir, criar trabalhos derivados, fazer uso ou reproduzir em qualquer formato materiais protegidos por direitos autorais, imagens, marcas comerciais, nomes comerciais, marcas de serviço ou outros direitos de propriedade intelectual, conteúdo ou informações de propriedade exclusiva acessíveis através do Serviço, sem a autorização prévia por escrito do Chamas Gêmeas; • expressar ou sugerir que suas declarações sejam endossadas pelo Chamas Gêmeas; • utilizar robô, bot, spider, rastreador, scraper, aplicativo de busca/recuperação de site, proxy ou outro dispositivo, método ou processo manual ou automático para acessar, recuperar, indexar, realizar “data mine” ou, de outra forma, reproduzir ou contornar a estrutura de navegação ou apresentação do Serviço ou conteúdos; • utilizar o Serviço de forma que possa interferir, interromper ou afetar negativamente o Serviço, os servidores ou redes conectadas ao Serviço; • enviar vírus ou outro código malicioso ou, de outra forma, comprometer a segurança do Serviço; • forjar cabeçalhos ou manipular outros identificadores para disfarçar a origem das informações transmitidas para ou através do Serviço;'),
-                          TextSpan(
-                              text:
-                                  '• “enquadrar” ou “espelhar” qualquer parte do Serviço sem autorização prévia por escrito do Chamas Gêmeas; • utilizar meta-tags, códigos ou outros dispositivos que contenham referências ao Chamas Gêmeas ou ao Serviço (ou marca comercial, marca registrada, marca de serviço, logotipo ou slogan do Chamas Gêmeas) para direcionar pessoas para outro site, para qualquer fim; • modificar, adaptar, sublicenciar, traduzir, vender, promover engenharia reversa, decifrar, descompilar ou desmontar qualquer parte do Serviço ou fazer com que outras pessoas o façam; • utilizar ou desenvolver aplicativos de terceiros que interajam com o Serviço, o conteúdo ou informações de outros membros sem a nossa autorização por escrito; • utilizar, acessar ou publicar a interface de programação do aplicativo Chamas Gêmeas sem a nossa autorização por escrito; • verificar, analisar ou testar a vulnerabilidade de nosso Serviço ou de qualquer sistema ou rede; • incentivar ou promover qualquer atividade que viole este Contrato. O Chamas Gêmeas pode investigar e tomar todas as medidas legalmente disponíveis em resposta a usos ilegais e/ou não autorizados do Serviço, inclusive o cancelamento da sua conta. Qualquer software que fornecemos a você pode automaticamente baixar e instalar atualizações, melhorias ou outros novos recursos. Você poderá ajustar downloads automáticos através das configurações do seu dispositivo.'),
                           TextSpan(
                               text:
                                   '\n 7. Direitos concedidos ao Chamas Gêmeas por você \n',
@@ -244,52 +235,11 @@ class _PolicyState extends State<Policy> {
                           TextSpan(
                               text:
                                   'Fora do Chamas Gêmeas: Se necessário, entre em contato com a polícia local e, em seguida, entre em contato conosco AQUI.. CLIQUE AQUI PARA OBTER DICAS SOBRE ENCONTROS SEGUROS.'),
-                          TextSpan(
-                              text: '\n \n ENCONTROS SEGUROS \n',
-                              style: GoogleFonts.quicksand(
-                                  fontSize: 16,
-                                  color: Color.fromARGB(255, 207, 202, 187),
-                                  fontWeight: FontWeight.w700)),
-                          TextSpan(
-                              text:
-                                  'Na jornada em busca da Chama Gêmea, como em qualquer jornada, o planejamento e a segurança são muito importantes. Como em qualquer jornada, conheceremos pessoas extremamente interessantes, mas é necessário tomar certo cuidado com quem ainda não conhecemos perfeitamente. 1. Não tenha pressa para um encontro. É comum conversas on-line evoluírem para um encontro real e o encontro real é o objetivo. Entretanto, se dê tempo para conhecer antes a pessoa com quem você vai se encontrar. Poucas semanas de conversa não são suficientes. Quanto mais tempo de conversa melhor. Na conversa criam-se vínculos, entendem-se gostos e a personalidade e é mais fácil descobrir se a pessoa é quem realmente diz ser. 2. Ouça a sua intuição. Se algo parecer errado provavelmente está errado. Se você não se sentir confortável em um encontro, não continue o encontro. Mesmo que a pessoa pareça encantadora ou que você tenha receio de ferir os sentimentos de alguém, preste atenção aos alertas que a sua intuição fornece. 3. Locais públicos. Marque sempre os primeiros encontros em locais públicos e seguros.'),
-                          TextSpan(
-                              text:
-                                  '4. Conte com a ajuda de alguém de confiança. Avise alguém de confiança onde estará e com quem estará. Compartilhe a localização com a pessoa de confiança se possível. Informe essas precauções com cordialidade à pessoa com quem você está se encontrando. Vivemos em um mundo complicado. Ela irá compreender. 5. Tenha uma "palavra senha" com alguém de confiança para pedir ajuda. Seja para encerrar o encontro através de um telefonema ou seja para informar uma emergência. 6. Esteja sempre no controle do seu meio de transporte. Não peça ou aceite caronas da pessoa com quem se encontra sem conhece-la ainda. 7. Nunca envie dinheiro, seja por pix ou transferência. Mesmo que a pessoa alegue estar em dificuldades ou emergência. Desconfie de pedidos de dinheiro ou doações. 8. Denuncie atitudes inconvenientes como: pedido de dinheiro, usuários menores de idade, comportamento agressivo, mensagens ofensivas e perfis falsos.'),
                         ],
                       ),
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 16,
-                ),
-                GestureDetector(
-                  onTap: () async {
-                    await FirebaseFirestore.instance
-                        .collection('terms')
-                        .doc(user!.uid)
-                        .set({'data_accept': DateTime.now()});
-                    Navigator.pushNamed(context, '/register');
-                  },
-                  child: Container(
-                    width: size.width * 0.35,
-                    height: size.height * 0.035,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40),
-                        color: Color.fromARGB(255, 200, 181, 152)),
-                    child: Center(
-                      child: Text(
-                        'ACEITAR',
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 0, 0, 0),
-                            fontFamily: 'CM Sans Serif',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
-                    ),
-                  ),
-                )
               ],
             ),
           ),

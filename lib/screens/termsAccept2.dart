@@ -5,12 +5,12 @@ import 'package:simple_shadow/simple_shadow.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class TermsAccept extends StatefulWidget {
+class Accept extends StatefulWidget {
   @override
-  _TermsAcceptState createState() => _TermsAcceptState();
+  _AcceptState createState() => _AcceptState();
 }
 
-class _TermsAcceptState extends State<TermsAccept> {
+class _AcceptState extends State<Accept> {
   String selectedIndex = '';
   User? user = FirebaseAuth.instance.currentUser;
   int age = 0;
@@ -39,6 +39,7 @@ class _TermsAcceptState extends State<TermsAccept> {
         fit: BoxFit.cover,
       )),
       child: Scaffold(
+        appBar: AppBar(backgroundColor: Colors.transparent),
         backgroundColor: Colors.transparent,
         body: SafeArea(
             child: SingleChildScrollView(
@@ -56,7 +57,7 @@ class _TermsAcceptState extends State<TermsAccept> {
                       ),
                       children: <TextSpan>[
                         TextSpan(
-                            text: 'Termos \n',
+                            text: 'Termos de uso \n',
                             style: GoogleFonts.quicksand(
                                 fontSize: 27,
                                 color: Color.fromARGB(255, 147, 132, 100),
@@ -261,35 +262,6 @@ class _TermsAcceptState extends State<TermsAccept> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 16,
-                ),
-                GestureDetector(
-                  onTap: () async {
-                    await FirebaseFirestore.instance
-                        .collection('terms')
-                        .doc(user!.uid)
-                        .set({'data_accept': DateTime.now()});
-                    Navigator.pushNamed(context, '/register');
-                  },
-                  child: Container(
-                    width: size.width * 0.35,
-                    height: size.height * 0.035,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40),
-                        color: Color.fromARGB(255, 200, 181, 152)),
-                    child: Center(
-                      child: Text(
-                        'ACEITAR',
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 0, 0, 0),
-                            fontFamily: 'CM Sans Serif',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
-                    ),
-                  ),
-                )
               ],
             ),
           ),
