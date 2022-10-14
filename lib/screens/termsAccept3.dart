@@ -4,12 +4,12 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Policy extends StatefulWidget {
+class RoghtNow extends StatefulWidget {
   @override
-  _PolicyState createState() => _PolicyState();
+  _RoghtNowState createState() => _RoghtNowState();
 }
 
-class _PolicyState extends State<Policy> {
+class _RoghtNowState extends State<RoghtNow> {
   String selectedIndex = '';
   User? user = FirebaseAuth.instance.currentUser;
   int age = 0;
@@ -38,9 +38,7 @@ class _PolicyState extends State<Policy> {
         fit: BoxFit.cover,
       )),
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-        ),
+        appBar: AppBar(backgroundColor: Colors.transparent),
         backgroundColor: Colors.transparent,
         body: SafeArea(
             child: SingleChildScrollView(
@@ -58,7 +56,7 @@ class _PolicyState extends State<Policy> {
                       ),
                       children: <TextSpan>[
                         TextSpan(
-                            text: 'POLITICA DE PRIVACIDADE \n',
+                            text: 'Dicas de segurança \n',
                             style: GoogleFonts.quicksand(
                                 fontSize: 27,
                                 color: Color.fromARGB(255, 147, 132, 100),
@@ -83,34 +81,17 @@ class _PolicyState extends State<Policy> {
                             fontWeight: FontWeight.w400),
                         children: <TextSpan>[
                           TextSpan(
-                              text: 'POLITICA DE PRIVACIDADE \n',
+                              text: 'ENCONTROS SEGUROS \n',
                               style: GoogleFonts.quicksand(
                                   fontSize: 16,
                                   color: Color.fromARGB(255, 207, 202, 187),
                                   fontWeight: FontWeight.w700)),
                           TextSpan(
                               text:
-                                  'Esta política de privacidade tem o objetivo de informá-lo sobre a utilização dos seus dados pessoais pelo Chamas Gêmeas. Para o correto funcionamento e objetivo do aplicativo, que é o de conectar pessoas com os mesmos interesses, são coletados os seguintes dados:'),
+                                  'Na jornada em busca da Chama Gêmea, como em qualquer jornada, o planejamento e a segurança são muito importantes. Como em qualquer jornada, conheceremos pessoas extremamente interessantes, mas é necessário tomar certo cuidado com quem ainda não conhecemos perfeitamente.'),
                           TextSpan(
                               text:
-                                  '\n\n • Nome\n • Endereço\n • Cidade\n • Profissão\n • Altura\n • Idade\n • Signo\n • Gênero\n • Interesse de relacionamento (namoro ou amizade)\n • Texto digitado no campo sobre mim\n • E-mail\n • Mensagens do chat do aplicativo\n • Fotos carregadas no aplicativo\n • Atividades que gosta de realizar\n • Filosofia esotérica com a qual tem afinidade\n • Geolocalização (solicitando permissão do usuário) \n',
-                              style: GoogleFonts.quicksand(
-                                  fontSize: 13,
-                                  color: Color.fromARGB(255, 140, 137, 127),
-                                  fontWeight: FontWeight.w700)),
-                          TextSpan(
-                              text:
-                                  'Para atingir o objetivo do aplicativo de conectar pessoas interessantes com interesses em comum, são tornados públicos os seguintes dados às pessoas que acessam o seu perfil dentro do aplicativo:'),
-                          TextSpan(
-                              text:
-                                  '\n\n • Nome\n • Profissão\n • Cidade\n • Altura\n • Idade\n • Signo\n • Gênero\n • Interesse de relacionamento (namoro ou amizade)\n • Texto digitado no campo sobre mim\n • Fotos carregadas no aplicativo\n • Atividades que gosta de realizar\n • Filosofia esotérica com a qual tem afinidade \n',
-                              style: GoogleFonts.quicksand(
-                                  fontSize: 13,
-                                  color: Color.fromARGB(255, 140, 137, 127),
-                                  fontWeight: FontWeight.w700)),
-                          TextSpan(
-                              text:
-                                  'Dados gerenciados por Terceiros\n São gerenciadas por terceiros as informações das seguintes atividades:\n Meios de autenticação\n • Google\n • Facebook\n • Apple\n Meio de pagamento\n As informações de pagamento são avaliadas e gerenciadas pelas empresas listadas abaixo, de acordo com o Sistema Operacional do Usuário.\n • Google Pay (Android)\n • Apple Pay (iOS)\n Os dados gerenciados pelo App Chamas Gêmeas estão armazenados na nuvem da empresa Google (Firebase) e Apple, sendo assim utilizando sua infra-estrutura e segurança.'),
+                                  '1. Não tenha pressa para um encontro. É comum conversas on-line evoluírem para um encontro real e o encontro real é o objetivo. Entretanto, se dê tempo para conhecer antes a pessoa com quem você vai se encontrar. Poucas semanas de conversa não são suficientes. Quanto mais tempo de conversa melhor. Na conversa criam-se vínculos, entendem-se gostos e a personalidade e é mais fácil descobrir se a pessoa é quem realmente diz ser. 2. Ouça a sua intuição. Se algo parecer errado provavelmente está errado. Se você não se sentir confortável em um encontro, não continue o encontro. Mesmo que a pessoa pareça encantadora ou que você tenha receio de ferir os sentimentos de alguém, preste atenção aos alertas que a sua intuição fornece. 3. Locais públicos. Marque sempre os primeiros encontros em locais públicos e seguros. 4. Conte com a ajuda de alguém de confiança. Avise alguém de confiança onde estará e com quem estará. Compartilhe a localização com a pessoa de confiança se possível. Informe essas precauções com cordialidade à pessoa com quem você está se encontrando. Vivemos em um mundo complicado. Ela irá compreender. 5. Tenha uma "palavra senha" com alguém de confiança para pedir ajuda. Seja para encerrar o encontro através de um telefonema ou seja para informar uma emergência. 6. Esteja sempre no controle do seu meio de transporte. Não peça ou aceite caronas da pessoa com quem se encontra sem conhece-la ainda. 7. Nunca envie dinheiro, seja por pix ou transferência. Mesmo que a pessoa alegue estar em dificuldades ou emergência. Desconfie de pedidos de dinheiro ou doações. 8. Denuncie atitudes inconvenientes como: pedido de dinheiro, usuários menores de idade, comportamento agressivo, mensagens ofensivas e perfis falsos.'),
                         ],
                       ),
                     ),

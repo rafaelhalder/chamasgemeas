@@ -49,14 +49,23 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
       child: Text("Sim", style: TextStyle(color: Colors.red)),
       onPressed: () async {
         print(uid);
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(uid)
-            .update({'status': false});
-        await FirebaseAuth.instance.userChanges();
-        await FirebaseAuth.instance.currentUser?.delete();
-        await AuthService().signOut();
-        await SystemNavigator.pop();
+        try {
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(uid)
+              .update({'status': false});
+          await FirebaseAuth.instance.userChanges();
+          await FirebaseAuth.instance.currentUser?.delete();
+          await AuthService().signOut();
+          await SystemNavigator.pop();
+        } catch (e) {
+          print(e);
+          await AuthService().signOut();
+          print(e);
+
+          // await AuthService().signOut();
+          // await SystemNavigator.pop();
+        }
       },
     );
     // set up the AlertDialog
@@ -371,6 +380,49 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
                                               255, 207, 202, 187)),
                                       Text(
                                         'Regra da comunidade',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: Color.fromARGB(
+                                                255, 207, 202, 187)),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        AnimationConfiguration.staggeredGrid(
+                          position: 0,
+                          duration: const Duration(milliseconds: 375),
+                          columnCount: columnCount,
+                          child: ScaleAnimation(
+                            child: FadeInAnimation(
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.popAndPushNamed(
+                                      context, '/roghtow');
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: Colors.transparent,
+                                      border: Border.all(
+                                          color: Color.fromARGB(
+                                              255, 207, 202, 187))),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.shield_moon_outlined,
+                                          size: 60,
+                                          color: Color.fromARGB(
+                                              255, 207, 202, 187)),
+                                      Text(
+                                        'Dicas de segurança',
                                         style: TextStyle(
                                             fontSize: 16,
                                             color: Color.fromARGB(
