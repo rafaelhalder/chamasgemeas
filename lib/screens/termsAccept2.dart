@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Accept extends StatefulWidget {
   @override
@@ -199,64 +198,6 @@ class _AcceptState extends State<Accept> {
                           TextSpan(
                               text:
                                   'As partes elegem o foro da Comarca de Curitiba, estado do Paraná, para dirimir questões decorrentes desse Contrato, com exclusão de qualquer outro por mais privilegiado que seja.'),
-                          TextSpan(
-                              text: '\n Regras da comunidade \n',
-                              style: GoogleFonts.quicksand(
-                                  fontSize: 16,
-                                  color: Color.fromARGB(255, 207, 202, 187),
-                                  fontWeight: FontWeight.w700)),
-                          TextSpan(
-                            text:
-                                'Bem-vindo à comunidade Chamas Gêmeas. Você não chegou aqui por acaso. Tenha sempre em mente de que tudo o que fazemos nessa vida ecoará pela eternidade. Nossa comunidade é orientada por caráter e valores. ',
-                          ),
-                          TextSpan(
-                              text:
-                                  'Esperamos daqueles que fazem parte dessa comunidade o respeito mútuo, honestidade nas atitudes, educação na comunicação e veracidade nas informações. Atitudes anti-sociais'),
-                          TextSpan(
-                              text:
-                                  'preconceitos de qualquer tipo, ofensas, assédio ou qualquer comportamento que viole as leis, dentro e fora do aplicativo (sim, fora do aplicativo também!), pode levar ao cancelamento da conta. Lembre-se da regra de ouro “faça aos outros apenas aquilo que gostaria que fizessem a você”. Não estamos nos relacionando apenas com corpos e avatares na internet. Estamos nos relacionando com almas! Almas em uma jornada de evolução, com sonhos, aspirações e sentimentos. Desejamos que todos tenham maturidade e responsabilidade emocional. O objetivo do aplicativo é construir relações reais. De superficialidade o mundo está cheio. Permita-se ter uma relação profunda, fazer algo diferente e trazer luz e amor verdadeiro ao mundo.'),
-                          TextSpan(
-                              text:
-                                  'Veremos a seguir as nossas políticas de comunidade. Se você violar qualquer uma dessas políticas, poderá ser banido do Chamas Gêmeas.  Recomendamos que você denuncie qualquer comportamento que viole as nossas políticas, além de estar atento às nossas Dicas de Segurança.'),
-                          TextSpan(
-                              text: '\n \n O Chama Gêmea não permite \n',
-                              style: GoogleFonts.quicksand(
-                                  fontSize: 16,
-                                  color: Color.fromARGB(255, 207, 202, 187),
-                                  fontWeight: FontWeight.w700)),
-                          TextSpan(
-                              text:
-                                  'a Nudez e Conteúdo Sexual Pedimos que não seja incluído no aplicativo nudez e conteúdo sexual explícito, seja por imagens ou seja por textos no aplicativo. Assédio Não será tolerado o envio de conteúdos sexuais não solicitados. Não será tolerada qualquer atitude que envolva ameaça, perseguição, coação ou intimidação. Prostituição e tráfico'),
-                          TextSpan(
-                              text:
-                                  'A conta será banida se constatado o uso do aplicativo para prostituição, serviços sexuais comerciais, tráfico humano e atos sexuais não consensuais. Violência e agressão física Não será tolerado atitudes violentas ou de incitação à violência, seja por textos ou imagens. Também é proibido qualquer material relacionado a violência a si mesmo, como conteúdos que promovam o suicídio ou auto-mutilação. Atividades Ilegais Será banido do aplicativo o uso do mesmo para atividades ilegais no país. Discurso de ódio Não será tolerado qualquer conteúdo que promova, defenda ou incentive o ódio ou a violência contra indivíduos ou grupos com base em fatores como a orientação sexual, identidade de gênero, raça, etnia, religião, deficiência, sexo, idade e nacionalidade. Divulgação de informações privadas Proteja a sua privacidade de golpes. Não publique informações privadas, suas ou de terceiros. Não divulgue números de RG, CPF, previdência, cartões de débito/crédito, passaportes, senhas, informações financeiras ou informações de contato não listadas, tais como números de telefone, endereços de e-mail ou endereço residencial e comercial. Publicidade não autorizada Não toleraremos perfis falsos que estão no aplicativo com o objetivo de propaganda e direcionamento a páginas, redes sociais ou links externos. Perfis com outras intenções Não use o aplicativo para objetivos aos quais não se destina. Não toleraremos perfis que usam a plataforma para campanhas políticas, publicidade de organizações com ou sem fim lucrativos, pesquisas de opinião pública ou para propaganda de produtos e serviços. Golpistas A conta será banida de qualquer um que tente obter informações privadas de outros usuários por meio de atividades fraudulentas ou ilegais. Não é permitido também aos usuários do aplicativo compartilhamento de suas próprias informações de contas financeiras (Conta Corrente, Pix, PayPal, etc) com a finalidade de receber dinheiro de outros usuários.'),
-                          TextSpan(
-                              text:
-                                  'Falsificação de identidade Não é permitido o uso de identidades falsas e fotos de terceiros como se fossem as suas, mesmo que com fins humorísticos. Menores de 18 anos Você deve ter no mínimo 18 anos de idade para usar o Chamas Gêmeas. Não é permitido imagens de menores desacompanhados. Se você quiser postar fotos dos seus filhos, certifique-se de aparecer na foto também. Se você vir um perfil com fotos de um menor desacompanhado, que promova atos de violência contra menores ou que os apresente de maneira sexual ou sugestiva, denuncie imediatamente. Violações de direitos autorais e marcas comerciais Não é permitido incluir qualquer imagem protegida por direitos autorais. Não a publique, a menos que tenha permissão para fazê-lo. Isso inclui qualquer material protegido por direitos autorais. Compartilhamento de contas As contas são pessoais. Não são permitidas contas com vários donos, como contas de casais, familiares ou de parceiros. Aplicativos de terceiros O uso de quaisquer aplicativos criados por terceiros que prometem oferecer os nossos serviços ou desbloquear recursos especiais do Chamas Gêmeas não é permitido. Inatividade de conta Mantenha sua conta ativa. Se sua conta não for utilizada por 2 (dois) anos, poderemos excluí-la.'),
-                          TextSpan(
-                              text: '\n \n DENUNCIAS \n',
-                              style: GoogleFonts.quicksand(
-                                  fontSize: 16,
-                                  color: Color.fromARGB(255, 207, 202, 187),
-                                  fontWeight: FontWeight.w700)),
-                          TextSpan(
-                              text:
-                                  'No Chamas Gêmeas Comportamentos que firam nossos termos de uso podem ser denunciados AQUI.'),
-                          TextSpan(
-                              text:
-                                  'Fora do Chamas Gêmeas: Se necessário, entre em contato com a polícia local e, em seguida, entre em contato conosco AQUI.. CLIQUE AQUI PARA OBTER DICAS SOBRE ENCONTROS SEGUROS.'),
-                          TextSpan(
-                              text: '\n \n ENCONTROS SEGUROS \n',
-                              style: GoogleFonts.quicksand(
-                                  fontSize: 16,
-                                  color: Color.fromARGB(255, 207, 202, 187),
-                                  fontWeight: FontWeight.w700)),
-                          TextSpan(
-                              text:
-                                  'Na jornada em busca da Chama Gêmea, como em qualquer jornada, o planejamento e a segurança são muito importantes. Como em qualquer jornada, conheceremos pessoas extremamente interessantes, mas é necessário tomar certo cuidado com quem ainda não conhecemos perfeitamente. 1. Não tenha pressa para um encontro. É comum conversas on-line evoluírem para um encontro real e o encontro real é o objetivo. Entretanto, se dê tempo para conhecer antes a pessoa com quem você vai se encontrar. Poucas semanas de conversa não são suficientes. Quanto mais tempo de conversa melhor. Na conversa criam-se vínculos, entendem-se gostos e a personalidade e é mais fácil descobrir se a pessoa é quem realmente diz ser. 2. Ouça a sua intuição. Se algo parecer errado provavelmente está errado. Se você não se sentir confortável em um encontro, não continue o encontro. Mesmo que a pessoa pareça encantadora ou que você tenha receio de ferir os sentimentos de alguém, preste atenção aos alertas que a sua intuição fornece. 3. Locais públicos. Marque sempre os primeiros encontros em locais públicos e seguros.'),
-                          TextSpan(
-                              text:
-                                  '4. Conte com a ajuda de alguém de confiança. Avise alguém de confiança onde estará e com quem estará. Compartilhe a localização com a pessoa de confiança se possível. Informe essas precauções com cordialidade à pessoa com quem você está se encontrando. Vivemos em um mundo complicado. Ela irá compreender. 5. Tenha uma "palavra senha" com alguém de confiança para pedir ajuda. Seja para encerrar o encontro através de um telefonema ou seja para informar uma emergência. 6. Esteja sempre no controle do seu meio de transporte. Não peça ou aceite caronas da pessoa com quem se encontra sem conhece-la ainda. 7. Nunca envie dinheiro, seja por pix ou transferência. Mesmo que a pessoa alegue estar em dificuldades ou emergência. Desconfie de pedidos de dinheiro ou doações. 8. Denuncie atitudes inconvenientes como: pedido de dinheiro, usuários menores de idade, comportamento agressivo, mensagens ofensivas e perfis falsos.'),
                         ],
                       ),
                     ),
