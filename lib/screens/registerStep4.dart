@@ -211,13 +211,7 @@ class _RegisterStep4State extends State<RegisterStep4> {
                               borderSide:
                                   BorderSide(color: Colors.white, width: 0.0)),
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Campo Obrigatório';
-                          } else {
-                            return null;
-                          }
-                        },
+                        validator: (value) {},
                         onChanged: (value) => setState(() {
                           height = value;
                         }),
@@ -323,13 +317,7 @@ class _RegisterStep4State extends State<RegisterStep4> {
                               borderSide:
                                   BorderSide(color: Colors.white, width: 0.0)),
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Campo Obrigatório';
-                          } else {
-                            return null;
-                          }
-                        },
+                        validator: (value) {},
                         onChanged: (value) => setState(() {
                           occupation = value;
                         }),
@@ -393,7 +381,7 @@ class _RegisterStep4State extends State<RegisterStep4> {
   }
 
   Color activeButton() {
-    if (age != 0 && height != '' && city != '' && occupation != '') {
+    if (age != 0 && city != '') {
       print('bateu meta');
       return Color.fromARGB(255, 0, 0, 0);
     } else {
@@ -404,7 +392,7 @@ class _RegisterStep4State extends State<RegisterStep4> {
   }
 
   Color activeButtonColor() {
-    if (age != 0 && height != '' && city != '' && occupation != '') {
+    if (age != 0 && city != '') {
       return const Color.fromARGB(255, 200, 181, 152);
     } else {
       return Color.fromARGB(0, 108, 90, 64);

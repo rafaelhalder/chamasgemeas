@@ -63,15 +63,15 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>This app requires access to the camera.</string>
+	<string>Este aplicativo precisa de permissão a camera para armazenar as fotos no aplicativo.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app needs access to location when in the background.</string>
+	<string>Este aplicativo precisa de permissão a localização para auxiliar na proximidade de pessoas a você.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app needs access to location when open.</string>
+	<string>Este aplicativo precisa de permissão a localização para auxiliar na proximidade de pessoas a você.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This app does not require access to the microphone.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app requires access to the photo library.</string>
+	<string>Este aplicativo precisa de permissão a sua biblioteca para selecionar a foto desejada.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
