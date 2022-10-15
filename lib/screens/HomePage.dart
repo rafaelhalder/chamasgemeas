@@ -232,10 +232,10 @@ class _HomePageState extends State<HomePage> {
                     activeIcon: Icon(Icons.settings, color: Colors.black),
                     icon: Icon(Icons.settings, color: Colors.black),
                     title: 'Opções'),
-                const TabItem(
-                    activeIcon: Icon(Icons.settings, color: Colors.black),
-                    icon: Icon(Icons.settings, color: Colors.black),
-                    title: '222222'),
+                // const TabItem(
+                //     activeIcon: Icon(Icons.settings, color: Colors.black),
+                //     icon: Icon(Icons.settings, color: Colors.black),
+                //     title: '222222'),
               ],
 
               initialActiveIndex: 0, //optional, default as 0
