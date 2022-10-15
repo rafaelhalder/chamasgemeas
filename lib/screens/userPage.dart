@@ -236,7 +236,7 @@ class _UserPageState extends State<UserPage> {
               backgroundColor: const Color.fromARGB(0, 0, 0, 0),
             ),
             body: Container(
-              padding: const EdgeInsets.symmetric(vertical: 15),
+              padding: const EdgeInsets.symmetric(vertical: 40),
               decoration: BoxDecoration(
                   color: Colors.transparent,
                   image: DecorationImage(
@@ -304,7 +304,8 @@ class _UserPageState extends State<UserPage> {
                         child: Align(
                           alignment: Alignment.bottomCenter,
                           child: Container(
-                            height: 70,
+                            padding: EdgeInsets.only(bottom: 15),
+                            height: 78,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -317,7 +318,7 @@ class _UserPageState extends State<UserPage> {
                                     side: getBorder(
                                         Colors.white, Colors.white, isDislike),
                                   ),
-                                  child: Icon(Icons.clear, size: 46),
+                                  child: Icon(Icons.clear, size: 50),
                                   onPressed: () {
                                     final provider = Provider.of<CardProvider>(
                                         context,
@@ -352,27 +353,80 @@ class _UserPageState extends State<UserPage> {
                         bottom: 10,
                         child: Align(
                           alignment: Alignment.topCenter,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: filterPhoto.map((url) {
-                              int index = filterPhoto.indexOf(url);
-                              return Container(
-                                width: 20.0,
-                                height: 10.0,
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 4.0, horizontal: 2.0),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  shape: BoxShape.rectangle,
-                                  color: _current == index
-                                      ? Color.fromARGB(153, 231, 231, 231)
-                                      : Color.fromRGBO(0, 0, 0, 0.4),
+                          child: Container(
+                            padding: EdgeInsets.only(top: 20),
+                            child: GestureDetector(
+                                child: Icon(
+                                  Icons.info,
+                                  color: Color.fromARGB(255, 248, 222, 162),
                                 ),
-                              );
-                            }).toList(),
+                                onTap: () => showMaterialModalBottomSheet(
+                                      context: context,
+                                      builder: (context) => Container(
+                                        color: Color.fromARGB(108, 0, 0, 0),
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.15,
+                                        child: Container(
+                                          padding: EdgeInsets.all(5),
+                                          color: Colors.black87,
+                                          child: Wrap(
+                                            children: [
+                                              TextButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  minimumSize:
+                                                      Size.fromHeight(50),
+                                                  textStyle:
+                                                      TextStyle(fontSize: 20),
+                                                ),
+                                                child: Text(
+                                                  'Reportar',
+                                                  style: TextStyle(
+                                                      color: Colors.red),
+                                                ),
+                                                onPressed: () => sendEmail(
+                                                    name: 'controllerName.text',
+                                                    email:
+                                                        'rafaelhalder@gmail.com',
+                                                    subject:
+                                                        'controllerSubject.text',
+                                                    message:
+                                                        'controllerMessage.text',
+                                                    id: friendID),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    )),
                           ),
                         ),
                       ),
+                      //     Positioned.fill(
+                      //   bottom: 10,
+                      //   child: Align(
+                      //     alignment: Alignment.topCenter,
+                      //     child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.center,
+                      //       children: filterPhoto.map((url) {
+                      //         int index = filterPhoto.indexOf(url);
+                      //         return Container(
+                      //           width: 20.0,
+                      //           height: 10.0,
+                      //           margin: EdgeInsets.symmetric(
+                      //               vertical: 4.0, horizontal: 2.0),
+                      //           decoration: BoxDecoration(
+                      //             borderRadius: BorderRadius.circular(5),
+                      //             shape: BoxShape.rectangle,
+                      //             color: _current == index
+                      //                 ? Color.fromARGB(153, 231, 231, 231)
+                      //                 : Color.fromRGBO(0, 0, 0, 0.4),
+                      //           ),
+                      //         );
+                      //       }).toList(),
+                      //     ),
+                      //   ),
+                      // ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 34, vertical: 12),
@@ -385,7 +439,7 @@ class _UserPageState extends State<UserPage> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 2, vertical: 2),
                               decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 207, 202, 187),
+                                  color: Color.fromARGB(255, 248, 222, 162),
                                   borderRadius: BorderRadius.circular(30)),
                               child: Center(
                                 child: Row(
@@ -816,6 +870,65 @@ class _UserPageState extends State<UserPage> {
         ),
       ),
     );
+  }
+
+  Future sendEmail({
+    required String name,
+    required String email,
+    required String subject,
+    required String message,
+    required String id,
+  }) async {
+    final serviceId = 'service_3a6pfte';
+    final templateId = 'template_d1fvxeb';
+    final userId = 'oSTlYc_rp9hC1ZhZ5';
+
+    final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
+    final response = await http.post(
+      url,
+      headers: {
+        'origin': 'http://localhost',
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'service_id': serviceId,
+        'template_id': templateId,
+        'user_id': userId,
+        'template_params': {
+          'user_name': name,
+          'user_email': email,
+          'user_subject': subject,
+          'user_message': message,
+        },
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      Navigator.pop(context);
+      final provider = Provider.of<CardProvider>(context, listen: false);
+
+      dislike2(id);
+      Navigator.popAndPushNamed(context, '/home');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.green,
+          content: Text(
+            'Denuncia enviada com sucesso!',
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.red,
+          content: Text(
+            'Falha no envio da denuncia!',
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
+      );
+    }
   }
 
   void like(String uids) async {

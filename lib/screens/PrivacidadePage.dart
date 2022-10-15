@@ -59,14 +59,8 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
           await AuthService().signOut();
           await SystemNavigator.pop();
         } catch (e) {
-          print(e);
           await AuthService().signOut();
           await SystemNavigator.pop();
-
-          print(e);
-
-          // await AuthService().signOut();
-          // await SystemNavigator.pop();
         }
       },
     );

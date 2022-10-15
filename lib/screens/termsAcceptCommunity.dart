@@ -97,42 +97,22 @@ class _CommunityState extends State<Community> {
                           TextSpan(
                               text:
                                   'Veremos a seguir as nossas políticas de comunidade. Se você violar qualquer uma dessas políticas, poderá ser banido do Chamas Gêmeas.  Recomendamos que você denuncie qualquer comportamento que viole as nossas políticas, além de estar atento às nossas Dicas de Segurança.'),
-                          TextSpan(
-                              text: '\n O Chama Gêmea não permite \n',
-                              style: GoogleFonts.quicksand(
-                                  fontSize: 16,
-                                  color: Color.fromARGB(255, 207, 202, 187),
-                                  fontWeight: FontWeight.w700)),
-                          TextSpan(
-                              text: 'Nudez e Conteúdo Sexual \n',
-                              style: GoogleFonts.quicksand(
-                                  fontSize: 14,
-                                  color: Color.fromARGB(255, 207, 202, 187),
-                                  fontWeight: FontWeight.w700)),
+                          TextSpan(text: ' O Chama Gêmea não permite '),
+                          TextSpan(text: 'Nudez e Conteúdo Sexual '),
                           TextSpan(
                               text:
                                   'Pedimos que não seja incluído no aplicativo nudez e conteúdo sexual explícito, seja por imagens ou seja por textos no aplicativo. '),
-                          TextSpan(
-                              text: '\n Assédio \n',
-                              style: GoogleFonts.quicksand(
-                                  fontSize: 14,
-                                  color: Color.fromARGB(255, 207, 202, 187),
-                                  fontWeight: FontWeight.w700)),
+                          TextSpan(text: ' Assédio '),
                           TextSpan(
                               text:
                                   'Não será tolerado o envio de conteúdos sexuais não solicitados. Não será tolerada qualquer atitude que envolva ameaça, perseguição, coação ou intimidação.'),
-                          TextSpan(
-                              text: '\n Prostituição e tráfico \n',
-                              style: GoogleFonts.quicksand(
-                                  fontSize: 14,
-                                  color: Color.fromARGB(255, 207, 202, 187),
-                                  fontWeight: FontWeight.w700)),
+                          TextSpan(text: ' Prostituição e tráfico '),
                           TextSpan(
                               text:
                                   'A conta será banida se constatado o uso do aplicativo para prostituição, serviços sexuais comerciais, tráfico humano e atos sexuais não consensuais. Violência e agressão física Não será tolerado atitudes violentas ou de incitação à violência, seja por textos ou imagens. Também é proibido qualquer material relacionado a violência a si mesmo, como conteúdos que promovam o suicídio ou auto-mutilação. Atividades Ilegais Será banido do aplicativo o uso do mesmo para atividades ilegais no país. Discurso de ódio Não será tolerado qualquer conteúdo que promova, defenda ou incentive o ódio ou a violência contra indivíduos ou grupos com base em fatores como a orientação sexual, identidade de gênero, raça, etnia, religião, deficiência, sexo, idade e nacionalidade. Divulgação de informações privadas Proteja a sua privacidade de golpes. Não publique informações privadas, suas ou de terceiros. Não divulgue números de RG, CPF, previdência, cartões de débito/crédito, passaportes, senhas, informações financeiras ou informações de contato não listadas, tais como números de telefone, endereços de e-mail ou endereço residencial e comercial. Publicidade não autorizada Não toleraremos perfis falsos que estão no aplicativo com o objetivo de propaganda e direcionamento a páginas, redes sociais ou links externos. Perfis com outras intenções Não use o aplicativo para objetivos aos quais não se destina. Não toleraremos perfis que usam a plataforma para campanhas políticas, publicidade de organizações com ou sem fim lucrativos, pesquisas de opinião pública ou para propaganda de produtos e serviços. Golpistas A conta será banida de qualquer um que tente obter informações privadas de outros usuários por meio de atividades fraudulentas ou ilegais. Não é permitido também aos usuários do aplicativo compartilhamento de suas próprias informações de contas financeiras (Conta Corrente, Pix, PayPal, etc) com a finalidade de receber dinheiro de outros usuários.'),
                           TextSpan(
                               text:
-                                  'Falsificação de identidade Não é permitido o uso de identidades falsas e fotos de terceiros como se fossem as suas, mesmo que com fins humorísticos. Menores de 18 anos Você deve ter no mínimo 18 anos de idade para usar o Chamas Gêmeas. Não é permitido imagens de menores desacompanhados. Se você quiser postar fotos dos seus filhos, certifique-se de aparecer na foto também. Se você vir um perfil com fotos de um menor desacompanhado, que promova atos de violência contra menores ou que os apresente de maneira sexual ou sugestiva, denuncie imediatamente. Violações de direitos autorais e marcas comerciais Não é permitido incluir qualquer imagem protegida por direitos autorais. Não a publique, a menos que tenha permissão para fazê-lo. Isso inclui qualquer material protegido por direitos autorais. Compartilhamento de contas As contas são pessoais. Não são permitidas contas com vários donos, como contas de casais, familiares ou de parceiros. Aplicativos de terceiros O uso de quaisquer aplicativos criados por terceiros que prometem oferecer os nossos serviços ou desbloquear recursos especiais do Chamas Gêmeas não é permitido. Inatividade de conta Mantenha sua conta ativa. Se sua conta não for utilizada por 2 (dois) anos, poderemos excluí-la. DENUNCIAS No Chamas Gêmeas Comportamentos que firam nossos termos de uso podem ser denunciados AQUI. Fora do Chamas Gêmeas: Se necessário, entre em contato com a polícia local e, em seguida, entre em contato conosco AQUI.. CLIQUE AQUI PARA OBTER DICAS SOBRE ENCONTROS SEGUROS.'),
+                                  'Falsificação de identidade Não é permitido o uso de identidades falsas e fotos de terceiros como se fossem as suas, mesmo que com fins humorísticos. Menores de 18 anos Você deve ter no mínimo 18 anos de idade para usar o Chamas Gêmeas. Não é permitido imagens de menores desacompanhados. Se você quiser postar fotos dos seus filhos, certifique-se de aparecer na foto também. Se você vir um perfil com fotos de um menor desacompanhado, que promova atos de violência contra menores ou que os apresente de maneira sexual ou sugestiva, denuncie imediatamente. Violações de direitos autorais e marcas comerciais Não é permitido incluir qualquer imagem protegida por direitos autorais. Não a publique, a menos que tenha permissão para fazê-lo. Isso inclui qualquer material protegido por direitos autorais. Compartilhamento de contas As contas são pessoais. Não são permitidas contas com vários donos, como contas de casais, familiares ou de parceiros. Aplicativos de terceiros O uso de quaisquer aplicativos criados por terceiros que prometem oferecer os nossos serviços ou desbloquear recursos especiais do Chamas Gêmeas não é permitido. Inatividade de conta Mantenha sua conta ativa. Se sua conta não for utilizada por 2 (dois) anos, poderemos excluí-la. DENUNCIAS No Chamas Gêmeas Comportamentos que firam nossos termos de uso podem ser denunciados AQUI. Fora do Chamas Gêmeas: Se necessário, entre em contato com a polícia local e, em seguida, entre em contato conosco.'),
                         ],
                       ),
                     ),
