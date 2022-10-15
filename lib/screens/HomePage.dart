@@ -1,6 +1,7 @@
 import 'package:chamasgemeas/api/purchase_api.dart';
 import 'package:chamasgemeas/paywall_widget.dart';
 import 'package:chamasgemeas/provider/card_provider.dart';
+import 'package:chamasgemeas/screens/WelcomePage.dart';
 import 'package:chamasgemeas/screens/chats.dart';
 import 'package:chamasgemeas/screens/preferencePage.dart';
 import 'package:chamasgemeas/screens/profilePage.dart';
@@ -231,10 +232,10 @@ class _HomePageState extends State<HomePage> {
                     activeIcon: Icon(Icons.settings, color: Colors.black),
                     icon: Icon(Icons.settings, color: Colors.black),
                     title: 'Opções'),
-                // const TabItem(
-                //     activeIcon: Icon(Icons.settings, color: Colors.black),
-                //     icon: Icon(Icons.settings, color: Colors.black),
-                //     title: '222222'),
+                const TabItem(
+                    activeIcon: Icon(Icons.settings, color: Colors.black),
+                    icon: Icon(Icons.settings, color: Colors.black),
+                    title: '222222'),
               ],
 
               initialActiveIndex: 0, //optional, default as 0
@@ -301,7 +302,7 @@ class _HomePageState extends State<HomePage> {
                         context,
                         PageRouteBuilder(
                           pageBuilder: (context, animation1, animation2) =>
-                              RegisterStep6Page(),
+                              WelcomePage(),
                           transitionDuration: Duration.zero,
                           reverseTransitionDuration: Duration.zero,
                         ),

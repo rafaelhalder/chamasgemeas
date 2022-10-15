@@ -4,6 +4,12 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:introduction_screen/introduction_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TermsAccept extends StatefulWidget {
   @override
@@ -270,7 +276,10 @@ class _TermsAcceptState extends State<TermsAccept> {
                         .collection('terms')
                         .doc(user!.uid)
                         .set({'data_accept': DateTime.now()});
-                    Navigator.pushNamed(context, '/register');
+                    Future<bool> result = _determinePosition();
+                    await result == true
+                        ? Navigator.popAndPushNamed(context, '/register')
+                        : null;
                   },
                   child: Container(
                     width: size.width * 0.35,
@@ -296,6 +305,52 @@ class _TermsAcceptState extends State<TermsAccept> {
         )),
       ),
     );
+  }
+
+  Future<bool> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      print('serviceEnabled11111');
+      return false;
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        print('serviceEnable2222222');
+
+        return false;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      print('serviceEnable3333333');
+
+      return false;
+    }
+
+    var teste = await Geolocator.getCurrentPosition();
+
+    await FirebaseFirestore.instance.collection('users').doc(user?.uid).update({
+      'latitude': teste.latitude.toString(),
+      'longitude': teste.longitude.toString()
+    });
+
+    return true;
   }
 
   Flexible zodiac(String image, String sign, String date, String number) {

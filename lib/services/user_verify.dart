@@ -1,5 +1,6 @@
 import 'package:chamasgemeas/screens/HomePage.dart';
 import 'package:chamasgemeas/screens/WelcomePage.dart';
+import 'package:chamasgemeas/screens/termsAccept.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,7 @@ class _VerifyUserState extends State<VerifyUser> {
   @override
   Widget build(BuildContext context) {
     if (newUser == 1) {
-      return WelcomePage();
+      return TermsAccept();
     } else if (newUser == 2) {
       // return const WelcomePage();
       return HomePage();
