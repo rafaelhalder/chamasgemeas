@@ -1,5 +1,4 @@
 import 'package:chamasgemeas/screens/HomePage.dart';
-import 'package:chamasgemeas/screens/WelcomePage.dart';
 import 'package:chamasgemeas/screens/termsAccept.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -84,10 +83,7 @@ class _VerifyUserState extends State<VerifyUser> {
     final snapShot =
         await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
-    print('adsadasdasdsaaasd');
     if (!snapShot.exists) {
-      print('30438340433489y430438');
-
       try {
         await FirebaseFirestore.instance.collection('users').doc(uid).set({
           'aboutMe': '',

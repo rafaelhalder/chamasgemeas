@@ -13,6 +13,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class PrivacidadePage extends StatefulWidget {
   const PrivacidadePage({Key? key}) : super(key: key);
@@ -45,6 +46,14 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
         SystemNavigator.pop();
       },
     );
+    Widget okButton = TextButton(
+      child: Text("Ok", style: TextStyle(color: Colors.white)),
+      onPressed: () async {
+        await AuthService().signOut();
+        SystemNavigator.pop();
+      },
+    );
+
     Widget continueButton = TextButton(
       child: Text("Sim", style: TextStyle(color: Colors.red)),
       onPressed: () async {
@@ -58,9 +67,28 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
           await FirebaseAuth.instance.currentUser?.delete();
           await AuthService().signOut();
           await SystemNavigator.pop();
-        } catch (e) {
-          await AuthService().signOut();
-          await SystemNavigator.pop();
+        } on FirebaseAuthException catch (e, s) {
+          if (e.code == 'requires-recent-login') {
+            await Fluttertoast.showToast(
+                msg:
+                    "Por gentileza fazer login novamente, para realizar a exclusão.",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 2,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0);
+            print(
+                'The user must reauthenticate before this operation can be executed.');
+
+            await AuthService().signOut();
+          } else {
+            print('Firebase auth delete account error:\n$e');
+            print('============stack=========\n$s');
+          }
+        } catch (e, s) {
+          print('Firebase auth delete account error:\n$e');
+          print('============stack=========\n$s');
         }
       },
     );

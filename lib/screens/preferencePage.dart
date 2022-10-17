@@ -308,49 +308,49 @@ class _PreferencePageState extends State<PreferencePage> {
                               ),
                             ),
                           ),
-                          AnimationConfiguration.staggeredGrid(
-                            position: 0,
-                            duration: const Duration(milliseconds: 375),
-                            columnCount: columnCount,
-                            child: ScaleAnimation(
-                              child: FadeInAnimation(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(context, '/help');
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(25),
-                                        color: Colors.transparent,
-                                        border: Border.all(
-                                            color: Color.fromARGB(
-                                                255, 207, 202, 187))),
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 25),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Icon(Icons.email,
-                                            size: 60,
-                                            color: Color.fromARGB(
-                                                255, 207, 202, 187)),
-                                        Text(
-                                          'Ajuda',
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              color: Color.fromARGB(
-                                                  255, 207, 202, 187)),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
+                          // AnimationConfiguration.staggeredGrid(
+                          //   position: 0,
+                          //   duration: const Duration(milliseconds: 375),
+                          //   columnCount: columnCount,
+                          //   child: ScaleAnimation(
+                          //     child: FadeInAnimation(
+                          //       child: GestureDetector(
+                          //         onTap: () {
+                          //           Navigator.pushNamed(context, '/help');
+                          //         },
+                          //         child: Container(
+                          //           decoration: BoxDecoration(
+                          //               borderRadius: BorderRadius.circular(25),
+                          //               color: Colors.transparent,
+                          //               border: Border.all(
+                          //                   color: Color.fromARGB(
+                          //                       255, 207, 202, 187))),
+                          //           padding: const EdgeInsets.symmetric(
+                          //               horizontal: 25),
+                          //           child: Column(
+                          //             mainAxisAlignment:
+                          //                 MainAxisAlignment.center,
+                          //             crossAxisAlignment:
+                          //                 CrossAxisAlignment.center,
+                          //             children: [
+                          //               Icon(Icons.email,
+                          //                   size: 60,
+                          //                   color: Color.fromARGB(
+                          //                       255, 207, 202, 187)),
+                          //               Text(
+                          //                 'Ajuda',
+                          //                 style: TextStyle(
+                          //                     fontSize: 18,
+                          //                     color: Color.fromARGB(
+                          //                         255, 207, 202, 187)),
+                          //               )
+                          //             ],
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // )
                         ],
                       ),
                     ),
