@@ -64,9 +64,10 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
               .doc(uid)
               .update({'status': false});
           await FirebaseAuth.instance.userChanges();
-          await FirebaseAuth.instance.currentUser?.delete();
+          FirebaseAuth.instance.currentUser?.delete();
           await AuthService().signOut();
-          await SystemNavigator.pop();
+          await Navigator.pushNamed(context, '/login');
+          // await SystemNavigator.pop();
         } on FirebaseAuthException catch (e, s) {
           if (e.code == 'requires-recent-login') {
             await Fluttertoast.showToast(
@@ -82,6 +83,7 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
                 'The user must reauthenticate before this operation can be executed.');
 
             await AuthService().signOut();
+            await Navigator.pushNamed(context, '/login');
           } else {
             print('Firebase auth delete account error:\n$e');
             print('============stack=========\n$s');

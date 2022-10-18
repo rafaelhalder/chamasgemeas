@@ -5,7 +5,6 @@ import 'package:chamasgemeas/screens/WelcomePage.dart';
 import 'package:chamasgemeas/screens/chats.dart';
 import 'package:chamasgemeas/screens/preferencePage.dart';
 import 'package:chamasgemeas/screens/profilePage.dart';
-import 'package:chamasgemeas/screens/registerStep6.dart';
 import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +23,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart'
     as not;
 import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -384,6 +384,14 @@ class _HomePageState extends State<HomePage> {
 
               if (isSuccess) {
                 await addCoinsPackag2e(package);
+                await Fluttertoast.showToast(
+                    msg: "Compra realizada com sucesso.",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 2,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
               }
 
               Navigator.pop(context);

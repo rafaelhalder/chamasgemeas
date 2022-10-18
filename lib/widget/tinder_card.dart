@@ -14,6 +14,7 @@ import '../paywall_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class TinderCard extends StatefulWidget {
   final Users user;
@@ -379,6 +380,14 @@ class _TinderCardState extends State<TinderCard> {
                 final isSuccess = await PurchaseApi.purchasePackage(package);
                 if (isSuccess) {
                   await addCoinsPackag2ePremium(package);
+                  await Fluttertoast.showToast(
+                      msg: "Compra realizada com sucesso.",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 2,
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white,
+                      fontSize: 16.0);
                 }
 
                 Navigator.pop(context);
@@ -416,6 +425,14 @@ class _TinderCardState extends State<TinderCard> {
 
               if (isSuccess) {
                 await addCoinsPackag2e(package);
+                await Fluttertoast.showToast(
+                    msg: "Compra realizada com sucesso.",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 2,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
               }
 
               Navigator.pop(context);

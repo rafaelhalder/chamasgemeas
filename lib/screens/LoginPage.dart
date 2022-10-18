@@ -115,9 +115,9 @@ class _LoginPageState extends State<LoginPage> {
                             children: [
                               Image.asset('assets/images/apple-logo.png'),
                               Text(
-                                'Entrar com o Apple',
+                                'Iniciar Sessão com a Apple',
                                 style: GoogleFonts.quicksand(
-                                    fontSize: 18,
+                                    fontSize: 17,
                                     color: Color.fromARGB(218, 255, 255, 255),
                                     fontWeight: FontWeight.w600),
                               ),
@@ -176,9 +176,9 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             Image.asset('assets/images/google.png'),
                             Text(
-                              'Entrar com o Google',
+                              'Iniciar Sessão com Google',
                               style: GoogleFonts.quicksand(
-                                  fontSize: 18,
+                                  fontSize: 17,
                                   color: Color.fromARGB(218, 255, 255, 255),
                                   fontWeight: FontWeight.w600),
                             ),
@@ -238,7 +238,7 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             Image.asset('assets/images/facebook.png'),
                             Text(
-                              'Entrar com o Facebook',
+                              'Iniciar Sessão com o Facebook',
                               style: GoogleFonts.quicksand(
                                   fontSize: 17,
                                   color: Color.fromARGB(218, 255, 255, 255),

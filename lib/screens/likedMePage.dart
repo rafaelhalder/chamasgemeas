@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LikedMePage extends StatefulWidget {
   const LikedMePage({Key? key}) : super(key: key);
@@ -269,6 +270,14 @@ class _LikedMePageState extends State<LikedMePage> {
 
               if (isSuccess) {
                 await addCoinsPackag2e(package);
+                await Fluttertoast.showToast(
+                    msg: "Compra realizada com sucesso.",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 2,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
               }
 
               Navigator.pop(context);
