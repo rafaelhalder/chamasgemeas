@@ -385,6 +385,15 @@ class _TinderCardState extends State<TinderCard> {
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 2,
+                      backgroundColor: Colors.green,
+                      textColor: Colors.white,
+                      fontSize: 16.0);
+                } else {
+                  await Fluttertoast.showToast(
+                      msg: "falha na compra.",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 2,
                       backgroundColor: Colors.red,
                       textColor: Colors.white,
                       fontSize: 16.0);
@@ -427,6 +436,15 @@ class _TinderCardState extends State<TinderCard> {
                 await addCoinsPackag2e(package);
                 await Fluttertoast.showToast(
                     msg: "Compra realizada com sucesso.",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 2,
+                    backgroundColor: Colors.green,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
+              } else {
+                await Fluttertoast.showToast(
+                    msg: "falha na compra.",
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 2,
