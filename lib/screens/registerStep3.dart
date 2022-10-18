@@ -23,7 +23,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
   String selectedIndex = '';
   String typeInterested = '';
   User? user = FirebaseAuth.instance.currentUser;
-  final Uri _url = Uri.parse('https://chamasgemeas.com');
+  final Uri _url = Uri.parse('https://chamasgemeas.com/grupos/');
 
   @override
   Widget build(BuildContext context) {
