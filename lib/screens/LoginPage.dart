@@ -117,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                               Text(
                                 'Iniciar Sessão com a Apple',
                                 style: GoogleFonts.quicksand(
-                                    fontSize: 17,
+                                    fontSize: 15,
                                     color: Color.fromARGB(218, 255, 255, 255),
                                     fontWeight: FontWeight.w600),
                               ),
@@ -178,7 +178,7 @@ class _LoginPageState extends State<LoginPage> {
                             Text(
                               'Iniciar Sessão com Google',
                               style: GoogleFonts.quicksand(
-                                  fontSize: 17,
+                                  fontSize: 15,
                                   color: Color.fromARGB(218, 255, 255, 255),
                                   fontWeight: FontWeight.w600),
                             ),
@@ -240,7 +240,7 @@ class _LoginPageState extends State<LoginPage> {
                             Text(
                               'Iniciar Sessão com o Facebook',
                               style: GoogleFonts.quicksand(
-                                  fontSize: 17,
+                                  fontSize: 15,
                                   color: Color.fromARGB(218, 255, 255, 255),
                                   fontWeight: FontWeight.w600),
                             ),

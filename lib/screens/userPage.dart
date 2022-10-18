@@ -386,11 +386,10 @@ class _UserPageState extends State<UserPage> {
                                                       color: Colors.red),
                                                 ),
                                                 onPressed: () => sendEmail(
-                                                    name: 'controllerName.text',
+                                                    name: '$name,',
                                                     email:
-                                                        'rafaelhalder@gmail.com',
-                                                    subject:
-                                                        'controllerSubject.text',
+                                                        'contato@chamasgemeas.com',
+                                                    subject: friendID,
                                                     message:
                                                         'controllerMessage.text',
                                                     id: friendID),
@@ -880,9 +879,9 @@ class _UserPageState extends State<UserPage> {
     required String message,
     required String id,
   }) async {
-    final serviceId = 'service_3a6pfte';
-    final templateId = 'template_d1fvxeb';
-    final userId = 'oSTlYc_rp9hC1ZhZ5';
+    final serviceId = 'service_veh5s9i';
+    final templateId = 'template_c5epiyk';
+    final userId = 'xDYWDYgAVAzkk3hQ1';
 
     final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
     final response = await http.post(

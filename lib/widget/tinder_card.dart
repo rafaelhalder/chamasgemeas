@@ -261,8 +261,8 @@ class _TinderCardState extends State<TinderCard> {
                                       style: TextStyle(color: Colors.red),
                                     ),
                                     onPressed: () => sendEmail(
-                                      name: 'controllerName.text',
-                                      email: 'rafaelhalder@gmail.com',
+                                      name: widget.user.name,
+                                      email: 'contato@chamasgemeas.com',
                                       subject: 'controllerSubject.text',
                                       message: 'controllerMessage.text',
                                     ),
@@ -294,9 +294,9 @@ class _TinderCardState extends State<TinderCard> {
     required String subject,
     required String message,
   }) async {
-    final serviceId = 'service_3a6pfte';
-    final templateId = 'template_d1fvxeb';
-    final userId = 'oSTlYc_rp9hC1ZhZ5';
+    final serviceId = 'service_veh5s9i';
+    final templateId = 'template_c5epiyk';
+    final userId = 'xDYWDYgAVAzkk3hQ1';
 
     final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
     final response = await http.post(
@@ -312,7 +312,7 @@ class _TinderCardState extends State<TinderCard> {
         'template_params': {
           'user_name': name,
           'user_email': email,
-          'user_subject': subject,
+          'user_subject': widget.user.uid,
           'user_message': message,
         },
       }),
