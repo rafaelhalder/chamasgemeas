@@ -63,10 +63,11 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
               .collection('users')
               .doc(uid)
               .update({'status': false});
-          await FirebaseAuth.instance.userChanges();
           FirebaseAuth.instance.currentUser?.delete();
+          await FirebaseAuth.instance.userChanges();
           await AuthService().signOut();
-          await Navigator.pushNamed(context, '/login');
+          await Future.delayed(Duration(milliseconds: 500));
+          Navigator.of(context).pop();
           // await SystemNavigator.pop();
         } on FirebaseAuthException catch (e, s) {
           if (e.code == 'requires-recent-login') {

@@ -1,3 +1,4 @@
+import 'package:chamasgemeas/provider/card_provider.dart';
 import 'package:chamasgemeas/screens/preferencePage.dart';
 import 'package:chamasgemeas/screens/profilePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,6 +11,7 @@ import 'package:chamasgemeas/screens/HomePage.dart';
 import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class FilterPage extends StatefulWidget {
   const FilterPage({Key? key}) : super(key: key);
@@ -29,6 +31,7 @@ class _FilterPageState extends State<FilterPage> {
     // TODO: implement initState
     getFilters();
     super.initState();
+    setState(() {});
   }
 
   @override
@@ -202,6 +205,9 @@ class _FilterPageState extends State<FilterPage> {
                             .update({
                           'distance': [_value]
                         });
+                        final provider =
+                            Provider.of<CardProvider>(context, listen: false);
+                        provider.resetUsers();
                       },
                     ),
                   ),
@@ -254,6 +260,9 @@ class _FilterPageState extends State<FilterPage> {
                               .update({
                             'age': [values.start, values.end]
                           });
+                          final provider =
+                              Provider.of<CardProvider>(context, listen: false);
+                          provider.resetUsers();
                         }),
                   ),
                 ),

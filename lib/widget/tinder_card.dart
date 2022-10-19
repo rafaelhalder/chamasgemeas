@@ -390,7 +390,7 @@ class _TinderCardState extends State<TinderCard> {
                       fontSize: 16.0);
                 } else {
                   await Fluttertoast.showToast(
-                      msg: "falha na compra.",
+                      msg: "Falha na compra.",
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 2,
@@ -444,7 +444,7 @@ class _TinderCardState extends State<TinderCard> {
                     fontSize: 16.0);
               } else {
                 await Fluttertoast.showToast(
-                    msg: "falha na compra.",
+                    msg: "Falha na compra.",
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 2,

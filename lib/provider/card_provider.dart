@@ -13,6 +13,8 @@ class CardProvider extends ChangeNotifier {
   List _liked = [];
   List _superliked = [];
   double _distanceUser = 0;
+  double _agemin = 0;
+  double _agemax = 0;
   String? uid = FirebaseAuth.instance.currentUser?.uid;
   List<Object?> _disliked = [FirebaseAuth.instance.currentUser?.uid];
   bool _isDragging = false;
@@ -36,6 +38,8 @@ class CardProvider extends ChangeNotifier {
   double get distanceUser => _distanceUser;
   double get latUser => _latUser;
   int get coinUser => _coinUser;
+  double get agemin => _agemin;
+  double get agemax => _agemax;
   double get lngUser => _lngUser;
 
   String get photoUser => _photoUser;
@@ -211,7 +215,7 @@ class CardProvider extends ChangeNotifier {
     _liked.add(_users.last.uid);
     updateLike();
     userLiked();
-    await _nextCard();
+    _nextCard();
     notifyListeners();
   }
 
@@ -326,6 +330,8 @@ class CardProvider extends ChangeNotifier {
 
       double distance_value = double.parse((distance).toString());
 
+      _agemin = distances['age'][0];
+      _agemax = distances['age'][1];
       _distanceUser = distance_value;
     }
 
@@ -354,6 +360,8 @@ class CardProvider extends ChangeNotifier {
         .collection('users')
         .where('status', isEqualTo: true)
         .where('gender', isEqualTo: _interestedUser)
+        .where('age', isLessThanOrEqualTo: agemax)
+        .where('age', isGreaterThanOrEqualTo: agemin)
         .get();
 
     final List<DocumentSnapshot> documents = result.docs;
@@ -400,8 +408,21 @@ class CardProvider extends ChangeNotifier {
       }
     });
 
+    _users = removeDuplicates(_users);
+    print(_users);
+
     _users = _users.reversed.toList();
 
     notifyListeners();
+  }
+
+  List<Users> removeDuplicates(List<Users> items) {
+    List<Users> uniqueItems = []; // uniqueList
+    var uniqueIDs =
+        items.map((e) => e.uid).toSet(); //list if UniqueID to remove duplicates
+    uniqueIDs.forEach((e) {
+      uniqueItems.add(items.firstWhere((i) => i.uid == e));
+    }); // populate uniqueItems with equivalent original Batch items
+    return uniqueItems; //send back the unique items list
   }
 }

@@ -56,7 +56,8 @@ class _RegisterStep5State extends State<RegisterStep5> {
             backgroundColor: selectedIndex == ''
                 ? Color.fromARGB(255, 0, 0, 0)
                 : Color.fromARGB(255, 207, 202, 187),
-            shape: BeveledRectangleBorder(borderRadius: BorderRadius.zero),
+            shape:
+                BeveledRectangleBorder(borderRadius: BorderRadius.circular(4)),
             onPressed: () {
               update();
             },

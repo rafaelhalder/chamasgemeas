@@ -30,6 +30,18 @@ class _RegisterISearchPageState extends State<RegisterISearchPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+          backgroundColor: Color.fromARGB(0, 27, 27, 27),
+          leading: finished == false
+              ? Text('')
+              : IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/profilePage');
+                  },
+                  tooltip:
+                      MaterialLocalizations.of(context).openAppDrawerTooltip,
+                )),
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: Container(

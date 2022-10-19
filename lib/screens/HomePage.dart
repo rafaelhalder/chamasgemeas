@@ -46,6 +46,7 @@ class _HomePageState extends State<HomePage> {
     requestPermission();
     // getToken();
     initInfo();
+    print(121212111);
   }
 
   initInfo() {
@@ -394,7 +395,7 @@ class _HomePageState extends State<HomePage> {
                     fontSize: 16.0);
               } else {
                 await Fluttertoast.showToast(
-                    msg: "falha na compra.",
+                    msg: "Falha na compra.",
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 2,
