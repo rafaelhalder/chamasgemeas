@@ -238,9 +238,9 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             Image.asset('assets/images/facebook.png'),
                             Text(
-                              'Iniciar Sessão com o Facebook',
+                              'Iniciar Sessão com Facebook',
                               style: GoogleFonts.quicksand(
-                                  fontSize: 15,
+                                  fontSize: 14,
                                   color: Color.fromARGB(218, 255, 255, 255),
                                   fontWeight: FontWeight.w600),
                             ),

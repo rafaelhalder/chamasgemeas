@@ -4,12 +4,7 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:introduction_screen/introduction_screen.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class TermsAccept extends StatefulWidget {
   @override
@@ -313,11 +308,13 @@ class _TermsAcceptState extends State<TermsAccept> {
 
     // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    permission = await Geolocator.checkPermission();
+
     if (!serviceEnabled) {
       // Location services are not enabled don't continue
       // accessing the position and request users of the
       // App to enable the location services.
-      print('serviceEnabled11111');
+      Geolocator.getCurrentPosition();
       return false;
     }
 

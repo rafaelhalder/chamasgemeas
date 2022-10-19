@@ -54,6 +54,7 @@ abstract class _ChatState with Store {
             .listen((QuerySnapshot snapshot) {
           FirebaseFirestore.instance
               .collection('users')
+              .where('status', isEqualTo: true)
               .get()
               .then((QuerySnapshot querySnapshot) {
             // ignore: avoid_function_literals_in_foreach_calls
@@ -87,8 +88,6 @@ abstract class _ChatState with Store {
                 'token': doc['token'],
                 'docid': doc['docid'],
               };
-              print('333333333333');
-              print(messages[doc['name']]);
             }
           });
         });

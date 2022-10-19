@@ -181,6 +181,7 @@ class _ChatsState extends State<Chats> {
                         }
                         // print(chatState.messages);
                         if (!available.contains(idChat)) return Container();
+                        if (data['status'] == '') return Container();
 
                         if (data['photo'] == '') {
                           data['photo'] = defaultPhoto;

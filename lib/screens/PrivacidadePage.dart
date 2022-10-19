@@ -63,13 +63,33 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
               .collection('users')
               .doc(uid)
               .update({'status': false});
-          FirebaseAuth.instance.currentUser?.delete();
+          await FirebaseAuth.instance.currentUser?.delete();
           await FirebaseAuth.instance.userChanges();
           await AuthService().signOut();
-          await Future.delayed(Duration(milliseconds: 500));
-          Navigator.of(context).pop();
-          // await SystemNavigator.pop();
+          await Fluttertoast.showToast(
+              msg: "Deletando conta...",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 2,
+              backgroundColor: Colors.amber,
+              textColor: Colors.black,
+              fontSize: 16.0);
+          await Future.delayed(Duration(milliseconds: 2000));
+          SystemNavigator.pop();
         } on FirebaseAuthException catch (e, s) {
+          await Fluttertoast.showToast(
+              msg:
+                  "Por gentileza fazer login novamente, para realizar a exclusão.",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 2,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          await AuthService().signOut();
+          await Future.delayed(Duration(milliseconds: 2000));
+          await Navigator.pushNamed(context, '/login');
+
           if (e.code == 'requires-recent-login') {
             await Fluttertoast.showToast(
                 msg:

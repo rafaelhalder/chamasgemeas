@@ -13,8 +13,8 @@ class CardProvider extends ChangeNotifier {
   List _liked = [];
   List _superliked = [];
   double _distanceUser = 0;
-  double _agemin = 0;
-  double _agemax = 0;
+  int _agemin = 0;
+  int _agemax = 0;
   String? uid = FirebaseAuth.instance.currentUser?.uid;
   List<Object?> _disliked = [FirebaseAuth.instance.currentUser?.uid];
   bool _isDragging = false;
@@ -38,8 +38,8 @@ class CardProvider extends ChangeNotifier {
   double get distanceUser => _distanceUser;
   double get latUser => _latUser;
   int get coinUser => _coinUser;
-  double get agemin => _agemin;
-  double get agemax => _agemax;
+  int get agemin => _agemin;
+  int get agemax => _agemax;
   double get lngUser => _lngUser;
 
   String get photoUser => _photoUser;
@@ -330,8 +330,8 @@ class CardProvider extends ChangeNotifier {
 
       double distance_value = double.parse((distance).toString());
 
-      _agemin = distances['age'][0];
-      _agemax = distances['age'][1];
+      _agemin = distances['age'][0].round();
+      _agemax = distances['age'][1].round();
       _distanceUser = distance_value;
     }
 
@@ -359,6 +359,7 @@ class CardProvider extends ChangeNotifier {
     final QuerySnapshot result = await FirebaseFirestore.instance
         .collection('users')
         .where('status', isEqualTo: true)
+        .where('finished', isEqualTo: true)
         .where('gender', isEqualTo: _interestedUser)
         .where('age', isLessThanOrEqualTo: agemax)
         .where('age', isGreaterThanOrEqualTo: agemin)
@@ -371,7 +372,7 @@ class CardProvider extends ChangeNotifier {
 
       var distance = const lati.Distance();
 
-      final km = distance.as(
+      var km = distance.as(
           lati.LengthUnit.Kilometer,
           lati.LatLng(double.parse(teste['latitude']),
               double.parse(teste['longitude'])),
@@ -382,6 +383,7 @@ class CardProvider extends ChangeNotifier {
           if (!dislikeTe.contains(teste['uid'])) {
             if (!likeTe.contains(teste['uid'])) {
               teste['listFocus'] == null ? teste['listFocus'] = [1] : '';
+
               if (teste['uid'] != uid)
                 _users.add(Users(
                     age: teste['age'],
@@ -409,7 +411,6 @@ class CardProvider extends ChangeNotifier {
     });
 
     _users = removeDuplicates(_users);
-    print(_users);
 
     _users = _users.reversed.toList();
 
