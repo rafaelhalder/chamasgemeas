@@ -271,7 +271,7 @@ class _TermsAcceptState extends State<TermsAccept> {
                         .collection('terms')
                         .doc(user!.uid)
                         .set({'data_accept': DateTime.now()});
-                    Navigator.popAndPushNamed(context, '/welcome');
+                    await Navigator.popAndPushNamed(context, '/welcome');
                   },
                   child: Container(
                     width: size.width * 0.35,
