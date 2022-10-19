@@ -172,7 +172,7 @@ class _WelcomePageState extends State<WelcomePage> {
             onDone: () async {
               Future<bool> result = _determinePosition();
               await result == true
-                  ? Navigator.popAndPushNamed(context, '/accept')
+                  ? Navigator.popAndPushNamed(context, '/register')
                   : null;
             },
           ),
