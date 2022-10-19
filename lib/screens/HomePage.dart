@@ -672,6 +672,7 @@ class _HomePageState extends State<HomePage> {
                                                     String tokenUsuaria =
                                                         users.last.token;
                                                     int coins = 0;
+                                                    String myName = '';
                                                     provider.superLike();
 
                                                     final foundLikeMe =
@@ -695,6 +696,8 @@ class _HomePageState extends State<HomePage> {
 
                                                     if (distances.exists) {
                                                       coins = distances['coin'];
+                                                      myName =
+                                                          distances['name'];
                                                     }
 
                                                     await FirebaseFirestore
@@ -750,7 +753,7 @@ class _HomePageState extends State<HomePage> {
                                                                             },
                                                                             'names':
                                                                                 {
-                                                                              uid: FirebaseAuth.instance.currentUser?.displayName,
+                                                                              uid: myName,
                                                                               usuarioUid: usuarioName
                                                                             }
                                                                           });

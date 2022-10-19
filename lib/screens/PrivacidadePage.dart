@@ -87,13 +87,13 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
               textColor: Colors.white,
               fontSize: 16.0);
           await AuthService().signOut();
-          await Future.delayed(Duration(milliseconds: 2000));
-          await Navigator.pushNamed(context, '/login');
+          await Future.delayed(Duration(milliseconds: 3000));
+          SystemNavigator.pop();
 
           if (e.code == 'requires-recent-login') {
             await Fluttertoast.showToast(
                 msg:
-                    "Por gentileza fazer login novamente, para realizar a exclusão.",
+                    "Por gentileza fazer login novamente, para realizar a exclusão do usuário.",
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
                 timeInSecForIosWeb: 2,

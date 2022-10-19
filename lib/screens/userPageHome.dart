@@ -586,6 +586,9 @@ class _UserPageHomeState extends State<UserPageHome> {
                                                                             .token;
                                                                     int coins =
                                                                         0;
+                                                                    String
+                                                                        myName =
+                                                                        '';
                                                                     provider
                                                                         .superLike();
 
@@ -615,6 +618,9 @@ class _UserPageHomeState extends State<UserPageHome> {
                                                                         .exists) {
                                                                       coins = distances[
                                                                           'coin'];
+                                                                      myName =
+                                                                          distances[
+                                                                              'name'];
                                                                     }
 
                                                                     await FirebaseFirestore
@@ -652,7 +658,7 @@ class _UserPageHomeState extends State<UserPageHome> {
                                                                                               usuarioUid: 1
                                                                                             },
                                                                                             'names': {
-                                                                                              uid: FirebaseAuth.instance.currentUser?.displayName,
+                                                                                              uid: myName,
                                                                                               usuarioUid: usuarioName
                                                                                             }
                                                                                           });
@@ -696,7 +702,7 @@ class _UserPageHomeState extends State<UserPageHome> {
                                                                                       usuarioUid: 1
                                                                                     },
                                                                                     'names': {
-                                                                                      uid: FirebaseAuth.instance.currentUser?.displayName,
+                                                                                      uid: myName,
                                                                                       usuarioUid: usuarioName
                                                                                     }
                                                                                   });

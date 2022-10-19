@@ -283,10 +283,7 @@ class _MatchUsersState extends State<MatchUsers> {
                 if (querySnapshot.docs.isEmpty) {
                   await chats.add({
                     'users': {userList: 1, uid: 1},
-                    'names': {
-                      userList: name,
-                      uid: FirebaseAuth.instance.currentUser?.displayName
-                    }
+                    'names': {userList: name, uid: userListName}
                   });
                   listMatch.add(userList);
                   await FirebaseFirestore.instance

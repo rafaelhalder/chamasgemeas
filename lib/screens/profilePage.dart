@@ -70,6 +70,13 @@ class _ProfilePageState extends State<ProfilePage> {
     return variable['city'];
   }
 
+  dynamic loadName() async {
+    DocumentSnapshot variable =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    return variable['name'];
+  }
+
   dynamic loadCountry() async {
     DocumentSnapshot variable =
         await FirebaseFirestore.instance.collection('users').doc(uid).get();
@@ -616,6 +623,59 @@ class _ProfilePageState extends State<ProfilePage> {
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Color.fromARGB(255, 147, 132, 100)),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 10),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/registerStep4');
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Color.fromARGB(255, 211, 202, 189),
+                        ),
+                        child: FutureBuilder<dynamic>(
+                            future: loadName(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          const Icon(Icons.edit_note,
+                                              color: Color.fromARGB(
+                                                  255, 84, 75, 57)),
+                                          Text(
+                                            'Nome: ',
+                                            style: TextStyle(
+                                                letterSpacing: 0.2,
+                                                color: Color.fromARGB(
+                                                    255, 84, 75, 57),
+                                                fontSize: 16),
+                                          ),
+                                          Text(
+                                            snapshot.data.toString(),
+                                            style: const TextStyle(
+                                                letterSpacing: 0.2,
+                                                color: Color.fromARGB(
+                                                    255, 84, 75, 57),
+                                                fontSize: 16),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                              return Container();
+                            }),
+                      ),
                     ),
                   ),
                   Padding(

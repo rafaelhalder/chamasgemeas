@@ -18,37 +18,19 @@ class _WelcomePageState extends State<WelcomePage> {
   List<PageViewModel> getPages() {
     return [
       PageViewModel(
-          titleWidget: RichText(
-            text: TextSpan(
-              style: GoogleFonts.quicksand(
-                  fontSize: 18,
-                  color: Color.fromARGB(255, 207, 202, 187),
-                  fontWeight: FontWeight.w700),
-              children: <TextSpan>[
-                TextSpan(
-                    text: 'Ativar Localização.\n\n',
-                    style: TextStyle(
-                        fontStyle: FontStyle.italic,
-                        color: Color.fromARGB(255, 207, 202, 187))),
-                TextSpan(
-                    text:
-                        'Você precisa permitir a localização para usar o tinder',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 207, 202, 187))),
-                TextSpan(
-                    text: 'Conheça pessoas perto de você',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 207, 202, 187))),
-                TextSpan(
-                    text:
-                        'Sua localização será usada para mostrar Matches em potencial perto de você',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 147, 132, 100))),
-              ],
+          titleWidget: Padding(
+            padding: const EdgeInsets.all(50.0),
+            child: Image.asset(
+              'assets/images/ico.png',
+              color: Color.fromARGB(62, 238, 238, 238),
+              width: 200,
+              height: 200,
+              scale: 0.6,
             ),
           ),
           bodyWidget: Center(
               child: RichText(
+            textAlign: TextAlign.center,
             text: TextSpan(
               style: GoogleFonts.quicksand(
                   fontSize: 18,
@@ -59,30 +41,57 @@ class _WelcomePageState extends State<WelcomePage> {
                     text: 'Ativar Localização.\n\n',
                     style: TextStyle(
                         fontStyle: FontStyle.italic,
+                        fontSize: 26,
                         color: Color.fromARGB(255, 207, 202, 187))),
                 TextSpan(
                     text:
-                        'Você precisa permitir a localização para usar o tinder',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 207, 202, 187))),
-                TextSpan(
-                    text: 'Conheça pessoas perto de você',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 207, 202, 187))),
-                TextSpan(
-                    text:
-                        'Sua localização será usada para mostrar Matches em potencial perto de você',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 147, 132, 100))),
+                        'Você precisa permitir a localização para usar o Chamas Gêmeas.',
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Color.fromARGB(255, 147, 132, 100))),
               ],
             ),
           )),
-          footer: Text(''),
+          footer: GestureDetector(
+            onTap: () async {
+              bool teste = await _determinePosition();
+              if (teste == true) {
+                print('saved position');
+                Navigator.pushNamed(context, '/register');
+              }
+            },
+            child: Container(
+              height: 50,
+              width: 300,
+              child: Container(
+                width: 300,
+                height: 50,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    color: Color.fromARGB(255, 200, 181, 152)),
+                child: Center(
+                  child: Text(
+                    'ATIVAR LOCALIZAÇÃO',
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 0, 0, 0),
+                        fontFamily: 'CM Sans Serif',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16),
+                  ),
+                ),
+              ),
+              decoration: BoxDecoration(
+                  color: Colors.blue, borderRadius: BorderRadius.circular(30)),
+            ),
+          ),
           decoration: const PageDecoration(
             pageColor: Color.fromARGB(0, 0, 0, 0),
           )),
       PageViewModel(
-          titleWidget: RichText(
+          titleWidget: Text(''),
+          footer: Center(
+              child: RichText(
+            textAlign: TextAlign.center,
             text: TextSpan(
               style: GoogleFonts.quicksand(
                   fontSize: 18,
@@ -90,45 +99,56 @@ class _WelcomePageState extends State<WelcomePage> {
                   fontWeight: FontWeight.w700),
               children: <TextSpan>[
                 TextSpan(
-                    text: 'O Universo não entende palavras, entende ',
+                    text: 'Conheça pessoas perto de você.\n',
                     style: TextStyle(
                         fontStyle: FontStyle.italic,
+                        fontSize: 24,
                         color: Color.fromARGB(255, 207, 202, 187))),
                 TextSpan(
-                    text: 'frequências.',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 147, 132, 100))),
-              ],
-            ),
-          ),
-          bodyWidget: RichText(
-            text: TextSpan(
-              style: GoogleFonts.quicksand(
-                  fontSize: 18,
-                  color: Color.fromARGB(255, 207, 202, 187),
-                  fontWeight: FontWeight.w700),
-              children: <TextSpan>[
-                TextSpan(
-                    text: 'No Universo ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 207, 202, 187))),
-                TextSpan(
-                    text: 'semelhantes ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 147, 132, 100))),
-                TextSpan(
                     text:
-                        'se atraem. A atração é por semelhança de interesses, gostos, pensamentos, atitudes e sentimentos. Se o destino te trouxe até aqui, certamente trouxe também quem está na mesma ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 207, 202, 187))),
-                TextSpan(
-                    text: 'frequência. ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 147, 132, 100))),
+                        'Sua localização será usada para mostrar Matches em potencial para você.',
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Color.fromARGB(255, 147, 132, 100))),
               ],
             ),
+          )),
+          bodyWidget: GestureDetector(
+            onTap: () async {
+              bool teste = await _determinePosition();
+              if (teste == true) {
+                print('saved position');
+                Navigator.pushNamed(context, '/register');
+              }
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(50.0),
+              child: Container(
+                height: 50,
+                width: 300,
+                child: Container(
+                  width: 300,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40),
+                      color: Color.fromARGB(255, 200, 181, 152)),
+                  child: Center(
+                    child: Text(
+                      'ATIVAR LOCALIZAÇÃO',
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 0, 0, 0),
+                          fontFamily: 'CM Sans Serif',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16),
+                    ),
+                  ),
+                ),
+                decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(30)),
+              ),
+            ),
           ),
-          footer: Text(''),
           decoration: const PageDecoration(
             pageColor: Color.fromARGB(0, 0, 0, 0),
           )),
@@ -156,19 +176,12 @@ class _WelcomePageState extends State<WelcomePage> {
             pages: getPages(),
             showNextButton: true,
             next: Text('Conte mais',
-                style: TextStyle(color: Color.fromARGB(255, 147, 132, 100))),
+                style: TextStyle(
+                    fontSize: 17, color: Color.fromARGB(255, 147, 132, 100))),
             showBackButton: true,
             back: Text("Voltar",
                 style: TextStyle(color: Color.fromARGB(255, 147, 132, 100))),
-            done: Container(
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 147, 132, 100),
-                  borderRadius: BorderRadius.circular(40)),
-              child: Text("Concluir",
-                  style: TextStyle(
-                      fontSize: 16, color: Color.fromARGB(255, 207, 202, 187))),
-            ),
+            done: Text(''),
             onDone: () async {
               Future<bool> result = _determinePosition();
               await result == true
@@ -198,7 +211,7 @@ class _WelcomePageState extends State<WelcomePage> {
         'longitude': teste.longitude.toString()
       });
     } catch (e) {
-      print(e);
+      return false;
     }
     return true;
   }
