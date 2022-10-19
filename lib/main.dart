@@ -5,6 +5,7 @@ import 'package:chamasgemeas/screens/LoginPage.dart';
 import 'package:chamasgemeas/screens/PrivacidadePage.dart';
 import 'package:chamasgemeas/screens/RegisterIAm.dart';
 import 'package:chamasgemeas/screens/RegisterISearch.dart';
+import 'package:chamasgemeas/screens/WelcomePage.dart';
 import 'package:chamasgemeas/screens/chatDetail.dart';
 import 'package:chamasgemeas/screens/chats.dart';
 import 'package:chamasgemeas/screens/filterPage.dart';
@@ -129,6 +130,7 @@ class MyApp extends StatelessWidget {
           '/community': (context) => Community(),
           '/acc': (context) => Accept(),
           '/roghtow': (context) => RoghtNow(),
+          '/welcome': (context) => WelcomePage(),
         },
       ),
     );

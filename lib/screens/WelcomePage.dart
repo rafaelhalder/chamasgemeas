@@ -26,25 +26,24 @@ class _WelcomePageState extends State<WelcomePage> {
                   fontWeight: FontWeight.w700),
               children: <TextSpan>[
                 TextSpan(
-                    text:
-                        'Não aceite relacionamentos rasos se você tem sentimentos profundos.\n\n',
+                    text: 'Ativar Localização.\n\n',
                     style: TextStyle(
                         fontStyle: FontStyle.italic,
                         color: Color.fromARGB(255, 207, 202, 187))),
                 TextSpan(
                     text:
-                        'O Chamas Gêmeas é um caminho para você que já tem a consciência da tua',
+                        'Você precisa permitir a localização para usar o tinder',
                     style:
                         TextStyle(color: Color.fromARGB(255, 207, 202, 187))),
                 TextSpan(
-                    text: ' jornada espiritual',
+                    text: 'Conheça pessoas perto de você',
                     style:
-                        TextStyle(color: Color.fromARGB(255, 147, 132, 100))),
+                        TextStyle(color: Color.fromARGB(255, 207, 202, 187))),
                 TextSpan(
                     text:
-                        ' e que sabe que existe outra pessoa, na mesma jornada, procurando por você!',
+                        'Sua localização será usada para mostrar Matches em potencial perto de você',
                     style:
-                        TextStyle(color: Color.fromARGB(255, 207, 202, 187))),
+                        TextStyle(color: Color.fromARGB(255, 147, 132, 100))),
               ],
             ),
           ),
@@ -57,33 +56,22 @@ class _WelcomePageState extends State<WelcomePage> {
                   fontWeight: FontWeight.w700),
               children: <TextSpan>[
                 TextSpan(
-                    text: 'Uma pessoa de ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 207, 202, 187))),
-                TextSpan(
-                    text: 'valor ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 147, 132, 100))),
+                    text: 'Ativar Localização.\n\n',
+                    style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        color: Color.fromARGB(255, 207, 202, 187))),
                 TextSpan(
                     text:
-                        'que caminhará ao teu lado, que pode ler teus pensamentos, adivinhar teus desejos, pois apesar do tempo e do espaço, jamais esteve separarada em pensamento e sentimento!\n\n',
+                        'Você precisa permitir a localização para usar o tinder',
                     style:
                         TextStyle(color: Color.fromARGB(255, 207, 202, 187))),
                 TextSpan(
-                    text: 'Essa é a tua ',
+                    text: 'Conheça pessoas perto de você',
                     style:
                         TextStyle(color: Color.fromARGB(255, 207, 202, 187))),
-                TextSpan(
-                    text: 'Chama Gêmea, ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 147, 132, 100))),
                 TextSpan(
                     text:
-                        'tua alma espelho, que nesse exato momento busca também por ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 207, 202, 187))),
-                TextSpan(
-                    text: 'você!',
+                        'Sua localização será usada para mostrar Matches em potencial perto de você',
                     style:
                         TextStyle(color: Color.fromARGB(255, 147, 132, 100))),
               ],
@@ -144,70 +132,6 @@ class _WelcomePageState extends State<WelcomePage> {
           decoration: const PageDecoration(
             pageColor: Color.fromARGB(0, 0, 0, 0),
           )),
-      PageViewModel(
-          titleWidget: RichText(
-            text: TextSpan(
-              style: GoogleFonts.quicksand(
-                  fontSize: 18,
-                  color: Color.fromARGB(255, 207, 202, 187),
-                  fontWeight: FontWeight.w700),
-              children: <TextSpan>[
-                TextSpan(
-                    text: 'O HOJE é o tempo certo para ',
-                    style: TextStyle(
-                        fontStyle: FontStyle.italic,
-                        color: Color.fromARGB(255, 207, 202, 187))),
-                TextSpan(
-                    text: 'começar',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 147, 132, 100))),
-                TextSpan(
-                    text: ' ou ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 207, 202, 187))),
-                TextSpan(
-                    text: 'recomeçar.',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 147, 132, 100))),
-              ],
-            ),
-          ),
-          bodyWidget: RichText(
-            text: TextSpan(
-              style: GoogleFonts.quicksand(
-                  fontSize: 18,
-                  color: Color.fromARGB(255, 207, 202, 187),
-                  fontWeight: FontWeight.w700),
-              children: <TextSpan>[
-                TextSpan(
-                    text: 'No Chamas Gêmeas você encontrará uma ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 207, 202, 187))),
-                TextSpan(
-                    text: 'comunidade ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 147, 132, 100))),
-                TextSpan(
-                    text:
-                        'e pessoas com os mesmos interesses, que entendem o objetivo da vida e que dão valor aos ',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 207, 202, 187))),
-                TextSpan(
-                    text: 'relacionamentos de alma.\n\n',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 147, 132, 100))),
-                TextSpan(
-                    text:
-                        'Seja para um relacionamento ou amizade, aqui você poderá encontrar pessoas que te valorizam pelo que você sabe e pelo que você é!',
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 207, 202, 187))),
-              ],
-            ),
-          ),
-          footer: Text(''),
-          decoration: const PageDecoration(
-            pageColor: Color.fromARGB(0, 0, 0, 0),
-          )),
     ];
   }
 
@@ -231,7 +155,7 @@ class _WelcomePageState extends State<WelcomePage> {
             globalBackgroundColor: Colors.transparent,
             pages: getPages(),
             showNextButton: true,
-            next: Text('Avançar',
+            next: Text('Conte mais',
                 style: TextStyle(color: Color.fromARGB(255, 147, 132, 100))),
             showBackButton: true,
             back: Text("Voltar",
@@ -263,43 +187,19 @@ class _WelcomePageState extends State<WelcomePage> {
 
     // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      // Location services are not enabled don't continue
-      // accessing the position and request users of the
-      // App to enable the location services.
-      print('serviceEnabled11111');
-      return false;
-    }
-
     permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        // Permissions are denied, next time you could try
-        // requesting permissions again (this is also where
-        // Android's shouldShowRequestPermissionRationale
-        // returned true. According to Android guidelines
-        // your App should show an explanatory UI now.
-        print('serviceEnable2222222');
+    permission = await Geolocator.requestPermission();
 
-        return false;
-      }
+    try {
+      var teste = await Geolocator.getCurrentPosition();
+
+      await FirebaseFirestore.instance.collection('users').doc(uid).update({
+        'latitude': teste.latitude.toString(),
+        'longitude': teste.longitude.toString()
+      });
+    } catch (e) {
+      print(e);
     }
-
-    if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
-      print('serviceEnable3333333');
-
-      return false;
-    }
-
-    var teste = await Geolocator.getCurrentPosition();
-
-    await FirebaseFirestore.instance.collection('users').doc(uid).update({
-      'latitude': teste.latitude.toString(),
-      'longitude': teste.longitude.toString()
-    });
-
     return true;
   }
 }

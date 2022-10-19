@@ -271,10 +271,7 @@ class _TermsAcceptState extends State<TermsAccept> {
                         .collection('terms')
                         .doc(user!.uid)
                         .set({'data_accept': DateTime.now()});
-                    Future<bool> result = _determinePosition();
-                    await result == true
-                        ? Navigator.popAndPushNamed(context, '/register')
-                        : null;
+                    Navigator.popAndPushNamed(context, '/welcome');
                   },
                   child: Container(
                     width: size.width * 0.35,
