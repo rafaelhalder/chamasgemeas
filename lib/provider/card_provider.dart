@@ -404,6 +404,7 @@ class CardProvider extends ChangeNotifier {
           (_interestedUser == '2' || _interestedUser == '4')) {
         if ((userLiked['gender'] == '2' || userLiked['gender'] == '4') &&
             (userLiked['interested'] == '1' ||
+                userLiked['interested'] == '6' ||
                 userLiked['interested'] == '5')) {
           if (userLiked['photos'][0]['url'] != 'nulo') {
             if (distanceUser >= km) {
@@ -529,6 +530,7 @@ class CardProvider extends ChangeNotifier {
             }
           }
         }
+        //    print('AQUIII');
       }
 
       //HOMEM INTERESSE EM HOMEM

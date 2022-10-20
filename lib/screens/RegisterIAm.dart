@@ -1,8 +1,10 @@
+import 'package:chamasgemeas/provider/card_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class RegisterIAm extends StatefulWidget {
   @override
@@ -275,6 +277,10 @@ class _RegisterIAmState extends State<RegisterIAm> {
                                 .update({'gender': retornoString});
 
                             if (finished == true) {
+                              final provider = Provider.of<CardProvider>(
+                                  context,
+                                  listen: false);
+                              provider.resetUsers();
                               selectedIndex != ""
                                   ? Navigator.pushNamed(context, '/profilePage')
                                   : null;
