@@ -1,3 +1,4 @@
+import 'package:chamasgemeas/provider/card_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class RegisterISearchPage extends StatefulWidget {
   @override
@@ -261,6 +263,9 @@ class _RegisterISearchPageState extends State<RegisterISearchPage> {
                           });
 
                           if (finished == true) {
+                            final provider = Provider.of<CardProvider>(context,
+                                listen: false);
+                            provider.resetUsers();
                             selectedIndex != ""
                                 ? Navigator.pushNamed(context, '/profilePage')
                                 : null;
