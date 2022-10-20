@@ -189,7 +189,7 @@ class _FilterPageState extends State<FilterPage> {
                       inactiveColor: Colors.transparent,
                       activeColor: Color.fromARGB(255, 165, 150, 118),
                       min: 0.0,
-                      max: 2000.0,
+                      max: 15000.0,
                       value: _value,
                       divisions: 200,
                       label: '${_value.round()}',

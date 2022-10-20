@@ -382,11 +382,8 @@ class _RegisterStep4State extends State<RegisterStep4> {
 
   Color activeButton() {
     if (age != 0 && city != '') {
-      print('bateu meta');
       return Color.fromARGB(255, 0, 0, 0);
     } else {
-      print('n bateu meta');
-
       return Color.fromARGB(255, 207, 202, 187);
     }
   }

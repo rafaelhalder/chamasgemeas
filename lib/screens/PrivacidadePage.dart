@@ -104,7 +104,7 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
                 'The user must reauthenticate before this operation can be executed.');
 
             await AuthService().signOut();
-            await Navigator.pushNamed(context, '/login');
+            await SystemNavigator.pop();
           } else {
             print('Firebase auth delete account error:\n$e');
             print('============stack=========\n$s');

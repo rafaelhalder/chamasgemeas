@@ -170,8 +170,6 @@ class _TinderCardState extends State<TinderCard> {
     final provider = Provider.of<CardProvider>(context);
     final status = provider.getStatus();
     final opacity = provider.getStatusOpacity();
-    print(lat);
-    print(widget.user.latitude);
     var distance = const lati.Distance();
 
     final km = distance.as(

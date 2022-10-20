@@ -302,6 +302,7 @@ class CardProvider extends ChangeNotifier {
   }
 
   void resetUsers() async {
+    _users = [];
     final like =
         await FirebaseFirestore.instance.collection('liked').doc(uid).get();
     List likeTe = [];
@@ -350,11 +351,15 @@ class CardProvider extends ChangeNotifier {
         await FirebaseFirestore.instance.collection('dislike').doc(uid).get();
 
     List dislikeTe = [];
+    List tese = [];
 
     if (dislike.exists) {
       _disliked.add(dislike['id']);
       dislikeTe = dislike['id'];
     }
+
+    print(agemin);
+    print(agemax);
 
     final QuerySnapshot result = await FirebaseFirestore.instance
         .collection('users')
@@ -367,11 +372,20 @@ class CardProvider extends ChangeNotifier {
 
     final List<DocumentSnapshot> documents = result.docs;
 
+    print('----------------');
+    print(documents.length);
+    print('----------------');
+
+    if (documents.length == 0) {
+      _users = [];
+    }
+
     documents.forEach((snapshot) {
       var teste = (snapshot.data() as Map<String, dynamic>);
 
       var distance = const lati.Distance();
 
+      print(teste['age']);
       var km = distance.as(
           lati.LengthUnit.Kilometer,
           lati.LatLng(double.parse(teste['latitude']),
@@ -383,8 +397,8 @@ class CardProvider extends ChangeNotifier {
           if (!dislikeTe.contains(teste['uid'])) {
             if (!likeTe.contains(teste['uid'])) {
               teste['listFocus'] == null ? teste['listFocus'] = [1] : '';
-
-              if (teste['uid'] != uid)
+              if (teste['uid'] != uid) {
+                tese.add(teste['age']);
                 _users.add(Users(
                     age: teste['age'],
                     city: teste['city'],
@@ -404,16 +418,17 @@ class CardProvider extends ChangeNotifier {
                     aboutMe: teste['aboutMe'],
                     name: teste['name'],
                     urlImage: teste['photos'][0]['url']));
+              }
             }
           }
         }
       }
     });
 
+    print(tese);
     _users = removeDuplicates(_users);
 
     _users = _users.reversed.toList();
-
     notifyListeners();
   }
 
