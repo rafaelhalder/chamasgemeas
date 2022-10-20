@@ -26,6 +26,7 @@ class CardProvider extends ChangeNotifier {
   String _photoUser = '';
   String _token = '';
   String _interestedUser = '';
+  String _genderUser = '';
   Offset _position = Offset.zero;
   Size _screenSize = Size.zero;
   User? user = FirebaseAuth.instance.currentUser;
@@ -44,6 +45,7 @@ class CardProvider extends ChangeNotifier {
 
   String get photoUser => _photoUser;
   String get interestedUser => _interestedUser;
+  String get genderUser => _genderUser;
   bool get isDragging => _isDragging;
   bool get match => _match;
   Offset get position => _position;
@@ -345,6 +347,7 @@ class CardProvider extends ChangeNotifier {
       _photoUser = userInfo['photos'][0]['url'];
       _coinUser = userInfo['coin'];
       _interestedUser = userInfo['interested'];
+      _genderUser = userInfo['gender'];
     }
 
     final dislike =
@@ -358,66 +361,302 @@ class CardProvider extends ChangeNotifier {
       dislikeTe = dislike['id'];
     }
 
-    print(agemin);
-    print(agemax);
+    print(_interestedUser);
+    print(_genderUser);
+    if (_genderUser == 2) {}
+
+    // final QuerySnapshot result = await FirebaseFirestore.instance
+    //     .collection('users')
+    //     .where('status', isEqualTo: true)
+    //     .where('finished', isEqualTo: true)
+    //     .where('gender', isEqualTo: _interestedUser)
+    //     .where('age', isLessThanOrEqualTo: agemax)
+    //     .where('age', isGreaterThanOrEqualTo: agemin)
+    //     .limit(10)
+    //     .get();
 
     final QuerySnapshot result = await FirebaseFirestore.instance
         .collection('users')
         .where('status', isEqualTo: true)
         .where('finished', isEqualTo: true)
-        .where('gender', isEqualTo: _interestedUser)
         .where('age', isLessThanOrEqualTo: agemax)
         .where('age', isGreaterThanOrEqualTo: agemin)
         .get();
 
     final List<DocumentSnapshot> documents = result.docs;
 
-    print('----------------');
-    print(documents.length);
-    print('----------------');
-
     if (documents.length == 0) {
       _users = [];
     }
 
     documents.forEach((snapshot) {
-      var teste = (snapshot.data() as Map<String, dynamic>);
+      var userLiked = (snapshot.data() as Map<String, dynamic>);
 
       var distance = const lati.Distance();
-
-      print(teste['age']);
       var km = distance.as(
           lati.LengthUnit.Kilometer,
-          lati.LatLng(double.parse(teste['latitude']),
-              double.parse(teste['longitude'])),
+          lati.LatLng(double.parse(userLiked['latitude']),
+              double.parse(userLiked['longitude'])),
           lati.LatLng(latUser, lngUser));
 
-      if (teste['photos'][0]['url'] != 'nulo') {
-        if (distanceUser >= km) {
-          if (!dislikeTe.contains(teste['uid'])) {
-            if (!likeTe.contains(teste['uid'])) {
-              teste['listFocus'] == null ? teste['listFocus'] = [1] : '';
-              if (teste['uid'] != uid) {
-                tese.add(teste['age']);
-                _users.add(Users(
-                    age: teste['age'],
-                    city: teste['city'],
-                    country: teste['country'],
-                    height: teste['height'],
-                    occupation: teste['occupation'],
-                    interested: teste['interested'],
-                    latitude: teste['latitude'],
-                    longitude: teste['longitude'],
-                    listFocus: teste['listFocus'],
-                    soul: teste['soul'],
-                    token: teste['token'],
-                    uid: teste['uid'],
-                    zodiac: teste['zodiac'],
-                    photos: teste['photos'],
-                    weight: teste['weight'],
-                    aboutMe: teste['aboutMe'],
-                    name: teste['name'],
-                    urlImage: teste['photos'][0]['url']));
+      //MULHER INTERESSE EM HOMEM
+      if ((genderUser == '1' || genderUser == '5') &&
+          (_interestedUser == '2' || _interestedUser == '4')) {
+        if ((userLiked['gender'] == '2' || userLiked['gender'] == '4') &&
+            (userLiked['interested'] == '1' ||
+                userLiked['interested'] == '5')) {
+          if (userLiked['photos'][0]['url'] != 'nulo') {
+            if (distanceUser >= km) {
+              if (!dislikeTe.contains(userLiked['uid'])) {
+                if (!likeTe.contains(userLiked['uid'])) {
+                  userLiked['listFocus'] == null
+                      ? userLiked['listFocus'] = [1]
+                      : '';
+                  if (userLiked['uid'] != uid) {
+                    tese.add(userLiked['age']);
+                    _users.add(Users(
+                        age: userLiked['age'],
+                        city: userLiked['city'],
+                        country: userLiked['country'],
+                        height: userLiked['height'],
+                        occupation: userLiked['occupation'],
+                        interested: userLiked['interested'],
+                        latitude: userLiked['latitude'],
+                        longitude: userLiked['longitude'],
+                        listFocus: userLiked['listFocus'],
+                        soul: userLiked['soul'],
+                        token: userLiked['token'],
+                        uid: userLiked['uid'],
+                        zodiac: userLiked['zodiac'],
+                        photos: userLiked['photos'],
+                        weight: userLiked['weight'],
+                        aboutMe: userLiked['aboutMe'],
+                        name: userLiked['name'],
+                        urlImage: userLiked['photos'][0]['url']));
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      //MULHER INTERESSE EM MULHER
+      if ((genderUser == '1' || genderUser == '5') &&
+          (_interestedUser == '1' || _interestedUser == '5')) {
+        if ((userLiked['gender'] == '1' || userLiked['gender'] == '5') &&
+            (userLiked['interested'] == '1' ||
+                userLiked['interested'] == '5' ||
+                userLiked['interested'] == '6')) {
+          if (userLiked['photos'][0]['url'] != 'nulo') {
+            if (distanceUser >= km) {
+              if (!dislikeTe.contains(userLiked['uid'])) {
+                if (!likeTe.contains(userLiked['uid'])) {
+                  userLiked['listFocus'] == null
+                      ? userLiked['listFocus'] = [1]
+                      : '';
+                  if (userLiked['uid'] != uid) {
+                    tese.add(userLiked['age']);
+                    _users.add(Users(
+                        age: userLiked['age'],
+                        city: userLiked['city'],
+                        country: userLiked['country'],
+                        height: userLiked['height'],
+                        occupation: userLiked['occupation'],
+                        interested: userLiked['interested'],
+                        latitude: userLiked['latitude'],
+                        longitude: userLiked['longitude'],
+                        listFocus: userLiked['listFocus'],
+                        soul: userLiked['soul'],
+                        token: userLiked['token'],
+                        uid: userLiked['uid'],
+                        zodiac: userLiked['zodiac'],
+                        photos: userLiked['photos'],
+                        weight: userLiked['weight'],
+                        aboutMe: userLiked['aboutMe'],
+                        name: userLiked['name'],
+                        urlImage: userLiked['photos'][0]['url']));
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      //MULHER INTERESSE EM AMBOS
+      if ((genderUser == '1' || genderUser == '5') &&
+          (_interestedUser == '6')) {
+        if (((userLiked['gender'] == '2' || userLiked['gender'] == '4') &&
+                (userLiked['interested'] == '1' ||
+                    userLiked['interested'] == '5' ||
+                    userLiked['interested'] == '6')) ||
+            ((userLiked['gender'] == '1' || userLiked['gender'] == '5') &&
+                (userLiked['interested'] == '2' ||
+                    userLiked['interested'] == '4' ||
+                    userLiked['interested'] == '6'))) {
+          if (userLiked['photos'][0]['url'] != 'nulo') {
+            if (distanceUser >= km) {
+              if (!dislikeTe.contains(userLiked['uid'])) {
+                if (!likeTe.contains(userLiked['uid'])) {
+                  userLiked['listFocus'] == null
+                      ? userLiked['listFocus'] = [1]
+                      : '';
+                  if (userLiked['uid'] != uid) {
+                    tese.add(userLiked['age']);
+                    _users.add(Users(
+                        age: userLiked['age'],
+                        city: userLiked['city'],
+                        country: userLiked['country'],
+                        height: userLiked['height'],
+                        occupation: userLiked['occupation'],
+                        interested: userLiked['interested'],
+                        latitude: userLiked['latitude'],
+                        longitude: userLiked['longitude'],
+                        listFocus: userLiked['listFocus'],
+                        soul: userLiked['soul'],
+                        token: userLiked['token'],
+                        uid: userLiked['uid'],
+                        zodiac: userLiked['zodiac'],
+                        photos: userLiked['photos'],
+                        weight: userLiked['weight'],
+                        aboutMe: userLiked['aboutMe'],
+                        name: userLiked['name'],
+                        urlImage: userLiked['photos'][0]['url']));
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      //HOMEM INTERESSE EM HOMEM
+      if ((genderUser == '2' || genderUser == '4') &&
+          (_interestedUser == '1' || _interestedUser == '5')) {
+        if ((userLiked['gender'] == '1' || userLiked['gender'] == '5') &&
+            (userLiked['interested'] == '2' ||
+                userLiked['interested'] == '4')) {
+          if (userLiked['photos'][0]['url'] != 'nulo') {
+            if (distanceUser >= km) {
+              if (!dislikeTe.contains(userLiked['uid'])) {
+                if (!likeTe.contains(userLiked['uid'])) {
+                  userLiked['listFocus'] == null
+                      ? userLiked['listFocus'] = [1]
+                      : '';
+                  if (userLiked['uid'] != uid) {
+                    tese.add(userLiked['age']);
+                    _users.add(Users(
+                        age: userLiked['age'],
+                        city: userLiked['city'],
+                        country: userLiked['country'],
+                        height: userLiked['height'],
+                        occupation: userLiked['occupation'],
+                        interested: userLiked['interested'],
+                        latitude: userLiked['latitude'],
+                        longitude: userLiked['longitude'],
+                        listFocus: userLiked['listFocus'],
+                        soul: userLiked['soul'],
+                        token: userLiked['token'],
+                        uid: userLiked['uid'],
+                        zodiac: userLiked['zodiac'],
+                        photos: userLiked['photos'],
+                        weight: userLiked['weight'],
+                        aboutMe: userLiked['aboutMe'],
+                        name: userLiked['name'],
+                        urlImage: userLiked['photos'][0]['url']));
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      //HOMEM INTERESSE EM MULHER
+      if ((genderUser == '2' || genderUser == '4') &&
+          (_interestedUser == '2' || _interestedUser == '4')) {
+        if ((userLiked['gender'] == '2' || userLiked['gender'] == '4') &&
+            (userLiked['interested'] == '2' ||
+                userLiked['interested'] == '4' ||
+                userLiked['interested'] == '6')) {
+          if (userLiked['photos'][0]['url'] != 'nulo') {
+            if (distanceUser >= km) {
+              if (!dislikeTe.contains(userLiked['uid'])) {
+                if (!likeTe.contains(userLiked['uid'])) {
+                  userLiked['listFocus'] == null
+                      ? userLiked['listFocus'] = [1]
+                      : '';
+                  if (userLiked['uid'] != uid) {
+                    tese.add(userLiked['age']);
+                    _users.add(Users(
+                        age: userLiked['age'],
+                        city: userLiked['city'],
+                        country: userLiked['country'],
+                        height: userLiked['height'],
+                        occupation: userLiked['occupation'],
+                        interested: userLiked['interested'],
+                        latitude: userLiked['latitude'],
+                        longitude: userLiked['longitude'],
+                        listFocus: userLiked['listFocus'],
+                        soul: userLiked['soul'],
+                        token: userLiked['token'],
+                        uid: userLiked['uid'],
+                        zodiac: userLiked['zodiac'],
+                        photos: userLiked['photos'],
+                        weight: userLiked['weight'],
+                        aboutMe: userLiked['aboutMe'],
+                        name: userLiked['name'],
+                        urlImage: userLiked['photos'][0]['url']));
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      //HOMEM INTERESSE EM AMBOS
+      if ((genderUser == '2' || genderUser == '4') &&
+          (_interestedUser == '6')) {
+        if (((userLiked['gender'] == '1' || userLiked['gender'] == '5') &&
+                (userLiked['interested'] == '2' ||
+                    userLiked['interested'] == '4' ||
+                    userLiked['interested'] == '6')) ||
+            ((userLiked['gender'] == '2' || userLiked['gender'] == '4') &&
+                (userLiked['interested'] == '1' ||
+                    userLiked['interested'] == '5' ||
+                    userLiked['interested'] == '6'))) {
+          if (userLiked['photos'][0]['url'] != 'nulo') {
+            if (distanceUser >= km) {
+              if (!dislikeTe.contains(userLiked['uid'])) {
+                if (!likeTe.contains(userLiked['uid'])) {
+                  userLiked['listFocus'] == null
+                      ? userLiked['listFocus'] = [1]
+                      : '';
+                  if (userLiked['uid'] != uid) {
+                    tese.add(userLiked['age']);
+                    _users.add(Users(
+                        age: userLiked['age'],
+                        city: userLiked['city'],
+                        country: userLiked['country'],
+                        height: userLiked['height'],
+                        occupation: userLiked['occupation'],
+                        interested: userLiked['interested'],
+                        latitude: userLiked['latitude'],
+                        longitude: userLiked['longitude'],
+                        listFocus: userLiked['listFocus'],
+                        soul: userLiked['soul'],
+                        token: userLiked['token'],
+                        uid: userLiked['uid'],
+                        zodiac: userLiked['zodiac'],
+                        photos: userLiked['photos'],
+                        weight: userLiked['weight'],
+                        aboutMe: userLiked['aboutMe'],
+                        name: userLiked['name'],
+                        urlImage: userLiked['photos'][0]['url']));
+                  }
+                }
               }
             }
           }
@@ -425,7 +664,6 @@ class CardProvider extends ChangeNotifier {
       }
     });
 
-    print(tese);
     _users = removeDuplicates(_users);
 
     _users = _users.reversed.toList();

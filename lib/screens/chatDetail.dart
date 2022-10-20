@@ -23,6 +23,7 @@ import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ChatDetail extends StatefulWidget {
   final friendUid;
@@ -51,7 +52,8 @@ class _ChatDetailState extends State<ChatDetail> {
   final friendUid;
   final friendName;
   final currentUserId = FirebaseAuth.instance.currentUser?.uid;
-  String? currentUserName = FirebaseAuth.instance.currentUser?.displayName;
+  String? currentUserName2 = FirebaseAuth.instance.currentUser?.displayName;
+  String currentUserName = '';
   var chatDocId;
   var photo;
   var photoFriendme;
@@ -290,7 +292,7 @@ class _ChatDetailState extends State<ChatDetail> {
     List listPhotosme = variableme['photos'];
     String photoFriendme = listPhotosme[0]['url'];
     String photoFriend = defaultPhoto;
-    print(photoFriendme);
+    String nameUser = variableme['name'];
 
     List listPhotos = variable['photos'];
     photoFriend = listPhotos[0]['url'];
@@ -301,6 +303,7 @@ class _ChatDetailState extends State<ChatDetail> {
       photo = photoFriend;
       status = statusperson;
       tokenAuth = tokens;
+      currentUserName = nameUser;
     });
   }
 
@@ -506,6 +509,136 @@ class _ChatDetailState extends State<ChatDetail> {
                                           subject: '$friendUid',
                                           message: controllerMessage.text,
                                         ),
+                                      ),
+                                      TextButton(
+                                        style: ElevatedButton.styleFrom(
+                                          minimumSize: Size.fromHeight(50),
+                                          textStyle: TextStyle(fontSize: 20),
+                                        ),
+                                        child: Text(
+                                          'Reportar 2',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                        onPressed: () =>
+                                            showMaterialModalBottomSheet(
+                                                context: context,
+                                                builder: (context) => Container(
+                                                      color: Color.fromARGB(
+                                                          108, 0, 0, 0),
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.4,
+                                                      child: Container(
+                                                        padding:
+                                                            EdgeInsets.all(5),
+                                                        color: Colors.black87,
+                                                        child: Wrap(
+                                                          children: [
+                                                            TextButton(
+                                                              style:
+                                                                  ElevatedButton
+                                                                      .styleFrom(
+                                                                minimumSize: Size
+                                                                    .fromHeight(
+                                                                        50),
+                                                                textStyle:
+                                                                    TextStyle(
+                                                                        fontSize:
+                                                                            20),
+                                                              ),
+                                                              child: Text(
+                                                                'Reportar por abuso',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .red),
+                                                              ),
+                                                              onPressed: () =>
+                                                                  blockUser(),
+                                                            ),
+                                                            Divider(
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      118,
+                                                                      218,
+                                                                      193,
+                                                                      136),
+                                                            ),
+                                                            TextButton(
+                                                              style:
+                                                                  ElevatedButton
+                                                                      .styleFrom(
+                                                                minimumSize: Size
+                                                                    .fromHeight(
+                                                                        50),
+                                                                textStyle:
+                                                                    TextStyle(
+                                                                        fontSize:
+                                                                            20),
+                                                              ),
+                                                              child: Text(
+                                                                'Reportar por assédio',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .red),
+                                                              ),
+                                                              onPressed: () =>
+                                                                  sendEmail(
+                                                                name: this
+                                                                    .friendName,
+                                                                email:
+                                                                    'contato@chamasgemeas.com',
+                                                                subject:
+                                                                    '$friendUid',
+                                                                message:
+                                                                    controllerMessage
+                                                                        .text,
+                                                              ),
+                                                            ),
+                                                            Divider(
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      118,
+                                                                      218,
+                                                                      193,
+                                                                      136),
+                                                            ),
+                                                            TextButton(
+                                                              style:
+                                                                  ElevatedButton
+                                                                      .styleFrom(
+                                                                minimumSize: Size
+                                                                    .fromHeight(
+                                                                        50),
+                                                                textStyle:
+                                                                    TextStyle(
+                                                                        fontSize:
+                                                                            20),
+                                                              ),
+                                                              child: Text(
+                                                                'Reportar por assédio',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .red),
+                                                              ),
+                                                              onPressed: () =>
+                                                                  sendEmail(
+                                                                name: this
+                                                                    .friendName,
+                                                                email:
+                                                                    'contato@chamasgemeas.com',
+                                                                subject:
+                                                                    '$friendUid',
+                                                                message:
+                                                                    controllerMessage
+                                                                        .text,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    )),
                                       ),
                                     ],
                                   ),
@@ -787,6 +920,15 @@ class _ChatDetailState extends State<ChatDetail> {
     final templateId = 'template_c5epiyk';
     final userId = 'xDYWDYgAVAzkk3hQ1';
 
+    await Fluttertoast.showToast(
+        msg: "Enviando reportar...",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 2,
+        backgroundColor: Colors.amber,
+        textColor: Colors.black,
+        fontSize: 16.0);
+
     final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
     final response = await http.post(
       url,
@@ -806,7 +948,6 @@ class _ChatDetailState extends State<ChatDetail> {
         },
       }),
     );
-
     if (response.statusCode == 200) {
       chats.doc(chatDocId).update({
         'users': {friendUid: 1, currentUserId: 3},

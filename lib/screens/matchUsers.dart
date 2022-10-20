@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
 
 class MatchUsers extends StatefulWidget {
   const MatchUsers({Key? key}) : super(key: key);
@@ -244,6 +247,7 @@ class _MatchUsersState extends State<MatchUsers> {
     String userList = userLiked;
     String userListName = '';
     String userListPhoto = photo;
+    String tokenUser = '';
 
     final foundLikeMe =
         await FirebaseFirestore.instance.collection('liked_me').doc(uid).get();
@@ -264,6 +268,15 @@ class _MatchUsersState extends State<MatchUsers> {
     if (matchss.exists) {
       listMatch = matchss['id'];
     }
+
+    final tokenUserLiked = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userList)
+        .get();
+    if (tokenUserLiked.exists) {
+      tokenUser = tokenUserLiked['token'];
+    }
+
     final matchss2 = await FirebaseFirestore.instance
         .collection('matchs')
         .doc(userList)
@@ -271,6 +284,10 @@ class _MatchUsersState extends State<MatchUsers> {
     if (matchss2.exists) {
       listMatch2 = matchss2['id'];
     }
+
+    usersLikedMe.contains(userList)
+        ? sendPushMessage('Você recebeu um like', 'Like', tokenUser)
+        : print('');
 
     usersLikedMe.contains(userList)
         ? await chats
@@ -301,5 +318,38 @@ class _MatchUsersState extends State<MatchUsers> {
             )
             .catchError((error) {})
         : print('');
+  }
+
+  void sendPushMessage(
+      String message, String? currentUserName, String? token) async {
+    try {
+      await http.post(
+        Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization':
+              'key=AAAAhIRIRac:APA91bGld0gKYT_K5i7BTRCOdxBz14Qj4Cs85LmDd2bCSZOlEHaV2GvbxVGk307kQqGY5y3AXqjVbye-7CkIH0jTYnnAmfjNfxTpvGYTfvQ3CDvdlvdKRjrB-T7Lgn17YdanVXO4eQdZ',
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+            'notification': <String, dynamic>{
+              'body': '$message',
+              'title': '$currentUserName',
+              'android-channel_id': 'dbfood'
+            },
+            'priority': 'high',
+            'data': <String, dynamic>{
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'id': '1',
+              'status': 'done'
+            },
+            "to": "$token",
+          },
+        ),
+      );
+      print('sendeed');
+    } catch (e) {
+      print("error push notification");
+    }
   }
 }

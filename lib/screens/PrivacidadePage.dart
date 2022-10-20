@@ -87,7 +87,7 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
               textColor: Colors.white,
               fontSize: 16.0);
           await AuthService().signOut();
-          await Future.delayed(Duration(milliseconds: 3000));
+          await Future.delayed(Duration(milliseconds: 4000));
           SystemNavigator.pop();
 
           if (e.code == 'requires-recent-login') {
