@@ -27,7 +27,7 @@ import 'package:chamasgemeas/screens/termsAcceptCommunity.dart';
 import 'package:chamasgemeas/screens/termsAcceptPolicy.dart';
 import 'package:chamasgemeas/screens/userPage.dart';
 import 'package:chamasgemeas/screens/userPageHome.dart';
-import 'package:chamasgemeas/screens/userPageHomeMe.dart';
+import 'package:chamasgemeas/screens/userPageMe.dart';
 import 'package:chamasgemeas/services/AuthenticationProvider.dart';
 import 'package:chamasgemeas/services/auth_service.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -132,7 +132,7 @@ class MyApp extends StatelessWidget {
           '/acc': (context) => Accept(),
           '/roghtow': (context) => RoghtNow(),
           '/welcome': (context) => WelcomePage(),
-          '/userme': (context) => UserMe(),
+          '/userme': (context) => UserPageMe(),
         },
       ),
     );
