@@ -10,6 +10,7 @@ enum CardStatus { like, dislike, superLike }
 
 class CardProvider extends ChangeNotifier {
   List<Users> _users = [];
+  List<Users> _me = [];
   List _liked = [];
   List _superliked = [];
   double _distanceUser = 0;
@@ -34,6 +35,7 @@ class CardProvider extends ChangeNotifier {
   CollectionReference matchs = FirebaseFirestore.instance.collection('match');
 
   List<Users> get users => _users;
+  List<Users> get me => _me;
   List get liked => _liked;
   List get disliked => _disliked;
   double get distanceUser => _distanceUser;
@@ -373,11 +375,42 @@ class CardProvider extends ChangeNotifier {
         .where('age', isGreaterThanOrEqualTo: agemin)
         .get();
 
+    final QuerySnapshot resultMe = await FirebaseFirestore.instance
+        .collection('users')
+        .where('uid', isEqualTo: uid)
+        .get();
+
     final List<DocumentSnapshot> documents = result.docs;
+    final List<DocumentSnapshot> documentsme = resultMe.docs;
 
     if (documents.length == 0) {
       _users = [];
     }
+    documentsme.forEach((snapshot) {
+      var userMe = (snapshot.data() as Map<String, dynamic>);
+
+      if (userMe['uid'] == uid) {
+        _me.add(Users(
+            age: userMe['age'],
+            city: userMe['city'],
+            country: userMe['country'],
+            height: userMe['height'],
+            occupation: userMe['occupation'],
+            interested: userMe['interested'],
+            latitude: userMe['latitude'],
+            longitude: userMe['longitude'],
+            listFocus: userMe['listFocus'],
+            soul: userMe['soul'],
+            token: userMe['token'],
+            uid: userMe['uid'],
+            zodiac: userMe['zodiac'],
+            photos: userMe['photos'],
+            weight: userMe['weight'],
+            aboutMe: userMe['aboutMe'],
+            name: userMe['name'],
+            urlImage: userMe['photos'][0]['url']));
+      }
+    });
 
     documents.forEach((snapshot) {
       var userLiked = (snapshot.data() as Map<String, dynamic>);
@@ -427,8 +460,11 @@ class CardProvider extends ChangeNotifier {
     });
 
     _users = removeDuplicates(_users);
+    _me = removeDuplicates(_me);
 
     _users = _users.reversed.toList();
+    _me = _me.toList();
+    print(_me);
     notifyListeners();
   }
 

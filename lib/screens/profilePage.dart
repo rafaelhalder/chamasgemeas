@@ -538,6 +538,34 @@ class _ProfilePageState extends State<ProfilePage> {
                         return Container();
                       }),
                   const SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 10),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/userme');
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Color.fromARGB(255, 211, 202, 189),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Center(
+                            child: Text(
+                              'Visualizar o seu Perfil',
+                              style: const TextStyle(
+                                  letterSpacing: 0.2,
+                                  color: Color.fromARGB(255, 84, 75, 57),
+                                  fontSize: 16),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
                   Container(
                     alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.symmetric(
