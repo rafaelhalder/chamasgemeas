@@ -216,11 +216,15 @@ class _ChatsState extends State<Chats> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(data['msg'],
-                                        style: const TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 147, 132, 100),
-                                            fontSize: 16))
+                                    Flexible(
+                                      child: Text(data['msg'],
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 147, 132, 100),
+                                              fontSize: 16)),
+                                    )
                                   ],
                                 )
                               : Text(
