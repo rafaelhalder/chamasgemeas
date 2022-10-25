@@ -91,7 +91,7 @@ class _VerifyUserState extends State<VerifyUser> {
           'city': '',
           'country': '',
           'gender': '',
-          'coin': 1,
+          'coin': 9999,
           'height': 0,
           'interested': '',
           'latitude': '',
@@ -104,7 +104,7 @@ class _VerifyUserState extends State<VerifyUser> {
           'occupation': '',
           'typeInterested': '',
           'status': true,
-          'premium': false,
+          'premium': true,
           'uid': uid,
           'name': user?.displayName,
           "photos": [

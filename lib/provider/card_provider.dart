@@ -363,22 +363,12 @@ class CardProvider extends ChangeNotifier {
 
     print(_interestedUser);
     print(_genderUser);
-    if (_genderUser == 2) {}
-
-    // final QuerySnapshot result = await FirebaseFirestore.instance
-    //     .collection('users')
-    //     .where('status', isEqualTo: true)
-    //     .where('finished', isEqualTo: true)
-    //     .where('gender', isEqualTo: _interestedUser)
-    //     .where('age', isLessThanOrEqualTo: agemax)
-    //     .where('age', isGreaterThanOrEqualTo: agemin)
-    //     .limit(10)
-    //     .get();
 
     final QuerySnapshot result = await FirebaseFirestore.instance
         .collection('users')
         .where('status', isEqualTo: true)
         .where('finished', isEqualTo: true)
+        .where('gender', isEqualTo: _interestedUser)
         .where('age', isLessThanOrEqualTo: agemax)
         .where('age', isGreaterThanOrEqualTo: agemin)
         .get();
@@ -399,265 +389,35 @@ class CardProvider extends ChangeNotifier {
               double.parse(userLiked['longitude'])),
           lati.LatLng(latUser, lngUser));
 
-      //MULHER INTERESSE EM HOMEM
-      if ((genderUser == '1' || genderUser == '5') &&
-          (_interestedUser == '2' || _interestedUser == '4')) {
-        if ((userLiked['gender'] == '2' || userLiked['gender'] == '4') &&
-            (userLiked['interested'] == '1' ||
-                userLiked['interested'] == '6' ||
-                userLiked['interested'] == '5')) {
-          if (userLiked['photos'][0]['url'] != 'nulo') {
-            if (distanceUser >= km) {
-              if (!dislikeTe.contains(userLiked['uid'])) {
-                if (!likeTe.contains(userLiked['uid'])) {
-                  userLiked['listFocus'] == null
-                      ? userLiked['listFocus'] = [1]
-                      : '';
-                  if (userLiked['uid'] != uid) {
-                    tese.add(userLiked['age']);
-                    _users.add(Users(
-                        age: userLiked['age'],
-                        city: userLiked['city'],
-                        country: userLiked['country'],
-                        height: userLiked['height'],
-                        occupation: userLiked['occupation'],
-                        interested: userLiked['interested'],
-                        latitude: userLiked['latitude'],
-                        longitude: userLiked['longitude'],
-                        listFocus: userLiked['listFocus'],
-                        soul: userLiked['soul'],
-                        token: userLiked['token'],
-                        uid: userLiked['uid'],
-                        zodiac: userLiked['zodiac'],
-                        photos: userLiked['photos'],
-                        weight: userLiked['weight'],
-                        aboutMe: userLiked['aboutMe'],
-                        name: userLiked['name'],
-                        urlImage: userLiked['photos'][0]['url']));
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-
-      //MULHER INTERESSE EM MULHER
-      if ((genderUser == '1' || genderUser == '5') &&
-          (_interestedUser == '1' || _interestedUser == '5')) {
-        if ((userLiked['gender'] == '1' || userLiked['gender'] == '5') &&
-            (userLiked['interested'] == '1' ||
-                userLiked['interested'] == '5' ||
-                userLiked['interested'] == '6')) {
-          if (userLiked['photos'][0]['url'] != 'nulo') {
-            if (distanceUser >= km) {
-              if (!dislikeTe.contains(userLiked['uid'])) {
-                if (!likeTe.contains(userLiked['uid'])) {
-                  userLiked['listFocus'] == null
-                      ? userLiked['listFocus'] = [1]
-                      : '';
-                  if (userLiked['uid'] != uid) {
-                    tese.add(userLiked['age']);
-                    _users.add(Users(
-                        age: userLiked['age'],
-                        city: userLiked['city'],
-                        country: userLiked['country'],
-                        height: userLiked['height'],
-                        occupation: userLiked['occupation'],
-                        interested: userLiked['interested'],
-                        latitude: userLiked['latitude'],
-                        longitude: userLiked['longitude'],
-                        listFocus: userLiked['listFocus'],
-                        soul: userLiked['soul'],
-                        token: userLiked['token'],
-                        uid: userLiked['uid'],
-                        zodiac: userLiked['zodiac'],
-                        photos: userLiked['photos'],
-                        weight: userLiked['weight'],
-                        aboutMe: userLiked['aboutMe'],
-                        name: userLiked['name'],
-                        urlImage: userLiked['photos'][0]['url']));
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-
-      //MULHER INTERESSE EM AMBOS
-      if ((genderUser == '1' || genderUser == '5') &&
-          (_interestedUser == '6')) {
-        if (((userLiked['gender'] == '2' || userLiked['gender'] == '4') &&
-                (userLiked['interested'] == '1' ||
-                    userLiked['interested'] == '5' ||
-                    userLiked['interested'] == '6')) ||
-            ((userLiked['gender'] == '1' || userLiked['gender'] == '5') &&
-                (userLiked['interested'] == '2' ||
-                    userLiked['interested'] == '4' ||
-                    userLiked['interested'] == '6'))) {
-          if (userLiked['photos'][0]['url'] != 'nulo') {
-            if (distanceUser >= km) {
-              if (!dislikeTe.contains(userLiked['uid'])) {
-                if (!likeTe.contains(userLiked['uid'])) {
-                  userLiked['listFocus'] == null
-                      ? userLiked['listFocus'] = [1]
-                      : '';
-                  if (userLiked['uid'] != uid) {
-                    tese.add(userLiked['age']);
-                    _users.add(Users(
-                        age: userLiked['age'],
-                        city: userLiked['city'],
-                        country: userLiked['country'],
-                        height: userLiked['height'],
-                        occupation: userLiked['occupation'],
-                        interested: userLiked['interested'],
-                        latitude: userLiked['latitude'],
-                        longitude: userLiked['longitude'],
-                        listFocus: userLiked['listFocus'],
-                        soul: userLiked['soul'],
-                        token: userLiked['token'],
-                        uid: userLiked['uid'],
-                        zodiac: userLiked['zodiac'],
-                        photos: userLiked['photos'],
-                        weight: userLiked['weight'],
-                        aboutMe: userLiked['aboutMe'],
-                        name: userLiked['name'],
-                        urlImage: userLiked['photos'][0]['url']));
-                  }
-                }
-              }
-            }
-          }
-        }
-        //    print('AQUIII');
-      }
-
-      //HOMEM INTERESSE EM HOMEM
-      if ((genderUser == '2' || genderUser == '4') &&
-          (_interestedUser == '1' || _interestedUser == '5')) {
-        if ((userLiked['gender'] == '1' || userLiked['gender'] == '5') &&
-            (userLiked['interested'] == '2' ||
-                userLiked['interested'] == '4')) {
-          if (userLiked['photos'][0]['url'] != 'nulo') {
-            if (distanceUser >= km) {
-              if (!dislikeTe.contains(userLiked['uid'])) {
-                if (!likeTe.contains(userLiked['uid'])) {
-                  userLiked['listFocus'] == null
-                      ? userLiked['listFocus'] = [1]
-                      : '';
-                  if (userLiked['uid'] != uid) {
-                    tese.add(userLiked['age']);
-                    _users.add(Users(
-                        age: userLiked['age'],
-                        city: userLiked['city'],
-                        country: userLiked['country'],
-                        height: userLiked['height'],
-                        occupation: userLiked['occupation'],
-                        interested: userLiked['interested'],
-                        latitude: userLiked['latitude'],
-                        longitude: userLiked['longitude'],
-                        listFocus: userLiked['listFocus'],
-                        soul: userLiked['soul'],
-                        token: userLiked['token'],
-                        uid: userLiked['uid'],
-                        zodiac: userLiked['zodiac'],
-                        photos: userLiked['photos'],
-                        weight: userLiked['weight'],
-                        aboutMe: userLiked['aboutMe'],
-                        name: userLiked['name'],
-                        urlImage: userLiked['photos'][0]['url']));
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-
-      //HOMEM INTERESSE EM MULHER
-      if ((genderUser == '2' || genderUser == '4') &&
-          (_interestedUser == '2' || _interestedUser == '4')) {
-        if ((userLiked['gender'] == '2' || userLiked['gender'] == '4') &&
-            (userLiked['interested'] == '2' ||
-                userLiked['interested'] == '4' ||
-                userLiked['interested'] == '6')) {
-          if (userLiked['photos'][0]['url'] != 'nulo') {
-            if (distanceUser >= km) {
-              if (!dislikeTe.contains(userLiked['uid'])) {
-                if (!likeTe.contains(userLiked['uid'])) {
-                  userLiked['listFocus'] == null
-                      ? userLiked['listFocus'] = [1]
-                      : '';
-                  if (userLiked['uid'] != uid) {
-                    tese.add(userLiked['age']);
-                    _users.add(Users(
-                        age: userLiked['age'],
-                        city: userLiked['city'],
-                        country: userLiked['country'],
-                        height: userLiked['height'],
-                        occupation: userLiked['occupation'],
-                        interested: userLiked['interested'],
-                        latitude: userLiked['latitude'],
-                        longitude: userLiked['longitude'],
-                        listFocus: userLiked['listFocus'],
-                        soul: userLiked['soul'],
-                        token: userLiked['token'],
-                        uid: userLiked['uid'],
-                        zodiac: userLiked['zodiac'],
-                        photos: userLiked['photos'],
-                        weight: userLiked['weight'],
-                        aboutMe: userLiked['aboutMe'],
-                        name: userLiked['name'],
-                        urlImage: userLiked['photos'][0]['url']));
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-
-      //HOMEM INTERESSE EM AMBOS
-      if ((genderUser == '2' || genderUser == '4') &&
-          (_interestedUser == '6')) {
-        if (((userLiked['gender'] == '1' || userLiked['gender'] == '5') &&
-                (userLiked['interested'] == '2' ||
-                    userLiked['interested'] == '4' ||
-                    userLiked['interested'] == '6')) ||
-            ((userLiked['gender'] == '2' || userLiked['gender'] == '4') &&
-                (userLiked['interested'] == '1' ||
-                    userLiked['interested'] == '5' ||
-                    userLiked['interested'] == '6'))) {
-          if (userLiked['photos'][0]['url'] != 'nulo') {
-            if (distanceUser >= km) {
-              if (!dislikeTe.contains(userLiked['uid'])) {
-                if (!likeTe.contains(userLiked['uid'])) {
-                  userLiked['listFocus'] == null
-                      ? userLiked['listFocus'] = [1]
-                      : '';
-                  if (userLiked['uid'] != uid) {
-                    tese.add(userLiked['age']);
-                    _users.add(Users(
-                        age: userLiked['age'],
-                        city: userLiked['city'],
-                        country: userLiked['country'],
-                        height: userLiked['height'],
-                        occupation: userLiked['occupation'],
-                        interested: userLiked['interested'],
-                        latitude: userLiked['latitude'],
-                        longitude: userLiked['longitude'],
-                        listFocus: userLiked['listFocus'],
-                        soul: userLiked['soul'],
-                        token: userLiked['token'],
-                        uid: userLiked['uid'],
-                        zodiac: userLiked['zodiac'],
-                        photos: userLiked['photos'],
-                        weight: userLiked['weight'],
-                        aboutMe: userLiked['aboutMe'],
-                        name: userLiked['name'],
-                        urlImage: userLiked['photos'][0]['url']));
-                  }
+      if (userLiked['interested'] == genderUser) {
+        if (userLiked['photos'][0]['url'] != 'nulo') {
+          if (distanceUser >= km) {
+            if (!dislikeTe.contains(userLiked['uid'])) {
+              if (!likeTe.contains(userLiked['uid'])) {
+                userLiked['listFocus'] == null
+                    ? userLiked['listFocus'] = [1]
+                    : '';
+                if (userLiked['uid'] != uid) {
+                  tese.add(userLiked['age']);
+                  _users.add(Users(
+                      age: userLiked['age'],
+                      city: userLiked['city'],
+                      country: userLiked['country'],
+                      height: userLiked['height'],
+                      occupation: userLiked['occupation'],
+                      interested: userLiked['interested'],
+                      latitude: userLiked['latitude'],
+                      longitude: userLiked['longitude'],
+                      listFocus: userLiked['listFocus'],
+                      soul: userLiked['soul'],
+                      token: userLiked['token'],
+                      uid: userLiked['uid'],
+                      zodiac: userLiked['zodiac'],
+                      photos: userLiked['photos'],
+                      weight: userLiked['weight'],
+                      aboutMe: userLiked['aboutMe'],
+                      name: userLiked['name'],
+                      urlImage: userLiked['photos'][0]['url']));
                 }
               }
             }
