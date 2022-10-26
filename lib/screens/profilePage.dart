@@ -158,6 +158,10 @@ class _ProfilePageState extends State<ProfilePage> {
     if (variable['gender'] == '6') {
       return 'LGBT Ambos';
     }
+
+    if (variable['gender'] == '7') {
+      return 'LGBT Ambos';
+    }
   }
 
   final List<String> data = [];

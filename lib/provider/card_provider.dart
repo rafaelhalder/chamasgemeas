@@ -362,11 +362,6 @@ class CardProvider extends ChangeNotifier {
       _disliked.add(dislike['id']);
       dislikeTe = dislike['id'];
     }
-    print('----------------');
-
-    print(_interestedUser);
-    print('----------------');
-
     if (_interestedUser == '7') {
       final QuerySnapshot result = await FirebaseFirestore.instance
           .collection('users')
@@ -470,7 +465,6 @@ class CardProvider extends ChangeNotifier {
 
       _users = _users.reversed.toList();
       _me = _me.toList();
-      print(_me);
       notifyListeners();
     } else {
       final QuerySnapshot result = await FirebaseFirestore.instance
@@ -489,6 +483,10 @@ class CardProvider extends ChangeNotifier {
 
       final List<DocumentSnapshot> documents = result.docs;
       final List<DocumentSnapshot> documentsme = resultMe.docs;
+
+      print('-------------');
+      print(documents);
+      print('-------------');
 
       if (documents.length == 0) {
         _users = [];
@@ -528,12 +526,16 @@ class CardProvider extends ChangeNotifier {
             lati.LatLng(double.parse(userLiked['latitude']),
                 double.parse(userLiked['longitude'])),
             lati.LatLng(latUser, lngUser));
+        if (userLiked['interested'] == '7') {
+          userLiked['interested'] = genderUser;
+        }
 
         if (userLiked['interested'] == genderUser) {
           if (userLiked['photos'][0]['url'] != 'nulo') {
             if (distanceUser >= km) {
               if (!dislikeTe.contains(userLiked['uid'])) {
                 if (!likeTe.contains(userLiked['uid'])) {
+                  print('aquiiiiiiiiiiii2');
                   userLiked['listFocus'] == null
                       ? userLiked['listFocus'] = [1]
                       : '';
