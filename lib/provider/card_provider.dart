@@ -362,110 +362,218 @@ class CardProvider extends ChangeNotifier {
       _disliked.add(dislike['id']);
       dislikeTe = dislike['id'];
     }
+    print('----------------');
 
     print(_interestedUser);
-    print(_genderUser);
+    print('----------------');
 
-    final QuerySnapshot result = await FirebaseFirestore.instance
-        .collection('users')
-        .where('status', isEqualTo: true)
-        .where('finished', isEqualTo: true)
-        .where('gender', isEqualTo: _interestedUser)
-        .where('age', isLessThanOrEqualTo: agemax)
-        .where('age', isGreaterThanOrEqualTo: agemin)
-        .get();
+    if (_interestedUser == '7') {
+      final QuerySnapshot result = await FirebaseFirestore.instance
+          .collection('users')
+          .where('status', isEqualTo: true)
+          .where('finished', isEqualTo: true)
+          .where('age', isLessThanOrEqualTo: agemax)
+          .where('age', isGreaterThanOrEqualTo: agemin)
+          .get();
 
-    final QuerySnapshot resultMe = await FirebaseFirestore.instance
-        .collection('users')
-        .where('uid', isEqualTo: uid)
-        .get();
+      final QuerySnapshot resultMe = await FirebaseFirestore.instance
+          .collection('users')
+          .where('uid', isEqualTo: uid)
+          .get();
 
-    final List<DocumentSnapshot> documents = result.docs;
-    final List<DocumentSnapshot> documentsme = resultMe.docs;
-
-    if (documents.length == 0) {
-      _users = [];
-    }
-    documentsme.forEach((snapshot) {
-      var userMe = (snapshot.data() as Map<String, dynamic>);
-
-      if (userMe['uid'] == uid) {
-        _me.add(Users(
-            age: userMe['age'],
-            city: userMe['city'],
-            country: userMe['country'],
-            height: userMe['height'],
-            occupation: userMe['occupation'],
-            interested: userMe['interested'],
-            latitude: userMe['latitude'],
-            longitude: userMe['longitude'],
-            listFocus: userMe['listFocus'],
-            soul: userMe['soul'],
-            token: userMe['token'],
-            uid: userMe['uid'],
-            zodiac: userMe['zodiac'],
-            photos: userMe['photos'],
-            weight: userMe['weight'],
-            aboutMe: userMe['aboutMe'],
-            name: userMe['name'],
-            urlImage: userMe['photos'][0]['url']));
+      final List<DocumentSnapshot> documents = result.docs;
+      final List<DocumentSnapshot> documentsme = resultMe.docs;
+      if (documents.length == 0) {
+        _users = [];
       }
-    });
+      documentsme.forEach((snapshot) {
+        var userMe = (snapshot.data() as Map<String, dynamic>);
 
-    documents.forEach((snapshot) {
-      var userLiked = (snapshot.data() as Map<String, dynamic>);
+        if (userMe['uid'] == uid) {
+          _me.add(Users(
+              age: userMe['age'],
+              city: userMe['city'],
+              country: userMe['country'],
+              height: userMe['height'],
+              occupation: userMe['occupation'],
+              interested: userMe['interested'],
+              latitude: userMe['latitude'],
+              longitude: userMe['longitude'],
+              listFocus: userMe['listFocus'],
+              soul: userMe['soul'],
+              token: userMe['token'],
+              uid: userMe['uid'],
+              zodiac: userMe['zodiac'],
+              photos: userMe['photos'],
+              weight: userMe['weight'],
+              aboutMe: userMe['aboutMe'],
+              name: userMe['name'],
+              urlImage: userMe['photos'][0]['url']));
+        }
+      });
 
-      var distance = const lati.Distance();
-      var km = distance.as(
-          lati.LengthUnit.Kilometer,
-          lati.LatLng(double.parse(userLiked['latitude']),
-              double.parse(userLiked['longitude'])),
-          lati.LatLng(latUser, lngUser));
+      documents.forEach((snapshot) {
+        var userLiked = (snapshot.data() as Map<String, dynamic>);
 
-      if (userLiked['interested'] == genderUser) {
-        if (userLiked['photos'][0]['url'] != 'nulo') {
-          if (distanceUser >= km) {
-            if (!dislikeTe.contains(userLiked['uid'])) {
-              if (!likeTe.contains(userLiked['uid'])) {
-                userLiked['listFocus'] == null
-                    ? userLiked['listFocus'] = [1]
-                    : '';
-                if (userLiked['uid'] != uid) {
-                  tese.add(userLiked['age']);
-                  _users.add(Users(
-                      age: userLiked['age'],
-                      city: userLiked['city'],
-                      country: userLiked['country'],
-                      height: userLiked['height'],
-                      occupation: userLiked['occupation'],
-                      interested: userLiked['interested'],
-                      latitude: userLiked['latitude'],
-                      longitude: userLiked['longitude'],
-                      listFocus: userLiked['listFocus'],
-                      soul: userLiked['soul'],
-                      token: userLiked['token'],
-                      uid: userLiked['uid'],
-                      zodiac: userLiked['zodiac'],
-                      photos: userLiked['photos'],
-                      weight: userLiked['weight'],
-                      aboutMe: userLiked['aboutMe'],
-                      name: userLiked['name'],
-                      urlImage: userLiked['photos'][0]['url']));
+        print('-------------');
+        print(userLiked);
+        print('-------------');
+
+        var distance = const lati.Distance();
+        var km = distance.as(
+            lati.LengthUnit.Kilometer,
+            lati.LatLng(double.parse(userLiked['latitude']),
+                double.parse(userLiked['longitude'])),
+            lati.LatLng(latUser, lngUser));
+
+        if (userLiked['gender'] == '1' || userLiked['gender'] == '2') {
+          if (userLiked['interested'] == genderUser) {
+            if (userLiked['photos'][0]['url'] != 'nulo') {
+              if (distanceUser >= km) {
+                if (!dislikeTe.contains(userLiked['uid'])) {
+                  if (!likeTe.contains(userLiked['uid'])) {
+                    userLiked['listFocus'] == null
+                        ? userLiked['listFocus'] = [1]
+                        : '';
+                    if (userLiked['uid'] != uid) {
+                      tese.add(userLiked['age']);
+                      _users.add(Users(
+                          age: userLiked['age'],
+                          city: userLiked['city'],
+                          country: userLiked['country'],
+                          height: userLiked['height'],
+                          occupation: userLiked['occupation'],
+                          interested: userLiked['interested'],
+                          latitude: userLiked['latitude'],
+                          longitude: userLiked['longitude'],
+                          listFocus: userLiked['listFocus'],
+                          soul: userLiked['soul'],
+                          token: userLiked['token'],
+                          uid: userLiked['uid'],
+                          zodiac: userLiked['zodiac'],
+                          photos: userLiked['photos'],
+                          weight: userLiked['weight'],
+                          aboutMe: userLiked['aboutMe'],
+                          name: userLiked['name'],
+                          urlImage: userLiked['photos'][0]['url']));
+                    }
+                  }
                 }
               }
             }
           }
         }
+      });
+
+      _users = removeDuplicates(_users);
+      _me = removeDuplicates(_me);
+
+      _users = _users.reversed.toList();
+      _me = _me.toList();
+      print(_me);
+      notifyListeners();
+    } else {
+      final QuerySnapshot result = await FirebaseFirestore.instance
+          .collection('users')
+          .where('status', isEqualTo: true)
+          .where('finished', isEqualTo: true)
+          .where('gender', isEqualTo: _interestedUser)
+          .where('age', isLessThanOrEqualTo: agemax)
+          .where('age', isGreaterThanOrEqualTo: agemin)
+          .get();
+
+      final QuerySnapshot resultMe = await FirebaseFirestore.instance
+          .collection('users')
+          .where('uid', isEqualTo: uid)
+          .get();
+
+      final List<DocumentSnapshot> documents = result.docs;
+      final List<DocumentSnapshot> documentsme = resultMe.docs;
+
+      if (documents.length == 0) {
+        _users = [];
       }
-    });
+      documentsme.forEach((snapshot) {
+        var userMe = (snapshot.data() as Map<String, dynamic>);
 
-    _users = removeDuplicates(_users);
-    _me = removeDuplicates(_me);
+        if (userMe['uid'] == uid) {
+          _me.add(Users(
+              age: userMe['age'],
+              city: userMe['city'],
+              country: userMe['country'],
+              height: userMe['height'],
+              occupation: userMe['occupation'],
+              interested: userMe['interested'],
+              latitude: userMe['latitude'],
+              longitude: userMe['longitude'],
+              listFocus: userMe['listFocus'],
+              soul: userMe['soul'],
+              token: userMe['token'],
+              uid: userMe['uid'],
+              zodiac: userMe['zodiac'],
+              photos: userMe['photos'],
+              weight: userMe['weight'],
+              aboutMe: userMe['aboutMe'],
+              name: userMe['name'],
+              urlImage: userMe['photos'][0]['url']));
+        }
+      });
 
-    _users = _users.reversed.toList();
-    _me = _me.toList();
-    print(_me);
-    notifyListeners();
+      documents.forEach((snapshot) {
+        var userLiked = (snapshot.data() as Map<String, dynamic>);
+
+        var distance = const lati.Distance();
+        var km = distance.as(
+            lati.LengthUnit.Kilometer,
+            lati.LatLng(double.parse(userLiked['latitude']),
+                double.parse(userLiked['longitude'])),
+            lati.LatLng(latUser, lngUser));
+
+        if (userLiked['interested'] == genderUser) {
+          if (userLiked['photos'][0]['url'] != 'nulo') {
+            if (distanceUser >= km) {
+              if (!dislikeTe.contains(userLiked['uid'])) {
+                if (!likeTe.contains(userLiked['uid'])) {
+                  userLiked['listFocus'] == null
+                      ? userLiked['listFocus'] = [1]
+                      : '';
+                  if (userLiked['uid'] != uid) {
+                    tese.add(userLiked['age']);
+                    _users.add(Users(
+                        age: userLiked['age'],
+                        city: userLiked['city'],
+                        country: userLiked['country'],
+                        height: userLiked['height'],
+                        occupation: userLiked['occupation'],
+                        interested: userLiked['interested'],
+                        latitude: userLiked['latitude'],
+                        longitude: userLiked['longitude'],
+                        listFocus: userLiked['listFocus'],
+                        soul: userLiked['soul'],
+                        token: userLiked['token'],
+                        uid: userLiked['uid'],
+                        zodiac: userLiked['zodiac'],
+                        photos: userLiked['photos'],
+                        weight: userLiked['weight'],
+                        aboutMe: userLiked['aboutMe'],
+                        name: userLiked['name'],
+                        urlImage: userLiked['photos'][0]['url']));
+                  }
+                }
+              }
+            }
+          }
+        }
+      });
+
+      _users = removeDuplicates(_users);
+      _me = removeDuplicates(_me);
+
+      _users = _users.reversed.toList();
+      _me = _me.toList();
+      print(_me);
+      notifyListeners();
+    }
   }
 
   List<Users> removeDuplicates(List<Users> items) {

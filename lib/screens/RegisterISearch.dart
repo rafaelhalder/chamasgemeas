@@ -105,7 +105,8 @@ class _RegisterISearchPageState extends State<RegisterISearchPage> {
 
                                   if (selectedIndex == '' ||
                                       selectedIndex == '0' ||
-                                      selectedIndex == '1') {
+                                      selectedIndex == '1' ||
+                                      selectedIndex == '6') {
                                     if (index.toString() == '3' ||
                                         index.toString() == '4' ||
                                         index.toString() == '5') {
@@ -250,25 +251,31 @@ class _RegisterISearchPageState extends State<RegisterISearchPage> {
                     child: Center(
                       child: GestureDetector(
                         onTap: () async {
-                          int numero = int.parse(selectedIndex);
-                          numero = numero + 1;
-                          String retornoString = numero.toString();
+                          if (selectedIndex == '') {
+                            print('aqui');
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(user?.uid)
+                                .update({'typeInterested': typeInterested});
+                          } else {
+                            int numero = int.parse(selectedIndex);
+                            numero = numero + 1;
+                            String retornoString = numero.toString();
 
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(user?.uid)
-                              .update({
-                            'interested': retornoString,
-                            'typeInterested': typeInterested
-                          });
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(user?.uid)
+                                .update({
+                              'interested': retornoString,
+                              'typeInterested': typeInterested
+                            });
+                          }
 
                           if (finished == true) {
                             final provider = Provider.of<CardProvider>(context,
                                 listen: false);
                             provider.resetUsers();
-                            selectedIndex != ""
-                                ? Navigator.pushNamed(context, '/profilePage')
-                                : null;
+                            Navigator.pushNamed(context, '/profilePage');
                           } else {
                             selectedIndex != ""
                                 ? Navigator.pushNamed(context, '/registerStep3')

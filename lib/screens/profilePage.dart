@@ -118,6 +118,10 @@ class _ProfilePageState extends State<ProfilePage> {
     if (variable['interested'] == '6') {
       return 'LGBT Ambos';
     }
+
+    if (variable['interested'] == '7') {
+      return 'Ambos Hetero';
+    }
   }
 
   dynamic loadType() async {

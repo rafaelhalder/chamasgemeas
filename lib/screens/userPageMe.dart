@@ -37,7 +37,7 @@ class _UserPageMeState extends State<UserPageMe> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
   String name = '';
-  String age = '';
+  int age = 0;
   double latitude = 0.0;
   double longitude = 0.0;
   String occupation = '';
@@ -49,43 +49,18 @@ class _UserPageMeState extends State<UserPageMe> {
   String zodiac = '';
   List photos = [];
   List listFocus = [];
+  List filterPhoto = [];
+  String imagemLink = '';
 
   @override
   void initState() {
-    // TODO: implement initState
-    listt();
+    load();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    String friendID = 'aa';
-    String imagemLink = soul + '.png';
-    List filterPhoto = [];
-    var distance = const lat.Distance();
-
-    String textoChat = '';
-    String? tokenAuth = "";
-    String? uid = FirebaseAuth.instance.currentUser?.uid;
-    User? user = FirebaseAuth.instance.currentUser;
-
-    for (int i = 0; i < photos.length; i++) {
-      if (photos[i]['name'] != 'nulo') {
-        filterPhoto.add(photos[i]);
-      }
-    }
-    var circleMarkers = <CircleMarker>[
-      CircleMarker(
-          point: lat.LatLng(latitude, longitude),
-          color: Colors.blue.withOpacity(0.4),
-          borderColor: const Color.fromARGB(255, 8, 133, 236),
-          borderStrokeWidth: 1,
-          useRadiusInMeter: true,
-          radius: 1400 // 2000 meters | 2 km
-          ),
-    ];
-
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.black,
@@ -94,15 +69,15 @@ class _UserPageMeState extends State<UserPageMe> {
         statusBarBrightness: Brightness.light,
         statusBarColor: Colors.transparent,
       ),
-      child: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-              color: Colors.transparent,
-              image: DecorationImage(
-                image: AssetImage("assets/images/foto22.png"),
-                fit: BoxFit.cover,
-              )),
+      child: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage("assets/images/foto22.png"),
+          fit: BoxFit.cover,
+        )),
+        child: SafeArea(
           child: Scaffold(
+            backgroundColor: Colors.transparent,
             bottomNavigationBar: ConvexAppBar(
               color: Colors.black,
               gradient: const LinearGradient(colors: [
@@ -199,591 +174,447 @@ class _UserPageMeState extends State<UserPageMe> {
                 print('click index=$i');
               },
             ),
-            // floatingActionButton:
-            //     Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-            //   FloatingActionButton(
-            //     backgroundColor: const Color.fromARGB(255, 207, 202, 187),
-            //     onPressed: () {
-            //       //...
-            //     },
-            //     heroTag: null,
-            //     child: const Icon(
-            //       Icons.star,
-            //       color: Colors.white,
-            //     ),
-            //   ),
-            //   const SizedBox(
-            //     height: 10,
-            //   ),
-            //   FloatingActionButton(
-            //     backgroundColor: const Color.fromARGB(255, 207, 202, 187),
-            //     onPressed: () {},
-            //     heroTag: null,
-            //     child: const FaIcon(
-            //       FontAwesomeIcons.solidHeart,
-            //       color: Colors.red,
-            //     ),
-            //   )
-            // ]),
             extendBodyBehindAppBar: true,
             appBar: AppBar(
               elevation: 0,
               backgroundColor: const Color.fromARGB(0, 0, 0, 0),
             ),
-            body: Container(
-              padding: const EdgeInsets.symmetric(vertical: 40),
-              decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/foto22.png"),
-                    fit: BoxFit.cover,
-                  )),
-              child: SingleChildScrollView(
-                child: Column(children: [
-                  Stack(
-                    children: [
-                      Align(
-                        alignment: Alignment.topCenter,
-                        child: Container(
-                          height: size.height / 1.74,
-                          width: size.width * 0.9,
-                          decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(30),
-                                topLeft: Radius.circular(30),
-                              ),
-                              color: Colors.transparent),
-                          child: ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(30),
-                              topLeft: Radius.circular(30),
-                            ),
-                            child: CarouselSlider.builder(
-                              carouselController: _controller,
-                              options: CarouselOptions(
-                                  height: size.height,
-                                  autoPlay: false,
-                                  autoPlayInterval: const Duration(seconds: 7),
-                                  reverse: false,
-                                  viewportFraction: 1,
-                                  aspectRatio: 2.0,
-                                  initialPage: 0,
-                                  enableInfiniteScroll: true,
-                                  autoPlayAnimationDuration:
-                                      const Duration(milliseconds: 800),
-                                  autoPlayCurve: Curves.fastOutSlowIn,
-                                  scrollDirection: Axis.horizontal,
-                                  onPageChanged: (index, reason) {
-                                    setState(() {
-                                      _current = index;
-                                    });
-                                  }),
-                              itemCount: filterPhoto.length,
-                              itemBuilder: (context, itemIndex, realIndex) {
-                                return CachedNetworkImage(
-                                  fadeInDuration:
-                                      const Duration(milliseconds: 0),
-                                  fadeOutDuration:
-                                      const Duration(milliseconds: 0),
-                                  fit: BoxFit.cover,
-                                  imageUrl: filterPhoto[itemIndex]['url'],
-                                  width: size.width,
-                                  height: size.height,
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      Positioned.fill(
-                        bottom: 10,
-                        child: Align(
-                          alignment: Alignment.topCenter,
-                          child: Container(
-                            padding: EdgeInsets.only(top: 20),
-                            child: GestureDetector(
-                                child: Icon(
-                                  Icons.info,
-                                  color: Color.fromARGB(255, 248, 222, 162),
+            body: photos.length > 0
+                ? Container(
+                    child: SingleChildScrollView(
+                        child: Column(
+                      children: [
+                        Stack(
+                          children: [
+                            Align(
+                              alignment: Alignment.topCenter,
+                              child: Container(
+                                height: size.height / 1.74,
+                                width: size.width * 0.9,
+                                decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(30),
+                                      topLeft: Radius.circular(30),
+                                    ),
+                                    color: Colors.transparent),
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.only(
+                                    topRight: Radius.circular(30),
+                                    topLeft: Radius.circular(30),
+                                  ),
+                                  child: CarouselSlider.builder(
+                                    carouselController: _controller,
+                                    options: CarouselOptions(
+                                        height: size.height,
+                                        autoPlay: false,
+                                        autoPlayInterval:
+                                            const Duration(seconds: 7),
+                                        reverse: false,
+                                        viewportFraction: 1,
+                                        aspectRatio: 2.0,
+                                        initialPage: 0,
+                                        enableInfiniteScroll: true,
+                                        autoPlayAnimationDuration:
+                                            const Duration(milliseconds: 800),
+                                        autoPlayCurve: Curves.fastOutSlowIn,
+                                        scrollDirection: Axis.horizontal,
+                                        onPageChanged: (index, reason) {
+                                          setState(() {
+                                            _current = index;
+                                          });
+                                        }),
+                                    itemCount: filterPhoto.length,
+                                    itemBuilder:
+                                        (context, itemIndex, realIndex) {
+                                      return CachedNetworkImage(
+                                        fadeInDuration:
+                                            const Duration(milliseconds: 0),
+                                        fadeOutDuration:
+                                            const Duration(milliseconds: 0),
+                                        fit: BoxFit.cover,
+                                        imageUrl: filterPhoto[itemIndex]['url'],
+                                        width: size.width,
+                                        height: size.height,
+                                      );
+                                    },
+                                  ),
                                 ),
-                                onTap: () => showMaterialModalBottomSheet(
-                                      context: context,
-                                      builder: (context) => Container(
-                                        color: Color.fromARGB(108, 0, 0, 0),
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.15,
-                                        child: Container(
-                                          padding: EdgeInsets.all(5),
-                                          color: Colors.black87,
-                                          child: Wrap(
-                                            children: [
-                                              TextButton(
-                                                style: ElevatedButton.styleFrom(
-                                                  minimumSize:
-                                                      Size.fromHeight(50),
-                                                  textStyle:
-                                                      TextStyle(fontSize: 20),
-                                                ),
-                                                child: Text(
-                                                  'Reportar',
-                                                  style: TextStyle(
-                                                      color: Colors.red),
-                                                ),
-                                                onPressed: () => sendEmail(
-                                                    name: '$name,',
-                                                    email:
-                                                        'contato@chamasgemeas.com',
-                                                    subject: friendID,
-                                                    message:
-                                                        'controllerMessage.text',
-                                                    id: friendID),
-                                              ),
-                                            ],
-                                          ),
+                              ),
+                            ),
+                            Positioned.fill(
+                              top: 20,
+                              child: Align(
+                                alignment: Alignment.topCenter,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: filterPhoto.map((url) {
+                                    int index = filterPhoto.indexOf(url);
+                                    return Container(
+                                      width: 20.0,
+                                      height: 10.0,
+                                      margin: EdgeInsets.symmetric(
+                                          vertical: 4.0, horizontal: 2.0),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        shape: BoxShape.rectangle,
+                                        color: _current == index
+                                            ? Color.fromARGB(153, 231, 231, 231)
+                                            : Color.fromRGBO(0, 0, 0, 0.4),
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 34, vertical: 12),
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Container(
+                                  width: 60.0,
+                                  height: 30,
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 2, vertical: 2),
+                                    decoration: BoxDecoration(
+                                        color:
+                                            Color.fromARGB(255, 248, 222, 162),
+                                        borderRadius:
+                                            BorderRadius.circular(30)),
+                                    child: Center(
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          FaIcon(FontAwesomeIcons.locationDot,
+                                              size: 14),
+                                          Text('0 km',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 12)),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          color: Colors.transparent,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 25,
+                                ),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 15),
+                                      child: Text(
+                                        '$name,',
+                                        style: GoogleFonts.quicksand(
+                                          color: Color.fromARGB(
+                                              255, 207, 202, 187),
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ),
-                                    )),
-                          ),
-                        ),
-                      ),
-                      //     Positioned.fill(
-                      //   bottom: 10,
-                      //   child: Align(
-                      //     alignment: Alignment.topCenter,
-                      //     child: Row(
-                      //       mainAxisAlignment: MainAxisAlignment.center,
-                      //       children: filterPhoto.map((url) {
-                      //         int index = filterPhoto.indexOf(url);
-                      //         return Container(
-                      //           width: 20.0,
-                      //           height: 10.0,
-                      //           margin: EdgeInsets.symmetric(
-                      //               vertical: 4.0, horizontal: 2.0),
-                      //           decoration: BoxDecoration(
-                      //             borderRadius: BorderRadius.circular(5),
-                      //             shape: BoxShape.rectangle,
-                      //             color: _current == index
-                      //                 ? Color.fromARGB(153, 231, 231, 231)
-                      //                 : Color.fromRGBO(0, 0, 0, 0.4),
-                      //           ),
-                      //         );
-                      //       }).toList(),
-                      //     ),
-                      //   ),
-                      // ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 34, vertical: 12),
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: Container(
-                            width: 100.0,
-                            height: 30,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 2, vertical: 2),
-                              decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 248, 222, 162),
-                                  borderRadius: BorderRadius.circular(30)),
-                              child: Center(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    FaIcon(FontAwesomeIcons.locationDot,
-                                        size: 14),
-                                    Text('0 km',
-                                        style: TextStyle(
-                                            color: Colors.black, fontSize: 12)),
+                                    ),
+                                    const SizedBox(
+                                      width: 12,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 15),
+                                      child: Text(
+                                        '$age',
+                                        style: GoogleFonts.quicksand(
+                                          color: Color.fromARGB(
+                                              255, 207, 202, 187),
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    color: Colors.transparent,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 25,
-                          ),
-                          child: Row(
-                            children: [
                               Padding(
-                                padding: const EdgeInsets.only(top: 15),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 25, vertical: 5),
                                 child: Text(
-                                  '$name,',
+                                  occupation,
                                   style: GoogleFonts.quicksand(
-                                    color: Color.fromARGB(255, 207, 202, 187),
+                                    color: Color.fromARGB(255, 194, 180, 129),
                                     fontSize: 22,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 28),
+                                child: Divider(
+                                    thickness: 2,
+                                    color: Color.fromARGB(255, 121, 108, 82)),
                               ),
                               const SizedBox(
-                                width: 12,
+                                height: 20,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  infos(
+                                    text: city,
+                                    size: size,
+                                    icon: const FaIcon(
+                                        FontAwesomeIcons.houseChimney,
+                                        color:
+                                            Color.fromARGB(198, 255, 230, 180)),
+                                  ),
+                                  Row(
+                                    children: [
+                                      infos(
+                                        text: height.toString() + ' cm',
+                                        size: size,
+                                        icon: const FaIcon(
+                                            FontAwesomeIcons.ruler,
+                                            color: Color.fromARGB(
+                                                198, 255, 230, 180)),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      infos(
+                                        text: zodiac,
+                                        size: size,
+                                        icon: const FaIcon(
+                                            FontAwesomeIcons.starAndCrescent,
+                                            color: Color.fromARGB(
+                                                198, 255, 230, 180)),
+                                      )
+                                    ],
+                                  ),
+                                  infos(
+                                    text: interested,
+                                    size: size,
+                                    icon: const FaIcon(
+                                        FontAwesomeIcons.magnifyingGlass,
+                                        color:
+                                            Color.fromARGB(198, 255, 230, 180)),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 30),
+                                    child: Divider(
+                                        thickness: 2,
+                                        color:
+                                            Color.fromARGB(255, 121, 108, 82)),
+                                  ),
+                                  Row(
+                                    children: [
+                                      infos3(
+                                          size: size,
+                                          image: 'assets/images/$imagemLink',
+                                          text: soul),
+                                    ],
+                                  )
+                                ],
+                              ),
+                              const SizedBox(height: 20),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 35, vertical: 15),
+                                child: const Text(
+                                  'Sobre mim',
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 207, 202, 187),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 15),
-                                child: Text(
-                                  '$age',
-                                  style: GoogleFonts.quicksand(
-                                    color: Color.fromARGB(255, 207, 202, 187),
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w600,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 30),
+                                child: Container(
+                                  width: size.width,
+                                  height: 120,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color:
+                                            Color.fromARGB(197, 254, 235, 197),
+                                      ),
+                                      borderRadius: BorderRadius.circular(20)),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 25, vertical: 8),
+                                  child: Text(
+                                    aboutMe,
+                                    style: const TextStyle(
+                                        letterSpacing: 0.2,
+                                        color:
+                                            Color.fromARGB(198, 255, 230, 180),
+                                        fontSize: 18),
                                   ),
                                 ),
+                              ),
+                              const SizedBox(height: 20),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 35),
+                                    child: const Text(
+                                      'INTERESSES:',
+                                      style: TextStyle(
+                                          color: Color.fromARGB(
+                                              255, 207, 202, 187),
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Container(
+                                    child: ListView.builder(
+                                        padding: EdgeInsets.zero,
+                                        shrinkWrap: true,
+                                        itemCount: listFocus.length,
+                                        itemBuilder: (context, index) {
+                                          String tex = '';
+                                          int valor = listFocus[index];
+                                          switch (valor) {
+                                            case 0:
+                                              tex = '';
+                                              break;
+                                            case 1:
+                                              tex =
+                                                  'Com a chama gêmea construir uma FAMÍLIA COM FILHOS!';
+                                              break;
+                                            case 2:
+                                              tex =
+                                                  'Com a chama gêmea construir uma FAMÍLIA COM PETS!';
+                                              break;
+                                            case 3:
+                                              tex =
+                                                  'CONVERSAR sobre o que ninguém entende!';
+                                              break;
+                                            case 4:
+                                              tex =
+                                                  'CURAR O MUNDO com trabalho ativista!';
+                                              break;
+                                            case 5:
+                                              tex =
+                                                  'COZINHAR como alquimistas! ';
+                                              break;
+                                            case 6:
+                                              tex =
+                                                  'VIAJAR NAS CIDADES da Terra!';
+                                              break;
+                                            case 7:
+                                              tex =
+                                                  'VIAJAR NA NATUREZA intocada!';
+                                              break;
+                                            case 8:
+                                              tex =
+                                                  'LER sobre os mistérios do Universo!';
+                                              break;
+                                            case 9:
+                                              tex =
+                                                  'Assistir FILMES nas noites de tempestade!';
+                                              break;
+                                            case 10:
+                                              tex =
+                                                  'Jantar em RESTAURANTES à luz de velas!';
+                                              break;
+                                            case 11:
+                                              tex =
+                                                  'Passear com os PETS enquanto conversamos!';
+                                              break;
+                                            case 12:
+                                              tex =
+                                                  'Apreciar ARTE nos museus e exposições exclusivas!';
+                                              break;
+                                            case 13:
+                                              tex =
+                                                  'Ir a SHOWS DE MÚSICA de bandas fantásticas!';
+                                              break;
+                                            case 14:
+                                              tex =
+                                                  'Fazer COMPRAS de cristais, livros e incensos!';
+                                              break;
+                                            case 15:
+                                              tex =
+                                                  'CORRER como elementais do vento!';
+                                              break;
+                                            case 16:
+                                              tex =
+                                                  'Beber chás de PLANTAS DE PODER!';
+                                              break;
+                                            case 17:
+                                              tex =
+                                                  'Passear por PRAIAS desertas!';
+                                              break;
+                                            case 18:
+                                              tex =
+                                                  'Jogar JOGOS em realidades alternativas!';
+                                              break;
+                                            case 19:
+                                              tex =
+                                                  'MEDITAR e um ashram na Índia!';
+                                              break;
+                                            case 20:
+                                              tex =
+                                                  'FOTOGRAFAR com os olhos de um mago!';
+                                              break;
+                                            case 21:
+                                              tex = 'DANÇAR como dervishes!';
+                                              break;
+                                          }
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 16, vertical: 6),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Color.fromARGB(
+                                                        197, 254, 235, 197)),
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                              child: ListTile(
+                                                  title: Text(
+                                                    tex,
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        color: Color.fromARGB(
+                                                            255,
+                                                            207,
+                                                            202,
+                                                            187)),
+                                                  ),
+                                                  onTap: () {}),
+                                            ),
+                                          );
+                                        }),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 5),
-                          child: Text(
-                            occupation,
-                            style: GoogleFonts.quicksand(
-                              color: Color.fromARGB(255, 194, 180, 129),
-                              fontSize: 22,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 28),
-                          child: Divider(
-                              thickness: 2,
-                              color: Color.fromARGB(255, 121, 108, 82)),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            infos(
-                              text: city,
-                              size: size,
-                              icon: const FaIcon(FontAwesomeIcons.houseChimney,
-                                  color: Color.fromARGB(198, 255, 230, 180)),
-                            ),
-                            Row(
-                              children: [
-                                infos(
-                                  text: height + ' cm',
-                                  size: size,
-                                  icon: const FaIcon(FontAwesomeIcons.ruler,
-                                      color:
-                                          Color.fromARGB(198, 255, 230, 180)),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                infos(
-                                  text: zodiac,
-                                  size: size,
-                                  icon: const FaIcon(
-                                      FontAwesomeIcons.starAndCrescent,
-                                      color:
-                                          Color.fromARGB(198, 255, 230, 180)),
-                                )
-                              ],
-                            ),
-                            infos(
-                              text: interested,
-                              size: size,
-                              icon: const FaIcon(
-                                  FontAwesomeIcons.magnifyingGlass,
-                                  color: Color.fromARGB(198, 255, 230, 180)),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 30),
-                              child: Divider(
-                                  thickness: 2,
-                                  color: Color.fromARGB(255, 121, 108, 82)),
-                            ),
-                            Row(
-                              children: [
-                                infos3(
-                                    size: size,
-                                    image: 'assets/images/$imagemLink',
-                                    text: soul),
-                              ],
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 35, vertical: 15),
-                          child: const Text(
-                            'Sobre mim',
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 207, 202, 187),
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
-                          child: Container(
-                            width: size.width,
-                            height: 120,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Color.fromARGB(197, 254, 235, 197),
-                                ),
-                                borderRadius: BorderRadius.circular(20)),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 25, vertical: 8),
-                            child: Text(
-                              aboutMe,
-                              style: const TextStyle(
-                                  letterSpacing: 0.2,
-                                  color: Color.fromARGB(198, 255, 230, 180),
-                                  fontSize: 18),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 35),
-                              child: const Text(
-                                'INTERESSES:',
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 207, 202, 187),
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Container(
-                              child: ListView.builder(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  itemCount: listFocus.length,
-                                  itemBuilder: (context, index) {
-                                    String tex = '';
-                                    int valor = listFocus[index];
-                                    switch (valor) {
-                                      case 0:
-                                        tex = '';
-                                        break;
-                                      case 1:
-                                        tex =
-                                            'Com a chama gêmea construir uma FAMÍLIA COM FILHOS!';
-                                        break;
-                                      case 2:
-                                        tex =
-                                            'Com a chama gêmea construir uma FAMÍLIA COM PETS!';
-                                        break;
-                                      case 3:
-                                        tex =
-                                            'CONVERSAR sobre o que ninguém entende!';
-                                        break;
-                                      case 4:
-                                        tex =
-                                            'CURAR O MUNDO com trabalho ativista!';
-                                        break;
-                                      case 5:
-                                        tex = 'COZINHAR como alquimistas! ';
-                                        break;
-                                      case 6:
-                                        tex = 'VIAJAR NAS CIDADES da Terra!';
-                                        break;
-                                      case 7:
-                                        tex = 'VIAJAR NA NATUREZA intocada!';
-                                        break;
-                                      case 8:
-                                        tex =
-                                            'LER sobre os mistérios do Universo!';
-                                        break;
-                                      case 9:
-                                        tex =
-                                            'Assistir FILMES nas noites de tempestade!';
-                                        break;
-                                      case 10:
-                                        tex =
-                                            'Jantar em RESTAURANTES à luz de velas!';
-                                        break;
-                                      case 11:
-                                        tex =
-                                            'Passear com os PETS enquanto conversamos!';
-                                        break;
-                                      case 12:
-                                        tex =
-                                            'Apreciar ARTE nos museus e exposições exclusivas!';
-                                        break;
-                                      case 13:
-                                        tex =
-                                            'Ir a SHOWS DE MÚSICA de bandas fantásticas!';
-                                        break;
-                                      case 14:
-                                        tex =
-                                            'Fazer COMPRAS de cristais, livros e incensos!';
-                                        break;
-                                      case 15:
-                                        tex =
-                                            'CORRER como elementais do vento!';
-                                        break;
-                                      case 16:
-                                        tex = 'Beber chás de PLANTAS DE PODER!';
-                                        break;
-                                      case 17:
-                                        tex = 'Passear por PRAIAS desertas!';
-                                        break;
-                                      case 18:
-                                        tex =
-                                            'Jogar JOGOS em realidades alternativas!';
-                                        break;
-                                      case 19:
-                                        tex = 'MEDITAR e um ashram na Índia!';
-                                        break;
-                                      case 20:
-                                        tex =
-                                            'FOTOGRAFAR com os olhos de um mago!';
-                                        break;
-                                      case 21:
-                                        tex = 'DANÇAR como dervishes!';
-                                        break;
-                                    }
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16, vertical: 6),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Color.fromARGB(
-                                                  197, 254, 235, 197)),
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        child: ListTile(
-                                            title: Text(
-                                              tex,
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Color.fromARGB(
-                                                      255, 207, 202, 187)),
-                                            ),
-                                            onTap: () {}),
-                                      ),
-                                    );
-                                  }),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Container(
-                      height: size.height * 0.46,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: const Color.fromARGB(255, 62, 62, 62)),
-                          borderRadius: BorderRadius.circular(8)),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: CachedNetworkImage(
-                          fadeInDuration: const Duration(milliseconds: 0),
-                          fadeOutDuration: const Duration(milliseconds: 0),
-                          fit: BoxFit.cover,
-                          imageUrl: photos[0]['url'],
-                          width: size.width,
-                          height: size.height,
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Container(
-                  //   padding: const EdgeInsets.symmetric(
-                  //       horizontal: 25, vertical: 10),
-                  //   child: Flexible(
-                  //     child: Text(
-                  //       'Proximidades de ${arguments['name']}',
-                  //       style: const TextStyle(
-                  //           color: Color.fromARGB(255, 207, 202, 187),
-                  //           fontSize: 18,
-                  //           fontWeight: FontWeight.bold),
-                  //     ),
-                  //   ),
-                  // ),
-                  // Padding(
-                  //   padding: const EdgeInsets.all(15),
-                  //   child: Container(
-                  //     height: size.height * 0.25,
-                  //     decoration: BoxDecoration(
-                  //         border: Border.all(
-                  //             color: const Color.fromARGB(255, 62, 62, 62)),
-                  //         borderRadius: BorderRadius.circular(8)),
-                  //     child: ClipRRect(
-                  //       borderRadius: BorderRadius.circular(8),
-                  //       child: FlutterMap(
-                  //         options: MapOptions(
-                  //           center: lat.LatLng(latitude, longitude),
-                  //           zoom: 12.0,
-                  //         ),
-                  //         layers: [
-                  //           TileLayerOptions(
-                  //               urlTemplate:
-                  //                   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                  //               subdomains: ['a', 'b', 'c']),
-                  //           CircleLayerOptions(circles: circleMarkers)
-                  //         ],
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  photos[1]['url'] != 'nulo'
-                      ? Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: Container(
-                            height: size.height * 0.46,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Color.fromARGB(255, 0, 0, 0)),
-                                borderRadius: BorderRadius.circular(8)),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: CachedNetworkImage(
-                                fadeInDuration: const Duration(milliseconds: 0),
-                                fadeOutDuration:
-                                    const Duration(milliseconds: 0),
-                                fit: BoxFit.cover,
-                                imageUrl: photos[1]['url'],
-                                width: size.width,
-                                height: size.height,
-                              ),
-                            ),
-                          ),
-                        )
-                      : Container(
-                          color: Colors.transparent,
-                        ),
-                  photos[2]['url'] != 'nulo'
-                      ? Padding(
                           padding: const EdgeInsets.all(15),
                           child: Container(
                             height: size.height * 0.46,
@@ -799,365 +630,110 @@ class _UserPageMeState extends State<UserPageMe> {
                                 fadeOutDuration:
                                     const Duration(milliseconds: 0),
                                 fit: BoxFit.cover,
-                                imageUrl: photos[2]['url'],
+                                imageUrl: photos[0]['url'],
                                 width: size.width,
                                 height: size.height,
                               ),
                             ),
                           ),
-                        )
-                      : Container(
-                          color: Colors.transparent,
                         ),
-                ]),
-              ),
-            ),
+                        photos[1]['url'] != 'nulo'
+                            ? Padding(
+                                padding: const EdgeInsets.all(15),
+                                child: Container(
+                                  height: size.height * 0.46,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Color.fromARGB(255, 0, 0, 0)),
+                                      borderRadius: BorderRadius.circular(8)),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: CachedNetworkImage(
+                                      fadeInDuration:
+                                          const Duration(milliseconds: 0),
+                                      fadeOutDuration:
+                                          const Duration(milliseconds: 0),
+                                      fit: BoxFit.cover,
+                                      imageUrl: photos[1]['url'],
+                                      width: size.width,
+                                      height: size.height,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                color: Colors.transparent,
+                              ),
+                        photos[2]['url'] != 'nulo'
+                            ? Padding(
+                                padding: const EdgeInsets.all(15),
+                                child: Container(
+                                  height: size.height * 0.46,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: const Color.fromARGB(
+                                              255, 62, 62, 62)),
+                                      borderRadius: BorderRadius.circular(8)),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: CachedNetworkImage(
+                                      fadeInDuration:
+                                          const Duration(milliseconds: 0),
+                                      fadeOutDuration:
+                                          const Duration(milliseconds: 0),
+                                      fit: BoxFit.cover,
+                                      imageUrl: photos[2]['url'],
+                                      width: size.width,
+                                      height: size.height,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                color: Colors.transparent,
+                              )
+                      ],
+                    )),
+                  )
+                : Text(''),
           ),
         ),
       ),
     );
   }
 
-  Future sendEmail({
-    required String name,
-    required String email,
-    required String subject,
-    required String message,
-    required String id,
-  }) async {
-    final serviceId = 'service_veh5s9i';
-    final templateId = 'template_c5epiyk';
-    final userId = 'xDYWDYgAVAzkk3hQ1';
-
-    final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
-    final response = await http.post(
-      url,
-      headers: {
-        'origin': 'http://localhost',
-        'Content-Type': 'application/json',
-      },
-      body: json.encode({
-        'service_id': serviceId,
-        'template_id': templateId,
-        'user_id': userId,
-        'template_params': {
-          'user_name': name,
-          'user_email': email,
-          'user_subject': subject,
-          'user_message': message,
-        },
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      Navigator.pop(context);
-      final provider = Provider.of<CardProvider>(context, listen: false);
-
-      dislike2(id);
-      Navigator.popAndPushNamed(context, '/home');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: Colors.green,
-          content: Text(
-            'Denuncia enviada com sucesso!',
-            style: TextStyle(fontSize: 20),
-          ),
-        ),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: Colors.red,
-          content: Text(
-            'Falha no envio da denuncia!',
-            style: TextStyle(fontSize: 20),
-          ),
-        ),
-      );
-    }
-  }
-
-  void like(String uids) async {
+  void load() async {
     String? uid = FirebaseAuth.instance.currentUser?.uid;
-
-    List listDislikedMe = [];
-
-    final disliked =
-        await FirebaseFirestore.instance.collection('liked').doc(uid).get();
-
-    if (disliked.exists) {
-      listDislikedMe = disliked['id'];
-    }
-
-    if (!listDislikedMe.contains(uids)) listDislikedMe.add(uids);
-
-    await FirebaseFirestore.instance
-        .collection('liked')
-        .doc(uid)
-        .set({"id": listDislikedMe});
-
-    List listLikedMe = [];
-
-    final likedme =
-        await FirebaseFirestore.instance.collection('liked_me').doc(uids).get();
-
-    if (likedme.exists) {
-      listLikedMe = likedme['id'];
-    }
-    if (!listLikedMe.contains(uid) && uid != null) listLikedMe.add(uid);
-    await FirebaseFirestore.instance
-        .collection('liked_me')
-        .doc(uids)
-        .set({"id": listLikedMe});
-  }
-
-  void listt() async {
-    String? uid = FirebaseAuth.instance.currentUser?.uid;
-
-    List listMe = [];
-
-    final snapShot =
+    String prucura = '';
+    List filtrada = [];
+    final userList =
         await FirebaseFirestore.instance.collection('users').doc(uid).get();
-
-    print(snapShot['interested']);
-    for (int i = 0; i <= snapShot['photos'].length; i++) {
-      if (snapShot['photos'][i]['name'] != 'nulo') {
-        listMe.add(snapShot['photos'][i]);
+    for (int i = 0; i < userList['photos'].length; i++) {
+      if (userList['photos'][i]['name'] != 'nulo') {
+        filtrada.add(userList['photos'][i]);
       }
     }
+    userList['typeInterested'] == 0 ? prucura = 'Namoro' : prucura = 'Amizade';
 
-    setState(() {
-      name = snapShot['name'].toUpperCase();
-      age = snapShot['age'];
-      latitude = double.parse(snapShot['latitude']);
-      longitude = double.parse(snapShot['longitude']);
+    if (mounted)
+      setState(() {
+        age = userList['age'];
+        name = userList['name'];
+        occupation = userList['occupation'];
+        aboutMe = userList['aboutMe'];
+        city = userList['city'];
+        height = userList['height'];
+        interested = prucura;
+        soul = userList['soul'];
+        zodiac = userList['zodiac'];
+        photos = userList['photos'];
+        listFocus = userList['listFocus'];
+        filterPhoto = filtrada;
+        imagemLink = userList['soul'] + '.png';
 
-      photos = listMe;
-      listFocus = snapShot['listFocus'];
-      city = snapShot['city'];
-      height = snapShot['height'];
-      if (snapShot['typeInterested'] == '0') {
-        interested = 'Namoro';
-      } else {
-        interested = 'Amizade';
-      }
-      soul = snapShot['soul'];
-      zodiac = snapShot['zodiac'];
-      aboutMe = snapShot['aboutMe'];
-      occupation = snapShot['occupation'];
-    });
-  }
-
-  void dislike2(String uids) async {
-    String? uid = FirebaseAuth.instance.currentUser?.uid;
-
-    List listDislikedMe = [];
-
-    final disliked =
-        await FirebaseFirestore.instance.collection('dislike').doc(uid).get();
-
-    if (disliked.exists) {
-      listDislikedMe = disliked['id'];
-    }
-
-    if (!listDislikedMe.contains(uids)) listDislikedMe.add(uids);
-
-    await FirebaseFirestore.instance
-        .collection('dislike')
-        .doc(uid)
-        .set({"id": listDislikedMe});
-  }
-
-  Future<int> consUser() async {
-    String? uid = FirebaseAuth.instance.currentUser?.uid;
-
-    final verifyCoin =
-        await FirebaseFirestore.instance.collection('users').doc(uid).get();
-
-    int coins = verifyCoin['coin'];
-    return coins;
-  }
-
-  Future fetchOffers() async {
-    final offerings = await PurchaseApi.fetchOffersByIds(Coins.allIds);
-
-    if (offerings.isEmpty) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('No Plans Found')));
-    } else {
-      final packages = offerings
-          .map((offer) => offer.availablePackages)
-          .expand((pair) => pair)
-          .toList();
-
-      showMaterialModalBottomSheet(
-        expand: false,
-        context: context,
-        backgroundColor: Color.fromARGB(231, 0, 0, 0),
-        builder: (context) => PaywallWidget(
-            packages: packages,
-            title: 'Chamas Premium',
-            description: 'Veja quem te curtiu.',
-            onClickedPackage: (package) async {
-              final isSuccess = await PurchaseApi.purchasePackage(package);
-
-              if (isSuccess) {
-                await addCoinsPackag2e(package);
-                await Fluttertoast.showToast(
-                    msg: "Compra realizada com sucesso.",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.CENTER,
-                    timeInSecForIosWeb: 2,
-                    backgroundColor: Colors.green,
-                    textColor: Colors.white,
-                    fontSize: 16.0);
-              } else {
-                await Fluttertoast.showToast(
-                    msg: "Falha na compra.",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.CENTER,
-                    timeInSecForIosWeb: 2,
-                    backgroundColor: Colors.red,
-                    textColor: Colors.white,
-                    fontSize: 16.0);
-              }
-
-              Navigator.pop(context);
-            }),
-      );
-
-      final offer = offerings.first;
-      print('Offer: $offer');
-    }
-  }
-
-  void sendPushMessage(
-      String message, String? currentUserName, String? token) async {
-    try {
-      await http.post(
-        Uri.parse('https://fcm.googleapis.com/fcm/send'),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Authorization':
-              'key=AAAAhIRIRac:APA91bGld0gKYT_K5i7BTRCOdxBz14Qj4Cs85LmDd2bCSZOlEHaV2GvbxVGk307kQqGY5y3AXqjVbye-7CkIH0jTYnnAmfjNfxTpvGYTfvQ3CDvdlvdKRjrB-T7Lgn17YdanVXO4eQdZ',
-        },
-        body: jsonEncode(
-          <String, dynamic>{
-            'notification': <String, dynamic>{
-              'body': '$message',
-              'title': '$currentUserName',
-              'android-channel_id': 'dbfood'
-            },
-            'priority': 'high',
-            'data': <String, dynamic>{
-              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-              'id': '1',
-              'status': 'done'
-            },
-            "to": "$token",
-          },
-        ),
-      );
-      print('sendeed');
-    } catch (e) {
-      print("error push notification");
-    }
-  }
-
-  Future<void> addCoinsPackag2e(Package package) async {
-    String? uid = FirebaseAuth.instance.currentUser?.uid;
-
-    final foundLikeMe =
-        await FirebaseFirestore.instance.collection('users').doc(uid).get();
-
-    int coins = foundLikeMe['coin'];
-    switch (package.product.identifier) {
-      case Coins.idCoins2:
-        coins += 1;
-        break;
-      case Coins.idCoins3:
-        coins += 10;
-        break;
-      case Coins.idCoins4:
-        coins += 100;
-        break;
-      case Coins.idCoins5:
-        coins += 1;
-        break;
-      case Coins.idCoins6:
-        coins += 10;
-        break;
-      case Coins.idCoins8:
-        coins += 100;
-        break;
-      default:
-        break;
-    }
-
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .update({'coin': coins});
-  }
-
-  verifyMatch(actualUser, name, photoUser) async {
-    List photoUs = [];
-    List likedMe = [];
-    String? uid = FirebaseAuth.instance.currentUser?.uid;
-
-    final foundLikeMe =
-        await FirebaseFirestore.instance.collection('liked_me').doc(uid).get();
-    if (foundLikeMe.exists) {
-      likedMe = foundLikeMe['id'];
-    }
-
-    final foMe =
-        await FirebaseFirestore.instance.collection('users').doc(uid).get();
-    if (foMe.exists) {
-      photoUs = foMe['photos'];
-    }
-
-    print('---------------');
-    print(photoUs[0]['url']);
-    print(photoUser);
-    print('---------------');
-
-    if (likedMe.contains(actualUser)) {
-      Navigator.pushNamed(context, '/matchScreen', arguments: {
-        "userLiked": actualUser,
-        'photo': photoUs[0]['url'],
-        'name': name,
-        'photoUser': photoUser
+        print(age);
+        print(imagemLink);
       });
-    } else {
-      Navigator.pushNamed(context, '/home');
-    }
-  }
-
-  MaterialStateProperty<Color> getColor(
-      Color color, Color colorPressed, bool force) {
-    final getColor = (Set<MaterialState> states) {
-      if (force || states.contains(MaterialState.pressed)) {
-        return colorPressed;
-      } else {
-        return color;
-      }
-    };
-
-    return MaterialStateProperty.resolveWith(getColor);
-  }
-
-  MaterialStateProperty<BorderSide> getBorder(
-      Color color, Color colorPressed, bool force) {
-    final getBorder = (Set<MaterialState> states) {
-      if (force || states.contains(MaterialState.pressed)) {
-        return BorderSide(color: Colors.transparent);
-      } else {
-        return BorderSide(color: color, width: 2);
-      }
-    };
-
-    return MaterialStateProperty.resolveWith(getBorder);
   }
 }
 
@@ -1270,60 +846,4 @@ class infos3 extends StatelessWidget {
       ),
     );
   }
-}
-
-class CustomClipPath extends CustomClipper<Path> {
-  bool reverse;
-
-  CustomClipPath({this.reverse = false});
-
-  final int _coefficient = 16;
-  double get _minStep => 1 / _coefficient;
-  double get _preCenter => _minStep * (_coefficient / 2 - 1);
-  double get _postCenter => _minStep * (_coefficient / 2 + 1);
-  double get _preEnd => _minStep * (_coefficient - 2);
-
-  @override
-  Path getClip(Size size) {
-    var path = Path();
-    if (!reverse) {
-      path.lineTo(0.0, size.height - 20);
-
-      var firstControlPoint = Offset(size.width / 4, size.height);
-      var firstEndPoint = Offset(size.width / 2.25, size.height - 30.0);
-      path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
-          firstEndPoint.dx, firstEndPoint.dy);
-
-      var secondControlPoint =
-          Offset(size.width - (size.width / 3.25), size.height - 65);
-      var secondEndPoint = Offset(size.width, size.height - 40);
-      path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy,
-          secondEndPoint.dx, secondEndPoint.dy);
-
-      path.lineTo(size.width, size.height - 40);
-      path.lineTo(size.width, 0.0);
-      path.close();
-    } else {
-      path.lineTo(0.0, 20);
-
-      var firstControlPoint = Offset(size.width / 4, 0.0);
-      var firstEndPoint = Offset(size.width / 2.25, 30.0);
-      path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
-          firstEndPoint.dx, firstEndPoint.dy);
-
-      var secondControlPoint = Offset(size.width - (size.width / 3.25), 65);
-      var secondEndPoint = Offset(size.width, 40);
-      path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy,
-          secondEndPoint.dx, secondEndPoint.dy);
-
-      path.lineTo(size.width, size.height);
-      path.lineTo(0.0, size.height);
-      path.close();
-    }
-
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
