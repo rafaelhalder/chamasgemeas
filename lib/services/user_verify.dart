@@ -126,8 +126,8 @@ class _VerifyUserState extends State<VerifyUser> {
         });
 
         await FirebaseFirestore.instance.collection('filter').doc(uid).set({
-          'distance': 80,
-          "age": [0, 80]
+          'distance': 15000,
+          "age": [0, 99]
         });
       } on FirebaseException catch (e) {
         print(e.message);

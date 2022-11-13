@@ -626,9 +626,7 @@ class _ChatDetailState extends State<ChatDetail> {
                                         ),
                                         child: Column(
                                           children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
+                                            Column(
                                               children: [
                                                 DefaultTextStyle(
                                                   style: GoogleFonts.raleway(
@@ -638,20 +636,26 @@ class _ChatDetailState extends State<ChatDetail> {
                                                         : Colors.white,
                                                     fontSize: 15,
                                                   ),
-                                                  child: Padding(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 4),
-                                                    child: Text(
-                                                      data['msg'],
-                                                      maxLines: 100,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: TextStyle(
-                                                          color: Colors.black),
+                                                  child: Container(
+                                                    width: 400,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 4),
+                                                      child: Expanded(
+                                                        child: Text(
+                                                          data['msg'],
+                                                          maxLines: 100,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                      ),
                                                     ),
                                                   ),
-                                                )
+                                                ),
                                               ],
                                             ),
                                             Row(

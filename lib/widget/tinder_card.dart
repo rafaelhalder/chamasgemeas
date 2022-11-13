@@ -229,7 +229,6 @@ class _TinderCardState extends State<TinderCard> {
                       child: Icon(Icons.settings_backup_restore),
                       onTap: () {
                         fetchOffersPremium(uid);
-                        provider.rollback();
                         print('clicked');
                       })),
               Container(
