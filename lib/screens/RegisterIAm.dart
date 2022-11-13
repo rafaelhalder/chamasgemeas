@@ -150,6 +150,10 @@ class _RegisterIAmState extends State<RegisterIAm> {
                                       return Container();
                                     }
                                   }
+                                  if (index.toString() == '6') {
+                                    return Container();
+                                  }
+
                                   if (index.toString() == '3' ||
                                       index.toString() == '4' ||
                                       index.toString() == '5') {

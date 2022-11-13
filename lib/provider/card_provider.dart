@@ -410,10 +410,6 @@ class CardProvider extends ChangeNotifier {
       documents.forEach((snapshot) {
         var userLiked = (snapshot.data() as Map<String, dynamic>);
 
-        print('-------------');
-        print(userLiked);
-        print('-------------');
-
         var distance = const lati.Distance();
         var km = distance.as(
             lati.LengthUnit.Kilometer,
@@ -483,10 +479,6 @@ class CardProvider extends ChangeNotifier {
 
       final List<DocumentSnapshot> documents = result.docs;
       final List<DocumentSnapshot> documentsme = resultMe.docs;
-
-      print('-------------');
-      print(documents);
-      print('-------------');
 
       if (documents.length == 0) {
         _users = [];
