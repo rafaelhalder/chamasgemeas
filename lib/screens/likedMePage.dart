@@ -335,14 +335,14 @@ class _LikedMePageState extends State<LikedMePage> {
             .doc(likedList[i])
             .get();
 
-        if (list['status'] == true) {
-          likedList2.add({
-            'photos': list['photos'][0]['url'],
-            'name': list['name'],
-            'uid': list['uid'],
-            'info': list,
-          });
-        }
+//        if (list['status'] == true) {
+        likedList2.add({
+          'photos': list['photos'][0]['url'],
+          'name': list['name'],
+          'uid': list['uid'],
+          'info': list,
+        });
+        //}
       }
     }
 

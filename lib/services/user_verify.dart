@@ -4,6 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/services.dart';
+
+import 'auth_service.dart';
 
 class VerifyUser extends StatefulWidget {
   const VerifyUser({Key? key}) : super(key: key);
@@ -140,6 +143,13 @@ class _VerifyUserState extends State<VerifyUser> {
     } else {
       DocumentSnapshot variable =
           await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      bool verifyOld = variable['status'];
+      if (verifyOld == false) {
+        var user = FirebaseAuth.instance.currentUser;
+        user?.delete();
+        await AuthService().signOut();
+        SystemNavigator.pop();
+      }
 
       getToken();
 

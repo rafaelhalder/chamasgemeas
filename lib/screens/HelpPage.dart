@@ -46,11 +46,11 @@ class _HelpPageState extends State<HelpPage> {
     Widget continueButton = TextButton(
       child: Text("Sim", style: TextStyle(color: Colors.red)),
       onPressed: () async {
+        user?.delete();
         await FirebaseFirestore.instance
             .collection('users')
             .doc(uid)
             .update({'status': false});
-        user?.delete();
         await AuthService().signOut();
         SystemNavigator.pop();
       },
