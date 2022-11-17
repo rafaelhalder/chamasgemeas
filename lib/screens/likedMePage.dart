@@ -311,13 +311,8 @@ class _LikedMePageState extends State<LikedMePage> {
     List likedList = [];
     List likedListReturn = [];
 
-    // final like =
-    //     await FirebaseFirestore.instance.collection('liked_me').doc(uid).get();
-    final like = await FirebaseFirestore.instance
-        .collection('liked_me')
-        .doc(uid)
-        // .doc('jMc5joRFQ3hicTIhI9Ti4nfUPqq1')
-        .get();
+    final like =
+        await FirebaseFirestore.instance.collection('liked_me').doc(uid).get();
 
     if (like.exists) {
       likedList = like['id'];
@@ -328,14 +323,12 @@ class _LikedMePageState extends State<LikedMePage> {
             .doc(likedList[i])
             .get();
 
-//        if (list['status'] == true) {
         likedListReturn.add({
           'photos': list['photos'][0]['url'],
           'name': list['name'],
           'uid': list['uid'],
           'info': list,
         });
-        //}
       }
     }
 

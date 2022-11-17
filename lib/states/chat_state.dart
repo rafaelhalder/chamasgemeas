@@ -58,6 +58,7 @@ abstract class _ChatState with Store {
                 doc['photo'] = docs["photos"][0]['url'];
                 doc['status'] = docs['status'];
                 doc['token'] = docs['token'];
+                doc['nameFriend'] = docs['name'];
               }
             });
 
@@ -65,7 +66,7 @@ abstract class _ChatState with Store {
               messages[doc['name']] = {
                 'msg': snapshot.docs.first['msg'],
                 'time': snapshot.docs.first['createdOn'],
-                'friendName': doc['name'],
+                'friendName': doc['nameFriend'],
                 'friendUid': doc['key'],
                 'photo': doc['photo'],
                 'status': doc['status'],
@@ -76,7 +77,7 @@ abstract class _ChatState with Store {
               messages[doc['name']] = {
                 'msg': '',
                 'time': '',
-                'friendName': doc['name'],
+                'friendName': doc['nameFriend'],
                 'friendUid': doc['key'],
                 'photo': doc['photo'],
                 'status': doc['status'],
