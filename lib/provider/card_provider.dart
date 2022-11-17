@@ -527,7 +527,6 @@ class CardProvider extends ChangeNotifier {
             if (distanceUser >= km) {
               if (!dislikeTe.contains(userLiked['uid'])) {
                 if (!likeTe.contains(userLiked['uid'])) {
-                  print('aquiiiiiiiiiiii2');
                   userLiked['listFocus'] == null
                       ? userLiked['listFocus'] = [1]
                       : '';

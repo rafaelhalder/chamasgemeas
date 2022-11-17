@@ -554,7 +554,7 @@ class _TinderCardState extends State<TinderCard> {
           Text(
             widget.user.name,
             style: GoogleFonts.cinzelDecorative(
-              fontSize: 23,
+              fontSize: 21,
               color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
@@ -562,7 +562,7 @@ class _TinderCardState extends State<TinderCard> {
           Text(
             ', ${widget.user.age}',
             style: GoogleFonts.cinzelDecorative(
-                fontSize: 24, color: Colors.black, fontWeight: FontWeight.bold),
+                fontSize: 22, color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ],
       );
