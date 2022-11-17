@@ -62,9 +62,6 @@ class AuthService {
       rawNonce: rawNonce,
     );
 
-    print('-------------------------');
-    print(appleCredential.identityToken);
-
     // Sign in the user with Firebase. If the nonce we generated earlier does
     // not match the nonce in `appleCredential.identityToken`, sign in will fail.
 
@@ -74,10 +71,6 @@ class AuthService {
   signInWithFacebook() async {
     try {
       final LoginResult loginResult = await FacebookAuth.instance.login();
-      print('33333333333333333');
-      print(loginResult.accessToken);
-      print(loginResult.status);
-      print(loginResult.message);
 
       final OAuthCredential facebookAuthCredential =
           FacebookAuthProvider.credential(loginResult.accessToken!.token);
@@ -85,10 +78,8 @@ class AuthService {
       return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
     } on PlatformException catch (e) {
       print('error caught: $e');
-      print('1111111111111111111111111');
     } catch (e) {
       print('error caught: $e');
-      print('222222222222222222222');
     }
   }
 

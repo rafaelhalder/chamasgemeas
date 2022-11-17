@@ -4,12 +4,12 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class RoghtNow extends StatefulWidget {
+class TermSecure extends StatefulWidget {
   @override
-  _RoghtNowState createState() => _RoghtNowState();
+  _TermSecureState createState() => _TermSecureState();
 }
 
-class _RoghtNowState extends State<RoghtNow> {
+class _TermSecureState extends State<TermSecure> {
   String selectedIndex = '';
   User? user = FirebaseAuth.instance.currentUser;
   int age = 0;

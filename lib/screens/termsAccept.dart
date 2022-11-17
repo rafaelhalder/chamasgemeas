@@ -252,7 +252,6 @@ class _TermsAcceptState extends State<TermsAccept> {
         // Android's shouldShowRequestPermissionRationale
         // returned true. According to Android guidelines
         // your App should show an explanatory UI now.
-        print('serviceEnable2222222');
 
         return false;
       }
@@ -260,7 +259,6 @@ class _TermsAcceptState extends State<TermsAccept> {
 
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
-      print('serviceEnable3333333');
 
       return false;
     }

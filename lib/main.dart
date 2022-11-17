@@ -21,8 +21,8 @@ import 'package:chamasgemeas/screens/registerStep6.dart';
 import 'package:chamasgemeas/screens/registerStep7.dart';
 import 'package:chamasgemeas/screens/superLikePage.dart';
 import 'package:chamasgemeas/screens/termsAccept.dart';
-import 'package:chamasgemeas/screens/termsAccept2.dart';
-import 'package:chamasgemeas/screens/termsAccept3.dart';
+import 'package:chamasgemeas/screens/accept.dart';
+import 'package:chamasgemeas/screens/termSecure.dart';
 import 'package:chamasgemeas/screens/termsAcceptCommunity.dart';
 import 'package:chamasgemeas/screens/termsAcceptPolicy.dart';
 import 'package:chamasgemeas/screens/userPage.dart';
@@ -130,7 +130,7 @@ class MyApp extends StatelessWidget {
           '/policy': (context) => Policy(),
           '/community': (context) => Community(),
           '/acc': (context) => Accept(),
-          '/roghtow': (context) => RoghtNow(),
+          '/termsecure': (context) => TermSecure(),
           '/welcome': (context) => WelcomePage(),
           '/userme': (context) => UserPageMe(),
         },

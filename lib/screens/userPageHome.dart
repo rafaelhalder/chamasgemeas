@@ -975,7 +975,7 @@ class _UserPageHomeState extends State<UserPageHome> {
                                   ),
                                   Row(
                                     children: [
-                                      infos3(
+                                      infoImage(
                                           size: size,
                                           image: 'assets/images/$imagemLink',
                                           text: soul),
@@ -1202,46 +1202,6 @@ class _UserPageHomeState extends State<UserPageHome> {
                                 ),
                               )
                             : Text(''),
-                        // Container(
-                        //   padding: const EdgeInsets.symmetric(
-                        //       horizontal: 25, vertical: 10),
-                        //   child: Flexible(
-                        //     child: Text(
-                        //       'Proximidades de ${name}',
-                        //       style: GoogleFonts.cinzelDecorative(
-                        //           color: Color.fromARGB(255, 207, 202, 187),
-                        //           fontSize: 18,
-                        //           fontWeight: FontWeight.bold),
-                        //     ),
-                        //   ),
-                        // ),
-                        // Padding(
-                        //   padding: const EdgeInsets.all(15),
-                        //   child: Container(
-                        //     height: size.height * 0.25,
-                        //     decoration: BoxDecoration(
-                        //         border: Border.all(
-                        //             color:
-                        //                 const Color.fromARGB(255, 62, 62, 62)),
-                        //         borderRadius: BorderRadius.circular(8)),
-                        //     child: ClipRRect(
-                        //       borderRadius: BorderRadius.circular(8),
-                        //       child: FlutterMap(
-                        //         options: MapOptions(
-                        //           center: lat.LatLng(latitude, longitude),
-                        //           zoom: 12.0,
-                        //         ),
-                        //         layers: [
-                        //           TileLayerOptions(
-                        //               urlTemplate:
-                        //                   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                        //               subdomains: ['a', 'b', 'c']),
-                        //           CircleLayerOptions(circles: circleMarkers)
-                        //         ],
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                         if (photos.length > 1 && photos[1]['url'] != 'nulo')
                           photos[1]['url'] != 'nulo'
                               ? Padding(
@@ -1340,7 +1300,7 @@ class _UserPageHomeState extends State<UserPageHome> {
               final isSuccess = await PurchaseApi.purchasePackage(package);
 
               if (isSuccess) {
-                await addCoinsPackag2e(package);
+                await addCoinsPackage(package);
                 await Fluttertoast.showToast(
                     msg: "Compra realizada com sucesso.",
                     toastLength: Toast.LENGTH_SHORT,
@@ -1402,7 +1362,7 @@ class _UserPageHomeState extends State<UserPageHome> {
     }
   }
 
-  Future<void> addCoinsPackag2e(Package package) async {
+  Future<void> addCoinsPackage(Package package) async {
     String? uid = FirebaseAuth.instance.currentUser?.uid;
 
     final foundLikeMe =
@@ -1524,45 +1484,8 @@ class infos extends StatelessWidget {
   }
 }
 
-class infos2 extends StatelessWidget {
-  const infos2({
-    Key? key,
-    required this.size,
-    required this.image,
-    required this.text,
-  }) : super(key: key);
-
-  final Size size;
-  final String image;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
-      width: size.width * 0.5,
-      child: Row(
-        children: [
-          Image.asset(
-            image,
-            width: 60,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(
-            text,
-            style: const TextStyle(
-                color: Color.fromARGB(255, 84, 75, 57), fontSize: 18),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class infos3 extends StatelessWidget {
-  const infos3({
+class infoImage extends StatelessWidget {
+  const infoImage({
     Key? key,
     required this.size,
     required this.image,

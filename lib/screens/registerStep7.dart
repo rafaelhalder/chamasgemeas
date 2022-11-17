@@ -21,10 +21,9 @@ class _RegisterStep7State extends State<RegisterStep7> {
   int? typeInterested = 0;
   User? user = FirebaseAuth.instance.currentUser;
   String? uid = FirebaseAuth.instance.currentUser?.uid;
-  String testes = '';
+  String firstPhoto = '';
   //
   //String teste = FirebaseAuth.instance.currentUser!.photoURL!;
-  late String teste2;
   List multipleSelected = [];
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
@@ -134,7 +133,7 @@ class _RegisterStep7State extends State<RegisterStep7> {
       print(e);
     }
     setState(() {
-      testes = listPhotos[0]['name'];
+      firstPhoto = listPhotos[0]['name'];
     });
   }
 

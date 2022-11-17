@@ -355,12 +355,11 @@ class CardProvider extends ChangeNotifier {
     final dislike =
         await FirebaseFirestore.instance.collection('dislike').doc(uid).get();
 
-    List dislikeTe = [];
-    List tese = [];
+    List dislikeMe = [];
 
     if (dislike.exists) {
       _disliked.add(dislike['id']);
-      dislikeTe = dislike['id'];
+      dislikeMe = dislike['id'];
     }
     if (_interestedUser == '7') {
       final QuerySnapshot result = await FirebaseFirestore.instance
@@ -421,13 +420,12 @@ class CardProvider extends ChangeNotifier {
           if (userLiked['interested'] == genderUser) {
             if (userLiked['photos'][0]['url'] != 'nulo') {
               if (distanceUser >= km) {
-                if (!dislikeTe.contains(userLiked['uid'])) {
+                if (!dislikeMe.contains(userLiked['uid'])) {
                   if (!likeTe.contains(userLiked['uid'])) {
                     userLiked['listFocus'] == null
                         ? userLiked['listFocus'] = [1]
                         : '';
                     if (userLiked['uid'] != uid) {
-                      tese.add(userLiked['age']);
                       _users.add(Users(
                           age: userLiked['age'],
                           city: userLiked['city'],
@@ -525,13 +523,12 @@ class CardProvider extends ChangeNotifier {
         if (userLiked['interested'] == genderUser) {
           if (userLiked['photos'][0]['url'] != 'nulo') {
             if (distanceUser >= km) {
-              if (!dislikeTe.contains(userLiked['uid'])) {
+              if (!dislikeMe.contains(userLiked['uid'])) {
                 if (!likeTe.contains(userLiked['uid'])) {
                   userLiked['listFocus'] == null
                       ? userLiked['listFocus'] = [1]
                       : '';
                   if (userLiked['uid'] != uid) {
-                    tese.add(userLiked['age']);
                     _users.add(Users(
                         age: userLiked['age'],
                         city: userLiked['city'],
@@ -564,7 +561,6 @@ class CardProvider extends ChangeNotifier {
 
       _users = _users.reversed.toList();
       _me = _me.toList();
-      print(_me);
       notifyListeners();
     }
   }

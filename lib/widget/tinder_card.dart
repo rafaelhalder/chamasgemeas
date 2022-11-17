@@ -376,7 +376,7 @@ class _TinderCardState extends State<TinderCard> {
               onClickedPackage: (package) async {
                 final isSuccess = await PurchaseApi.purchasePackage(package);
                 if (isSuccess) {
-                  await addCoinsPackag2ePremium(package);
+                  await addCoinsPackagePremium(package);
                   await Fluttertoast.showToast(
                       msg: "Compra realizada com sucesso.",
                       toastLength: Toast.LENGTH_SHORT,
@@ -430,7 +430,7 @@ class _TinderCardState extends State<TinderCard> {
               final isSuccess = await PurchaseApi.purchasePackage(package);
 
               if (isSuccess) {
-                await addCoinsPackag2e(package);
+                await addCoinsPackage(package);
                 await Fluttertoast.showToast(
                     msg: "Compra realizada com sucesso.",
                     toastLength: Toast.LENGTH_SHORT,
@@ -459,22 +459,16 @@ class _TinderCardState extends State<TinderCard> {
     }
   }
 
-  Future<void> addCoinsPackag2ePremium(Package package) async {
+  Future<void> addCoinsPackagePremium(Package package) async {
     String? uid = FirebaseAuth.instance.currentUser?.uid;
 
-    print('>>>>>>>>');
-    print(package.offeringIdentifier);
-    print('<<<<<<<<<');
-    print('>>>>>@@>>>');
-    print(package.product.identifier);
-    print('<<<<@@<<<<<');
     await FirebaseFirestore.instance
         .collection('users')
         .doc(uid)
         .update({'premium': true});
   }
 
-  Future<void> addCoinsPackag2e(Package package) async {
+  Future<void> addCoinsPackage(Package package) async {
     String? uid = FirebaseAuth.instance.currentUser?.uid;
 
     final foundLikeMe =
@@ -482,9 +476,6 @@ class _TinderCardState extends State<TinderCard> {
 
     int coins = foundLikeMe['coin'];
 
-    print('>>>>>>>>');
-    print(package.offeringIdentifier);
-    print('<<<<<<<<<');
     switch (package.offeringIdentifier) {
       case Coins.idCoins1:
         coins += 1;

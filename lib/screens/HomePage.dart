@@ -384,7 +384,7 @@ class _HomePageState extends State<HomePage> {
               final isSuccess = await PurchaseApi.purchasePackage(package);
 
               if (isSuccess) {
-                await addCoinsPackag2e(package);
+                await addCoinsPackage(package);
                 await Fluttertoast.showToast(
                     msg: "Compra realizada com sucesso.",
                     toastLength: Toast.LENGTH_SHORT,
@@ -413,7 +413,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Future<void> addCoinsPackag2e(Package package) async {
+  Future<void> addCoinsPackage(Package package) async {
     String? uid = FirebaseAuth.instance.currentUser?.uid;
 
     final foundLikeMe =

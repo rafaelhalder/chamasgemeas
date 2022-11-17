@@ -448,7 +448,7 @@ class _PrivacidadePageState extends State<PrivacidadePage> {
                               child: GestureDetector(
                                 onTap: () {
                                   Navigator.popAndPushNamed(
-                                      context, '/roghtow');
+                                      context, '/termsecure');
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(

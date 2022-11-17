@@ -30,7 +30,7 @@ class _ChatsState extends State<Chats> {
   @override
   void initState() {
     chatState.refreshChatsForCurrentUser();
-    teste();
+    availableUsers();
     super.initState();
   }
 
@@ -47,7 +47,6 @@ class _ChatsState extends State<Chats> {
   Widget build(BuildContext context) {
     String defaultPhoto =
         'https://firebasestorage.googleapis.com/v0/b/chamas-gemeas.appspot.com/o/images%2Fdefault%2Fperson_blank.png?alt=media&token=a48cac17-1f89-4aed-a0b2-ba38699d516f';
-    print(chatState);
 
     return Container(
       decoration: BoxDecoration(
@@ -242,7 +241,7 @@ class _ChatsState extends State<Chats> {
     );
   }
 
-  void teste() async {
+  void availableUsers() async {
     List likedMe = [];
 
     final foundLikeMe = await FirebaseFirestore.instance
@@ -253,10 +252,6 @@ class _ChatsState extends State<Chats> {
     foundLikeMe.docs.forEach((element) {
       likedMe.add(element.id);
     });
-
-    print('-----------------');
-    print(available);
-    print('-----------------');
 
     setState(() {
       available = likedMe;

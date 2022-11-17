@@ -565,7 +565,7 @@ class _UserMeState extends State<UserMe> {
                                   ),
                                   Row(
                                     children: [
-                                      infos3(
+                                      infoImage(
                                           size: size,
                                           image: 'assets/images/$imagemLink',
                                           text: soul),
@@ -1114,45 +1114,8 @@ class infos extends StatelessWidget {
   }
 }
 
-class infos2 extends StatelessWidget {
-  const infos2({
-    Key? key,
-    required this.size,
-    required this.image,
-    required this.text,
-  }) : super(key: key);
-
-  final Size size;
-  final String image;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
-      width: size.width * 0.5,
-      child: Row(
-        children: [
-          Image.asset(
-            image,
-            width: 60,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(
-            text,
-            style: const TextStyle(
-                color: Color.fromARGB(255, 84, 75, 57), fontSize: 18),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class infos3 extends StatelessWidget {
-  const infos3({
+class infoImage extends StatelessWidget {
+  const infoImage({
     Key? key,
     required this.size,
     required this.image,

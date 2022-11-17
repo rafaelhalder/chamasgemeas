@@ -331,7 +331,7 @@ class _SuperLikeState extends State<SuperLike> {
                             ),
                             FutureBuilder<dynamic>(
                               future:
-                                  getData2(), // a previously-obtained Future<String> or null
+                                  superLikedReturn(), // a previously-obtained Future<String> or null
                               builder: (BuildContext context,
                                   AsyncSnapshot snapshot) {
                                 if (snapshot.hasData) {
@@ -472,50 +472,48 @@ class _SuperLikeState extends State<SuperLike> {
   }
 
   Future<List> getData() async {
-    var querySnapshota = await FirebaseFirestore.instance
+    var querySnapshot = await FirebaseFirestore.instance
         .collection('superlikedme')
         .doc(uid)
         .get();
 
-    List teste = [];
-    List returne = [];
-    if (querySnapshota.exists) {
-      teste = querySnapshota['id'];
+    List dataUser = [];
+    List returnList = [];
+    if (querySnapshot.exists) {
+      dataUser = querySnapshot['id'];
     }
 
-    for (int i = 0; i < teste.length; i++) {
+    for (int i = 0; i < dataUser.length; i++) {
       final like = await FirebaseFirestore.instance
           .collection('users')
-          .doc(teste[i])
+          .doc(dataUser[i])
           .get();
-      returne.add(like);
+      returnList.add(like);
     }
 
-    return returne;
-    // return querySnapshota;
+    return returnList;
   }
 
-  Future<List> getData2() async {
-    var querySnapshota = await FirebaseFirestore.instance
+  Future<List> superLikedReturn() async {
+    var querySnapshot = await FirebaseFirestore.instance
         .collection('superliked')
         .doc(uid)
         .get();
 
-    List teste = [];
-    List returne = [];
-    if (querySnapshota.exists) {
-      teste = querySnapshota['id'];
+    List dataUser = [];
+    List returnList = [];
+    if (querySnapshot.exists) {
+      dataUser = querySnapshot['id'];
     }
 
-    for (int i = 0; i < teste.length; i++) {
+    for (int i = 0; i < dataUser.length; i++) {
       final like = await FirebaseFirestore.instance
           .collection('users')
-          .doc(teste[i])
+          .doc(dataUser[i])
           .get();
-      returne.add(like);
+      returnList.add(like);
     }
 
-    return returne;
-    // return querySnapshota;
+    return returnList;
   }
 }

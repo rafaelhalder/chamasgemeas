@@ -1,12 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:chamasgemeas/provider/card_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:latlong2/latlong.dart' as lat;
-import 'package:provider/provider.dart';
 import 'package:chamasgemeas/screens/chats.dart';
 import 'package:chamasgemeas/screens/preferencePage.dart';
 import 'package:chamasgemeas/screens/profilePage.dart';
@@ -17,14 +13,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'HomePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:chamasgemeas/api/purchase_api.dart';
-import 'package:chamasgemeas/paywall_widget.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:purchases_flutter/purchases_flutter.dart';
-import '../paywall_widget.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class UserPageMe extends StatefulWidget {
   const UserPageMe({Key? key}) : super(key: key);
@@ -425,7 +413,7 @@ class _UserPageMeState extends State<UserPageMe> {
                                   ),
                                   Row(
                                     children: [
-                                      infos3(
+                                      infoImage(
                                           size: size,
                                           image: 'assets/images/$imagemLink',
                                           text: soul),
@@ -774,45 +762,8 @@ class infos extends StatelessWidget {
   }
 }
 
-class infos2 extends StatelessWidget {
-  const infos2({
-    Key? key,
-    required this.size,
-    required this.image,
-    required this.text,
-  }) : super(key: key);
-
-  final Size size;
-  final String image;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
-      width: size.width * 0.5,
-      child: Row(
-        children: [
-          Image.asset(
-            image,
-            width: 60,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(
-            text,
-            style: const TextStyle(
-                color: Color.fromARGB(255, 84, 75, 57), fontSize: 18),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class infos3 extends StatelessWidget {
-  const infos3({
+class infoImage extends StatelessWidget {
+  const infoImage({
     Key? key,
     required this.size,
     required this.image,

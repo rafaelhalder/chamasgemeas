@@ -71,10 +71,6 @@ class _UserPageState extends State<UserPage> {
     String? tokenAuth = "";
     String? uid = FirebaseAuth.instance.currentUser?.uid;
     User? user = FirebaseAuth.instance.currentUser;
-    print(lati);
-    print(long);
-    print(latitude);
-    print(longitude);
 
     for (int i = 0; i < photos.length; i++) {
       if (photos[i]['name'] != 'nulo') {
@@ -205,32 +201,6 @@ class _UserPageState extends State<UserPage> {
                 print('click index=$i');
               },
             ),
-            // floatingActionButton:
-            //     Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-            //   FloatingActionButton(
-            //     backgroundColor: const Color.fromARGB(255, 207, 202, 187),
-            //     onPressed: () {
-            //       //...
-            //     },
-            //     heroTag: null,
-            //     child: const Icon(
-            //       Icons.star,
-            //       color: Colors.white,
-            //     ),
-            //   ),
-            //   const SizedBox(
-            //     height: 10,
-            //   ),
-            //   FloatingActionButton(
-            //     backgroundColor: const Color.fromARGB(255, 207, 202, 187),
-            //     onPressed: () {},
-            //     heroTag: null,
-            //     child: const FaIcon(
-            //       FontAwesomeIcons.solidHeart,
-            //       color: Colors.red,
-            //     ),
-            //   )
-            // ]),
             extendBodyBehindAppBar: true,
             appBar: AppBar(
               elevation: 0,
@@ -324,7 +294,7 @@ class _UserPageState extends State<UserPage> {
                                     final provider = Provider.of<CardProvider>(
                                         context,
                                         listen: false);
-                                    dislike2(friendID);
+                                    dislikeCustom(friendID);
                                     //friendID
                                     Navigator.pushNamed(context, '/home');
                                   },
@@ -402,31 +372,6 @@ class _UserPageState extends State<UserPage> {
                           ),
                         ),
                       ),
-                      //     Positioned.fill(
-                      //   bottom: 10,
-                      //   child: Align(
-                      //     alignment: Alignment.topCenter,
-                      //     child: Row(
-                      //       mainAxisAlignment: MainAxisAlignment.center,
-                      //       children: filterPhoto.map((url) {
-                      //         int index = filterPhoto.indexOf(url);
-                      //         return Container(
-                      //           width: 20.0,
-                      //           height: 10.0,
-                      //           margin: EdgeInsets.symmetric(
-                      //               vertical: 4.0, horizontal: 2.0),
-                      //           decoration: BoxDecoration(
-                      //             borderRadius: BorderRadius.circular(5),
-                      //             shape: BoxShape.rectangle,
-                      //             color: _current == index
-                      //                 ? Color.fromARGB(153, 231, 231, 231)
-                      //                 : Color.fromRGBO(0, 0, 0, 0.4),
-                      //           ),
-                      //         );
-                      //       }).toList(),
-                      //     ),
-                      //   ),
-                      // ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 34, vertical: 12),
@@ -574,7 +519,7 @@ class _UserPageState extends State<UserPage> {
                             ),
                             Row(
                               children: [
-                                infos3(
+                                infoImage(
                                     size: size,
                                     image: 'assets/images/$imagemLink',
                                     text: userList['soul']),
@@ -771,45 +716,6 @@ class _UserPageState extends State<UserPage> {
                       ),
                     ),
                   ),
-                  // Container(
-                  //   padding: const EdgeInsets.symmetric(
-                  //       horizontal: 25, vertical: 10),
-                  //   child: Flexible(
-                  //     child: Text(
-                  //       'Proximidades de ${arguments['name']}',
-                  //       style: const TextStyle(
-                  //           color: Color.fromARGB(255, 207, 202, 187),
-                  //           fontSize: 18,
-                  //           fontWeight: FontWeight.bold),
-                  //     ),
-                  //   ),
-                  // ),
-                  // Padding(
-                  //   padding: const EdgeInsets.all(15),
-                  //   child: Container(
-                  //     height: size.height * 0.25,
-                  //     decoration: BoxDecoration(
-                  //         border: Border.all(
-                  //             color: const Color.fromARGB(255, 62, 62, 62)),
-                  //         borderRadius: BorderRadius.circular(8)),
-                  //     child: ClipRRect(
-                  //       borderRadius: BorderRadius.circular(8),
-                  //       child: FlutterMap(
-                  //         options: MapOptions(
-                  //           center: lat.LatLng(latitude, longitude),
-                  //           zoom: 12.0,
-                  //         ),
-                  //         layers: [
-                  //           TileLayerOptions(
-                  //               urlTemplate:
-                  //                   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                  //               subdomains: ['a', 'b', 'c']),
-                  //           CircleLayerOptions(circles: circleMarkers)
-                  //         ],
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                   photos[1]['url'] != 'nulo'
                       ? Padding(
                           padding: const EdgeInsets.all(15),
@@ -907,7 +813,7 @@ class _UserPageState extends State<UserPage> {
       Navigator.pop(context);
       final provider = Provider.of<CardProvider>(context, listen: false);
 
-      dislike2(id);
+      dislikeCustom(id);
       Navigator.popAndPushNamed(context, '/home');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -965,7 +871,7 @@ class _UserPageState extends State<UserPage> {
         .set({"id": listLikedMe});
   }
 
-  void dislike2(String uids) async {
+  void dislikeCustom(String uids) async {
     String? uid = FirebaseAuth.instance.currentUser?.uid;
 
     List listDislikedMe = [];
@@ -1019,7 +925,7 @@ class _UserPageState extends State<UserPage> {
               final isSuccess = await PurchaseApi.purchasePackage(package);
 
               if (isSuccess) {
-                await addCoinsPackag2e(package);
+                await addCoinsPackage(package);
                 await Fluttertoast.showToast(
                     msg: "Compra realizada com sucesso.",
                     toastLength: Toast.LENGTH_SHORT,
@@ -1081,7 +987,7 @@ class _UserPageState extends State<UserPage> {
     }
   }
 
-  Future<void> addCoinsPackag2e(Package package) async {
+  Future<void> addCoinsPackage(Package package) async {
     String? uid = FirebaseAuth.instance.currentUser?.uid;
 
     final foundLikeMe =
@@ -1133,11 +1039,6 @@ class _UserPageState extends State<UserPage> {
     if (foMe.exists) {
       photoUs = foMe['photos'];
     }
-
-    print('---------------');
-    print(photoUs[0]['url']);
-    print(photoUser);
-    print('---------------');
 
     if (likedMe.contains(actualUser)) {
       Navigator.pushNamed(context, '/matchScreen', arguments: {
@@ -1215,45 +1116,8 @@ class infos extends StatelessWidget {
   }
 }
 
-class infos2 extends StatelessWidget {
-  const infos2({
-    Key? key,
-    required this.size,
-    required this.image,
-    required this.text,
-  }) : super(key: key);
-
-  final Size size;
-  final String image;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
-      width: size.width * 0.5,
-      child: Row(
-        children: [
-          Image.asset(
-            image,
-            width: 60,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(
-            text,
-            style: const TextStyle(
-                color: Color.fromARGB(255, 84, 75, 57), fontSize: 18),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class infos3 extends StatelessWidget {
-  const infos3({
+class infoImage extends StatelessWidget {
+  const infoImage({
     Key? key,
     required this.size,
     required this.image,

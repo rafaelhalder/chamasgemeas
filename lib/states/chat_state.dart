@@ -18,7 +18,6 @@ abstract class _ChatState with Store {
 
   @action
   void refreshChatsForCurrentUser() async {
-    print('nova mensagem1');
     var chatDocuments = [];
     chats
         .where('users.$currentUser', isEqualTo: 1)
@@ -28,9 +27,6 @@ abstract class _ChatState with Store {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
         Map<String, dynamic> names = data['names'];
         Map<String, dynamic> users = data['users'];
-        print('============');
-        print(doc.id);
-        print('------------');
 
         names.remove(currentUser);
         return {
@@ -42,7 +38,6 @@ abstract class _ChatState with Store {
           'token': '',
         };
       }).toList();
-      print('nova mensagem2');
 
       for (var doc in chatDocuments) {
         String photo = '';
@@ -92,7 +87,6 @@ abstract class _ChatState with Store {
           });
         });
       }
-      print('nova mensagem3');
     });
   }
 }

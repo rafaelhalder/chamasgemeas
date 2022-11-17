@@ -269,7 +269,7 @@ class _LikedMePageState extends State<LikedMePage> {
               print('Offer: $isSuccess');
 
               if (isSuccess) {
-                await addCoinsPackag2e(package);
+                await addCoinsPackage(package);
                 await Fluttertoast.showToast(
                     msg: "Compra realizada com sucesso.",
                     toastLength: Toast.LENGTH_SHORT,
@@ -298,15 +298,8 @@ class _LikedMePageState extends State<LikedMePage> {
     }
   }
 
-  Future<void> addCoinsPackag2e(Package package) async {
+  Future<void> addCoinsPackage(Package package) async {
     String? uid = FirebaseAuth.instance.currentUser?.uid;
-
-    print('>>>>>>>>');
-    print(package.offeringIdentifier);
-    print('<<<<<<<<<');
-    print('>>>>>@@>>>');
-    print(package.product.identifier);
-    print('<<<<@@<<<<<');
 
     await FirebaseFirestore.instance
         .collection('users')
@@ -316,7 +309,7 @@ class _LikedMePageState extends State<LikedMePage> {
 
   Future<List> refreshList() async {
     List likedList = [];
-    List likedList2 = [];
+    List likedListReturn = [];
 
     // final like =
     //     await FirebaseFirestore.instance.collection('liked_me').doc(uid).get();
@@ -336,7 +329,7 @@ class _LikedMePageState extends State<LikedMePage> {
             .get();
 
 //        if (list['status'] == true) {
-        likedList2.add({
+        likedListReturn.add({
           'photos': list['photos'][0]['url'],
           'name': list['name'],
           'uid': list['uid'],
@@ -346,6 +339,6 @@ class _LikedMePageState extends State<LikedMePage> {
       }
     }
 
-    return likedList2;
+    return likedListReturn;
   }
 }

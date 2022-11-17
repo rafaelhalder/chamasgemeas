@@ -42,9 +42,6 @@ class AuthenticationProvider with ChangeNotifier {
     // match the sha256 hash of `rawNonce`.
 
     User? user = FirebaseAuth.instance.currentUser;
-    print('--------------------');
-    print(user);
-    print('--------------------');
 
     final rawNonce = generateNonce();
     final nonce = sha256ofString(rawNonce);
@@ -71,7 +68,6 @@ class AuthenticationProvider with ChangeNotifier {
       // not match the nonce in `appleCredential.identityToken`, sign in will fail.
       final authResult =
           await FirebaseAuth.instance.signInWithCredential(oauthCredential);
-      print(authResult);
 
       final displayName =
           '${appleCredential.givenName} ${appleCredential.familyName}';
