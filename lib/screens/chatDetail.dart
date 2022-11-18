@@ -576,7 +576,9 @@ class _ChatDetailState extends State<ChatDetail> {
                                     horizontal: 15.0, vertical: 10),
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                      isSender(data['uid'].toString())
+                                          ? MainAxisAlignment.start
+                                          : MainAxisAlignment.end,
                                   children: [
                                     isSender(data['uid'].toString())
                                         ? CircleAvatar(
@@ -600,82 +602,38 @@ class _ChatDetailState extends State<ChatDetail> {
                                               ),
                                             ))
                                         : Text(''),
-                                    ChatBubble(
-                                      elevation: 1,
-                                      clipper: ChatBubbleClipper1(
-                                        nipRadius: 0,
-                                        radius: 5,
-                                        nipHeight: 0,
-                                        nipWidth: 0,
-                                        type: isSender(data['uid'].toString())
-                                            ? BubbleType.sendBubble
-                                            : BubbleType.receiverBubble,
-                                      ),
-                                      alignment:
-                                          getAlignment(data['uid'].toString()),
-                                      backGroundColor: isSender(
-                                              data['uid'].toString())
-                                          ? Color.fromARGB(255, 240, 240, 240)
-                                          : Color.fromARGB(255, 208, 201, 134),
+                                    Flexible(
                                       child: Container(
-                                        constraints: BoxConstraints(
-                                          maxWidth: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.60,
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            Column(
-                                              children: [
-                                                DefaultTextStyle(
-                                                  style: GoogleFonts.raleway(
-                                                    color: isSender(data['uid']
-                                                            .toString())
-                                                        ? Colors.white
-                                                        : Colors.white,
-                                                    fontSize: 15,
-                                                  ),
-                                                  child: Container(
-                                                    width: 400,
-                                                    child: Padding(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 4),
-                                                      child: Expanded(
-                                                        child: Text(
-                                                          data['msg'],
-                                                          maxLines: 100,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.black),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 8),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 5, vertical: 4),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                            color:
+                                                isSender(data['uid'].toString())
+                                                    ? Color.fromARGB(
+                                                        255, 240, 240, 240)
+                                                    : Color.fromARGB(
+                                                        255, 208, 201, 134),
+                                          ),
+                                          child: RichText(
+                                            textAlign: TextAlign.center,
+                                            text: TextSpan(
+                                              style: GoogleFonts.quicksand(
+                                                  fontSize: 14,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w700),
+                                              children: <TextSpan>[
+                                                TextSpan(text: data['msg']),
+                                                TextSpan(
+                                                  text: '\n',
                                                 ),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                DefaultTextStyle(
-                                                  style: GoogleFonts.raleway(
-                                                    color: isSender(data['uid']
-                                                            .toString())
-                                                        ? const Color.fromARGB(
-                                                            255, 200, 200, 200)
-                                                        : const Color.fromARGB(
-                                                            255, 200, 200, 200),
-                                                    fontSize: 10,
-                                                  ),
-                                                  child: Text(
-                                                    style: TextStyle(
-                                                        color: Colors.black),
-                                                    data['createdOn'] == null
+                                                TextSpan(
+                                                    text: data['createdOn']
+                                                                .toString() ==
+                                                            null
                                                         ? DateFormat('hh:mm a')
                                                             .format(
                                                                 DateTime.now())
@@ -683,13 +641,13 @@ class _ChatDetailState extends State<ChatDetail> {
                                                             .format(data[
                                                                     'createdOn']
                                                                 .toDate()),
-                                                  ),
-                                                )
+                                                    style: TextStyle(
+                                                        fontSize: 11,
+                                                        color: Color.fromARGB(
+                                                            255, 37, 37, 37))),
                                               ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
+                                            ),
+                                          )),
                                     ),
                                     isSender(data['uid'].toString())
                                         ? Text('')
