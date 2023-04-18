@@ -420,7 +420,6 @@ class CardProvider extends ChangeNotifier {
           if (userLiked['interested'] == genderUser) {
             if (userLiked['photos'][0]['url'] != 'nulo') {
               if (distanceUser >= km) {
-                if (!dislikeMe.contains(userLiked['uid'])) {
                   if (!likeTe.contains(userLiked['uid'])) {
                     userLiked['listFocus'] == null
                         ? userLiked['listFocus'] = [1]
@@ -447,7 +446,6 @@ class CardProvider extends ChangeNotifier {
                           urlImage: userLiked['photos'][0]['url']));
                     }
                   }
-                }
               }
             }
           }
@@ -523,7 +521,6 @@ class CardProvider extends ChangeNotifier {
         if (userLiked['interested'] == genderUser) {
           if (userLiked['photos'][0]['url'] != 'nulo') {
             if (distanceUser >= km) {
-              if (!dislikeMe.contains(userLiked['uid'])) {
                 if (!likeTe.contains(userLiked['uid'])) {
                   userLiked['listFocus'] == null
                       ? userLiked['listFocus'] = [1]
@@ -551,7 +548,6 @@ class CardProvider extends ChangeNotifier {
                   }
                 }
               }
-            }
           }
         }
       });

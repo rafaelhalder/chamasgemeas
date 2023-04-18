@@ -48,7 +48,7 @@ dependency_overrides:
   firebase_auth: ^3.4.1
   google_sign_in: ^5.3.1
   video_player: ^2.4.5
-  convex_bottom_bar: ^3.1.0+1
+  convex_bottom_bar: ^3.2.0
   cloud_firestore: ^3.4.3
   flutter_facebook_auth: ^4.3.4
   cached_network_image: ^3.2.1
@@ -58,7 +58,7 @@ dependency_overrides:
   geolocator: ^9.0.0
   dotted_border: ^2.0.0+2
   simple_shadow: ^0.3.0
-  introduction_screen: ^3.0.2
+  introduction_screen: ^3.1.7
   reorderable_grid_view: ^2.2.2
   toggle_switch: ^2.0.1
   font_awesome_flutter: ^10.1.0
@@ -78,7 +78,7 @@ dependency_overrides:
   basic_utils: ^4.3.0
   # show toast message
   fluttertoast: ^8.0.8
-  modal_bottom_sheet: ^2.1.0
+  modal_bottom_sheet: ^3.0.0-pre
   provider: ^6.0.1
   flutter_staggered_animations: ^1.0.0
   firebase_messaging: ^12.0.1
